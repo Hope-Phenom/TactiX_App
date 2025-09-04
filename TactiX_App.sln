@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_App", "TactiX_App\TactiX_App.csproj", "{729FF676-3C64-6EB2-88BA-5813BAE1EB0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_App.Android", "TactiX_App.Android\TactiX_App.Android.csproj", "{84777255-18DF-F581-BF41-4CA0D886BF39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_App.Browser", "TactiX_App.Browser\TactiX_App.Browser.csproj", "{22F9D05C-3580-8299-92A5-78997CF67AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_App.Desktop", "TactiX_App.Desktop\TactiX_App.Desktop.csproj", "{984CC367-B1A1-FBC4-2E12-1A47D253D18D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_App.iOS", "TactiX_App.iOS\TactiX_App.iOS.csproj", "{22E7C679-F664-C683-E61B-2F0B91FAC2F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{729FF676-3C64-6EB2-88BA-5813BAE1EB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{729FF676-3C64-6EB2-88BA-5813BAE1EB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{729FF676-3C64-6EB2-88BA-5813BAE1EB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{729FF676-3C64-6EB2-88BA-5813BAE1EB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84777255-18DF-F581-BF41-4CA0D886BF39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84777255-18DF-F581-BF41-4CA0D886BF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84777255-18DF-F581-BF41-4CA0D886BF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84777255-18DF-F581-BF41-4CA0D886BF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F9D05C-3580-8299-92A5-78997CF67AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F9D05C-3580-8299-92A5-78997CF67AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F9D05C-3580-8299-92A5-78997CF67AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F9D05C-3580-8299-92A5-78997CF67AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984CC367-B1A1-FBC4-2E12-1A47D253D18D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984CC367-B1A1-FBC4-2E12-1A47D253D18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984CC367-B1A1-FBC4-2E12-1A47D253D18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984CC367-B1A1-FBC4-2E12-1A47D253D18D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E7C679-F664-C683-E61B-2F0B91FAC2F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E7C679-F664-C683-E61B-2F0B91FAC2F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E7C679-F664-C683-E61B-2F0B91FAC2F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E7C679-F664-C683-E61B-2F0B91FAC2F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9113454C-2DDE-4DFB-9317-7AE3A502813E}
+	EndGlobalSection
+EndGlobal
