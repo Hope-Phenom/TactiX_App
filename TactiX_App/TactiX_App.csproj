@@ -21,6 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tactix_Exception\Tactix_Exception.csproj" />
+    <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj" />
+    <ProjectReference Include="..\TactiX_OS_Tools\TactiX_OS_Tools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Popup\ErrorPopup.axaml.cs">
       <DependentUpon>ErrorPopup.axaml</DependentUpon>
     </Compile>
