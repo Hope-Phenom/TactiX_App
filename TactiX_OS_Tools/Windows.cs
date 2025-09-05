@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
+using Tactix_Exception;
 using TactiX_I18N;
 
 namespace TactiX_OS_Tools
@@ -25,7 +21,7 @@ namespace TactiX_OS_Tools
                 Process[] app = Process.GetProcessesByName(assemblyName);
                 if (app.Length > 1)
                 {
-                    throw new Exception(Language.ERROR_MUILT_PROCESS);
+                    throw new TactiXException(TactiXErrorCodes.ERROR_MUILT_PROCESS, Language.ERROR_MUILT_PROCESS);
                 }
                 else
                 {
