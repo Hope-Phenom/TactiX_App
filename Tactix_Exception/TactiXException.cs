@@ -2,7 +2,7 @@
 
 using TactiX_I18N;
 
-namespace Tactix_Exception
+namespace TactiX_Exception
 {
     /// <summary>
     /// TactiX 内部异常

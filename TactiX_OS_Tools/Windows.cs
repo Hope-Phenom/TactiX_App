@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 
-using Tactix_Exception;
+using TactiX_Exception;
 using TactiX_I18N;
 
 namespace TactiX_OS_Tools

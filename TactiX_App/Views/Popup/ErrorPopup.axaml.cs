@@ -1,8 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+
 using TactiX_App.ViewModels.Popup;
-using Tactix_Exception;
+using TactiX_Exception;
 using TactiX_I18N;
 
 namespace TactiX_App;
@@ -21,7 +22,7 @@ public partial class ErrorPopup : Window
     { 
         InitializeComponent();
         _model = (ErrorPopupModel)DataContext!;
-        _model.ErrorCode = (int)exception.ErrorCode;
-        _model.ErrorDesc = exception.ErrorDesc;
+        _model.ReportModel.Error_Code = (int)exception.ErrorCode;
+        _model.ReportModel.Error_Desc = exception.ErrorDesc;
     }
 }

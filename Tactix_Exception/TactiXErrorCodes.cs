@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tactix_Exception
+namespace TactiX_Exception
 {
     public enum TactiXErrorCodes
     {
         /// <summary>
-        /// 成功，无异常
+        /// 成功，无异常，或手动上报/建议
         /// </summary>
         SUCCESS = 0,
         /// <summary>

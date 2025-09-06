@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj" />
-    <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj" />
-  </ItemGroup>
-
 </Project>

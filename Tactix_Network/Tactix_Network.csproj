@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Refit" Version="8.0.0" />
+    <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj" />
+    <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
+  </ItemGroup>
+
 </Project>
