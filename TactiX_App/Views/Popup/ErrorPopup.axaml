@@ -43,7 +43,8 @@
 								<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 						<Button Grid.Column="0" Width="120" Height="30" HorizontalContentAlignment="Center"
-										Content="{Binding Language.ERROR_POPUP_BTN_SEND_FEEDBACK}" />
+										Content="{Binding Language.ERROR_POPUP_BTN_SEND_FEEDBACK}"
+										Command="{Binding PostReport}"/>
 						<Button Grid.Column="2" Width="120" Height="30" HorizontalContentAlignment="Center"
 										Content="{Binding Language.ERROR_POPUP_BTN_CLOSE}" />
 				</Grid>

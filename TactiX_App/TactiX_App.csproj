@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj" />
     <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj" />
+    <ProjectReference Include="..\TactiX_Logger\TactiX_Logger.csproj" />
     <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
     <ProjectReference Include="..\Tactix_Network\TactiX_Network.csproj" />
     <ProjectReference Include="..\TactiX_OS_Tools\TactiX_OS_Tools.csproj" />

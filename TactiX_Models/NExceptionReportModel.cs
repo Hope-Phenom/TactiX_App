@@ -13,15 +13,15 @@
         /// <summary>
         /// 错误描述
         /// </summary>
-        public string? Error_Desc { get; set; }
+        public string Error_Desc { get; set; } = string.Empty;
         /// <summary>
         /// 用户反馈渠道
         /// </summary>
-        public string? Feedback_Way { get; set; }
+        public string Feedback_Way { get; set; } = string.Empty;
         /// <summary>
         /// 用户反馈信息
         /// </summary>
-        public string? Feedback_Info { get; set; }
+        public string Feedback_Info { get; set; } = string.Empty;
         /// <summary>
         /// 反馈创建日期
         /// </summary>

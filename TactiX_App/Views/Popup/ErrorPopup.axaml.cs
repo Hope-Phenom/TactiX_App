@@ -16,6 +16,7 @@ public partial class ErrorPopup : Window
     {
         InitializeComponent();
         _model = (ErrorPopupModel)DataContext!;
+        RegisterCloseCallback();
     }
 
     public ErrorPopup(TactiXException exception)
@@ -24,5 +25,17 @@ public partial class ErrorPopup : Window
         _model = (ErrorPopupModel)DataContext!;
         _model.ReportModel.Error_Code = (int)exception.ErrorCode;
         _model.ReportModel.Error_Desc = exception.ErrorDesc;
+        RegisterCloseCallback();
+    }
+
+    public void RegisterCloseCallback()
+    {
+        _model.PropertyChanged += (sender, e) => 
+        {
+            if (e.PropertyName == nameof(_model.CanBeClosed) && _model.CanBeClosed)
+            {
+                Close();
+            }
+        };
     }
 }

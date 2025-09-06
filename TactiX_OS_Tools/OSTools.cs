@@ -11,6 +11,7 @@ namespace TactiX_OS_Tools
         #region 单例模式
         private static readonly Lazy<OSTools> _lazyInstance = new Lazy<OSTools>(() => new OSTools(), isThreadSafe: true);
         public static OSTools Instance => _lazyInstance.Value;
+        private OSTools() { }
         #endregion
     }
 }
