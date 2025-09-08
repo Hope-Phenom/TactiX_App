@@ -20,6 +20,5 @@ namespace TactiX_Network
 #endif
 
         public INetworkApi Client { get; private set; }
-
     }
 }
