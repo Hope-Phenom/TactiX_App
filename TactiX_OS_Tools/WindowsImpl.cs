@@ -26,8 +26,10 @@ namespace TactiX_OS_Tools
 
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
         private const Int32 MY_HOTKEY1 = 0x9999;
         private const Int32 MY_HOTKEY2 = 0x9998;
         private const Int32 MY_HOTKEY3 = 0x9997;
@@ -35,6 +37,7 @@ namespace TactiX_OS_Tools
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow(); //获得本窗体的句柄
+
         [DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);//设置此窗体为活动窗体
         public IntPtr han;                                         //定义变量,句柄类型
@@ -44,13 +47,24 @@ namespace TactiX_OS_Tools
 
         private ILanguage Language => I18N.Instance.Language;
         private string AppName => "TactiX";
-        private string LocalPath => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        public string UserDataPath => Path.Combine(LocalPath, AppName);
+        public string UserDataPath { get; private set; }
+        private IntPtr hwnd {  get; set; }
 
         /// <summary>
         /// 鼠标穿透模式，为true时启用穿透
         /// </summary>
         private bool _tr = false;
+
+        public WindowsImpl()
+        {
+            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            UserDataPath = Path.Combine(localPath, AppName);
+        }
+
+        public void SetHandle(IntPtr hwnd)
+        {
+            this.hwnd = hwnd;
+        }
 
         public bool IsSingleton
         {
@@ -70,7 +84,7 @@ namespace TactiX_OS_Tools
             }
         }
 
-        public void SetMouseTransport(IntPtr hwnd)
+        public void SetMouseTransport()
         {
             /**
              * 虽然设计上来说已经通过接口进行了区分，非Windows时不会进入此处
