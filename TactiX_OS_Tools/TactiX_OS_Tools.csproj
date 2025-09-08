@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj" />
     <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj" />
+    <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">

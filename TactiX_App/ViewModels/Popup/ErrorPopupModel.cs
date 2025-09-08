@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 
-using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Network;
@@ -14,7 +13,6 @@ namespace TactiX_App.ViewModels.Popup
 {
     public partial class ErrorPopupModel : ViewModelBase
     {
-        public ILanguage Language => I18N.Instance.Language;
         public NExceptionReportModel ReportModel { get; set; }
 
         [ObservableProperty]

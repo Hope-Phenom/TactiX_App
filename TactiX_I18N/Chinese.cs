@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TactiX_I18N
+﻿namespace TactiX_I18N
 {
     public class Chinese : ILanguage
     {
+        public string LICENSE_VIEW_BTN_ACCEPT => "接受";
+        public string LICENSE_VIEW_BTN_DECLINE => "拒绝";
+
         public string ERROR_POPUP_TITLE => "错误信息";
         public string ERROR_POPUP_LABEL_ERROR_CODE => "错误代码：";
         public string ERROR_POPUP_LABEL_ERROR_DESC => "错误信息：";

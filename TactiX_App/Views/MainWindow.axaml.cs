@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Platform;
+using System;
 using System.Diagnostics;
-
-using Avalonia.Controls;
-
+using System.Threading.Tasks;
 using TactiX_OS_Tools;
-using TactiX_Network;
 
 namespace TactiX_App.Views;
 
@@ -18,17 +17,35 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        Loaded += MainWindow_Initialized;
+
+        OSes = OSTools.Instance.OSes;
+
+        Opened += MainWindow_Opened;
+        PointerPressed += MainWindow_PointerPressed;
     }
 
-    private void MainWindow_Initialized(object? sender, System.EventArgs e)
+    private void MainWindow_Opened(object? sender, EventArgs e)
     {
-        Init();
+        OsesSetHandle();
     }
 
-    public void Init()
+    private void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        var popup = new ErrorPopup();
-        popup.ShowDialog(this);
+        if (e.Pointer.Type == PointerType.Mouse)
+        {
+            BeginMoveDrag(e);
+        }
+    }
+
+    /// <summary>
+    /// OSTools绑定窗体句柄
+    /// </summary>
+    public void OsesSetHandle()
+    {
+        var platformHandle = TryGetPlatformHandle();
+        if (platformHandle != null)
+        {
+            OSes.SetHandle(platformHandle.Handle);
+        }
     }
 }

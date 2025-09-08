@@ -1,4 +1,6 @@
-﻿namespace TactiX_OS_Tools
+﻿using TactiX_Models;
+
+namespace TactiX_OS_Tools
 {
     /// <summary>
     /// 不同OS的SDK功能接口
@@ -8,7 +10,15 @@
         /// <summary>
         /// 用户数据的存放路径
         /// </summary>
-        public string UserDataPath { get; }
+        public string AppDataFolderPath { get; }
+        /// <summary>
+        /// 获取配置文件
+        /// </summary>
+        public LConfig GetConfig();
+        /// <summary>
+        /// 保存配置文件
+        /// </summary>
+        public void SetConfig();
         /// <summary>
         /// 是否是启动的唯一副本（仅针对移动端以外生效）
         /// </summary>

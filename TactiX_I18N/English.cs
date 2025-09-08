@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TactiX_I18N
+﻿namespace TactiX_I18N
 {
     public class English : ILanguage
     {
+        public string LICENSE_VIEW_BTN_ACCEPT => "Accept";
+        public string LICENSE_VIEW_BTN_DECLINE => "Decline";
+
         public string ERROR_POPUP_TITLE => "Error Message";
         public string ERROR_POPUP_LABEL_ERROR_CODE => "Error Code:";
         public string ERROR_POPUP_LABEL_ERROR_DESC => "Error Message:";

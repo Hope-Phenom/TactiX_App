@@ -1,11 +1,12 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 
 using TactiX_Exception;
 using TactiX_I18N;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+using TactiX_Models;
 
 namespace TactiX_OS_Tools
 {
@@ -47,8 +48,10 @@ namespace TactiX_OS_Tools
 
         private ILanguage Language => I18N.Instance.Language;
         private string AppName => "TactiX";
-        public string UserDataPath { get; private set; }
-        private IntPtr hwnd {  get; set; }
+        private string ConfigName => ".config";
+        public string AppDataFolderPath { get; private set; }
+        private IntPtr Hwnd { get; set; }
+        public LConfig Config { get; private set; }
 
         /// <summary>
         /// 鼠标穿透模式，为true时启用穿透
@@ -57,13 +60,13 @@ namespace TactiX_OS_Tools
 
         public WindowsImpl()
         {
-            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            UserDataPath = Path.Combine(localPath, AppName);
+            AppDataFolderPath = GetAppDataFolderPath();
+            Config = GetConfig();
         }
 
         public void SetHandle(IntPtr hwnd)
         {
-            this.hwnd = hwnd;
+            Hwnd = hwnd;
         }
 
         public bool IsSingleton
@@ -84,6 +87,19 @@ namespace TactiX_OS_Tools
             }
         }
 
+        private string GetAppDataFolderPath()
+        {
+            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var folderPath = Path.Combine(localPath, AppName);
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return folderPath;
+        }
+
         public void SetMouseTransport()
         {
             /**
@@ -92,21 +108,48 @@ namespace TactiX_OS_Tools
              **/
 #if OS_WINDOWS
             // 获取当前扩展样式
-            int style = GetWindowLong(hwnd, GWL_EXSTYLE);
+            int style = GetWindowLong(Hwnd, GWL_EXSTYLE);
 
             // 添加透明和分层样式
 
             if (!_tr)
             {
-                SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_TRANSPARENT | WS_EX_LAYERED);
+                SetWindowLong(Hwnd, GWL_EXSTYLE, style | WS_EX_TRANSPARENT | WS_EX_LAYERED);
             }
             else
             {
-                SetWindowLong(hwnd, GWL_EXSTYLE, style & ~WS_EX_TRANSPARENT);
+                SetWindowLong(Hwnd, GWL_EXSTYLE, style & ~WS_EX_TRANSPARENT);
             }
 
             _tr = !_tr;
 #endif
+        }
+
+        public LConfig GetConfig()
+        {
+            if (Config != null)
+            {
+                return Config;
+            }
+
+            LConfig _conf;
+            var filePath = Path.Combine(AppDataFolderPath, ConfigName);
+            if (!File.Exists(filePath))
+            {
+                _conf = new LConfig();
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(_conf, Formatting.Indented));
+            }
+
+            var confText = File.ReadAllText(filePath);
+            _conf = JsonConvert.DeserializeObject<LConfig>(confText) ?? new LConfig();
+
+            return _conf;
+        }
+
+        public void SetConfig()
+        {
+            var filePath = Path.Combine(AppDataFolderPath, ConfigName);
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(Config, Formatting.Indented));
         }
     }
 }
