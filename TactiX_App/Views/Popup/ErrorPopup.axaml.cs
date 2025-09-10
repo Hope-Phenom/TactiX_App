@@ -6,7 +6,7 @@ using TactiX_App.ViewModels.Popup;
 using TactiX_Exception;
 using TactiX_I18N;
 
-namespace TactiX_App;
+namespace TactiX_App.Views.Popup;
 
 public partial class ErrorPopup : Window
 {

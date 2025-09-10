@@ -2,13 +2,10 @@
 using System.IO;
 
 using Avalonia.Platform;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using TactiX_Models;
 using TactiX_OS_Tools;
-using Markdown.Avalonia;
-using System.Threading.Tasks;
-using System.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace TactiX_App.ViewModels
 {

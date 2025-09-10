@@ -7,7 +7,7 @@
 				Width="600" Height="400"
 				CanResize="False"
 				WindowStartupLocation="CenterScreen"
-        x:Class="TactiX_App.ErrorPopup"
+        x:Class="TactiX_App.Views.Popup.ErrorPopup"
 				x:DataType="vm:ErrorPopupModel"
         Title="{Binding Language.ERROR_POPUP_TITLE}" >
 		<Window.DataContext>
