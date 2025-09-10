@@ -1,9 +1,8 @@
-﻿using Avalonia.Controls;
+﻿using System;
+
+using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Platform;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+
 using TactiX_App.ViewModels;
 using TactiX_OS_Tools;
 

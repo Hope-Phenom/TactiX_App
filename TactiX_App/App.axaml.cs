@@ -13,6 +13,7 @@ using TactiX_App.Views.Popup;
 using TactiX_Exception;
 using TactiX_I18N;
 using TactiX_Logger;
+using TactiX_Network;
 using TactiX_OS_Tools;
 
 namespace TactiX_App;
@@ -34,6 +35,7 @@ public partial class App : Application
         services.AddSingleton<ILang, Lang>();
         services.AddSingleton<IOSTools, OSTools>();
         services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
+        services.AddSingleton<INetwork, Network>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();

@@ -25,9 +25,4 @@ public partial class MainViewModel : ViewModelBase
         Config = OSTools.OSes.GetConfig();
         Navigation.NavigateTo<LicenseViewModel>();
     }
-
-    [RelayCommand]
-    public void WindowLoaded(RoutedEventArgs e)
-    { 
-    }
 }

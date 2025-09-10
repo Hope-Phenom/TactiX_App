@@ -14,7 +14,8 @@ namespace TactiX_App.ViewModels.Popup
 {
     public partial class ErrorPopupViewModel : ViewModelBase
     {
-        public ILanguage Language { get; set; }
+        public ILanguage Language { get; private set; }
+        public INetwork Network { get; private set; }
         public NExceptionReportModel ReportModel { get; set; }
 
         [ObservableProperty]
@@ -27,11 +28,12 @@ namespace TactiX_App.ViewModels.Popup
 
         private NLog.Logger Logger { get; set; }
 
-        public ErrorPopupViewModel(ILogger logger, ILang lang)
+        public ErrorPopupViewModel(ILogger logger, ILang lang, INetwork network)
         {
             ReportModel = new();
 
             Language = lang.Language;
+            Network = network;
             Logger = logger.Builder.GetCurrentClassLogger();
         }
 
@@ -41,7 +43,7 @@ namespace TactiX_App.ViewModels.Popup
             try
             {
                 ReportModel.Create_Time = DateTime.Now;
-                var resp = await Network.Instance.Client.PostExceptionReportModel(ReportModel);
+                var resp = await Network.Client.PostExceptionReportModel(ReportModel);
 
                 if (resp.IsSuccessStatusCode)
                 {
