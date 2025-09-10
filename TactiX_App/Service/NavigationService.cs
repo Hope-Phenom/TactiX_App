@@ -35,6 +35,7 @@ namespace TactiX_App.Service
                 !.Replace("ViewModel", "View"))!;
 
             CurrentView = (UserControl)ActivatorUtilities.CreateInstance(_serviceProvider, viewType);
+            CurrentView.DataContext = ActivatorUtilities.CreateInstance(_serviceProvider, typeof(T));
         }
 
         public void GoBack()

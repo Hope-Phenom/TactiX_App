@@ -4,15 +4,17 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
-
+using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Network;
+using ILogger = TactiX_Logger.ILogger;
 
 namespace TactiX_App.ViewModels.Popup
 {
     public partial class ErrorPopupViewModel : ViewModelBase
     {
+        public ILanguage Language { get; set; }
         public NExceptionReportModel ReportModel { get; set; }
 
         [ObservableProperty]
@@ -23,13 +25,14 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private int _times = 0;
 
-        private Logger _logger;
+        private NLog.Logger Logger { get; set; }
 
-        public ErrorPopupViewModel()
+        public ErrorPopupViewModel(ILogger logger, ILang lang)
         {
             ReportModel = new();
 
-            _logger = LoggerLib.Instance.Builder.GetCurrentClassLogger();
+            Language = lang.Language;
+            Logger = logger.Builder.GetCurrentClassLogger();
         }
 
         [RelayCommand]
@@ -42,19 +45,19 @@ namespace TactiX_App.ViewModels.Popup
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    _logger.Info("Exception Report Upload Success.");
+                    Logger.Info("Exception Report Upload Success.");
                     CanBeClosed = true;
                 }
 
                 if (++_times > 2)
                 {
-                    _logger.Warn($"Exception Report Upload Error, Info:{resp.ToString()}");
+                    Logger.Warn($"Exception Report Upload Error, Info:{resp.ToString()}");
                     CanBeClosed = true;
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "PostReport Error");
+                Logger.Error(ex, "PostReport Error");
             }
         }
     }

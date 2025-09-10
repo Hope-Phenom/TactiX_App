@@ -46,7 +46,9 @@ namespace TactiX_OS_Tools
 
         #endregion
 
-        private ILanguage Language => I18N.Instance.Language;
+        private ILanguage Language { get; set; }
+        private ITactiXExceptionFactory TactiXExceptionFactory { get; set; }
+
         private string AppName => "TactiX";
         private string ConfigName => ".config";
         public string AppDataFolderPath { get; private set; }
@@ -58,8 +60,11 @@ namespace TactiX_OS_Tools
         /// </summary>
         private bool _tr = false;
 
-        public WindowsImpl()
+        public WindowsImpl(ILanguage language, ITactiXExceptionFactory tactiXExceptionFactory)
         {
+            Language = language;
+            TactiXExceptionFactory = tactiXExceptionFactory;
+
             AppDataFolderPath = GetAppDataFolderPath();
             Config = GetConfig();
         }
@@ -78,7 +83,7 @@ namespace TactiX_OS_Tools
                 Process[] app = Process.GetProcessesByName(assemblyName);
                 if (app.Length > 1)
                 {
-                    throw new TactiXException(TactiXErrorCodes.ERROR_MUILT_PROCESS, Language.ERROR_MUILT_PROCESS);
+                    throw TactiXExceptionFactory.Create(TactiXErrorCodes.ERROR_MUILT_PROCESS, Language.ERROR_MUILT_PROCESS);
                 }
                 else
                 {

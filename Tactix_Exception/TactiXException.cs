@@ -10,7 +10,7 @@ namespace TactiX_Exception
     [Serializable]
     public class TactiXException : Exception
     {
-        private ILanguage language => I18N.Instance.Language;
+        public ILanguage Language { get; private set; }
 
         /// <summary>
         /// 错误码
@@ -21,9 +21,10 @@ namespace TactiX_Exception
         /// </summary>
         public string ErrorDesc { get; private set; }
 
-        public TactiXException() 
+        public TactiXException(ILang lang) 
         {
             ErrorDesc = string.Empty;
+            Language = lang.Language;
         }
 
         /// <summary>
@@ -31,15 +32,16 @@ namespace TactiX_Exception
         /// </summary>
         /// <param name="errorCode">错误码</param>
         /// <param name="errorDesc">错误信息</param>
-        public TactiXException(TactiXErrorCodes errorCode, string errorDesc)
+        public TactiXException(ILang lang, TactiXErrorCodes errorCode, string errorDesc)
         {
             ErrorCode = errorCode;
             ErrorDesc = errorDesc;
+            Language = lang.Language;
         }
 
         public override string ToString() 
         {
-            return language.ERROR_DESC_TEMPLATE
+            return Language.ERROR_DESC_TEMPLATE
                 .Replace("{0}", $"{ErrorCode}")
                 .Replace("{1}", ErrorDesc);
         }

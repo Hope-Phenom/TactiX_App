@@ -10,9 +10,7 @@
         x:Class="TactiX_App.Views.Popup.ErrorPopupView"
 				x:DataType="vm:ErrorPopupViewModel"
         Title="{Binding Language.ERROR_POPUP_TITLE}" >
-		<Window.DataContext>
-				<vm:ErrorPopupViewModel />
-		</Window.DataContext>
+		
 		<Grid Margin="10">
 				<Grid.RowDefinitions>
 						<RowDefinition Height="30" />

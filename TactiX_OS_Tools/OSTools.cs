@@ -1,18 +1,17 @@
-﻿namespace TactiX_OS_Tools
+﻿using TactiX_Exception;
+using TactiX_I18N;
+
+namespace TactiX_OS_Tools
 {
-    public class OSTools
+    public class OSTools : IOSTools
     {
-        #region 单例模式
-        private static readonly Lazy<OSTools> _lazyInstance = new Lazy<OSTools>(() => new OSTools(), isThreadSafe: true);
-        public static OSTools Instance => _lazyInstance.Value;
-        private OSTools() 
+        public IOSes OSes { get; private set; }
+
+        public OSTools(ILang lang, ITactiXExceptionFactory exceptionFactory) 
         {
 #if OS_WINDOWS
-            OSes = new WindowsImpl();
+            OSes = new WindowsImpl(lang.Language, exceptionFactory);
 #endif
         }
-        #endregion
-
-        public IOSes OSes { get; private set; }
     }
 }

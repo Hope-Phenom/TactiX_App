@@ -4,21 +4,16 @@ using Avalonia.Platform;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using TactiX_App.ViewModels;
 using TactiX_OS_Tools;
 
 namespace TactiX_App.Views;
 
 public partial class MainWindow : Window
 {
-    #region 变量
-    private IOSes OSes;
-    #endregion
-
     public MainWindow()
     {
         InitializeComponent();
-
-        OSes = OSTools.Instance.OSes;
 
         Opened += MainWindow_Opened;
         PointerPressed += MainWindow_PointerPressed;
@@ -26,7 +21,11 @@ public partial class MainWindow : Window
 
     private void MainWindow_Opened(object? sender, EventArgs e)
     {
-        OsesSetHandle();
+        var vm = MainView.DataContext as MainViewModel;
+        if (vm != null) 
+        {
+            OsesSetHandle(vm.OSTools.OSes);
+        }
     }
 
     private void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -40,7 +39,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// OSTools绑定窗体句柄
     /// </summary>
-    public void OsesSetHandle()
+    public void OsesSetHandle(IOSes OSes)
     {
         var platformHandle = TryGetPlatformHandle();
         if (platformHandle != null)

@@ -6,5 +6,4 @@ namespace TactiX_App.ViewModels;
 
 public class ViewModelBase : ObservableObject
 {
-    public ILanguage Language => I18N.Instance.Language;
 }

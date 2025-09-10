@@ -7,19 +7,18 @@ using System.Globalization;
 
 namespace TactiX_I18N
 {
-    public class I18N
+    public class Lang : ILang
     {
-        #region 单例模式
-        private static readonly Lazy<I18N> _lazyInstance = new Lazy<I18N>(() => new I18N(), isThreadSafe: true);
-        public static I18N Instance => _lazyInstance.Value;
-        private I18N()
+        public ILanguage Language { get; private set; }
+
+        public Lang()
         {
             switch (CultureInfo.CurrentCulture.Name)
             {
                 case "en-US":
                 case "en-GB":
-                    //Language = new English();
-                    //break;
+                //Language = new English();
+                //break;
                 case "zh-TW":
                 case "zh-HK":
                 case "zh-Hant":
@@ -28,8 +27,5 @@ namespace TactiX_I18N
                     break;
             }
         }
-        #endregion
-
-        public ILanguage Language { get; private set; }
     }
 }

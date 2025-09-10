@@ -9,10 +9,6 @@
 						 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
 						 x:DataType="vm:LicenseViewModel"
              x:Class="TactiX_App.Views.LicenseView">
-
-		<UserControl.DataContext>
-				<local:LicenseViewModel />
-		</UserControl.DataContext>
 		
 		<Grid Margin="10">
 				<Grid.RowDefinitions>

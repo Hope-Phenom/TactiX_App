@@ -9,7 +9,7 @@
         x:Class="TactiX_App.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="TactiX">
-				<views:LicenseView />
+				<views:MainView x:Name="MainView" />
 		<Window.Styles>
 				<Style Selector="Window">
 						<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"></Setter>

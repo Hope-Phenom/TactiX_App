@@ -10,6 +10,10 @@ using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views;
 using TactiX_App.Views.Popup;
+using TactiX_Exception;
+using TactiX_I18N;
+using TactiX_Logger;
+using TactiX_OS_Tools;
 
 namespace TactiX_App;
 
@@ -24,9 +28,13 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // 注册导航服务
+        // 注册服务
         services.AddSingleton<INavigationService, NavigationService>();
-        
+        services.AddSingleton<ILogger, Logger>();
+        services.AddSingleton<ILang, Lang>();
+        services.AddSingleton<IOSTools, OSTools>();
+        services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
+
         // 注册ViewModels
         services.AddTransient<MainViewModel>();
         services.AddTransient<LicenseViewModel>();
@@ -39,7 +47,6 @@ public partial class App : Application
 
         var provider = services.BuildServiceProvider();
         var vm = provider.GetRequiredService<MainViewModel>();
-
 
         // Line below is needed to remove Avalonia data validation.
         // Without this line you will get duplicate validations from both Avalonia and CT
