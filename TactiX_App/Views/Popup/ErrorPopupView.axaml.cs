@@ -8,21 +8,21 @@ using TactiX_I18N;
 
 namespace TactiX_App.Views.Popup;
 
-public partial class ErrorPopup : Window
+public partial class ErrorPopupView : Window
 {
-    private readonly ErrorPopupModel _model;
+    private readonly ErrorPopupViewModel _model;
 
-    public ErrorPopup()
+    public ErrorPopupView()
     {
         InitializeComponent();
-        _model = (ErrorPopupModel)DataContext!;
+        _model = (ErrorPopupViewModel)DataContext!;
         RegisterCloseCallback();
     }
 
-    public ErrorPopup(TactiXException exception)
+    public ErrorPopupView(TactiXException exception)
     { 
         InitializeComponent();
-        _model = (ErrorPopupModel)DataContext!;
+        _model = (ErrorPopupViewModel)DataContext!;
         _model.ReportModel.Error_Code = (int)exception.ErrorCode;
         _model.ReportModel.Error_Desc = exception.ErrorDesc;
         RegisterCloseCallback();

@@ -1,5 +1,6 @@
 ﻿namespace TactiX_App.ViewModels;
 
+using TactiX_App.Service;
 using TactiX_Models;
 
 public partial class MainViewModel : ViewModelBase
@@ -8,12 +9,12 @@ public partial class MainViewModel : ViewModelBase
     #endregion
 
     #region 变量
+    public INavigationService Navigation { get; private set; }
     #endregion
 
-    public string Greeting => "Welcome to Avalonia!";
-
-    public MainViewModel()
+    public MainViewModel(INavigationService navigation)
     {
-        
+        Navigation = navigation;
+        Navigation.NavigateTo<LicenseViewModel>();
     }
 }

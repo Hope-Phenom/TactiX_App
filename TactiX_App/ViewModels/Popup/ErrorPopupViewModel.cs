@@ -11,7 +11,7 @@ using TactiX_Network;
 
 namespace TactiX_App.ViewModels.Popup
 {
-    public partial class ErrorPopupModel : ViewModelBase
+    public partial class ErrorPopupViewModel : ViewModelBase
     {
         public NExceptionReportModel ReportModel { get; set; }
 
@@ -25,7 +25,7 @@ namespace TactiX_App.ViewModels.Popup
 
         private Logger _logger;
 
-        public ErrorPopupModel()
+        public ErrorPopupViewModel()
         {
             ReportModel = new();
 
