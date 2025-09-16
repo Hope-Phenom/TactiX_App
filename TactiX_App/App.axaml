@@ -6,7 +6,7 @@
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Styles>
-				<sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue"  /> // [!code highlight]
+				<sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue"  />
 
 				<!-- 为常见文本控件设置全局字体 -->
 				<Style Selector="TextBlock">

@@ -1,14 +1,14 @@
 ﻿using System;
 
-using Avalonia.Controls;
 using Avalonia.Input;
+using SukiUI.Controls;
 
 using TactiX_App.ViewModels;
 using TactiX_OS_Tools;
 
 namespace TactiX_App.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : SukiWindow
 {
     public MainWindow()
     {
