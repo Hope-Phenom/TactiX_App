@@ -30,12 +30,12 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         // 注册服务
-        services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<ILoggerContainer, Logger>();
+        services.AddSingleton<ILoggerContainer, LoggerContainer>();
         services.AddSingleton<ILang, Lang>();
-        services.AddSingleton<IOSTools, OSTools>();
         services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
+        services.AddSingleton<IOSTools, OSTools>();
         services.AddSingleton<INetwork, Network>();
+        services.AddSingleton<INavigationService, NavigationService>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();
@@ -49,7 +49,7 @@ public partial class App : Application
         services.AddTransient<ErrorPopupView>();
         services.AddTransient<HomeScreenView>();
 
-        var provider = services.BuildServiceProvider();
+        var provider = services.BuildServiceProvider(); 
         var vm = provider.GetRequiredService<MainViewModel>();
 
         // Line below is needed to remove Avalonia data validation.

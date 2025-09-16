@@ -3,11 +3,11 @@ using NLog.Config;
 
 namespace TactiX_Logger
 {
-    public class Logger : ILoggerContainer
+    public class LoggerContainer : ILoggerContainer
     {
         public ISetupBuilder Builder { get; private set; }
 
-        private Logger() 
+        public LoggerContainer() 
         {
             Builder = LogManager.Setup().LoadConfigurationFromFile();
         }

@@ -72,15 +72,17 @@ namespace TactiX_App.ViewModels
 
             if (Status == 1)
             {
-                MarkdownText = PP_Text;
+                Config.EulaAccepted = true;
+                OSTools.OSes.SaveConfig();
                 Logger.Info("Agress EULA.");
+
+                MarkdownText = PP_Text;
             }
             else
             {
-                Logger.Info("Agress PP.");
-
-                Config.EulaAccepted = true;
+                Config.PPAccepted = true;
                 OSTools.OSes.SaveConfig();
+                Logger.Info("Agress PP.");
 
                 NavigationService.NavigateTo<HomeScreenViewModel>();
                 Logger.Info("Navi to HomeScreenView.");

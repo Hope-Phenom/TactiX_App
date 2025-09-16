@@ -25,7 +25,7 @@ public partial class MainViewModel : ViewModelBase
 
         Config = OSTools.OSes.LoadConfig();
 
-        if (!Config.EulaAccepted)
+        if (!Config.EulaAccepted || !Config.PPAccepted)
         { 
             Navigation.NavigateTo<LicenseViewModel>();
         }

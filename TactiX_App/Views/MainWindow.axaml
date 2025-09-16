@@ -7,22 +7,14 @@
 				xmlns:views="clr-namespace:TactiX_App.Views"
         mc:Ignorable="d" d:DesignWidth="1020" d:DesignHeight="720"
 				Width="1020" Height="720"
+				BackgroundStyle="Bubble"
         x:Class="TactiX_App.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+				Icon="avares://TactiX_App/Assets/avalonia-logo.ico"
+				WindowStartupLocation="CenterScreen"
         Title="TactiX">
-				<views:MainView x:Name="MainView" />
-		<sukiUi:SukiWindow.Styles>
-				<Style Selector="Window">
-						<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"></Setter>
-						<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"></Setter>
-						<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
-						<Setter Property="SystemDecorations" Value="None"></Setter>
-						<Setter Property="CanResize" Value="False"></Setter>
-						<Setter Property="Background">
-								<Setter.Value>
-										<SolidColorBrush Color="White" Opacity="1" />
-								</Setter.Value>
-						</Setter>
-				</Style>
-		</sukiUi:SukiWindow.Styles>
+		<sukiUi:SukiWindow.LogoContent>
+				<Image Height="16" Width="16" Source="avares://TactiX_App/Assets/avalonia-logo.ico" />
+		</sukiUi:SukiWindow.LogoContent>
+		
+		<views:MainView x:Name="MainView" />
 </sukiUi:SukiWindow>
