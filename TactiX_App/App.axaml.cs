@@ -31,7 +31,7 @@ public partial class App : Application
 
         // 注册服务
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<ILogger, Logger>();
+        services.AddSingleton<ILoggerContainer, Logger>();
         services.AddSingleton<ILang, Lang>();
         services.AddSingleton<IOSTools, OSTools>();
         services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
@@ -41,11 +41,13 @@ public partial class App : Application
         services.AddTransient<MainViewModel>();
         services.AddTransient<LicenseViewModel>();
         services.AddTransient<ErrorPopupViewModel>();
+        services.AddTransient<HomeScreenViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
         services.AddTransient<MainView>();
         services.AddTransient<LicenseView>();
         services.AddTransient<ErrorPopupView>();
+        services.AddTransient<HomeScreenView>();
 
         var provider = services.BuildServiceProvider();
         var vm = provider.GetRequiredService<MainViewModel>();

@@ -2,7 +2,7 @@
 
 namespace TactiX_Logger
 {
-    public interface ILogger
+    public interface ILoggerContainer
     {
         public ISetupBuilder Builder { get; }
     }

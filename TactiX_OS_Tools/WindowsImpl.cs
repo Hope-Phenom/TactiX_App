@@ -66,7 +66,7 @@ namespace TactiX_OS_Tools
             TactiXExceptionFactory = tactiXExceptionFactory;
 
             AppDataFolderPath = GetAppDataFolderPath();
-            Config = GetConfig();
+            Config = LoadConfig();
         }
 
         public void SetHandle(IntPtr hwnd)
@@ -130,7 +130,7 @@ namespace TactiX_OS_Tools
 #endif
         }
 
-        public LConfig GetConfig()
+        public LConfig LoadConfig()
         {
             if (Config != null)
             {
@@ -151,7 +151,7 @@ namespace TactiX_OS_Tools
             return _conf;
         }
 
-        public void SetConfig()
+        public void SaveConfig()
         {
             var filePath = Path.Combine(AppDataFolderPath, ConfigName);
             File.WriteAllText(filePath, JsonConvert.SerializeObject(Config, Formatting.Indented));

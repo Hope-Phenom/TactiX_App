@@ -8,7 +8,7 @@ using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Network;
-using ILogger = TactiX_Logger.ILogger;
+using ILoggerContainer = TactiX_Logger.ILoggerContainer;
 
 namespace TactiX_App.ViewModels.Popup
 {
@@ -28,7 +28,7 @@ namespace TactiX_App.ViewModels.Popup
 
         private NLog.Logger Logger { get; set; }
 
-        public ErrorPopupViewModel(ILogger logger, ILang lang, INetwork network)
+        public ErrorPopupViewModel(ILoggerContainer logger, ILang lang, INetwork network)
         {
             ReportModel = new();
 

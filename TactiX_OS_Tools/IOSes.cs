@@ -14,11 +14,11 @@ namespace TactiX_OS_Tools
         /// <summary>
         /// 获取配置文件
         /// </summary>
-        public LConfig GetConfig();
+        public LConfig LoadConfig();
         /// <summary>
         /// 保存配置文件
         /// </summary>
-        public void SetConfig();
+        public void SaveConfig();
         /// <summary>
         /// 是否是启动的唯一副本（仅针对移动端以外生效）
         /// </summary>

@@ -2,6 +2,7 @@
 
 using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
+
 using TactiX_App.Service;
 using TactiX_Models;
 using TactiX_OS_Tools;
@@ -13,7 +14,7 @@ public partial class MainViewModel : ViewModelBase
 
     #region 变量
     public INavigationService Navigation { get; private set; }
-    public IOSTools OSTools { get; set; }
+    public IOSTools OSTools { get; private set; }
     private LConfig Config { get; set; }
     #endregion
 
@@ -22,7 +23,11 @@ public partial class MainViewModel : ViewModelBase
         OSTools = oSTools;
         Navigation = navigation;
 
-        Config = OSTools.OSes.GetConfig();
-        Navigation.NavigateTo<LicenseViewModel>();
+        Config = OSTools.OSes.LoadConfig();
+
+        if (!Config.EulaAccepted)
+        { 
+            Navigation.NavigateTo<LicenseViewModel>();
+        }
     }
 }

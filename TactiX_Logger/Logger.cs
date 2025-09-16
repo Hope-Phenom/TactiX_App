@@ -3,7 +3,7 @@ using NLog.Config;
 
 namespace TactiX_Logger
 {
-    public class Logger : ILogger
+    public class Logger : ILoggerContainer
     {
         public ISetupBuilder Builder { get; private set; }
 
