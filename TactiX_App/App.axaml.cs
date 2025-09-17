@@ -2,7 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 using TactiX_App.Service;
@@ -28,6 +28,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var services = new ServiceCollection();
+        var messenger = WeakReferenceMessenger.Default;
 
         // 注册服务
         services.AddSingleton<ILoggerContainer, LoggerContainer>();
@@ -36,6 +37,7 @@ public partial class App : Application
         services.AddSingleton<IOSTools, OSTools>();
         services.AddSingleton<INetwork, Network>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IMessenger>(messenger);
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();

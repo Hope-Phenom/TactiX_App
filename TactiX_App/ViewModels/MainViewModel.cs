@@ -2,32 +2,49 @@
 
 using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
-
+using CommunityToolkit.Mvvm.Messaging;
+using NLog;
+using SukiUI.Toasts;
 using TactiX_App.Service;
+using TactiX_Logger;
 using TactiX_Models;
+using TactiX_Network;
 using TactiX_OS_Tools;
 
 public partial class MainViewModel : ViewModelBase
 {
-    #region 常量
-    #endregion
-
-    #region 变量
+    #region DI容器注入
     public INavigationService Navigation { get; private set; }
     public IOSTools OSTools { get; private set; }
-    private LConfig Config { get; set; }
+    public INetwork Network { get; private set; }
+    public IMessenger Messenger { get; private set; }
+    public Logger Logger { get; private set; }
+    private L_Config Config { get; set; }
     #endregion
 
-    public MainViewModel(INavigationService navigation, IOSTools oSTools)
+    #region 常量
+    public ISukiToastManager ToastManager { get; private set; }
+    #endregion
+
+    public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network, IMessenger messenger, ILoggerContainer loggerContainer)
     {
         OSTools = oSTools;
         Navigation = navigation;
+        Network = network;
+        Messenger = messenger;
+        Logger = loggerContainer.Builder.GetCurrentClassLogger();
 
         Config = OSTools.OSes.LoadConfig();
 
+        ToastManager = new SukiToastManager();
+
         if (!Config.EulaAccepted || !Config.PPAccepted)
-        { 
+        {
             Navigation.NavigateTo<LicenseViewModel>();
+        }
+        else 
+        {
+            Navigation.NavigateTo<HomeScreenViewModel>();
         }
     }
 }

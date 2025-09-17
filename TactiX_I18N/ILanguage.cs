@@ -18,6 +18,25 @@
         public string LICENSE_VIEW_BTN_DECLINE { get; }
         #endregion
 
+        #region 版本控制提示信息
+        /// <summary>
+        /// 版本控制提示信息-当前版本已被禁用
+        /// </summary>
+        public string VERSION_CONTROL_BANNED { get; }
+        /// <summary>
+        /// 版本控制提示信息-有强制更新
+        /// </summary>
+        public string VERSION_CONTROL_FORCE_UPGRADE { get; }
+        /// <summary>
+        /// 版本控制提示信息-有新版本，请考虑更新
+        /// </summary>
+        public string VERSION_CONTROL_NEW_VERSION { get; }
+        /// <summary>
+        /// 版本控制提示信息-检查版本信息时发生错误
+        /// </summary>
+        public string VERSION_CONTROL_ERROR { get; }
+        #endregion
+
         #region 错误信息弹窗
         /// <summary>
         /// 错误信息弹窗-标题

@@ -1,10 +1,10 @@
-﻿namespace TactiX_Models
+﻿namespace TactiX_Models.Network
 {
     /// <summary>
     /// 异常上报数据结构
     /// </summary>
     [Serializable]
-    public class NExceptionReportModel
+    public class N_ExceptionReportModel
     {
         /// <summary>
         /// 错误代码

@@ -4,7 +4,7 @@
     /// 程序整体配置文件
     /// </summary>
     [Serializable]
-    public class LConfig
+    public class L_Config
     {
         /// <summary>
         /// 最终用户许可协议接受

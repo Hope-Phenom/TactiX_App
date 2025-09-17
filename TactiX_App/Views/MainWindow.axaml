@@ -1,20 +1,35 @@
-<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+<suki:SukiWindow xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:TactiX_App.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 				xmlns:views="clr-namespace:TactiX_App.Views"
         mc:Ignorable="d" d:DesignWidth="1020" d:DesignHeight="720"
 				Width="1020" Height="720"
 				BackgroundStyle="Bubble"
         x:Class="TactiX_App.Views.MainWindow"
+				x:DataType="vm:MainViewModel"
 				Icon="avares://TactiX_App/Assets/avalonia-logo.ico"
 				WindowStartupLocation="CenterScreen"
         Title="TactiX">
-		<sukiUi:SukiWindow.LogoContent>
+
+		<suki:SukiWindow.LogoContent>
 				<Image Height="16" Width="16" Source="avares://TactiX_App/Assets/avalonia-logo.ico" />
-		</sukiUi:SukiWindow.LogoContent>
-		
-		<views:MainView x:Name="MainView" />
-</sukiUi:SukiWindow>
+		</suki:SukiWindow.LogoContent>
+
+		<suki:SukiWindow.Hosts>
+				<suki:SukiToastHost Manager="{Binding ToastManager}"/>
+		</suki:SukiWindow.Hosts>
+
+		<Grid Margin="0">
+				<suki:SukiSideMenu IsSearchEnabled="True" IsEnabled="False" IsVisible="False">
+						<suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
+								<suki:SukiSideMenuItem.PageContent>
+										<Grid Background="Black" />
+								</suki:SukiSideMenuItem.PageContent>
+						</suki:SukiSideMenuItem>
+				</suki:SukiSideMenu>
+				<views:MainView x:Name="MainViewContainer" />
+		</Grid>
+</suki:SukiWindow>

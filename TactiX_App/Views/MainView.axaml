@@ -6,6 +6,5 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TactiX_App.Views.MainView"
              x:DataType="vm:MainViewModel">
-
 		<ContentControl Content="{Binding Navigation.CurrentView}"/>
 </UserControl>

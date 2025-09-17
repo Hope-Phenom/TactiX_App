@@ -53,7 +53,7 @@ namespace TactiX_OS_Tools
         private string ConfigName => ".config";
         public string AppDataFolderPath { get; private set; }
         private IntPtr Hwnd { get; set; }
-        public LConfig Config { get; private set; }
+        public L_Config Config { get; private set; }
 
         /// <summary>
         /// 鼠标穿透模式，为true时启用穿透
@@ -130,23 +130,23 @@ namespace TactiX_OS_Tools
 #endif
         }
 
-        public LConfig LoadConfig()
+        public L_Config LoadConfig()
         {
             if (Config != null)
             {
                 return Config;
             }
 
-            LConfig _conf;
+            L_Config _conf;
             var filePath = Path.Combine(AppDataFolderPath, ConfigName);
             if (!File.Exists(filePath))
             {
-                _conf = new LConfig();
+                _conf = new L_Config();
                 File.WriteAllText(filePath, JsonConvert.SerializeObject(_conf, Formatting.Indented));
             }
 
             var confText = File.ReadAllText(filePath);
-            _conf = JsonConvert.DeserializeObject<LConfig>(confText) ?? new LConfig();
+            _conf = JsonConvert.DeserializeObject<L_Config>(confText) ?? new L_Config();
 
             return _conf;
         }

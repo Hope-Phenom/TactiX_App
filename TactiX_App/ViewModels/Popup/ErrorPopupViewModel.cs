@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using NLog;
 using TactiX_I18N;
 using TactiX_Logger;
-using TactiX_Models;
+using TactiX_Models.Network;
 using TactiX_Network;
 using ILoggerContainer = TactiX_Logger.ILoggerContainer;
 
@@ -16,7 +16,7 @@ namespace TactiX_App.ViewModels.Popup
     {
         public ILanguage Language { get; private set; }
         public INetwork Network { get; private set; }
-        public NExceptionReportModel ReportModel { get; set; }
+        public N_ExceptionReportModel ReportModel { get; set; }
 
         [ObservableProperty]
         public bool canBeClosed;

@@ -14,7 +14,7 @@ namespace TactiX_OS_Tools
         /// <summary>
         /// 获取配置文件
         /// </summary>
-        public LConfig LoadConfig();
+        public L_Config LoadConfig();
         /// <summary>
         /// 保存配置文件
         /// </summary>

@@ -24,7 +24,7 @@ namespace TactiX_App.ViewModels
         public ILogger Logger { get; private set; }
         private IOSTools OSTools { get; set; }
 
-        public LConfig Config { get; private set; }
+        public L_Config Config { get; private set; }
         public string EULA_Text { get; private set; }
         public string PP_Text { get; private set; }
 
