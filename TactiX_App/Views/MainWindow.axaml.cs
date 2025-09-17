@@ -15,7 +15,6 @@ public partial class MainWindow : SukiWindow
         InitializeComponent();
 
         Opened += MainWindow_Opened;
-        PointerPressed += MainWindow_PointerPressed;
     }
 
     private void MainWindow_Opened(object? sender, EventArgs e)
@@ -24,14 +23,6 @@ public partial class MainWindow : SukiWindow
         if (vm != null) 
         {
             OsesSetHandle(vm.OSTools.OSes);
-        }
-    }
-
-    private void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        if (e.Pointer.Type == PointerType.Mouse)
-        {
-            BeginMoveDrag(e);
         }
     }
 
