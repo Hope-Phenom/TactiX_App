@@ -1,40 +1,62 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using NuGet.Versioning;
+using SukiUI;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using TactiX_App.Service;
 using TactiX_I18N;
 using TactiX_Logger;
+using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_Network;
-using static System.Net.WebRequestMethods;
+using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels
 {
-    public class HomeScreenViewModel : ViewModelBase
+    public partial class HomeScreenViewModel : ViewModelBase
     {
         #region DI容器注入
-        public ILanguage Language { get; private set; }
-        public INavigationService NavigationService { get; private set; }
-        public Logger Logger { get; private set; }
-        public INetwork Network { get; private set; }
-        public IMessenger Messenger { get; private set; }
+        private ILanguage Language { get; set; }
+        private INavigationService NavigationService { get; set; }
+        private Logger Logger { get; set; }
+        private INetwork Network { get; set; }
+        private IMessenger Messenger { get; set; }
+        private IOSes OSes { get; set; }
+        private IServiceProvider ServiceProvider { get; set; }
+        private L_Config Config { get; set; }
+        #endregion
+
+        #region 常/变量
+        /// <summary>
+        /// 官方QQ频道
+        /// </summary>
+        public string QqChatUrl => "https://pd.qq.com/s/4vr81w4yl?b=9";
+        /// <summary>
+        /// 项目主页
+        /// </summary>
+        public string HomePageUrl => "https://sc2.east-unicorn.cn";
         #endregion
 
         public HomeScreenViewModel(ILang lang, INavigationService navigation, ILoggerContainer loggerContainer, 
-            INetwork network, IMessenger messenger) 
+            INetwork network, IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider) 
         {
             Language = lang.Language;
             NavigationService = navigation;
             Logger = loggerContainer.Builder.GetCurrentClassLogger();
             Network = network;
             Messenger = messenger;
+            OSes = oSTools.OSes;
+            ServiceProvider = serviceProvider;
+            Config = OSes.LoadConfig();
 
             Task.Run(CheckVersion);
         }
 
+        #region 版本检查
         /// <summary>
         /// 检查版本是否可用/是否需要更新
         /// </summary>
@@ -108,5 +130,28 @@ namespace TactiX_App.ViewModels
 
             return $"{major}.{minor}.{build}.{revision}";
         }
+        #endregion
+
+        #region UI事件响应
+        /// <summary>
+        /// 打开指定的Url
+        /// </summary>
+        [RelayCommand]
+        public async Task OpenWebUrl(string url)
+        {
+            await Task.Run(() => OSes.OpenWeb(url));
+        }
+
+        /// <summary>
+        /// 切换明暗主题色
+        /// </summary>
+        [RelayCommand]
+        public void ThemeSwtich()
+        {
+            Config.NightMode = !Config.NightMode;
+            SukiTheme.GetInstance().SwitchBaseTheme();
+            OSes.SaveConfig();
+        }
+        #endregion
     }
 }

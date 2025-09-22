@@ -50,7 +50,10 @@ public partial class MainWindow : SukiWindow,
 
     #region MessageBus 消息处理
 
-    private NotificationType NotificationTypeConvert(MB_Enum_ToastType type)
+    /// <summary>
+    /// 枚举转换
+    /// </summary>
+    private static NotificationType NotificationTypeConvert(MB_Enum_ToastType type)
     {
         NotificationType _type = type switch
         {
@@ -93,8 +96,10 @@ public partial class MainWindow : SukiWindow,
 
         if (!string.IsNullOrEmpty(msg.Release_Url))
         {
-            var vm = DataContext as MainViewModel;
-            if (vm != null) vm.OSTools.OSes.OpenWeb(msg.Release_Url);
+            if (DataContext is MainViewModel vm)
+            { 
+                vm.OSTools.OSes.OpenWeb(msg.Release_Url);
+            }
         }
     }
 

@@ -1,9 +1,11 @@
 ﻿namespace TactiX_App.ViewModels;
 
 using Avalonia.Interactivity;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
+using SukiUI;
 using SukiUI.Controls;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
@@ -41,6 +43,11 @@ public partial class MainViewModel : ViewModelBase
 
         ToastManager = new SukiToastManager();
         DialogManager = new SukiDialogManager();
+
+        var theme = Config.NightMode
+            ? ThemeVariant.Dark
+            : ThemeVariant.Light;
+        SukiTheme.GetInstance().ChangeBaseTheme(theme);
 
         if (!Config.EulaAccepted || !Config.PPAccepted)
         {

@@ -160,7 +160,11 @@ namespace TactiX_OS_Tools
         public void OpenWeb(string url)
         {
 #if OS_WINDOWS
-            Process.Start(url);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
 #endif
         }
     }

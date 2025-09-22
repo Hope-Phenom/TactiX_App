@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 						 xmlns:vm="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+						 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 						 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 						 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
 						 x:DataType="vm:HomeScreenViewModel"
@@ -12,9 +13,37 @@
 		<suki:SukiSideMenu IsSearchEnabled="True">
 				<suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
 						<suki:SukiSideMenuItem.PageContent>
-								<Grid Background="Black" />
+								<Grid />
 						</suki:SukiSideMenuItem.PageContent>
 				</suki:SukiSideMenuItem>
+
+				<suki:SukiSideMenu.FooterContent>
+						<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+								<StackPanel.Styles>
+										<!--
+										<Style Selector="Button">
+												<Setter Property="Command" Value="{Binding OpenUrlCommand}" />
+										</Style>
+										-->
+										<Style Selector="materialIcons|MaterialIcon">
+												<Setter Property="Width" Value="25" />
+												<Setter Property="Height" Value="25" />
+										</Style>
+								</StackPanel.Styles>
+								<Button Classes="Basic" Command="{Binding OpenWebUrlCommand}"
+												CommandParameter="{Binding QqChatUrl}">
+										<materialIcons:MaterialIcon Kind="Qqchat" />
+								</Button>
+								<Button Classes="Basic" Command="{Binding OpenWebUrlCommand}"
+												CommandParameter="{Binding HomePageUrl}">
+										<materialIcons:MaterialIcon Kind="Web" />
+								</Button>
+								<Button Classes="Basic" Command="{Binding ThemeSwtichCommand}">
+										<materialIcons:MaterialIcon Kind="ThemeLightDark" />
+								</Button>
+						</StackPanel>
+				</suki:SukiSideMenu.FooterContent>
+				
 		</suki:SukiSideMenu>
 
 </UserControl>

@@ -14,5 +14,9 @@
         /// 隐私条款接受
         /// </summary>
         public bool PPAccepted { get; set; } = false;
+        /// <summary>
+        /// 是否是夜间模式
+        /// </summary>
+        public bool NightMode { get; set; } = false;
     }
 }
