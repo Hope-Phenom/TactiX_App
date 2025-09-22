@@ -44,6 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Page\" />
+    <Folder Include="ViewModels\Page\" />
   </ItemGroup>
 </Project>

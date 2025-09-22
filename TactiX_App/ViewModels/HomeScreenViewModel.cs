@@ -20,7 +20,7 @@ namespace TactiX_App.ViewModels
     public partial class HomeScreenViewModel : ViewModelBase
     {
         #region DI容器注入
-        private ILanguage Language { get; set; }
+        public ILanguage Language { get; private set; }
         private INavigationService NavigationService { get; set; }
         private Logger Logger { get; set; }
         private INetwork Network { get; set; }

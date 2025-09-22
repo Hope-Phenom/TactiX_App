@@ -5,26 +5,32 @@
 						 xmlns:vm="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 						 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-						 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+						 mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
 						 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
 						 x:DataType="vm:HomeScreenViewModel"
              x:Class="TactiX_App.Views.HomeScreenView">
 
 		<suki:SukiSideMenu IsSearchEnabled="True">
-				<suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
+				<suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_HOME}" Classes="Compact">
+						<suki:SukiSideMenuItem.Icon>
+								<materialIcons:MaterialIcon Kind="Home" />
+						</suki:SukiSideMenuItem.Icon>
 						<suki:SukiSideMenuItem.PageContent>
 								<Grid />
 						</suki:SukiSideMenuItem.PageContent>
 				</suki:SukiSideMenuItem>
 
+				<suki:SukiSideMenu.HeaderContent>
+						<Image Width="80"
+                   Height="80"
+                   Margin="30,10,30,30"
+                   Classes="AppIcon"
+                   Source="avares://TactiX_App/Assets/avalonia-logo.ico" />
+				</suki:SukiSideMenu.HeaderContent>
+
 				<suki:SukiSideMenu.FooterContent>
 						<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 								<StackPanel.Styles>
-										<!--
-										<Style Selector="Button">
-												<Setter Property="Command" Value="{Binding OpenUrlCommand}" />
-										</Style>
-										-->
 										<Style Selector="materialIcons|MaterialIcon">
 												<Setter Property="Width" Value="25" />
 												<Setter Property="Height" Value="25" />

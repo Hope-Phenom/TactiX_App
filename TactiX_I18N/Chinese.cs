@@ -24,5 +24,7 @@
         public string ERROR_MUILT_PROCESS => "重复打开了多个进程，本进程将退出！";
 
         public string TOAST_TITLE_ERROR => "发生了一个错误";
+
+        public string HOMESCREEN_SIDE_HOME => "新闻资讯";
     }
 }

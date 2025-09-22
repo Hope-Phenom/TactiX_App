@@ -76,6 +76,10 @@
         public string ERROR_POPUP_BTN_CLOSE { get; }
         #endregion
 
+        #region 主页面
+        public string HOMESCREEN_SIDE_HOME { get; }
+        #endregion
+
         #endregion
 
         #region 错误码部分

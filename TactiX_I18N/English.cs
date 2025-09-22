@@ -24,5 +24,7 @@
         public string ERROR_MUILT_PROCESS => "Multiple processes have been opened repeatedly, this process will exit!";
 
         public string TOAST_TITLE_ERROR => "An error occurred";
+
+        public string HOMESCREEN_SIDE_HOME => "News";
     }
 }
