@@ -68,6 +68,7 @@ namespace TactiX_App.ViewModels
 
                 var msg = new MB_ToastVersion()
                 {
+                    Title = Language.VERSION_CONTROL_TOAST_TITLE,
                     Message = messageText,
                     Type = type,
                     Release_Url = resp.Release_Url
@@ -79,6 +80,7 @@ namespace TactiX_App.ViewModels
             {
                 var msg = new MB_ToastVersion()
                 {
+                    Title = Language.TOAST_TITLE_ERROR,
                     Message = string.Format(Language.VERSION_CONTROL_ERROR, ex.Message),
                     Type = MB_Enum_ToastType.Error,
                     Release_Url = string.Empty

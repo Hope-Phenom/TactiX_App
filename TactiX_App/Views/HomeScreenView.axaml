@@ -8,12 +8,13 @@
 						 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
 						 x:DataType="vm:HomeScreenViewModel"
              x:Class="TactiX_App.Views.HomeScreenView">
-		
-		<Grid>
-				<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="200" />
-						<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-		</Grid>
+
+		<suki:SukiSideMenu IsSearchEnabled="True">
+				<suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
+						<suki:SukiSideMenuItem.PageContent>
+								<Grid Background="Black" />
+						</suki:SukiSideMenuItem.PageContent>
+				</suki:SukiSideMenuItem>
+		</suki:SukiSideMenu>
 
 </UserControl>

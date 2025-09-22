@@ -19,17 +19,13 @@
 		</suki:SukiWindow.LogoContent>
 
 		<suki:SukiWindow.Hosts>
-				<suki:SukiToastHost Manager="{Binding ToastManager}"/>
+				<suki:SukiToastHost x:Name="ToastHost" MaxToasts="5"
+														Manager="{Binding ToastManager}"/>
+				<suki:SukiDialogHost x:Name="DialogHost" 
+														 Manager="{Binding DialogManager}"/>
 		</suki:SukiWindow.Hosts>
 
 		<Grid Margin="0">
-				<suki:SukiSideMenu IsSearchEnabled="True" IsEnabled="False" IsVisible="False">
-						<suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
-								<suki:SukiSideMenuItem.PageContent>
-										<Grid Background="Black" />
-								</suki:SukiSideMenuItem.PageContent>
-						</suki:SukiSideMenuItem>
-				</suki:SukiSideMenu>
 				<views:MainView x:Name="MainViewContainer" />
 		</Grid>
 </suki:SukiWindow>

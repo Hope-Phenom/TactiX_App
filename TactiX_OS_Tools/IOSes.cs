@@ -33,5 +33,10 @@ namespace TactiX_OS_Tools
         /// </summary>
         /// <param name="hwnd">句柄</param>
         public void SetMouseTransport();
+        /// <summary>
+        /// 跳转Web地址
+        /// </summary>
+        /// <param name="url">Web地址</param>
+        public void OpenWeb(string url);
     }
 }

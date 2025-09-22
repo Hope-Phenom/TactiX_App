@@ -156,5 +156,12 @@ namespace TactiX_OS_Tools
             var filePath = Path.Combine(AppDataFolderPath, ConfigName);
             File.WriteAllText(filePath, JsonConvert.SerializeObject(Config, Formatting.Indented));
         }
+
+        public void OpenWeb(string url)
+        {
+#if OS_WINDOWS
+            Process.Start(url);
+#endif
+        }
     }
 }

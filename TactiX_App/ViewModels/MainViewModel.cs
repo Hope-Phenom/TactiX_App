@@ -4,6 +4,8 @@ using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
+using SukiUI.Controls;
+using SukiUI.Dialogs;
 using SukiUI.Toasts;
 using TactiX_App.Service;
 using TactiX_Logger;
@@ -24,6 +26,7 @@ public partial class MainViewModel : ViewModelBase
 
     #region 常量
     public ISukiToastManager ToastManager { get; private set; }
+    public ISukiDialogManager DialogManager { get; private set; }
     #endregion
 
     public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network, IMessenger messenger, ILoggerContainer loggerContainer)
@@ -37,6 +40,7 @@ public partial class MainViewModel : ViewModelBase
         Config = OSTools.OSes.LoadConfig();
 
         ToastManager = new SukiToastManager();
+        DialogManager = new SukiDialogManager();
 
         if (!Config.EulaAccepted || !Config.PPAccepted)
         {

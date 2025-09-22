@@ -20,6 +20,10 @@
 
         #region 版本控制提示信息
         /// <summary>
+        /// 版本控制提示信息-Toast信息标题
+        /// </summary>
+        public string VERSION_CONTROL_TOAST_TITLE { get; }
+        /// <summary>
         /// 版本控制提示信息-当前版本已被禁用
         /// </summary>
         public string VERSION_CONTROL_BANNED { get; }
@@ -85,6 +89,10 @@
         /// </summary>
         public string ERROR_MUILT_PROCESS { get; }
 
+        #endregion
+
+        #region 通用部分
+        public string TOAST_TITLE_ERROR { get; }
         #endregion
     }
 }

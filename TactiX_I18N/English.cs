@@ -5,6 +5,7 @@
         public string LICENSE_VIEW_BTN_ACCEPT => "Accept";
         public string LICENSE_VIEW_BTN_DECLINE => "Decline";
 
+        public string VERSION_CONTROL_TOAST_TITLE => "Checking program version...";
         public string VERSION_CONTROL_BANNED => "The current version [{0}] has been disabled. The program will redirect to the update page and exit automatically shortly!";
         public string VERSION_CONTROL_FORCE_UPGRADE => "A mandatory update version [{0}] is available. The program will redirect to the update page and exit automatically shortly!";
         public string VERSION_CONTROL_NEW_VERSION => "The current version is [{0}], and a new version [{1}] is available. Would you like to proceed with the update?";
@@ -21,5 +22,7 @@
 
         public string ERROR_DESC_TEMPLATE => "An exception occurred in the program, error code: {0}, error message: {1}.";
         public string ERROR_MUILT_PROCESS => "Multiple processes have been opened repeatedly, this process will exit!";
+
+        public string TOAST_TITLE_ERROR => "An error occurred";
     }
 }
