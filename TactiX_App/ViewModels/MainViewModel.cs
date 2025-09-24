@@ -18,38 +18,39 @@ using TactiX_OS_Tools;
 public partial class MainViewModel : ViewModelBase
 {
     #region DI容器注入
-    public INavigationService Navigation { get; private set; }
-    public IOSTools OSTools { get; private set; }
-    public INetwork Network { get; private set; }
-    public IMessenger Messenger { get; private set; }
-    public Logger Logger { get; private set; }
-    private L_Config Config { get; set; }
+    private readonly INetwork _network;
+    private readonly IMessenger _messenger;
+    private readonly Logger _logger;
+    private readonly L_Config _config;
     #endregion
 
     #region 常量
+    public INavigationService Navigation { get; private set; }
+    public IOSTools OSTools { get; private set; }
     public ISukiToastManager ToastManager { get; private set; }
     public ISukiDialogManager DialogManager { get; private set; }
     #endregion
 
-    public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network, IMessenger messenger, ILoggerContainer loggerContainer)
+    public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network, 
+        IMessenger messenger, ILoggerContainer loggerContainer)
     {
         OSTools = oSTools;
         Navigation = navigation;
-        Network = network;
-        Messenger = messenger;
-        Logger = loggerContainer.Builder.GetCurrentClassLogger();
+        _network = network;
+        _messenger = messenger;
+        _logger = loggerContainer.Builder.GetCurrentClassLogger();
 
-        Config = OSTools.OSes.LoadConfig();
+        _config = OSTools.OSes.LoadConfig();
 
         ToastManager = new SukiToastManager();
         DialogManager = new SukiDialogManager();
 
-        var theme = Config.NightMode
+        var theme = _config.NightMode
             ? ThemeVariant.Dark
             : ThemeVariant.Light;
         SukiTheme.GetInstance().ChangeBaseTheme(theme);
 
-        if (!Config.EulaAccepted || !Config.PPAccepted)
+        if (!_config.EulaAccepted || !_config.PPAccepted)
         {
             Navigation.NavigateTo<LicenseViewModel>();
         }

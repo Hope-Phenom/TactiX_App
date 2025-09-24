@@ -25,6 +25,6 @@
 
         public string TOAST_TITLE_ERROR => "An error occurred";
 
-        public string HOMESCREEN_SIDE_HOME => "News";
+        public string HOMESCREEN_SIDE_NEWS => "News";
     }
 }

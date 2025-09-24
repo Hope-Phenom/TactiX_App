@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Collections;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -8,6 +11,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using TactiX_App.Service;
+using TactiX_App.ViewModels.Page;
 using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
@@ -20,17 +24,16 @@ namespace TactiX_App.ViewModels
     public partial class HomeScreenViewModel : ViewModelBase
     {
         #region DI容器注入
-        public ILanguage Language { get; private set; }
-        private INavigationService NavigationService { get; set; }
-        private Logger Logger { get; set; }
-        private INetwork Network { get; set; }
-        private IMessenger Messenger { get; set; }
-        private IOSes OSes { get; set; }
-        private IServiceProvider ServiceProvider { get; set; }
-        private L_Config Config { get; set; }
+        private readonly Logger _logger;
+        private readonly INetwork _network;
+        private readonly IMessenger _messenger;
+        private readonly IOSes _oSes;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly L_Config _config;
         #endregion
 
         #region 常/变量
+        public ILanguage Language { get; private set; }
         /// <summary>
         /// 官方QQ频道
         /// </summary>
@@ -41,17 +44,17 @@ namespace TactiX_App.ViewModels
         public string HomePageUrl => "https://sc2.east-unicorn.cn";
         #endregion
 
-        public HomeScreenViewModel(ILang lang, INavigationService navigation, ILoggerContainer loggerContainer, 
-            INetwork network, IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider) 
+        public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
+            INetwork network, IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider)
         {
+            _logger = loggerContainer.Builder.GetCurrentClassLogger();
+            _network = network;
+            _messenger = messenger;
+            _oSes = oSTools.OSes;
+            _serviceProvider = serviceProvider;
+            _config = _oSes.LoadConfig();
+
             Language = lang.Language;
-            NavigationService = navigation;
-            Logger = loggerContainer.Builder.GetCurrentClassLogger();
-            Network = network;
-            Messenger = messenger;
-            OSes = oSTools.OSes;
-            ServiceProvider = serviceProvider;
-            Config = OSes.LoadConfig();
 
             Task.Run(CheckVersion);
         }
@@ -65,7 +68,7 @@ namespace TactiX_App.ViewModels
             try
             {
                 var currVer = GetCurrVersion();
-                var resp = await Network.Client.PostVersionControlReq(
+                var resp = await _network.Client.PostVersionControlReq(
                     new TactiX_Models.Network.N_VersionControlReq()
                     {
                         Version = currVer
@@ -96,7 +99,7 @@ namespace TactiX_App.ViewModels
                     Release_Url = resp.Release_Url
                 };
 
-                Messenger.Send(msg);
+                _messenger.Send(msg);
             }
             catch (Exception ex)
             {
@@ -108,7 +111,7 @@ namespace TactiX_App.ViewModels
                     Release_Url = string.Empty
                 };
 
-                Messenger.Send(msg);
+                _messenger.Send(msg);
             }
         }
 
@@ -139,7 +142,7 @@ namespace TactiX_App.ViewModels
         [RelayCommand]
         public async Task OpenWebUrl(string url)
         {
-            await Task.Run(() => OSes.OpenWeb(url));
+            await Task.Run(() => _oSes.OpenWeb(url));
         }
 
         /// <summary>
@@ -148,9 +151,9 @@ namespace TactiX_App.ViewModels
         [RelayCommand]
         public void ThemeSwtich()
         {
-            Config.NightMode = !Config.NightMode;
+            _config.NightMode = !_config.NightMode;
             SukiTheme.GetInstance().SwitchBaseTheme();
-            OSes.SaveConfig();
+            _oSes.SaveConfig();
         }
         #endregion
     }

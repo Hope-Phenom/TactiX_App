@@ -25,6 +25,6 @@
 
         public string TOAST_TITLE_ERROR => "发生了一个错误";
 
-        public string HOMESCREEN_SIDE_HOME => "新闻资讯";
+        public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
     }
 }

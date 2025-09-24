@@ -20,13 +20,13 @@ namespace TactiX_App.ViewModels
         private const string PP_ResPath = "avares://TactiX_App/Assets/Privacy_Policy.md";
 
         public ILanguage Language { get; private set; }
-        public INavigationService NavigationService { get; private set; }
-        public ILogger Logger { get; private set; }
-        private IOSTools OSTools { get; set; }
-
-        public L_Config Config { get; private set; }
         public string EULA_Text { get; private set; }
         public string PP_Text { get; private set; }
+
+        private readonly INavigationService _navigationService;
+        private readonly ILogger _logger;
+        private readonly IOSTools _oSTools;
+        private readonly L_Config _config;
 
         /// <summary>
         /// 接受状态，0-未接受，1-只接受了EULA，2-全部接受
@@ -38,14 +38,14 @@ namespace TactiX_App.ViewModels
 
         public LicenseViewModel(IOSTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger) 
         {
-            OSTools = oSTools;
             Language = lang.Language;
-            NavigationService = navigation;
-            Logger = logger.Builder.GetCurrentClassLogger();
-            Config = oSTools.OSes.LoadConfig();
-
             EULA_Text = GetTextFromRes(EULA_ResPath);
             PP_Text = GetTextFromRes(PP_ResPath);
+
+            _oSTools = oSTools;
+            _navigationService = navigation;
+            _logger = logger.Builder.GetCurrentClassLogger();
+            _config = oSTools.OSes.LoadConfig();
 
             MarkdownText = EULA_Text;
             Status = 0;
@@ -62,7 +62,7 @@ namespace TactiX_App.ViewModels
         public void Btn_Close()
         {
             System.Diagnostics.Process.GetCurrentProcess().Kill();
-            Logger.Warn("DECLINE & EXIT.");
+            _logger.Warn("DECLINE & EXIT.");
         }
 
         [RelayCommand]
@@ -72,20 +72,20 @@ namespace TactiX_App.ViewModels
 
             if (Status == 1)
             {
-                Config.EulaAccepted = true;
-                OSTools.OSes.SaveConfig();
-                Logger.Info("Agress EULA.");
+                _config.EulaAccepted = true;
+                _oSTools.OSes.SaveConfig();
+                _logger.Info("Agress EULA.");
 
                 MarkdownText = PP_Text;
             }
             else
             {
-                Config.PPAccepted = true;
-                OSTools.OSes.SaveConfig();
-                Logger.Info("Agress PP.");
+                _config.PPAccepted = true;
+                _oSTools.OSes.SaveConfig();
+                _logger.Info("Agress PP.");
 
-                NavigationService.NavigateTo<HomeScreenViewModel>();
-                Logger.Info("Navi to HomeScreenView.");
+                _navigationService.NavigateTo<HomeScreenViewModel>();
+                _logger.Info("Navi to HomeScreenView.");
             }
         }
     }

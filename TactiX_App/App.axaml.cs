@@ -7,8 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TactiX_App.Service;
 using TactiX_App.ViewModels;
+using TactiX_App.ViewModels.Page;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views;
+using TactiX_App.Views.Page;
 using TactiX_App.Views.Popup;
 using TactiX_Exception;
 using TactiX_I18N;
@@ -43,13 +45,15 @@ public partial class App : Application
         services.AddTransient<MainViewModel>();
         services.AddTransient<LicenseViewModel>();
         services.AddTransient<ErrorPopupViewModel>();
-        services.AddTransient<HomeScreenViewModel>();
+        services.AddTransient<HomeScreenViewModel>(); 
+        services.AddTransient<NewsPageViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
         services.AddTransient<MainView>();
         services.AddTransient<LicenseView>();
         services.AddTransient<ErrorPopupView>();
         services.AddTransient<HomeScreenView>();
+        services.AddTransient<NewsPageView>();
 
         var provider = services.BuildServiceProvider(); 
         var vm = provider.GetRequiredService<MainViewModel>();

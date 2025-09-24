@@ -77,7 +77,7 @@
         #endregion
 
         #region 主页面
-        public string HOMESCREEN_SIDE_HOME { get; }
+        public string HOMESCREEN_SIDE_NEWS { get; }
         #endregion
 
         #endregion
