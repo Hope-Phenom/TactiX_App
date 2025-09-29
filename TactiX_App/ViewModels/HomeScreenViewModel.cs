@@ -12,6 +12,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TactiX_App.Service;
 using TactiX_App.ViewModels.Page;
+using TactiX_App.Views;
+using TactiX_App.Views.Page;
 using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
@@ -42,6 +44,10 @@ namespace TactiX_App.ViewModels
         /// 项目主页
         /// </summary>
         public string HomePageUrl => "https://sc2.east-unicorn.cn";
+        /// <summary>
+        /// 新闻页面组件
+        /// </summary>
+        public UserControl NewsViewPageControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -55,6 +61,11 @@ namespace TactiX_App.ViewModels
             _config = _oSes.LoadConfig();
 
             Language = lang.Language;
+
+            // 很遗憾更符合mvvm的写法套用在SukiUI上时似乎不能正常运行
+            // 先保证功能正常后续再优化
+            NewsViewPageControl = _serviceProvider.GetRequiredService<NewsPageView>();
+            NewsViewPageControl.DataContext = _serviceProvider.GetRequiredService<NewsPageViewModel>();
 
             Task.Run(CheckVersion);
         }

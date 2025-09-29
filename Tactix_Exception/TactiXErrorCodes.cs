@@ -16,5 +16,9 @@ namespace TactiX_Exception
         /// 重复启动进程
         /// </summary>
         ERROR_MUILT_PROCESS,
+        /// <summary>
+        /// 网络连接问题
+        /// </summary>
+        ERROR_NETWORK
     }
 }

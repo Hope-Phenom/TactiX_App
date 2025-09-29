@@ -77,7 +77,29 @@
         #endregion
 
         #region 主页面
+        /// <summary>
+        /// 主页面-侧栏按钮-新闻页面
+        /// </summary>
         public string HOMESCREEN_SIDE_NEWS { get; }
+        #endregion
+
+        #region 新闻Page相关
+        /// <summary>
+        /// 新闻Page-标题-论坛热帖
+        /// </summary>
+        public string NEWS_PAGE_VIEW_TITLE_FORUM { get; }
+        /// <summary>
+        /// 新闻Page-标题-系统新闻
+        /// </summary>
+        public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS { get; }
+        /// <summary>
+        /// 新闻Page-标题-视频
+        /// </summary>
+        public string NEWS_PAGE_VIEW_TITLE_VIDEOS { get; }
+        /// <summary>
+        /// 新闻Page-错误信息-网络连接
+        /// </summary>
+        public string NEWS_PAGE_ERROR_NETWORK { get; }
         #endregion
 
         #endregion

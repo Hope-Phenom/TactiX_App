@@ -26,5 +26,9 @@
         public string TOAST_TITLE_ERROR => "An error occurred";
 
         public string HOMESCREEN_SIDE_NEWS => "News";
+        public string NEWS_PAGE_VIEW_TITLE_FORUM => "Hot Topics on the Forum";
+        public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "System Announcement";
+        public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "Video Recommendations";
+        public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated.";
     }
 }

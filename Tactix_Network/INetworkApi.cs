@@ -22,5 +22,8 @@ namespace TactiX_Network
         /// <returns></returns>
         [Post("/api/Stats/PostVersionControl")]
         Task<N_VersionControlResp> PostVersionControlReq([Body] N_VersionControlReq versionControlReq);
+
+        [Get("/api/News/GetNews")]
+        Task<List<N_News>> GetNews();
     }
 }

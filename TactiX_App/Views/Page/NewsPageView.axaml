@@ -3,16 +3,58 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+						 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
 						 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
-             x:Class="TactiX_App.Views.Page.NewsPageView">
+						 x:DataType="vm:NewsPageViewModel"
+             x:Class="TactiX_App.Views.Page.NewsPageView"
+						 x:Name="NewsPage">
 
-		<suki:GlassCard Margin="10" Classes="HeaderCard">
-				<Grid Margin="0">
-						<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="0.6*" />
-								<ColumnDefinition Width="0.4*" />
-						</Grid.ColumnDefinitions>
+		<Grid Margin="10">
+				<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.6*" />
+						<ColumnDefinition Width="10" />
+						<ColumnDefinition Width="0.4*" />
+				</Grid.ColumnDefinitions>
+				<Grid Grid.Column="0">
+						<Grid.RowDefinitions>
+								<RowDefinition Height="0.7*" />
+								<RowDefinition Height="10" />
+								<RowDefinition Height="0.3*" />
+						</Grid.RowDefinitions>
+						<suki:GlassCard Classes="HeaderCard" Grid.Row="0">
+								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_FORUM}" FontSize="18">
+										<ItemsRepeater ItemsSource="{Binding List_Topics, Mode=OneWay}">
+												<ItemsRepeater.ItemTemplate>
+														<DataTemplate>
+																<Grid>
+																		<Grid.ColumnDefinitions>
+																				<ColumnDefinition Width="0.8*" />
+																				<ColumnDefinition Width="10" />
+																				<ColumnDefinition Width="0.2*" />
+																		</Grid.ColumnDefinitions>
+																		<HyperlinkButton Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+																										 CommandParameter="{Binding Url}"
+																										 Content="{Binding Title}"
+																										 Grid.Column="0"/>
+																		<Label Content="{Binding Date}" Grid.Column="2"
+																					 HorizontalContentAlignment="Right"/>
+																</Grid>
+														</DataTemplate>
+												</ItemsRepeater.ItemTemplate>
+										</ItemsRepeater>
+								</suki:GroupBox>
+						</suki:GlassCard>
+						<suki:GlassCard Classes="HeaderCard" Grid.Row="2">
+								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_SYS_NEWS}">
+										<StackPanel x:Name="StackPanel_SysNews" Orientation="Vertical" />
+								</suki:GroupBox>
+						</suki:GlassCard>
 				</Grid>
-		</suki:GlassCard>
+				<suki:GlassCard Classes="HeaderCard" Grid.Column="2">
+						<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_VIDEOS}">
+								<StackPanel x:Name="StackPanel_Videos" Orientation="Vertical" />
+						</suki:GroupBox>
+				</suki:GlassCard>
+		</Grid>
 
 </UserControl>
