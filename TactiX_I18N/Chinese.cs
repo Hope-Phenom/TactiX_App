@@ -29,6 +29,6 @@
         public string NEWS_PAGE_VIEW_TITLE_FORUM => "论坛热帖";
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "系统公告";
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "视频推荐";
-        public string NEWS_PAGE_ERROR_NETWORK => "由于网络问题，未能更新新闻信息。";
+        public string NEWS_PAGE_ERROR_NETWORK => "由于网络问题，未能更新新闻信息";
     }
 }

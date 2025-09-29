@@ -29,6 +29,6 @@
         public string NEWS_PAGE_VIEW_TITLE_FORUM => "Hot Topics on the Forum";
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "System Announcement";
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "Video Recommendations";
-        public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated.";
+        public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated";
     }
 }

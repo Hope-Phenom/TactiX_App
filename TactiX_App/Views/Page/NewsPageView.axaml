@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 						 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+						 xmlns:conv="clr-namespace:TactiX_App.Converter;assembly=TactiX_App"
 						 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
 						 x:DataType="vm:NewsPageViewModel"
              x:Class="TactiX_App.Views.Page.NewsPageView"
@@ -11,9 +12,9 @@
 
 		<Grid Margin="10">
 				<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="0.6*" />
+						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="0.4*" />
+						<ColumnDefinition Width="450" />
 				</Grid.ColumnDefinitions>
 				<Grid Grid.Column="0">
 						<Grid.RowDefinitions>
@@ -46,13 +47,43 @@
 						</suki:GlassCard>
 						<suki:GlassCard Classes="HeaderCard" Grid.Row="2">
 								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_SYS_NEWS}">
-										<StackPanel x:Name="StackPanel_SysNews" Orientation="Vertical" />
 								</suki:GroupBox>
 						</suki:GlassCard>
 				</Grid>
 				<suki:GlassCard Classes="HeaderCard" Grid.Column="2">
 						<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_VIDEOS}">
-								<StackPanel x:Name="StackPanel_Videos" Orientation="Vertical" />
+								<ItemsRepeater ItemsSource="{Binding List_Videos, Mode=OneWay}">
+										<ItemsRepeater.Layout>
+												<UniformGridLayout MinItemWidth="192"
+																					 MinItemHeight="180"
+																					 MinRowSpacing="10"
+																					 MinColumnSpacing="25"
+																					 MaximumRowsOrColumns="5"
+																					 Orientation="Vertical" />
+										</ItemsRepeater.Layout>
+										<ItemsRepeater.ItemTemplate>
+												<DataTemplate>
+														<Grid Width="192" Height="180">
+																<Grid.RowDefinitions>
+																		<RowDefinition Height="108" />
+																		<RowDefinition Height="10" />
+																		<RowDefinition Height="*" />
+																		<RowDefinition Height="*" />
+																</Grid.RowDefinitions>
+																<Image Source="{Binding ImageObj}" 
+																			 Grid.Row="0" />
+																<HyperlinkButton Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+																								 CommandParameter="{Binding VideoUrl}"
+																								 Content="{Binding Title}"
+																								 Grid.Row="2"/>
+																<Label HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+																			 Content="{Binding Author}" Grid.Row="3" />
+																<Label HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+																			 Content="{Binding PublishDate}" Grid.Row="3" />
+														</Grid>
+												</DataTemplate>
+										</ItemsRepeater.ItemTemplate>
+								</ItemsRepeater>
 						</suki:GroupBox>
 				</suki:GlassCard>
 		</Grid>

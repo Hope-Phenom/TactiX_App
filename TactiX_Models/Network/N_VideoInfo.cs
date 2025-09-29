@@ -17,5 +17,6 @@ namespace TactiX_Models.Network
         public required string CoverUrl { get; set; }
         public required string PublishDate { get; set; }
         public required string VideoUrl { get; set; }
+        public object? ImageObj { get; set; }
     }
 }

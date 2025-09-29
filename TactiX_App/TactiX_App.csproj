@@ -43,8 +43,4 @@
       <DependentUpon>ErrorPopupView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\UserControl\" />
-  </ItemGroup>
 </Project>
