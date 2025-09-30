@@ -48,6 +48,9 @@
 								<Button Classes="Basic" Command="{Binding ThemeSwtichCommand}">
 										<materialIcons:MaterialIcon Kind="ThemeLightDark" />
 								</Button>
+								<Button Classes="Basic">
+										<materialIcons:MaterialIcon Kind="BookPlay" />
+								</Button>
 						</StackPanel>
 				</suki:SukiSideMenu.FooterContent>
 				
