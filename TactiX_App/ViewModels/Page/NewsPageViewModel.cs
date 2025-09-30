@@ -40,7 +40,7 @@ namespace TactiX_App.ViewModels.Page
         #endregion
 
         public IAvaloniaList<N_ForumTopic> List_Topics { get; private set; }
-        public IAvaloniaList<N_VideoInfo> List_SysNews { get; private set; }
+        public IAvaloniaList<N_NewsSys> List_SysNews { get; private set; }
         public IAvaloniaList<N_VideoInfo> List_Videos { get; private set; }
 
         public NewsPageViewModel(ILang lang, IServiceProvider serviceProvider, IOSTools oSTools,
@@ -55,7 +55,7 @@ namespace TactiX_App.ViewModels.Page
             _messenger = messenger;
 
             List_Topics = new AvaloniaList<N_ForumTopic>();
-            List_SysNews = new AvaloniaList<N_VideoInfo>();
+            List_SysNews = new AvaloniaList<N_NewsSys>();
             List_Videos = new AvaloniaList<N_VideoInfo>();
 
             Task.Run(UpdateNews);
@@ -90,7 +90,8 @@ namespace TactiX_App.ViewModels.Page
                     .First();
                 await UpdateVideos(videosNews);
 
-
+                var newsSys = await _network.Client.GetN_NewsSys();
+                await UpdateNewsSys(newsSys);
             }
             catch (Exception ex)
             {
@@ -123,7 +124,11 @@ namespace TactiX_App.ViewModels.Page
                     var displayText = topic.Title;
                     if (displayText.Length > 30)
                     {
-                        displayText = displayText.Substring(0, 27) + "...";
+                        displayText = string.Concat("● ", displayText.AsSpan(0, 27), "...");
+                    }
+                    else
+                    {
+                        displayText = string.Concat("● ", displayText);
                     }
 
                     Dispatcher.UIThread.Post(() =>
@@ -158,6 +163,36 @@ namespace TactiX_App.ViewModels.Page
                 }
 
                 Dispatcher.UIThread.Post(() => List_Videos.AddRange(videos));
+            });
+        }
+        /// <summary>
+        /// 更新系统公告
+        /// </summary>
+        public async Task UpdateNewsSys(List<N_NewsSys> newsSys)
+        {
+            await Task.Run(() => 
+            {
+                foreach (N_NewsSys v in newsSys) 
+                {
+                    var displayText = v.Title;
+                    if (displayText.Length > 30)
+                    {
+                        displayText = string.Concat("● ", displayText.AsSpan(0, 27), "...");
+                    }
+                    else
+                    {
+                        displayText = string.Concat("● ", displayText);
+                    }
+
+                    var news = new N_NewsSys()
+                    {
+                         DateTime = v.DateTime,
+                         Link = v.Link,
+                         Title = "● " + v.Title
+                    };
+
+                    Dispatcher.UIThread.Post(() => List_SysNews.Add(news));
+                }
             });
         }
 

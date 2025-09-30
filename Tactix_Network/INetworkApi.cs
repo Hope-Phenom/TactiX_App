@@ -25,5 +25,8 @@ namespace TactiX_Network
 
         [Get("/api/News/GetNews")]
         Task<List<N_News>> GetNews();
+
+        [Get("/api/News/GetNewsSys")]
+        Task<List<N_NewsSys>> GetN_NewsSys();
     }
 }

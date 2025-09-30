@@ -18,12 +18,12 @@
 				</Grid.ColumnDefinitions>
 				<Grid Grid.Column="0">
 						<Grid.RowDefinitions>
-								<RowDefinition Height="0.7*" />
+								<RowDefinition Height="0.74*" />
 								<RowDefinition Height="10" />
-								<RowDefinition Height="0.3*" />
+								<RowDefinition Height="0.26*" />
 						</Grid.RowDefinitions>
 						<suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_FORUM}" FontSize="18">
+								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_FORUM}">
 										<ItemsRepeater ItemsSource="{Binding List_Topics, Mode=OneWay}">
 												<ItemsRepeater.ItemTemplate>
 														<DataTemplate>
@@ -35,10 +35,16 @@
 																		</Grid.ColumnDefinitions>
 																		<HyperlinkButton Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
 																										 CommandParameter="{Binding Url}"
-																										 Content="{Binding Title}"
-																										 Grid.Column="0"/>
+																										 Grid.Column="0"
+																										 Padding="5 0 0 7">
+																				<HyperlinkButton.Content>
+																						<TextBlock Text="{Binding Title}" TextDecorations="{x:Null}" FontSize="16" />
+																				</HyperlinkButton.Content>
+																		</HyperlinkButton>
 																		<Label Content="{Binding Date}" Grid.Column="2"
-																					 HorizontalContentAlignment="Right"/>
+																					 HorizontalContentAlignment="Right"
+																					 FontSize="16" 
+																					 Padding="0 0 5 7"/>
 																</Grid>
 														</DataTemplate>
 												</ItemsRepeater.ItemTemplate>
@@ -47,6 +53,31 @@
 						</suki:GlassCard>
 						<suki:GlassCard Classes="HeaderCard" Grid.Row="2">
 								<suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_SYS_NEWS}">
+										<ItemsRepeater ItemsSource="{Binding List_SysNews, Mode=OneWay}">
+												<ItemsRepeater.ItemTemplate>
+														<DataTemplate>
+																<Grid>
+																		<Grid.ColumnDefinitions>
+																				<ColumnDefinition Width="0.8*" />
+																				<ColumnDefinition Width="10" />
+																				<ColumnDefinition Width="0.2*" />
+																		</Grid.ColumnDefinitions>
+																		<HyperlinkButton Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+																										 CommandParameter="{Binding Link}"
+																										 Grid.Column="0"
+																										 Padding="5 0 0 7">
+																				<HyperlinkButton.Content>
+																						<TextBlock Text="{Binding Title}" TextDecorations="{x:Null}" FontSize="16" />
+																				</HyperlinkButton.Content>
+																		</HyperlinkButton>
+																		<Label Content="{Binding DateTimeStr}" Grid.Column="2"
+																					 HorizontalContentAlignment="Right"
+																					 FontSize="16" 
+																					 Padding="0 0 5 7" />
+																</Grid>
+														</DataTemplate>
+												</ItemsRepeater.ItemTemplate>
+										</ItemsRepeater>
 								</suki:GroupBox>
 						</suki:GlassCard>
 				</Grid>
@@ -74,8 +105,11 @@
 																			 Grid.Row="0" />
 																<HyperlinkButton Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
 																								 CommandParameter="{Binding VideoUrl}"
-																								 Content="{Binding Title}"
-																								 Grid.Row="2"/>
+																						     Grid.Row="2">
+																		<HyperlinkButton.Content>
+																				<TextBlock Text="{Binding Title}" TextDecorations="{x:Null}" FontSize="12" MaxLines="2" TextWrapping="Wrap" />
+																		</HyperlinkButton.Content>
+																</HyperlinkButton>
 																<Label HorizontalAlignment="Left" HorizontalContentAlignment="Left"
 																			 Content="{Binding Author}" Grid.Row="3" />
 																<Label HorizontalAlignment="Right" HorizontalContentAlignment="Right"
