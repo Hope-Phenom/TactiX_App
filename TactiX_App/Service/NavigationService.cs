@@ -38,6 +38,20 @@ namespace TactiX_App.Service
             CurrentView.DataContext = _serviceProvider.GetRequiredService<T>();
         }
 
+        public void NavigateTo(Type viewModeType)
+        {
+            if (CurrentView != null)
+                _backStack.Push(CurrentView);
+
+            // 根据命名约定查找视图 (ViewModels.HomeViewModel -> Views.HomeView)
+            var viewType = Type.GetType(viewModeType.FullName
+                !.Replace("ViewModels", "Views")
+                !.Replace("ViewModel", "View"))!;
+
+            CurrentView = (UserControl)ActivatorUtilities.CreateInstance(_serviceProvider, viewType);
+            CurrentView.DataContext = ActivatorUtilities.CreateInstance(_serviceProvider, viewModeType);
+        }
+
         public void GoBack()
         {
             if (_backStack.Count > 0)

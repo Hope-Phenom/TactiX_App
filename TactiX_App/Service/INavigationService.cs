@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using System;
 
 namespace TactiX_App.Service
 {
@@ -12,6 +13,11 @@ namespace TactiX_App.Service
         /// </summary>
         /// <typeparam name="T">指定的页面</typeparam>
         void NavigateTo<T>() where T : class;
+        /// <summary>
+        /// 导航至指定页面
+        /// </summary>
+        /// <param name="viewModeType"></param>
+        void NavigateTo(Type viewModeType);
         /// <summary>
         /// 返回上一级
         /// </summary>

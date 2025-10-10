@@ -12,10 +12,11 @@ using SukiUI.Toasts;
 using TactiX_App.Service;
 using TactiX_Logger;
 using TactiX_Models;
+using TactiX_Models.MessageBus;
 using TactiX_Network;
 using TactiX_OS_Tools;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipient<MB_NavigationBack>
 {
     #region DI容器注入
     private readonly INetwork _network;
@@ -58,5 +59,17 @@ public partial class MainViewModel : ViewModelBase
         {
             Navigation.NavigateTo<HomeScreenViewModel>();
         }
+
+        _messenger.RegisterAll(this);
+    }
+
+    public void Receive(MB_NavigationTo message)
+    {
+        Navigation.NavigateTo(message.NaviType);
+    }
+
+    public void Receive(MB_NavigationBack message)
+    {
+        Navigation.GoBack();
     }
 }

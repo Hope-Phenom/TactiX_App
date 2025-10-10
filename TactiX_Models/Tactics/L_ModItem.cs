@@ -19,14 +19,14 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// 展示文本
         /// </summary>
-        public string DisplayText { get; set; } = string.Empty;
+        public string Desc { get; set; } = string.Empty;
         /// <summary>
         /// 对应的图像文件的文件名
         /// </summary>
-        public string ImageFile { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
         /// <summary>
         /// 对应的声音文件的文件名
         /// </summary>
-        public string VoiceFile { get; set; } = string.Empty;
+        public string Audio { get; set; } = string.Empty;
     }
 }

@@ -81,6 +81,10 @@
         /// 主页面-侧栏按钮-新闻页面
         /// </summary>
         public string HOMESCREEN_SIDE_NEWS { get; }
+        /// <summary>
+        /// 主页面-侧栏按钮-战术大厅
+        /// </summary>
+        public string HOMESCREEN_SIDE_TACTICSHALL { get; }
         #endregion
 
         #region 新闻Page相关
@@ -100,6 +104,10 @@
         /// 新闻Page-错误信息-网络连接
         /// </summary>
         public string NEWS_PAGE_ERROR_NETWORK { get; }
+        #endregion
+
+        #region 战术大厅Page相关
+
         #endregion
 
         #endregion

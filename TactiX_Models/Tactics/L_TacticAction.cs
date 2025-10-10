@@ -15,7 +15,7 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// 步骤步数
         /// </summary>
-        public ushort StepNo { get; set; } = 0;
+        public ushort Step { get; set; } = 0;
         /// <summary>
         /// 步骤对应MOD的序号
         /// </summary>
@@ -37,7 +37,7 @@ namespace TactiX_Models.Tactics
         /// <param name="time"></param>
         public L_TacticAction(ushort stepNo, ushort item, uint time)
         {
-            StepNo = stepNo;
+            Step = stepNo;
             Item = item;
             Time = time;
         }

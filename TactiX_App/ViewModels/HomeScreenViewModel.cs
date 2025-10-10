@@ -11,6 +11,7 @@ using NuGet.Versioning;
 using SukiUI;
 
 using TactiX_App.ViewModels.Page;
+using TactiX_App.Views;
 using TactiX_App.Views.Page;
 using TactiX_I18N;
 using TactiX_Logger;
@@ -46,6 +47,10 @@ namespace TactiX_App.ViewModels
         /// 新闻页面组件
         /// </summary>
         public UserControl NewsViewPageControl { get; private set; }
+        /// <summary>
+        /// 战术大厅页面组件
+        /// </summary>
+        public UserControl TacticsHallViewPageControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -60,10 +65,14 @@ namespace TactiX_App.ViewModels
 
             Language = lang.Language;
 
+            #region 组件注册
             // 很遗憾更符合mvvm的写法套用在SukiUI上时似乎不能正常运行
             // 先保证功能正常后续再优化
             NewsViewPageControl = _serviceProvider.GetRequiredService<NewsPageView>();
             NewsViewPageControl.DataContext = _serviceProvider.GetRequiredService<NewsPageViewModel>();
+            TacticsHallViewPageControl = _serviceProvider.GetRequiredService<TacticsHallPageView>();
+            TacticsHallViewPageControl.DataContext = _serviceProvider.GetRequiredService<TacticsHallPageViewModel>();
+            #endregion
 
             Task.Run(CheckVersion);
         }
@@ -163,6 +172,14 @@ namespace TactiX_App.ViewModels
             _config.NightMode = !_config.NightMode;
             SukiTheme.GetInstance().SwitchBaseTheme();
             _oSes.SaveConfig();
+        }
+        /// <summary>
+        /// 打开战术准备页面
+        /// </summary>
+        [RelayCommand]
+        public void OpenPreparePage()
+        {
+            _messenger.Send(new MB_NavigationTo() { NaviType = typeof(LicenseViewModel) });
         }
         #endregion
     }

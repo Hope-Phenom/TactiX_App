@@ -28,6 +28,10 @@ namespace TactiX_Models.Tactics
         /// 战术内容的介绍
         /// </summary>
         public string Description { get; set; } = string.Empty;
+        /// <summary>
+        /// 适用版本
+        /// </summary>
+        public string ApplicableVersion {  get; set; } = string.Empty;
 
         /// <summary>
         /// 战术文件类型，时间线模式或者单步模式

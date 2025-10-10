@@ -26,6 +26,8 @@
         public string TOAST_TITLE_ERROR => "发生了一个错误";
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
+        public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";
+
         public string NEWS_PAGE_VIEW_TITLE_FORUM => "论坛热帖";
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "系统公告";
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "视频推荐";
