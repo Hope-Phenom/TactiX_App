@@ -47,6 +47,7 @@ public partial class App : Application
         services.AddTransient<ErrorPopupViewModel>();
         services.AddTransient<HomeScreenViewModel>(); 
         services.AddTransient<NewsPageViewModel>();
+        services.AddTransient<TacticsHallPageViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
         services.AddTransient<MainView>();
@@ -54,6 +55,7 @@ public partial class App : Application
         services.AddTransient<ErrorPopupView>();
         services.AddTransient<HomeScreenView>();
         services.AddTransient<NewsPageView>();
+        services.AddTransient<TacticsHallPageView>();
 
         var provider = services.BuildServiceProvider(); 
         var vm = provider.GetRequiredService<MainViewModel>();

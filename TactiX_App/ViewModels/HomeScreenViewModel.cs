@@ -1,18 +1,16 @@
-﻿using Avalonia.Collections;
+﻿using System;
+using System.Reflection;
+using System.Threading.Tasks;
+
 using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using NuGet.Versioning;
 using SukiUI;
-using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using TactiX_App.Service;
+
 using TactiX_App.ViewModels.Page;
-using TactiX_App.Views;
 using TactiX_App.Views.Page;
 using TactiX_I18N;
 using TactiX_Logger;

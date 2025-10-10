@@ -1,25 +1,18 @@
-﻿using Avalonia.Collections;
-using Avalonia.Controls;
-using Avalonia.Controls.Documents;
-using Avalonia.Media;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+using Avalonia.Collections;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Material.Icons;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using TactiX_App.Service;
-using TactiX_App.Views;
+
 using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models.MessageBus;
