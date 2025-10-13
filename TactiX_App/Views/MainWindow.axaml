@@ -11,6 +11,7 @@
 				BackgroundStyle="Bubble"
         x:Class="TactiX_App.Views.MainWindow"
 				x:DataType="vm:MainViewModel"
+				x:Name="MainSukiWindow"
 				Icon="avares://TactiX_App/Assets/avalonia-logo.ico"
 				WindowStartupLocation="CenterScreen"
         Title="TactiX">

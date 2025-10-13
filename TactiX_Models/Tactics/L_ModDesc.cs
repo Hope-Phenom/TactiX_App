@@ -15,7 +15,11 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// Mod名称
         /// </summary>
-        public string ModName { get; set; } = string.Empty;
+        public required string ModName { get; set; }
+        /// <summary>
+        /// Mod文件路径
+        /// </summary>
+        public required string TacticsPath { get; set; }
         /// <summary>
         /// Mod版本号
         /// </summary>
@@ -31,10 +35,18 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// 作者，展示用
         /// </summary>
-        public string Author { get; set; } = string.Empty;
+        public required string Author { get; set; }
+        /// <summary>
+        /// 作者的联系邮箱
+        /// </summary>
+        public required string Email { get; set; }
         /// <summary>
         /// 更新时间
         /// </summary>
-        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        public required string UpdateTime { get; set; }
+        /// <summary>
+        /// Mod自描述
+        /// </summary>
+        public required string Desc { get; set; }
     }
 }

@@ -20,13 +20,5 @@ namespace TactiX_Models.Tactics
         /// 展示文本
         /// </summary>
         public string Desc { get; set; } = string.Empty;
-        /// <summary>
-        /// 对应的图像文件的文件名
-        /// </summary>
-        public string Icon { get; set; } = string.Empty;
-        /// <summary>
-        /// 对应的声音文件的文件名
-        /// </summary>
-        public string Audio { get; set; } = string.Empty;
     }
 }

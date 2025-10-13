@@ -1,7 +1,6 @@
 ﻿using System;
-
+using Avalonia;
 using Avalonia.Controls.Notifications;
-using Avalonia.Input;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using SukiUI.Controls;
@@ -14,8 +13,13 @@ using TactiX_OS_Tools;
 namespace TactiX_App.Views;
 
 public partial class MainWindow : SukiWindow,
-    IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>
+    IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>, IRecipient<MB_NavigationTo>
 {
+
+    #region 记录窗体状态
+    private Point _size = new();
+    private bool _isMax;
+    #endregion
 
     public MainWindow()
     {
@@ -103,5 +107,25 @@ public partial class MainWindow : SukiWindow,
         }
     }
 
+    public void Receive(MB_NavigationTo message)
+    {
+        if (message.NaviType.Equals(typeof(LicenseViewModel)))
+        {
+            _size = new Point(Width, Height);
+            _isMax = WindowState == Avalonia.Controls.WindowState.Maximized;
+
+            Width = 200;
+            Height = 200;
+        }
+        else
+        {
+            Width = _size.X; 
+            Height = _size.Y;
+
+            WindowState = _isMax 
+                ? Avalonia.Controls.WindowState.Maximized 
+                : Avalonia.Controls.WindowState.Normal;
+        }
+    }
     #endregion
 }
