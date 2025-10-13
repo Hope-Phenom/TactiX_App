@@ -110,6 +110,21 @@
 
         #endregion
 
+        #region MOD管理View相关
+        /// <summary>
+        /// MOD管理View-Card标题
+        /// </summary>
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER { get; }
+        /// <summary>
+        /// MOD管理View-打开本地目录
+        /// </summary>
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER { get; }
+        /// <summary>
+        /// MOD管理View-本地MOD信息
+        /// </summary>
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO { get; }
+        #endregion
+
         #endregion
 
         #region 错误码部分
@@ -126,7 +141,22 @@
         #endregion
 
         #region 通用部分
+        /// <summary>
+        /// 通用气泡错误提示
+        /// </summary>
         public string TOAST_TITLE_ERROR { get; }
+        /// <summary>
+        /// 通用按钮文本-返回
+        /// </summary>
+        public string BUTTON_TXT_BACK { get; }
+        /// <summary>
+        /// 通用按钮文本-确定
+        /// </summary>
+        public string BUTTON_TXT_SUBMIT { get; }
+        /// <summary>
+        /// 通用按钮文本-刷新
+        /// </summary>
+        public string BUTTON_TXT_REFRESH { get; }
         #endregion
     }
 }

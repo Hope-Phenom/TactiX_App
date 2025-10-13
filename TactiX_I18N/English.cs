@@ -24,6 +24,9 @@
         public string ERROR_MUILT_PROCESS => "Multiple processes have been opened repeatedly, this process will exit!";
 
         public string TOAST_TITLE_ERROR => "An error occurred";
+        public string BUTTON_TXT_BACK => "Back";
+        public string BUTTON_TXT_SUBMIT => "Submit";
+        public string BUTTON_TXT_REFRESH => "Refresh";
 
         public string HOMESCREEN_SIDE_NEWS => "News";
         public string HOMESCREEN_SIDE_TACTICSHALL => "Tactics Hall";
@@ -32,5 +35,9 @@
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "System Announcement";
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "Video Recommendations";
         public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated";
+
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "Local Mod Package(s) Manage";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER => "Open Local Folder";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "Local search found [{0}] available Mod(s).";
     }
 }

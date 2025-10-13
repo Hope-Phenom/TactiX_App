@@ -34,7 +34,7 @@ namespace TactiX_App.Service
                 !.Replace("ViewModels", "Views")
                 !.Replace("ViewModel", "View"))!;
 
-            CurrentView = (UserControl)ActivatorUtilities.CreateInstance(_serviceProvider, viewType);
+            CurrentView = (UserControl)_serviceProvider.GetRequiredService(viewType);
             CurrentView.DataContext = _serviceProvider.GetRequiredService<T>();
         }
 
@@ -48,8 +48,8 @@ namespace TactiX_App.Service
                 !.Replace("ViewModels", "Views")
                 !.Replace("ViewModel", "View"))!;
 
-            CurrentView = (UserControl)ActivatorUtilities.CreateInstance(_serviceProvider, viewType);
-            CurrentView.DataContext = ActivatorUtilities.CreateInstance(_serviceProvider, viewModeType);
+            CurrentView = (UserControl)_serviceProvider.GetRequiredService(viewType);
+            CurrentView.DataContext = _serviceProvider.GetRequiredService(viewModeType);
         }
 
         public void GoBack()

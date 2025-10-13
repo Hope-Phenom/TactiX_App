@@ -24,6 +24,9 @@
         public string ERROR_MUILT_PROCESS => "重复打开了多个进程，本进程将退出！";
 
         public string TOAST_TITLE_ERROR => "发生了一个错误";
+        public string BUTTON_TXT_BACK => "返回";
+        public string BUTTON_TXT_SUBMIT => "确定";
+        public string BUTTON_TXT_REFRESH => "刷新";
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
         public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";
@@ -32,5 +35,9 @@
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "系统公告";
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "视频推荐";
         public string NEWS_PAGE_ERROR_NETWORK => "由于网络问题，未能更新新闻信息";
+
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "本地Mod包管理";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER => "打开本地目录";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "本地检索到[{0}]个可用Mod(s)。";
     }
 }

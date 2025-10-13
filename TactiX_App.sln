@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_Models", "TactiX_Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_Logger", "TactiX_Logger\TactiX_Logger.csproj", "{FD1E2F74-A3E7-4315-94EE-5B2B82E6D44F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TactiX_ModSupport", "TactiX_ModSupport\TactiX_ModSupport.csproj", "{903F162E-B90A-46D0-AE41-5C0346B34223}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{FD1E2F74-A3E7-4315-94EE-5B2B82E6D44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1E2F74-A3E7-4315-94EE-5B2B82E6D44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1E2F74-A3E7-4315-94EE-5B2B82E6D44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903F162E-B90A-46D0-AE41-5C0346B34223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903F162E-B90A-46D0-AE41-5C0346B34223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903F162E-B90A-46D0-AE41-5C0346B34223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903F162E-B90A-46D0-AE41-5C0346B34223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{2D2D402C-D04F-47EF-B92B-2B571C6AC56E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{6131E1F2-1D2D-434F-ACDA-E937C68AB695} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FD1E2F74-A3E7-4315-94EE-5B2B82E6D44F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{903F162E-B90A-46D0-AE41-5C0346B34223} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9113454C-2DDE-4DFB-9317-7AE3A502813E}

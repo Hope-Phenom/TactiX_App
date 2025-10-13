@@ -31,6 +31,7 @@
     <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj" />
     <ProjectReference Include="..\TactiX_Logger\TactiX_Logger.csproj" />
     <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
+    <ProjectReference Include="..\TactiX_ModSupport\TactiX_ModSupport.csproj" />
     <ProjectReference Include="..\Tactix_Network\TactiX_Network.csproj" />
     <ProjectReference Include="..\TactiX_OS_Tools\TactiX_OS_Tools.csproj" />
   </ItemGroup>
@@ -41,6 +42,9 @@
     </Compile>
     <Compile Update="Views\Popup\ErrorPopupView.axaml.cs">
       <DependentUpon>ErrorPopupView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ModsManageView.axaml.cs">
+      <DependentUpon>ModsManageView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

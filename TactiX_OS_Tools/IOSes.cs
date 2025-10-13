@@ -38,5 +38,10 @@ namespace TactiX_OS_Tools
         /// </summary>
         /// <param name="url">Web地址</param>
         public void OpenWeb(string url);
+        /// <summary>
+        /// 检查或创建指定的路径
+        /// </summary>
+        /// <param name="path">路径</param>
+        public void CheckOrCreateDir(string path);
     }
 }

@@ -109,22 +109,24 @@ public partial class MainWindow : SukiWindow,
 
     public void Receive(MB_NavigationTo message)
     {
-        if (message.NaviType.Equals(typeof(LicenseViewModel)))
+        switch (message.WindowsStatus)
         {
-            _size = new Point(Width, Height);
-            _isMax = WindowState == Avalonia.Controls.WindowState.Maximized;
-
-            Width = 200;
-            Height = 200;
-        }
-        else
-        {
-            Width = _size.X; 
-            Height = _size.Y;
-
-            WindowState = _isMax 
-                ? Avalonia.Controls.WindowState.Maximized 
-                : Avalonia.Controls.WindowState.Normal;
+            case 0:
+                Width = _size.X;
+                Height = _size.Y;
+                WindowState = _isMax
+                    ? Avalonia.Controls.WindowState.Maximized
+                    : Avalonia.Controls.WindowState.Normal;
+                break;
+            case 1:
+                _size = new Point(Width, Height);
+                _isMax = WindowState == Avalonia.Controls.WindowState.Maximized;
+                Width = 200;
+                Height = 200;
+                break;
+            case -1:
+            default:
+                break;
         }
     }
     #endregion

@@ -97,10 +97,7 @@ namespace TactiX_OS_Tools
             var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var folderPath = Path.Combine(localPath, AppName);
 
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+            CheckOrCreateDir(folderPath);
 
             return folderPath;
         }
@@ -166,6 +163,14 @@ namespace TactiX_OS_Tools
                 UseShellExecute = true
             });
 #endif
+        }
+
+        public void CheckOrCreateDir(string path)
+        {
+            if (!Directory.Exists(path))
+            { 
+                Directory.CreateDirectory(path);
+            }
         }
     }
 }

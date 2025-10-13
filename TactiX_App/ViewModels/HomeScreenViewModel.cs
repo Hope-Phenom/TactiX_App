@@ -179,7 +179,10 @@ namespace TactiX_App.ViewModels
         [RelayCommand]
         public void OpenPreparePage()
         {
-            _messenger.Send(new MB_NavigationTo() { NaviType = typeof(LicenseViewModel) });
+            _messenger.Send(new MB_NavigationTo() 
+            { 
+                NaviType = typeof(ModsManageViewModel) 
+            });
         }
         #endregion
     }
