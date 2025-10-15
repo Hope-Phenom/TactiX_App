@@ -36,8 +36,12 @@
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "Video Recommendations";
         public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated";
 
-        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "Local Mod Package(s) Manage";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "Local Mod Package(s)";
         public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER => "Open Local Folder";
         public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "Local search found [{0}] available Mod(s).";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO => "Selected MOD information";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION => "MOD Management";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED => "Currently enabled MODs:";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "Enable selected MOD";
     }
 }

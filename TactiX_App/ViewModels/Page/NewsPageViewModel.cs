@@ -59,7 +59,7 @@ namespace TactiX_App.ViewModels.Page
         {
             await Task.Run(() => 
             {
-                _oses.OpenWeb(url);
+                _oses.OpenUrl(url);
             });
         }
 

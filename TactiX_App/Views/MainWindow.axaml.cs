@@ -102,7 +102,7 @@ public partial class MainWindow : SukiWindow,
         {
             if (DataContext is MainViewModel vm)
             { 
-                vm.OSTools.OSes.OpenWeb(msg.Release_Url);
+                vm.OSTools.OSes.OpenUrl(msg.Release_Url);
             }
         }
     }

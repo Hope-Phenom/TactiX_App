@@ -36,8 +36,12 @@
         public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "视频推荐";
         public string NEWS_PAGE_ERROR_NETWORK => "由于网络问题，未能更新新闻信息";
 
-        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "本地Mod包管理";
+        public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "本地Mod包";
         public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER => "打开本地目录";
         public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "本地检索到[{0}]个可用Mod(s)。";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO => "选定MOD信息";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION => "MOD管理";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED => "当前启用MOD：";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "启用选定MOD";
     }
 }

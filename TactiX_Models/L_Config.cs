@@ -18,5 +18,9 @@
         /// 是否是夜间模式
         /// </summary>
         public bool NightMode { get; set; } = false;
+        /// <summary>
+        /// 当前启用的MOD的路径
+        /// </summary>
+        public string CurrentlyEnabledMOD { get; set; } = "None.";
     }
 }

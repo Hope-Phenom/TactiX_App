@@ -154,7 +154,7 @@ namespace TactiX_OS_Tools
             File.WriteAllText(filePath, JsonConvert.SerializeObject(Config, Formatting.Indented));
         }
 
-        public void OpenWeb(string url)
+        public void OpenUrl(string url)
         {
 #if OS_WINDOWS
             Process.Start(new ProcessStartInfo

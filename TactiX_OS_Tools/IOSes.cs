@@ -37,7 +37,7 @@ namespace TactiX_OS_Tools
         /// 跳转Web地址
         /// </summary>
         /// <param name="url">Web地址</param>
-        public void OpenWeb(string url);
+        public void OpenUrl(string url);
         /// <summary>
         /// 检查或创建指定的路径
         /// </summary>

@@ -160,7 +160,7 @@ namespace TactiX_App.ViewModels
         [RelayCommand]
         public async Task OpenWebUrl(string url)
         {
-            await Task.Run(() => _oSes.OpenWeb(url));
+            await Task.Run(() => _oSes.OpenUrl(url));
         }
 
         /// <summary>

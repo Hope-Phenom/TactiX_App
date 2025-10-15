@@ -20,5 +20,10 @@ namespace TactiX_Models.Tactics
         /// 展示文本
         /// </summary>
         public string Desc { get; set; } = string.Empty;
+
+        public override string ToString()
+        {
+            return $"{Abbr}: {Desc}";
+        }
     }
 }

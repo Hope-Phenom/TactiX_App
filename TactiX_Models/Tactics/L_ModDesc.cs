@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,10 @@ namespace TactiX_Models.Tactics
         /// 作者的联系邮箱
         /// </summary>
         public required string Email { get; set; }
+        /// <summary>
+        /// MOD项目的主页，可以是论坛发布帖的地址或个人网站等等，也可以是QQ频道的加入链接
+        /// </summary>
+        public required string ProjectWebSite { get; set; }
         /// <summary>
         /// 更新时间
         /// </summary>
