@@ -43,13 +43,21 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     /// OSTools绑定窗体句柄
     /// </summary>
-    public void OsesSetHandle(IOSes OSes)
+    private void OsesSetHandle(IOSes OSes)
     {
         var platformHandle = TryGetPlatformHandle();
         if (platformHandle != null)
         {
             OSes.SetHandle(platformHandle.Handle);
         }
+    }
+
+    /// <summary>
+    /// 将窗体设置为战术播放模式（不再像旧版弹出新窗体）
+    /// </summary>
+    private void SetWindowToTacticPlayMode()
+    {
+
     }
 
     #region MessageBus 消息处理

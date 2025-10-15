@@ -186,9 +186,9 @@ namespace TactiX_App.ViewModels
         [RelayCommand]
         public void OpenPreparePage()
         {
-            _messenger.Send(new MB_NavigationTo() 
-            { 
-                NaviType = typeof(ModsManagePageViewModel) 
+            _messenger.Send(new MB_NavigationTo()
+            {
+                NaviType = typeof(TacticPlayViewModel)
             });
         }
         #endregion
