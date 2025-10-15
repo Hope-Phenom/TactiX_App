@@ -26,14 +26,6 @@ namespace TactiX_Models.Tactics
         /// </summary>
         public ulong ModVersion { get; set; } = ulong.MinValue;
         /// <summary>
-        /// 动作的映射关系
-        /// </summary>
-        public List<L_ModItem> Actions { get; set; } = new();
-        /// <summary>
-        /// 单位的映射关系
-        /// </summary>
-        public List<L_ModItem> Units { get; set; } = new();
-        /// <summary>
         /// 作者，展示用
         /// </summary>
         public required string Author { get; set; }
@@ -53,5 +45,13 @@ namespace TactiX_Models.Tactics
         /// Mod自描述
         /// </summary>
         public required string Desc { get; set; }
+        /// <summary>
+        /// 动作的映射关系
+        /// </summary>
+        public List<L_ModItem> Actions { get; set; } = new();
+        /// <summary>
+        /// 单位的映射关系
+        /// </summary>
+        public List<L_ModItem> Units { get; set; } = new();
     }
 }

@@ -29,24 +29,37 @@
 				</Grid.ColumnDefinitions>
 				<suki:GlassCard Grid.Column="0">
 					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_HEADER}">
-						<ListBox Margin="0" ItemsSource="{Binding ModsList}"
-								 SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+						<Grid Margin="0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="10" />
+								<RowDefinition Height="128" />
+							</Grid.RowDefinitions>							
+							<ListBox Margin="0" ItemsSource="{Binding ModsList}" Grid.Row="0"
+									 SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+							<Image Width="128" Height="128" Source="{Binding SelectedModIcon}" 
+			                       Grid.Row="2" />
+						</Grid>
 					</suki:GroupBox>
 				</suki:GlassCard>
 				<suki:GlassCard Grid.Column="2">
 					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_INFO}">
 						<apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
-						                  IsAutoNameWidth="True" IsTitleVisible="False"/>
+						                  IsAutoNameWidth="True" IsTitleVisible="False" 
+										  IsQuickFilterVisible="False" />
 					</suki:GroupBox>
 				</suki:GlassCard>
 				<suki:GlassCard Grid.Column="4">
 					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_ACTION}">
 						<StackPanel Orientation="Vertical">
 							<Label Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED}" />
-							<Label FontWeight="Bold" FontStyle="Italic" 
-								   Content="{Binding CurrMod}" />
+							<Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
 							<Grid Height="15" />
-							<Button />
+							<Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED}"
+			                        Command="{Binding EnableSelectedModCommand}" />
+							<Grid Height="15" />
+							<Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED}"
+			                        Command="{Binding DeleteSelectedModCommand}" />
 						</StackPanel>
 					</suki:GroupBox>
 				</suki:GlassCard>

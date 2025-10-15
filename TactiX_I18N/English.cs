@@ -41,7 +41,10 @@
         public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "Local search found [{0}] available Mod(s).";
         public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO => "Selected MOD information";
         public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION => "MOD Management";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR => "An error occurred while attempting to read the [{0}] mod package. Error message: {1}";
         public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED => "Currently enabled MODs:";
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "Enable selected MOD";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED => "Delete selected MOD";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR => "An error occurred while attempting to delete the [{0}] mod package. Error message: {1}";
     }
 }

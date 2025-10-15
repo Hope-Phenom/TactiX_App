@@ -132,6 +132,10 @@
         /// </summary>
         public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION { get; }
         /// <summary>
+        /// MOD管理View-选定MOD操作-装载错误
+        /// </summary>
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR { get; }
+        /// <summary>
         /// MOD管理View-选定MOD操作-已启用MOD展示
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED { get; }
@@ -139,6 +143,14 @@
         /// MOD管理View-选定MOD操作-启用选定MOD
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED { get; }
+        /// <summary>
+        /// MOD管理View-选定MOD操作-删除选定MOD
+        /// </summary>
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED { get; }
+        /// <summary>
+        /// MOD管理View-选定MOD操作-删除选定MOD错误
+        /// </summary>
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR { get; }
         #endregion
 
         #endregion

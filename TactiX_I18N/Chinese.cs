@@ -41,7 +41,10 @@
         public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "本地检索到[{0}]个可用Mod(s)。";
         public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO => "选定MOD信息";
         public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION => "MOD管理";
+        public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR => "尝试读取[{0}]Mod包时发生错误，错误信息：{1}";
         public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED => "当前启用MOD：";
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "启用选定MOD";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED => "删除选定MOD";
+        public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR => "尝试删除[{0}]Mod包时发生错误，错误信息：{1}";
     }
 }
