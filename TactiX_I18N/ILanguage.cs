@@ -85,6 +85,10 @@
         /// 主页面-侧栏按钮-战术大厅
         /// </summary>
         public string HOMESCREEN_SIDE_TACTICSHALL { get; }
+        /// <summary>
+        /// 主页面-侧栏按钮-MOD管理
+        /// </summary>
+        public string HOMESCREEN_SIDE_MOD_MANANGMENT { get; }
         #endregion
 
         #region 新闻Page相关
@@ -110,45 +114,45 @@
 
         #endregion
 
-        #region MOD管理View相关
+        #region MOD管理Page相关
         /// <summary>
-        /// MOD管理View-本地MOD列表-HEADER
+        /// MOD管理Page-本地MOD列表-HEADER
         /// </summary>
         public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER { get; }
         /// <summary>
-        /// MOD管理View-打开本地目录
+        /// MOD管理Page-打开本地目录
         /// </summary>
         public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER { get; }
         /// <summary>
-        /// MOD管理View-本地MOD信息
+        /// MOD管理Page-本地MOD信息
         /// </summary>
         public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO { get; }
         /// <summary>
-        /// MOD管理View-选定MOD信息-HEADER
+        /// MOD管理Page-选定MOD信息-HEADER
         /// </summary>
         public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作
+        /// MOD管理Page-选定MOD操作
         /// </summary>
         public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作-装载错误
+        /// MOD管理Page-选定MOD操作-装载错误
         /// </summary>
         public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作-已启用MOD展示
+        /// MOD管理Page-选定MOD操作-已启用MOD展示
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作-启用选定MOD
+        /// MOD管理Page-选定MOD操作-启用选定MOD
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作-删除选定MOD
+        /// MOD管理Page-选定MOD操作-删除选定MOD
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED { get; }
         /// <summary>
-        /// MOD管理View-选定MOD操作-删除选定MOD错误
+        /// MOD管理Page-选定MOD操作-删除选定MOD错误
         /// </summary>
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR { get; }
         #endregion

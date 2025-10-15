@@ -44,8 +44,8 @@
     <Compile Update="Views\Popup\ErrorPopupView.axaml.cs">
       <DependentUpon>ErrorPopupView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ModsManageView.axaml.cs">
-      <DependentUpon>ModsManageView.axaml</DependentUpon>
+    <Compile Update="Views\Page\ModsManagePageView.axaml.cs">
+      <DependentUpon>ModsManagePageView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

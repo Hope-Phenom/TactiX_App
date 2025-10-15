@@ -2,14 +2,14 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
+			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
 			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 			 xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
 			 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
 			 mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
-			 x:Class="TactiX_App.Views.ModsManageView"
-			 x:DataType="vm:ModsManageViewModel">
+			 x:Class="TactiX_App.Views.Page.ModsManagePageView"
+			 x:DataType="vm:ModsManagePageViewModel">
 
 	<Grid Margin="10">
 		<Grid>
@@ -21,11 +21,11 @@
 
 			<Grid Grid.Row="0">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="10" />
 					<ColumnDefinition Width="2*" />
 					<ColumnDefinition Width="10" />
-					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="3*" />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition Width="250" />
 				</Grid.ColumnDefinitions>
 				<suki:GlassCard Grid.Column="0">
 					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_HEADER}">
@@ -68,23 +68,18 @@
 			<suki:GlassCard Grid.Row="2">
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="100" />
-						<ColumnDefinition Width="10" />
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="10" />
 						<ColumnDefinition Width="100" />
 						<ColumnDefinition Width="10" />
 						<ColumnDefinition Width="200" />
 					</Grid.ColumnDefinitions>
-					<Button Grid.Column="0"
-							Content="{Binding Language.BUTTON_TXT_BACK}"
-							Command="{Binding NaviBackCommand}" />
-					<TextBlock Margin="0" Grid.Column="2" Text="{Binding Info}"
+					<TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
 							   VerticalAlignment="Center" HorizontalAlignment="Center" />
-					<Button Grid.Column="4"
+					<Button Grid.Column="2"
 							Content="{Binding Language.BUTTON_TXT_REFRESH}"
 							Command="{Binding CheckLocalModsCommand}" />
-					<Button Grid.Column="6"
+					<Button Grid.Column="4"
 							Content="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER}"
 							Command="{Binding OpenLocalFolderCommand}" />
 				</Grid>

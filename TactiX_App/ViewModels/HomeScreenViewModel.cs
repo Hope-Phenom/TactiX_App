@@ -51,6 +51,10 @@ namespace TactiX_App.ViewModels
         /// 战术大厅页面组件
         /// </summary>
         public UserControl TacticsHallViewPageControl { get; private set; }
+        /// <summary>
+        /// MOD管理页面组件
+        /// </summary>
+        public UserControl ModsManagerPageViewControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -66,12 +70,15 @@ namespace TactiX_App.ViewModels
             Language = lang.Language;
 
             #region 组件注册
-            // 很遗憾更符合mvvm的写法套用在SukiUI上时似乎不能正常运行
+            // 很遗憾更符合mvvm的写法，给SukiSideMenu绑定数据源
+            // 套用在SukiUI上时似乎不能正常运行
             // 先保证功能正常后续再优化
             NewsViewPageControl = _serviceProvider.GetRequiredService<NewsPageView>();
             NewsViewPageControl.DataContext = _serviceProvider.GetRequiredService<NewsPageViewModel>();
             TacticsHallViewPageControl = _serviceProvider.GetRequiredService<TacticsHallPageView>();
             TacticsHallViewPageControl.DataContext = _serviceProvider.GetRequiredService<TacticsHallPageViewModel>();
+            ModsManagerPageViewControl = _serviceProvider.GetRequiredService<ModsManagePageView>();
+            ModsManagerPageViewControl.DataContext = _serviceProvider.GetRequiredService<ModsManagePageViewModel>();
             #endregion
 
             Task.Run(CheckVersion);
@@ -181,7 +188,7 @@ namespace TactiX_App.ViewModels
         {
             _messenger.Send(new MB_NavigationTo() 
             { 
-                NaviType = typeof(ModsManageViewModel) 
+                NaviType = typeof(ModsManagePageViewModel) 
             });
         }
         #endregion

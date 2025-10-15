@@ -16,9 +16,9 @@ using TactiX_Models.Tactics;
 using TactiX_ModSupport;
 using TactiX_OS_Tools;
 
-namespace TactiX_App.ViewModels
+namespace TactiX_App.ViewModels.Page
 {
-    public partial class ModsManageViewModel : ViewModelBase
+    public partial class ModsManagePageViewModel : ViewModelBase
     {
         #region DI注入
         public ILanguage Language { get; private set; }
@@ -77,7 +77,7 @@ namespace TactiX_App.ViewModels
         public Bitmap? selectedModIcon;
         #endregion
 
-        public ModsManageViewModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
+        public ModsManagePageViewModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
             IOSTools oSTools)
         {
             Language = lang.Language;

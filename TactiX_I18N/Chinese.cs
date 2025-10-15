@@ -30,6 +30,7 @@
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
         public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";
+        public string HOMESCREEN_SIDE_MOD_MANANGMENT => "MOD管理";
 
         public string NEWS_PAGE_VIEW_TITLE_FORUM => "论坛热帖";
         public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "系统公告";

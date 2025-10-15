@@ -11,6 +11,7 @@
 			 x:Class="TactiX_App.Views.HomeScreenView">
 
 	<suki:SukiSideMenu IsSearchEnabled="True" SelectionMode="Toggle" x:Name="SideMenu">
+
 		<suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_NEWS}"
 							   Classes="Compact">
 			<suki:SukiSideMenuItem.Icon>
@@ -20,6 +21,7 @@
 				<ContentControl Content="{Binding NewsViewPageControl}"/>
 			</suki:SukiSideMenuItem.PageContent>
 		</suki:SukiSideMenuItem>
+
 		<suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_TACTICSHALL}"
 							   Classes="Compact">
 			<suki:SukiSideMenuItem.Icon>
@@ -27,6 +29,16 @@
 			</suki:SukiSideMenuItem.Icon>
 			<suki:SukiSideMenuItem.PageContent>
 				<ContentControl Content="{Binding TacticsHallViewPageControl}"/>
+			</suki:SukiSideMenuItem.PageContent>
+		</suki:SukiSideMenuItem>
+
+		<suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_MOD_MANANGMENT}"
+							   Classes="Compact">
+			<suki:SukiSideMenuItem.Icon>
+				<materialIcons:MaterialIcon Kind="PackageVariantClosed" />
+			</suki:SukiSideMenuItem.Icon>
+			<suki:SukiSideMenuItem.PageContent>
+				<ContentControl Content="{Binding ModsManagerPageViewControl}"/>
 			</suki:SukiSideMenuItem.PageContent>
 		</suki:SukiSideMenuItem>
 
