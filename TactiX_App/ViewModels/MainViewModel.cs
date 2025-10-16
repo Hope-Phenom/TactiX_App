@@ -9,6 +9,7 @@ using SukiUI;
 using SukiUI.Controls;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
+using System;
 using TactiX_App.Service;
 using TactiX_Logger;
 using TactiX_Models;
@@ -23,6 +24,7 @@ public partial class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>,
     private readonly IMessenger _messenger;
     private readonly Logger _logger;
     private readonly L_Config _config;
+    private readonly IServiceProvider _serviceProvider;
     #endregion
 
     #region 常量
@@ -33,13 +35,14 @@ public partial class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>,
     #endregion
 
     public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network, 
-        IMessenger messenger, ILoggerContainer loggerContainer)
+        IMessenger messenger, ILoggerContainer loggerContainer, IServiceProvider serviceProvider)
     {
         OSTools = oSTools;
         Navigation = navigation;
         _network = network;
         _messenger = messenger;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
+        _serviceProvider = serviceProvider;
 
         _config = OSTools.OSes.LoadConfig();
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TactiX_App.ViewModels
+namespace TactiX_App.ViewModels.Popup
 {
-    public class TacticPlayViewModel : ViewModelBase
+    public class TacticPlayWindowModel : ViewModelBase
     {
 
     }

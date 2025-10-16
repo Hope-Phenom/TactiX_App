@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+		xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="740" d:DesignHeight="160"
+        x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
+        Topmost="True"
+        Width="740" Height="160"
+        Title="TacticPlayWindow">
+  Welcome to Avalonia!
+</Window>

@@ -180,16 +180,14 @@ namespace TactiX_App.ViewModels
             SukiTheme.GetInstance().SwitchBaseTheme();
             _oSes.SaveConfig();
         }
+
         /// <summary>
         /// 打开战术准备页面
         /// </summary>
         [RelayCommand]
         public void OpenPreparePage()
-        {
-            _messenger.Send(new MB_NavigationTo()
-            {
-                NaviType = typeof(TacticPlayViewModel)
-            });
+        { 
+            _messenger.Send(new MB_OpenTacticPlayWindow());
         }
         #endregion
     }
