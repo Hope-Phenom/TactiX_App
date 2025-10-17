@@ -47,5 +47,9 @@
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "Enable selected MOD";
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED => "Delete selected MOD";
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR => "An error occurred while attempting to delete the [{0}] mod package. Error message: {1}";
+
+        public string TACTIC_PLAYING_MOD_NOT_SELECTED => "No MOD file selected, unable to open the tactical playback interface. Please go to the MOD Management tab to configure.";
+        public string TACTIC_PLAYING_MOD_NOT_EXISTS => "The configured MOD file does not exist, please check in the MOD management tab.";
+        public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "The MOD file you attempted to load is in an incorrect format. Please check it in the MOD management tab.";
     }
 }

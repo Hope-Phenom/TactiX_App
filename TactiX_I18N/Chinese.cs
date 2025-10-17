@@ -47,5 +47,9 @@
         public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "启用选定MOD";
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED => "删除选定MOD";
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR => "尝试删除[{0}]Mod包时发生错误，错误信息：{1}";
+
+        public string TACTIC_PLAYING_MOD_NOT_SELECTED => "没有选定MOD文件，无法打开战术播放界面。请前往MOD管理选项卡进行配置。";
+        public string TACTIC_PLAYING_MOD_NOT_EXISTS => "配置的MOD文件不存在，请前往MOD管理选项卡进行检查。";
+        public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "尝试加载的MOD文件格式不正确，请前往MOD管理选项卡进行检查。";
     }
 }

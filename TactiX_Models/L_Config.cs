@@ -21,7 +21,7 @@
         /// <summary>
         /// 当前启用的MOD的路径
         /// </summary>
-        public string CurrentlyEnabledMOD { get; set; } = "None.";
+        public string CurrentlyEnabledMOD { get; set; } = string.Empty;
         /// <summary>
         /// 战术播放模式下的透明度
         /// </summary>

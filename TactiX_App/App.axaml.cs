@@ -1,10 +1,15 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
-
+using NLog;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using TactiX_App.Service;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Page;
@@ -45,7 +50,7 @@ public partial class App : Application
         services.AddTransient<MainViewModel>();
         services.AddTransient<LicenseViewModel>();
         services.AddTransient<ErrorPopupViewModel>();
-        services.AddTransient<HomeScreenViewModel>(); 
+        services.AddTransient<HomeScreenViewModel>();
         services.AddTransient<NewsPageViewModel>();
         services.AddTransient<TacticsHallPageViewModel>();
         services.AddTransient<ModsManagePageViewModel>();
@@ -61,7 +66,8 @@ public partial class App : Application
         services.AddTransient<ModsManagePageView>();
         services.AddTransient<TacticPlayWindow>();
 
-        var provider = services.BuildServiceProvider(); 
+        var provider = services.BuildServiceProvider();
+        var logger = provider.GetRequiredService<ILoggerContainer>().Builder.GetCurrentClassLogger();
         var vm = provider.GetRequiredService<MainViewModel>();
 
         // Line below is needed to remove Avalonia data validation.

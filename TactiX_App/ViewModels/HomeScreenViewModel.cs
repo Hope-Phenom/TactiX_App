@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
+using TactiX_ModSupport;
 using TactiX_Network;
 using TactiX_OS_Tools;
 
@@ -186,8 +188,67 @@ namespace TactiX_App.ViewModels
         /// </summary>
         [RelayCommand]
         public void OpenPreparePage()
-        { 
-            _messenger.Send(new MB_OpenTacticPlayWindow());
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(_config.CurrentlyEnabledMOD))
+                {
+                    _messenger.Send(new MB_ToastPureText()
+                    {
+                        Message = Language.TACTIC_PLAYING_MOD_NOT_SELECTED,
+                        Title = Language.TOAST_TITLE_ERROR,
+                        Type = MB_Enum_ToastType.Error
+                    });
+
+                    return;
+                }
+
+                if (!File.Exists(_config.CurrentlyEnabledMOD))
+                {
+                    _messenger.Send(new MB_ToastPureText()
+                    {
+                        Message = Language.TACTIC_PLAYING_MOD_NOT_EXISTS,
+                        Title = Language.TOAST_TITLE_ERROR,
+                        Type = MB_Enum_ToastType.Error
+                    });
+
+                    return;
+                }
+
+                using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+
+                if (mod.ModDesc == null)
+                {
+                    _messenger.Send(new MB_ToastPureText()
+                    {
+                        Message = Language.TACTIC_PLAYING_MOD_FORMAT_ERROR,
+                        Title = Language.TOAST_TITLE_ERROR,
+                        Type = MB_Enum_ToastType.Error
+                    });
+
+                    return;
+                }
+
+                _messenger.Send(new MB_OpenTacticPlayWindow());
+            }
+            catch (FileNotFoundException)
+            {
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = Language.TACTIC_PLAYING_MOD_FORMAT_ERROR,
+                    Title = Language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+            }
+            catch (Exception ex)
+            {
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = ex.Message,
+                    Title = Language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+            }
         }
         #endregion
     }

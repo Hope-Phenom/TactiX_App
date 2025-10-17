@@ -157,6 +157,21 @@
         public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR { get; }
         #endregion
 
+        #region 战术播放Window相关
+        /// <summary>
+        /// 战术播放Window-没有选定MOD文件
+        /// </summary>
+        public string TACTIC_PLAYING_MOD_NOT_SELECTED { get; }
+        /// <summary>
+        /// 战术播放Window-MOD文件不存在
+        /// </summary>
+        public string TACTIC_PLAYING_MOD_NOT_EXISTS { get; }
+        /// <summary>
+        /// 战术播放Window-MOD文件格式不正确
+        /// </summary>
+        public string TACTIC_PLAYING_MOD_FORMAT_ERROR { get; }
+        #endregion
+
         #endregion
 
         #region 错误码部分
