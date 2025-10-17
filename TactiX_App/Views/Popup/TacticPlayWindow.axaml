@@ -1,14 +1,77 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
 		xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        mc:Ignorable="d" d:DesignWidth="740" d:DesignHeight="160"
-        x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
-        Topmost="True"
-        Width="740" Height="160"
-        Title="TacticPlayWindow">
-  Welcome to Avalonia!
+		mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+		x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
+		x:DataType="vm:TacticPlayWindowModel"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		SystemDecorations="None"
+		CanMaximize="False"
+		CanMinimize="False"
+		CanResize="False"
+		Topmost="True"
+		Width="700"
+		Height="{Binding UIHeight}"
+		Title="TacticPlayWindow">	
+
+	<Design.DataContext>
+		<vm:TacticPlayWindowModel UIHeight="500"
+								  HorizontalLineHeight="10"
+								  GroupHeight="*"
+								  MaterialIconKind="ArrowExpandUp"/>
+	</Design.DataContext>
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="160" />
+			<RowDefinition Height="{Binding HorizontalLineHeight}" />
+			<RowDefinition Height="{Binding GroupHeight}" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="40" />
+		</Grid.RowDefinitions>
+
+		<suki:GlassCard Grid.Row="0">
+			<Grid Margin="0">
+				<Grid Margin="0" IsVisible="{Binding IsPrepare}">
+
+				</Grid>
+				<Grid Margin="0" IsVisible="{Binding !IsPrepare}">
+
+				</Grid>
+			</Grid>
+		</suki:GlassCard>
+
+		<suki:GlassCard Grid.Row="2">
+		</suki:GlassCard>
+
+		<Grid Grid.Row="4" Width="380">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="120" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="120" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="120" />
+			</Grid.ColumnDefinitions>
+
+			<Button Width="120" Grid.Column="0" Command="{Binding PullWindowCommand}">
+				<materialIcons:MaterialIcon Kind="{Binding MaterialIconKind}"
+											Width="25" Height="25" />
+			</Button>
+			<Button Width="120" Grid.Column="2" Command="{Binding CloseWindowCommand}">
+				<materialIcons:MaterialIcon Kind="CloseCircleOutline"
+											Width="25" Height="25" />
+			</Button>
+			<Button Width="120" Grid.Column="4" Command="{Binding CloseWindowCommand}">
+				<materialIcons:MaterialIcon Kind="PlayCircleOutline"
+											Width="25" Height="25" />
+			</Button>
+		</Grid>
+	</Grid>
+
 </Window>

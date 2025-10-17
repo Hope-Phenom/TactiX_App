@@ -1,27 +1,52 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.Messaging;
 using HarfBuzzSharp;
 using System;
+using System.Collections.Generic;
+using TactiX_I18N;
+using TactiX_Models;
 using TactiX_Models.MessageBus;
+using TactiX_OS_Tools;
 
 namespace TactiX_App.Views.Popup;
 
-public partial class TacticPlayWindow : Window
+public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
 {
     #region DI容器注入
     private readonly IMessenger _messenger;
+    private readonly IOSes _oses;
+    private readonly L_Config _config;
     #endregion
 
-    public TacticPlayWindow(IMessenger messenger)
+    #region 变量/常量
+    private const string WINDOW_NAME = "TacticPlayWindow";
+    /// <summary>
+    /// 缓存启动时默认的背景，用于后面鼠标移入移出的状态恢复
+    /// </summary>
+    private readonly IBrush? _background;
+    #endregion
+
+    public TacticPlayWindow(IMessenger messenger, IOSTools oSTools, ILang lang)
     {
         InitializeComponent();
 
         Closed += TacticPlayWindow_Closed;
         Opened += TacticPlayWindow_Opened;
+        PointerPressed += TacticPlayWindow_PointerPressed;
+        PointerEntered += TacticPlayWindow_PointerEntered;
+        PointerExited += TacticPlayWindow_PointerExited;
 
         _messenger = messenger;
+        _oses = oSTools.OSes;
+        _config = _oses.LoadConfig();
+
+        _messenger.RegisterAll(this);
+
+        _background = Background;
     }
 
 #if DEBUG
@@ -47,5 +72,34 @@ public partial class TacticPlayWindow : Window
         {
             WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
         });
+    }
+
+    private void TacticPlayWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.Pointer.Type == PointerType.Mouse)
+        {
+            BeginMoveDrag(e);
+        }
+    }
+
+    private void TacticPlayWindow_PointerExited(object? sender, PointerEventArgs e)
+    {
+        TransparencyLevelHint = new List<WindowTransparencyLevel>() { WindowTransparencyLevel.Transparent };
+        Background = Brushes.Transparent;
+        Opacity = _config.Opacity;
+    }
+
+    private void TacticPlayWindow_PointerEntered(object? sender, PointerEventArgs e)
+    {
+        TransparencyLevelHint = [];
+        Background = _background;
+        Opacity = 1;
+    }
+
+    public void Receive(MB_WindowClose message)
+    {
+        if (!message.Name.Equals(WINDOW_NAME)) return;
+
+        Close();
     }
 }
