@@ -191,6 +191,7 @@ namespace TactiX_App.ViewModels
         {
             try
             {
+                // 检查是否进行了配置
                 if (string.IsNullOrEmpty(_config.CurrentlyEnabledMOD))
                 {
                     _messenger.Send(new MB_ToastPureText()
@@ -203,6 +204,7 @@ namespace TactiX_App.ViewModels
                     return;
                 }
 
+                // 检查文件是否存在
                 if (!File.Exists(_config.CurrentlyEnabledMOD))
                 {
                     _messenger.Send(new MB_ToastPureText()
@@ -215,8 +217,8 @@ namespace TactiX_App.ViewModels
                     return;
                 }
 
+                // 检查能否正常读取
                 using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
-
                 if (mod.ModDesc == null)
                 {
                     _messenger.Send(new MB_ToastPureText()
@@ -229,6 +231,7 @@ namespace TactiX_App.ViewModels
                     return;
                 }
 
+                // 通知打开播放界面
                 _messenger.Send(new MB_OpenTacticPlayWindow());
             }
             catch (FileNotFoundException)

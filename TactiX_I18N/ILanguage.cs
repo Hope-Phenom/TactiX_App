@@ -170,6 +170,10 @@
         /// 战术播放Window-MOD文件格式不正确
         /// </summary>
         public string TACTIC_PLAYING_MOD_FORMAT_ERROR { get; }
+        /// <summary>
+        /// 战术播放Window-选定战术文件
+        /// </summary>
+        public string TACTIC_PLAYING_LABEL_FILE_SELECTED { get; }
         #endregion
 
         #endregion

@@ -51,5 +51,6 @@
         public string TACTIC_PLAYING_MOD_NOT_SELECTED => "没有选定MOD文件，无法打开战术播放界面。请前往MOD管理选项卡进行配置。";
         public string TACTIC_PLAYING_MOD_NOT_EXISTS => "配置的MOD文件不存在，请前往MOD管理选项卡进行检查。";
         public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "尝试加载的MOD文件格式不正确，请前往MOD管理选项卡进行检查。";
+        public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "选择战术文件：";
     }
 }
