@@ -39,7 +39,7 @@
 		<suki:GlassCard Grid.Row="0">
 			<Grid Margin="0">
 				<Grid Margin="0" IsVisible="{Binding IsPrepare}">
-
+					<Image Margin="0" Source="{Binding TitleBarImage}" />
 				</Grid>
 				<Grid Margin="0" IsVisible="{Binding !IsPrepare}">
 
