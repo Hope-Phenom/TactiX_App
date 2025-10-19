@@ -17,9 +17,9 @@ namespace TactiX_Models.Tactics
         /// </summary>
         public ushort Step { get; set; } = 0;
         /// <summary>
-        /// 步骤对应MOD的序号
+        /// 步骤对应MOD单位的缩写
         /// </summary>
-        public ushort Item { get; set; } = 0;
+        public string ItemAbbr { get; set; } = string.Empty;
         /// <summary>
         /// 时间/秒
         /// </summary>
@@ -35,10 +35,10 @@ namespace TactiX_Models.Tactics
         /// <param name="stepNo"></param>
         /// <param name="item"></param>
         /// <param name="time"></param>
-        public L_TacticAction(ushort stepNo, ushort item, uint time)
+        public L_TacticAction(ushort stepNo, string itemAbbr, uint time)
         {
             Step = stepNo;
-            Item = item;
+            ItemAbbr = itemAbbr;
             Time = time;
         }
     }

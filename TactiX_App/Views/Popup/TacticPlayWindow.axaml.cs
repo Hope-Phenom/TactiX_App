@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Messaging;
 using HarfBuzzSharp;
 using System;
@@ -47,6 +48,10 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
         _messenger.RegisterAll(this);
 
         _background = Background;
+
+        RequestedThemeVariant = _config.NightMode
+            ? ThemeVariant.Dark
+            : ThemeVariant.Light;
     }
 
 #if DEBUG
@@ -85,14 +90,12 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
     private void TacticPlayWindow_PointerExited(object? sender, PointerEventArgs e)
     {
         TransparencyLevelHint = new List<WindowTransparencyLevel>() { WindowTransparencyLevel.Transparent };
-        Background = Brushes.Transparent;
         Opacity = _config.Opacity;
     }
 
     private void TacticPlayWindow_PointerEntered(object? sender, PointerEventArgs e)
     {
         TransparencyLevelHint = [];
-        Background = _background;
         Opacity = 1;
     }
 

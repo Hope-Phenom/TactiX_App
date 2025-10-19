@@ -44,7 +44,7 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// 更新时间
         /// </summary>
-        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        public string UpdateTime { get; set; } = string.Empty;
         /// <summary>
         /// 动作列表
         /// </summary>

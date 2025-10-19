@@ -23,6 +23,7 @@ using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
 using TactiX_ModSupport;
 using TactiX_OS_Tools;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TactiX_App.ViewModels.Popup
 {
@@ -41,6 +42,7 @@ namespace TactiX_App.ViewModels.Popup
         private const string TITLE_BAR_IMAGE = "titlebar.png";
         private const string TACTICS_FOLDER = "Tactics";
         private const string TACTICS_SEARCH_PATTERN = "*.tactix";
+        private const string ICON_FOLDER = "icons";
         private readonly TimeSpan NORMAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 1, 0);
         private readonly TimeSpan REAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 0, 968);
         private readonly Point PLAYING_SIZE = new(700, 180);
@@ -52,16 +54,33 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private readonly ModPackage _modPackage;
         /// <summary>
+        /// 当前装载的Mod的缓存
+        /// </summary>
+        private readonly ModResourceCache<Bitmap> _modResourceCache;
+        /// <summary>
         /// 战术文件的路径前缀
         /// </summary>
         private readonly string _filePrefix;
+        /// <summary>
+        /// 定时器
+        /// </summary>
+        private DispatcherTimer _dispatcherTimer;
+        /// <summary>
+        /// 播放的序号指针
+        /// </summary>
+        private int _currIndex;
+        /// <summary>
+        /// Mod中的对象列表（Action和Unit合并）
+        /// </summary>
+        private List<L_ModItem> _modItems;
         #endregion
 
         #region 数据绑定-UI大小等控制
         /// <summary>
         /// UI是否是准备模式
         /// </summary>
-        public bool IsPrepare { get; private set; }
+        [ObservableProperty]
+        public bool isPrepare;
         /// <summary>
         /// UI是否是迷你模式
         /// </summary>
@@ -108,7 +127,7 @@ namespace TactiX_App.ViewModels.Popup
         public string? SelectedTacticFile
         {
             get => _selectedTacticFile;
-            set 
+            set
             {
                 if (_selectedTacticFile != value)
                 {
@@ -125,8 +144,8 @@ namespace TactiX_App.ViewModels.Popup
         public L_Tactic? currTactic;
         #endregion
 
-        public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger, 
-            IOSTools oSTools) 
+        public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
+            IOSTools oSTools)
         {
             Language = lang.Language;
             _logger = loggerContainer.Builder.GetCurrentClassLogger();
@@ -136,6 +155,7 @@ namespace TactiX_App.ViewModels.Popup
 
             // 加载指定MOD
             _modPackage = new ModPackage(_config.CurrentlyEnabledMOD);
+            _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, (ms) => new Bitmap(ms));
 
             // UI初始化
             IsPrepare = true;
@@ -148,6 +168,8 @@ namespace TactiX_App.ViewModels.Popup
             TacticFiles = new AvaloniaList<string>();
             _filePrefix = Path.Combine(TACTICS_FOLDER, _modPackage.ModDesc!.TacticsPath);
             ListTacticFiles();
+
+            _modItems = [.. _modPackage.ModDesc.Actions, .. _modPackage.ModDesc.Units];
 
             using var ms = new MemoryStream(_modPackage.ReadBinaryFile(TITLE_BAR_IMAGE));
             titleBarImage = new Bitmap(ms);
@@ -166,8 +188,8 @@ namespace TactiX_App.ViewModels.Popup
         [RelayCommand]
         public void CloseWindow()
         {
-            _messenger.Send(new MB_WindowClose() 
-            { 
+            _messenger.Send(new MB_WindowClose()
+            {
                 Name = WINDOW_NAME
             });
 
@@ -205,6 +227,19 @@ namespace TactiX_App.ViewModels.Popup
         [RelayCommand]
         public void PlayTactic()
         {
+            if (CurrTactic == null) return;
+
+            IsPrepare = false;
+            ResetItems();
+
+            _currIndex = -2;
+
+            _dispatcherTimer = new DispatcherTimer();
+            _dispatcherTimer.Tick += (s, e) => MoveNext();
+            _dispatcherTimer.Interval = REAL_TIME_INTERVAL;
+
+            MoveNext();
+            _dispatcherTimer.Start();
         }
 
         /// <summary>
@@ -231,10 +266,108 @@ namespace TactiX_App.ViewModels.Popup
             {
                 CurrTactic = JsonConvert.DeserializeObject<L_Tactic>(File.ReadAllText(filePath));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _messenger.Send(new MB_WindowStatus()
+                {
+                    WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
+                });
 
-                throw;
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = ex.Message,
+                    Title = Language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+            }
+        }
+        #endregion
+
+        #region 战术播放逻辑
+        /// <summary>
+        /// 播放战术到下一步
+        /// </summary>
+        private void MoveNext()
+        {
+            if (CurrTactic == null) return;
+
+            if (_currIndex < CurrTactic.Actions.Count - 1)
+            {
+                _currIndex++;
+                BoardCastCurrStep(0);
+                BoardCastCurrStep(1);
+                BoardCastCurrStep(2);
+                BoardCastCurrStep(3);
+                BoardCastCurrStep(4);
+            }
+            else
+            {
+                StopPlayback();
+            }
+        }
+        /// <summary>
+        /// 停止播放
+        /// </summary>
+        private void StopPlayback()
+        {
+            _dispatcherTimer.Stop();
+        }
+        /// <summary>
+        /// 播放上一步
+        /// </summary>
+        private void MovePrevious()
+        {
+            if (_currIndex > 0) _currIndex--;
+
+            BoardCastCurrStep(0);
+            BoardCastCurrStep(1);
+            BoardCastCurrStep(2);
+            BoardCastCurrStep(3);
+            BoardCastCurrStep(4);
+        }
+        /// <summary>
+        /// 广播当前的步骤显示内容到Item
+        /// </summary>
+        private void BoardCastCurrStep(int slotNo)
+        {
+            if (CurrTactic == null) return;
+            if (_modPackage.ModDesc == null) return;
+
+            // 换算为对应的指针
+            var index = _currIndex + slotNo - 2;
+
+            // 超出了范围，让Item显示为空
+            if (index < 0 || index >= CurrTactic.Actions.Count)
+            {
+                _messenger.Send(new MB_DisplayStep()
+                {
+                    SlotNo = slotNo
+                });
+            }
+            // 范围内，广播显示内容
+            else
+            {
+                var action = CurrTactic.Actions[index];
+                var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
+                var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+
+                _messenger.Send(new MB_DisplayStep()
+                {
+                    SlotNo = slotNo,
+                    Desc = desc,
+                    Image = image
+                });
+            }
+        }
+
+        private void ResetItems()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                _messenger.Send(new MB_DisplayStep()
+                {
+                    SlotNo = i
+                });
             }
         }
         #endregion
@@ -250,10 +383,10 @@ namespace TactiX_App.ViewModels.Popup
             var files = Directory.GetFiles(_filePrefix, TACTICS_SEARCH_PATTERN);
             if (files.Length > 0)
             {
-                Dispatcher.UIThread.Invoke(() => 
+                Dispatcher.UIThread.Invoke(() =>
                 {
                     TacticFiles.Clear();
-                    foreach (var file in files) 
+                    foreach (var file in files)
                     {
                         TacticFiles.Add(file
                             .Replace(_filePrefix, string.Empty)

@@ -1,10 +1,12 @@
 <Window xmlns="https://github.com/avaloniaui"
+		xmlns:component="using:TactiX_App.Views.Component"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
 		xmlns:lang="clr-namespace:TactiX_I18N;assembly=TactiX_I18N"
 		xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+		xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
 		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 		mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
 		x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
@@ -28,6 +30,10 @@
 								  MaterialIconKind="ArrowExpandUp"/>
 	</Design.DataContext>
 
+	<Window.Styles>
+		<FluentTheme />
+	</Window.Styles>
+
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="160" />
@@ -48,9 +54,61 @@
 						<ColumnDefinition Width="10" />
 						<ColumnDefinition Width="100" />
 					</Grid.ColumnDefinitions>
-					<Grid Grid.Column="0" Background="Pink">
+
+					<Grid Grid.Column="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="10" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="10" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Grid.RenderTransform>
+								<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+							</Grid.RenderTransform>
+							<component:TacticItem SlotNo="0"/>
+						</Grid>
+
+						<Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Grid.RenderTransform>
+								<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+							</Grid.RenderTransform>
+							<component:TacticItem SlotNo="1"/>
+						</Grid>
+
+						<Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<component:TacticItem SlotNo="2"/>
+						</Grid>
+
+						<Grid Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Grid.RenderTransform>
+								<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+							</Grid.RenderTransform>
+							<component:TacticItem SlotNo="3"/>
+						</Grid>
+
+						<Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Grid.RenderTransform>
+								<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+							</Grid.RenderTransform>
+							<component:TacticItem SlotNo="4"/>
+						</Grid>
+
 					</Grid>
-					<Grid Grid.Column="2" Background="Green">
+
+					<Grid Grid.Column="2" VerticalAlignment="Center">
+						<StackPanel Orientation="Vertical">
+							<Label Content="123" />
+							<Label Content="123" />
+							<Label Content="123" />
+							<Label Content="123" />
+						</StackPanel>
 					</Grid>
 				</Grid>
 			</Grid>
@@ -111,7 +169,7 @@
 				<materialIcons:MaterialIcon Kind="CloseCircleOutline"
 											Width="25" Height="25" />
 			</Button>
-			<Button Width="120" Grid.Column="6" Command="{Binding CloseWindowCommand}">
+			<Button Width="120" Grid.Column="6" Command="{Binding PlayTacticCommand}">
 				<materialIcons:MaterialIcon Kind="PlayCircleOutline"
 											Width="25" Height="25" />
 			</Button>

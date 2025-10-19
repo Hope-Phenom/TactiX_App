@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+			 mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="140"
+			 Background="Transparent"
+			 Width="100" Height="140"
+			 x:DataType="vm:TacticPlayWindowModel"
+			 x:Class="TactiX_App.Views.Component.TacticItem">
+
+	<Border BorderThickness="3" CornerRadius="5">
+		<Grid x:Name="Grid_Main" Margin="0" RenderTransformOrigin="0.5, 0.5">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="100" />
+				<RowDefinition Height="10" />
+				<RowDefinition Height="30" />
+			</Grid.RowDefinitions>
+
+			<Image Margin="0" x:Name="Image_Icon" Grid.Row="0" />
+			<Label Margin="0" x:Name="Label_Desc" Grid.Row="2"
+				   HorizontalContentAlignment="Center"
+				   FontWeight="Bold"/>
+		</Grid>
+	</Border>
+
+</UserControl>

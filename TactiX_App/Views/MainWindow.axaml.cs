@@ -1,21 +1,17 @@
-﻿
+﻿using System;
+
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Input;
-using Avalonia.Media;
-using Avalonia.Platform;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
 using SukiUI.Toasts;
-using System;
-using System.Collections.Generic;
+
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views.Popup;
-using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_OS_Tools;
 
@@ -117,7 +113,7 @@ public partial class MainWindow : SukiWindow,
         if (!string.IsNullOrEmpty(msg.Release_Url))
         {
             if (DataContext is MainViewModel vm)
-            { 
+            {
                 vm.OSTools.OSes.OpenUrl(msg.Release_Url);
             }
         }

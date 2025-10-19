@@ -1,15 +1,11 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+
 using TactiX_App.Service;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Page;
