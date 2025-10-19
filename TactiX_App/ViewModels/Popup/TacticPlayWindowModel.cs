@@ -78,9 +78,13 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private bool _isPause;
         /// <summary>
-        /// 运行的时间戳
+        /// 运行的时间戳（受暂停影响）
         /// </summary>
         private uint _timeStamp;
+        /// <summary>
+        /// 战术播放时间戳（不受暂停影响）
+        /// </summary>
+        private uint _runningTimeStamp;
         #endregion
 
         #region 数据绑定-UI大小等控制
@@ -189,6 +193,7 @@ namespace TactiX_App.ViewModels.Popup
             _modItems = [.. _modPackage.ModDesc.Actions, .. _modPackage.ModDesc.Units];
             _isPause = false;
             _timeStamp = 0;
+            _runningTimeStamp = 0;
 
             using var ms = new MemoryStream(_modPackage.ReadBinaryFile(TITLE_BAR_IMAGE));
             titleBarImage = new Bitmap(ms);
@@ -249,20 +254,27 @@ namespace TactiX_App.ViewModels.Popup
             if (CurrTactic == null) return;
 
             IsPrepare = false;
-            ResetItems();
+            ResetSlots();
 
-            _currIndex = -2;
             _isPause = false;
             _timeStamp = 0;
+            _runningTimeStamp = 0;
+            _currIndex = -1;
 
             SwtichToPlayingMode();
 
-            _dispatcherTimer = new DispatcherTimer();
-            _dispatcherTimer.Tick += (s, e) => MoveNext();
-            _dispatcherTimer.Interval = REAL_TIME_INTERVAL;
-
-            MoveNext();
-            _dispatcherTimer.Start();
+            if (CurrTactic.TacticType == L_TacticEnum.TIMELINE)
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Tick += (s, e) => MoveNext();
+                _dispatcherTimer.Interval = REAL_TIME_INTERVAL;
+                MoveNext();
+                _dispatcherTimer.Start();
+            }
+            else
+            {
+                MoveNext();
+            }
         }
 
         /// <summary>
@@ -336,17 +348,27 @@ namespace TactiX_App.ViewModels.Popup
         {
             if (CurrTactic == null) return;
 
-            UpdateTimeStamp();
+            var actions = CurrTactic.Actions;
+            var timeLineMode = CurrTactic.TacticType == L_TacticEnum.TIMELINE;
 
-            if (_isPause) return; //暂停模式则停止时间更新以外的逻辑
-            if (_currIndex < CurrTactic.Actions.Count - 1)
+            if (_currIndex < actions.Count - 1)
             {
-                _currIndex++;
-                BoardCastCurrStep(0);
-                BoardCastCurrStep(1);
-                BoardCastCurrStep(2);
-                BoardCastCurrStep(3);
-                BoardCastCurrStep(4);
+                if (timeLineMode)
+                {
+                    UpdateTimeStamp();
+
+                    if (_timeStamp == actions[_currIndex + 1].Time && !_isPause)
+                    {
+                        _currIndex++;
+                        UpdateTacticTimeStamp();
+                        BoardCastCurrStep();
+                    }
+                }
+                else
+                {
+                    _currIndex++;
+                    BoardCastCurrStep();
+                }
             }
             else
             {
@@ -367,50 +389,64 @@ namespace TactiX_App.ViewModels.Popup
         {
             if (_currIndex > 0) _currIndex--;
 
-            BoardCastCurrStep(0);
-            BoardCastCurrStep(1);
-            BoardCastCurrStep(2);
-            BoardCastCurrStep(3);
-            BoardCastCurrStep(4);
+            UpdateTacticTimeStamp();
+            BoardCastCurrStep();
+        }
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        private void Pause()
+        {
+            _isPause = true;
+        }
+        /// <summary>
+        /// 恢复播放
+        /// </summary>
+        private void Resume()
+        {
+            _isPause = false;
         }
         /// <summary>
         /// 广播当前的步骤显示内容到Item
         /// </summary>
-        private void BoardCastCurrStep(int slotNo)
+        private void BoardCastCurrStep()
         {
             if (CurrTactic == null) return;
             if (_modPackage.ModDesc == null) return;
 
-            // 换算为对应的指针
-            var index = _currIndex + slotNo - 2;
-
-            // 超出了范围，让Item显示为空
-            if (index < 0 || index >= CurrTactic.Actions.Count)
+            for (int slotNo = 0; slotNo < 5; slotNo++)
             {
-                _messenger.Send(new MB_DisplayStep()
-                {
-                    SlotNo = slotNo
-                });
-            }
-            // 范围内，广播显示内容
-            else
-            {
-                var action = CurrTactic.Actions[index];
-                var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                // 换算为对应的指针
+                var index = _currIndex + slotNo - 2;
 
-                _messenger.Send(new MB_DisplayStep()
+                // 超出了范围，让Item显示为空
+                if (index < 0 || index >= CurrTactic.Actions.Count)
                 {
-                    SlotNo = slotNo,
-                    Desc = desc,
-                    Image = image
-                });
+                    _messenger.Send(new MB_DisplayStep()
+                    {
+                        SlotNo = slotNo
+                    });
+                }
+                // 范围内，广播显示内容
+                else
+                {
+                    var action = CurrTactic.Actions[index];
+                    var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
+                    var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+
+                    _messenger.Send(new MB_DisplayStep()
+                    {
+                        SlotNo = slotNo,
+                        Desc = desc,
+                        Image = image
+                    });
+                }
             }
         }
         /// <summary>
         /// 重置所有显示槽位
         /// </summary>
-        private void ResetItems()
+        private void ClearSlots()
         {
             for (int i = 0; i < 5; i++)
             {
@@ -421,15 +457,60 @@ namespace TactiX_App.ViewModels.Popup
             }
         }
         /// <summary>
+        /// 将槽位设置为播放到第一个节点的状态
+        /// </summary>
+        private void ResetSlots()
+        {
+            ClearSlots();
+
+            if (CurrTactic == null || CurrTactic.Actions.Count < 3) return;
+
+            for (int slotNo = 3; slotNo < 5; slotNo++)
+            {
+                var action = CurrTactic.Actions[slotNo - 3];
+                var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
+                var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                _messenger.Send(new MB_DisplayStep()
+                {
+                    SlotNo = slotNo,
+                    Desc = desc,
+                    Image = image
+                });
+            }
+        }
+        /// <summary>
         /// 更新时间戳
         /// </summary>
         private void UpdateTimeStamp()
         {
-            _timeStamp++;
+            if (!_isPause) _timeStamp++;
 
-            var sec = _timeStamp % 60;
-            var min = (_timeStamp - sec) / 60;
-            TimeStampTxt = min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
+            _runningTimeStamp++;
+
+            var sec = _runningTimeStamp % 60;
+            var min = (_runningTimeStamp - sec) / 60;
+            TimeStampTxt = CombineTimeStr(min, sec);
+        }
+        /// <summary>
+        /// 更新战术时间戳
+        /// </summary>
+        private void UpdateTacticTimeStamp()
+        {
+            if (CurrTactic == null || CurrTactic.TacticType == L_TacticEnum.STEP) return;
+
+            var timestamp = CurrTactic.Actions[_currIndex].Time;
+
+            var sec = timestamp % 60;
+            var min = (timestamp - sec) / 60;
+            CurrStepTimeStampTxt = CombineTimeStr(min, sec);
+        }
+        /// <summary>
+        /// 拼接时间字符串
+        /// </summary>
+        /// <returns></returns>
+        private string CombineTimeStr(uint min, uint sec)
+        {
+            return min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
         }
         #endregion
 
