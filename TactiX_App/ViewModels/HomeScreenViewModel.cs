@@ -57,6 +57,10 @@ namespace TactiX_App.ViewModels
         /// MOD管理页面组件
         /// </summary>
         public UserControl ModsManagerPageViewControl { get; private set; }
+        /// <summary>
+        /// 设置页面组件
+        /// </summary>
+        public UserControl SettingsPageViewControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -81,6 +85,8 @@ namespace TactiX_App.ViewModels
             TacticsHallViewPageControl.DataContext = _serviceProvider.GetRequiredService<TacticsHallPageViewModel>();
             ModsManagerPageViewControl = _serviceProvider.GetRequiredService<ModsManagePageView>();
             ModsManagerPageViewControl.DataContext = _serviceProvider.GetRequiredService<ModsManagePageViewModel>();
+            SettingsPageViewControl = _serviceProvider.GetRequiredService<SettingsPageView>();
+            SettingsPageViewControl.DataContext = _serviceProvider.GetService<SettingsPageViewModel>();
             #endregion
 
             Task.Run(CheckVersion);

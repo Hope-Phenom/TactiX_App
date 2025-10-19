@@ -89,6 +89,10 @@
         /// 主页面-侧栏按钮-MOD管理
         /// </summary>
         public string HOMESCREEN_SIDE_MOD_MANANGMENT { get; }
+        /// <summary>
+        /// 主页面-侧栏按钮-设置
+        /// </summary>
+        public string HOMESCREEN_SIDE_SETTINGS { get; }
         #endregion
 
         #region 新闻Page相关

@@ -51,6 +51,7 @@ public partial class App : Application
         services.AddTransient<TacticsHallPageViewModel>();
         services.AddTransient<ModsManagePageViewModel>();
         services.AddTransient<TacticPlayWindowModel>();
+        services.AddTransient<SettingsPageViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
         services.AddTransient<MainView>();
@@ -61,6 +62,7 @@ public partial class App : Application
         services.AddTransient<TacticsHallPageView>();
         services.AddTransient<ModsManagePageView>();
         services.AddTransient<TacticPlayWindow>();
+        services.AddTransient<SettingsPageView>();
 
         var provider = services.BuildServiceProvider();
         var logger = provider.GetRequiredService<ILoggerContainer>().Builder.GetCurrentClassLogger();
