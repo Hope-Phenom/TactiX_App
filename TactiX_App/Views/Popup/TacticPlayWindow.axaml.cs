@@ -15,7 +15,8 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.Views.Popup;
 
-public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
+public partial class TacticPlayWindow : Window
+    , IRecipient<MB_WindowClose>, IRecipient<MB_WindowPointerTrans>
 {
     #region DI容器注入
     private readonly IMessenger _messenger;
@@ -25,10 +26,6 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
 
     #region 变量/常量
     private const string WINDOW_NAME = "TacticPlayWindow";
-    /// <summary>
-    /// 缓存启动时默认的背景，用于后面鼠标移入移出的状态恢复
-    /// </summary>
-    private readonly IBrush? _background;
     #endregion
 
     public TacticPlayWindow(IMessenger messenger, IOSTools oSTools, ILang lang)
@@ -46,8 +43,6 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
         _config = _oses.LoadConfig();
 
         _messenger.RegisterAll(this);
-
-        _background = Background;
 
         RequestedThemeVariant = _config.NightMode
             ? ThemeVariant.Dark
@@ -69,6 +64,8 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
         if (screen == null) return;
 
         Position = new PixelPoint(Convert.ToInt32(screen.WorkingArea.Center.X - Width / 2), 0);
+
+        OsesSetHandle();
     }
 
     private void TacticPlayWindow_Closed(object? sender, EventArgs e)
@@ -99,10 +96,27 @@ public partial class TacticPlayWindow : Window, IRecipient<MB_WindowClose>
         Opacity = 1;
     }
 
+    /// <summary>
+    /// OSTools绑定窗体句柄
+    /// </summary>
+    private void OsesSetHandle()
+    {
+        var platformHandle = TryGetPlatformHandle();
+        if (platformHandle != null)
+        {
+            _oses.SetHandle(platformHandle.Handle);
+        }
+    }
+
     public void Receive(MB_WindowClose message)
     {
         if (!message.Name.Equals(WINDOW_NAME)) return;
 
         Close();
+    }
+
+    public void Receive(MB_WindowPointerTrans message)
+    {
+        _oses.SetMouseTransport(message.Enable);
     }
 }

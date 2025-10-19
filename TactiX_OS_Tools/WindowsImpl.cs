@@ -55,11 +55,6 @@ namespace TactiX_OS_Tools
         private IntPtr Hwnd { get; set; }
         public L_Config Config { get; private set; }
 
-        /// <summary>
-        /// 鼠标穿透模式，为true时启用穿透
-        /// </summary>
-        private bool _tr = false;
-
         public WindowsImpl(ILanguage language, ITactiXExceptionFactory tactiXExceptionFactory)
         {
             Language = language;
@@ -102,7 +97,7 @@ namespace TactiX_OS_Tools
             return folderPath;
         }
 
-        public void SetMouseTransport()
+        public void SetMouseTransport(bool enable)
         {
             /**
              * 虽然设计上来说已经通过接口进行了区分，非Windows时不会进入此处
@@ -114,7 +109,7 @@ namespace TactiX_OS_Tools
 
             // 添加透明和分层样式
 
-            if (!_tr)
+            if (enable)
             {
                 SetWindowLong(Hwnd, GWL_EXSTYLE, style | WS_EX_TRANSPARENT | WS_EX_LAYERED);
             }
@@ -122,8 +117,6 @@ namespace TactiX_OS_Tools
             {
                 SetWindowLong(Hwnd, GWL_EXSTYLE, style & ~WS_EX_TRANSPARENT);
             }
-
-            _tr = !_tr;
 #endif
         }
 

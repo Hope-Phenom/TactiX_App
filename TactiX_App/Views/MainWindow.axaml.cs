@@ -29,8 +29,6 @@ public partial class MainWindow : SukiWindow,
     {
         InitializeComponent();
 
-        Opened += MainWindow_Opened;
-
         _serviceProvider = serviceProvider;
         _oSTools = _serviceProvider.GetRequiredService<IOSTools>();
         _messenger = _serviceProvider.GetRequiredService<IMessenger>();
@@ -46,23 +44,6 @@ public partial class MainWindow : SukiWindow,
         InitializeComponent();
     }
 #endif
-
-    private void MainWindow_Opened(object? sender, EventArgs e)
-    {
-        OsesSetHandle();
-    }
-
-    /// <summary>
-    /// OSTools绑定窗体句柄
-    /// </summary>
-    private void OsesSetHandle()
-    {
-        var platformHandle = TryGetPlatformHandle();
-        if (platformHandle != null)
-        {
-            _oSTools?.OSes.SetHandle(platformHandle.Handle);
-        }
-    }
 
     #region MessageBus 消息处理
 

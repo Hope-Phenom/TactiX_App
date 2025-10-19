@@ -32,7 +32,7 @@ namespace TactiX_OS_Tools
         /// 切换窗口鼠标穿透（仅针对移动端以外生效）
         /// </summary>
         /// <param name="hwnd">句柄</param>
-        public void SetMouseTransport();
+        public void SetMouseTransport(bool enable);
         /// <summary>
         /// 跳转Web地址
         /// </summary>

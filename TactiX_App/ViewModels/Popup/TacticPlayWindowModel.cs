@@ -92,7 +92,7 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// UI是否是迷你模式
         /// </summary>
-        private bool IsMini;
+        private bool _isMini;
         /// <summary>
         /// UI的高度
         /// </summary>
@@ -176,11 +176,8 @@ namespace TactiX_App.ViewModels.Popup
             _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, (ms) => new Bitmap(ms));
 
             // UI初始化
+            SwtichToNormalMode();
             IsPrepare = true;
-            UIHeight = NORMAL_SIZE.Y;
-            HorizontalLineHeight = new GridLength(10);
-            GroupHeight = GridLength.Star;
-            MaterialIconKind = MaterialIconKind.ArrowExpandUp;
             timeStampTxt = "00:00";
             currStepTimeStampTxt = "00:00";
 
@@ -224,23 +221,23 @@ namespace TactiX_App.ViewModels.Popup
         [RelayCommand]
         public void PullWindow()
         {
-            UIHeight = IsMini
-                ? NORMAL_SIZE.Y
-                : MINI_SIZE.Y;
+            _isMini = !_isMini;
 
-            HorizontalLineHeight = IsMini
-                ? new GridLength(10)
-                : new GridLength(0);
+            UIHeight = _isMini
+                ? MINI_SIZE.Y
+                : NORMAL_SIZE.Y;
 
-            GroupHeight = IsMini
-                ? GridLength.Star
-                : new GridLength(0);
+            HorizontalLineHeight = _isMini
+                ? new GridLength(0)
+                : new GridLength(10);
 
-            MaterialIconKind = IsMini
-                ? MaterialIconKind.ArrowExpandUp
-                : MaterialIconKind.ArrowExpandDown;
+            GroupHeight = _isMini
+                ? new GridLength(0)
+                : GridLength.Star;
 
-            IsMini = !IsMini;
+            MaterialIconKind = _isMini
+                ? MaterialIconKind.ArrowExpandDown
+                : MaterialIconKind.ArrowExpandUp;
         }
 
         /// <summary>
@@ -257,6 +254,8 @@ namespace TactiX_App.ViewModels.Popup
             _currIndex = -2;
             _isPause = false;
             _timeStamp = 0;
+
+            SwtichToPlayingMode();
 
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Tick += (s, e) => MoveNext();
@@ -304,6 +303,28 @@ namespace TactiX_App.ViewModels.Popup
                     Type = MB_Enum_ToastType.Error
                 });
             }
+        }
+        /// <summary>
+        /// 切换到播放模式
+        /// </summary>
+        private void SwtichToPlayingMode()
+        {
+            UIHeight = PLAYING_SIZE.Y;
+            _messenger.Send(new MB_WindowPointerTrans()
+            {
+                Enable = true
+            });
+        }
+        /// <summary>
+        /// 切换到正常模式
+        /// </summary>
+        private void SwtichToNormalMode()
+        {
+            UIHeight = NORMAL_SIZE.Y;
+            HorizontalLineHeight = new GridLength(10);
+            GroupHeight = GridLength.Star;
+            MaterialIconKind = MaterialIconKind.ArrowExpandUp;
+            _isMini = false;
         }
         #endregion
 
