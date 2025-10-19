@@ -43,7 +43,7 @@
 			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 
-		<suki:GlassCard Grid.Row="0">
+		<suki:GlassCard Grid.Row="0" BorderThickness="3">
 			<Grid Margin="0">
 				<Grid Margin="0" IsVisible="{Binding IsPrepare}">
 					<Image Margin="0" Source="{Binding TitleBarImage}" />
@@ -104,17 +104,18 @@
 
 					<Grid Grid.Column="2" VerticalAlignment="Center">
 						<StackPanel Orientation="Vertical">
-							<Label Content="123" />
-							<Label Content="123" />
-							<Label Content="123" />
-							<Label Content="123" />
+							<Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP}" />
+							<Label Content="{Binding TimeStampTxt}" />
+							<Label />
+							<Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP}" />
+							<Label Content="{Binding CurrStepTimeStampTxt}" />
 						</StackPanel>
 					</Grid>
 				</Grid>
 			</Grid>
 		</suki:GlassCard>
 
-		<suki:GlassCard Grid.Row="2">
+		<suki:GlassCard Grid.Row="2" BorderThickness="3">
 			<Grid Margin="0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="40" />

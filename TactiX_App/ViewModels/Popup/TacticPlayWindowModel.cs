@@ -64,7 +64,7 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// 定时器
         /// </summary>
-        private DispatcherTimer _dispatcherTimer;
+        private DispatcherTimer? _dispatcherTimer;
         /// <summary>
         /// 播放的序号指针
         /// </summary>
@@ -73,6 +73,14 @@ namespace TactiX_App.ViewModels.Popup
         /// Mod中的对象列表（Action和Unit合并）
         /// </summary>
         private List<L_ModItem> _modItems;
+        /// <summary>
+        /// 是否是暂停模式
+        /// </summary>
+        private bool _isPause;
+        /// <summary>
+        /// 运行的时间戳
+        /// </summary>
+        private uint _timeStamp;
         #endregion
 
         #region 数据绑定-UI大小等控制
@@ -142,6 +150,16 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         [ObservableProperty]
         public L_Tactic? currTactic;
+        /// <summary>
+        /// 时间戳文本
+        /// </summary>
+        [ObservableProperty]
+        public string timeStampTxt;
+        /// <summary>
+        /// 当前步骤的标准时间
+        /// </summary>
+        [ObservableProperty]
+        public string currStepTimeStampTxt;
         #endregion
 
         public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
@@ -163,6 +181,8 @@ namespace TactiX_App.ViewModels.Popup
             HorizontalLineHeight = new GridLength(10);
             GroupHeight = GridLength.Star;
             MaterialIconKind = MaterialIconKind.ArrowExpandUp;
+            timeStampTxt = "00:00";
+            currStepTimeStampTxt = "00:00";
 
             // 逻辑初始化
             TacticFiles = new AvaloniaList<string>();
@@ -170,6 +190,8 @@ namespace TactiX_App.ViewModels.Popup
             ListTacticFiles();
 
             _modItems = [.. _modPackage.ModDesc.Actions, .. _modPackage.ModDesc.Units];
+            _isPause = false;
+            _timeStamp = 0;
 
             using var ms = new MemoryStream(_modPackage.ReadBinaryFile(TITLE_BAR_IMAGE));
             titleBarImage = new Bitmap(ms);
@@ -233,6 +255,8 @@ namespace TactiX_App.ViewModels.Popup
             ResetItems();
 
             _currIndex = -2;
+            _isPause = false;
+            _timeStamp = 0;
 
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Tick += (s, e) => MoveNext();
@@ -291,6 +315,9 @@ namespace TactiX_App.ViewModels.Popup
         {
             if (CurrTactic == null) return;
 
+            UpdateTimeStamp();
+
+            if (_isPause) return; //暂停模式则停止时间更新以外的逻辑
             if (_currIndex < CurrTactic.Actions.Count - 1)
             {
                 _currIndex++;
@@ -310,7 +337,7 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void StopPlayback()
         {
-            _dispatcherTimer.Stop();
+            _dispatcherTimer?.Stop();
         }
         /// <summary>
         /// 播放上一步
@@ -359,7 +386,9 @@ namespace TactiX_App.ViewModels.Popup
                 });
             }
         }
-
+        /// <summary>
+        /// 重置所有显示槽位
+        /// </summary>
         private void ResetItems()
         {
             for (int i = 0; i < 5; i++)
@@ -369,6 +398,17 @@ namespace TactiX_App.ViewModels.Popup
                     SlotNo = i
                 });
             }
+        }
+        /// <summary>
+        /// 更新时间戳
+        /// </summary>
+        private void UpdateTimeStamp()
+        {
+            _timeStamp++;
+
+            var sec = _timeStamp % 60;
+            var min = (_timeStamp - sec) / 60;
+            TimeStampTxt = min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
         }
         #endregion
 

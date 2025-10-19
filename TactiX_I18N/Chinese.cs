@@ -52,5 +52,7 @@
         public string TACTIC_PLAYING_MOD_NOT_EXISTS => "配置的MOD文件不存在，请前往MOD管理选项卡进行检查。";
         public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "尝试加载的MOD文件格式不正确，请前往MOD管理选项卡进行检查。";
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "选择战术文件：";
+        public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "运行时间：";
+        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "战术时间：";
     }
 }

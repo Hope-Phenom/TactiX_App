@@ -174,6 +174,14 @@
         /// 战术播放Window-选定战术文件
         /// </summary>
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED { get; }
+        /// <summary>
+        /// 战术播放Window-当前的真实时间戳
+        /// </summary>
+        public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP { get; }
+        /// <summary>
+        /// 战术播放Window-当前战术步骤的时间戳
+        /// </summary>
+        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP { get; }
         #endregion
 
         #endregion
