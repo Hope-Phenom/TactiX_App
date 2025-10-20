@@ -55,5 +55,9 @@
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "Select Tactical File:";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "Running time:";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Step Time:";
+
+        public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
+        public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
+        public string SETTINGS_PAGE_HEADER_ABOUT => "About";
     }
 }

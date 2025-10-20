@@ -188,6 +188,21 @@
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP { get; }
         #endregion
 
+        #region 设置页Page相关
+        /// <summary>
+        /// 设置页-GroupHeader-通用设置
+        /// </summary>
+        public string SETTINGS_PAGE_HEADER_NORMAL { get; }
+        /// <summary>
+        /// 设置页-GroupHeader-快捷键设置
+        /// </summary>
+        public string SETTINGS_PAGE_HEADER_HOTKEY { get; }
+        /// <summary>
+        /// 设置页-GroupHeader-关于
+        /// </summary>
+        public string SETTINGS_PAGE_HEADER_ABOUT { get; }
+        #endregion
+
         #endregion
 
         #region 错误码部分

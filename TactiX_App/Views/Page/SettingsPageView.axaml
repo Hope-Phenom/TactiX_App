@@ -1,10 +1,37 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
-             mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
-             x:DataType="vm:SettingsPageViewModel"
-             x:Class="TactiX_App.Views.Page.SettingsPageView">
-  Welcome to Avalonia!
+			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:objectModel="using:System.Collections.ObjectModel"
+			 mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
+			 x:DataType="vm:SettingsPageViewModel"
+			 x:Class="TactiX_App.Views.Page.SettingsPageView">
+
+	<suki:GlassCard Margin="10">
+		<suki:SettingsLayout>
+			<suki:SettingsLayout.Items>
+				<objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
+						<suki:SettingsLayoutItem.Content>
+							<Border Background="LightGray" Height="300" />
+						</suki:SettingsLayoutItem.Content>
+					</suki:SettingsLayoutItem>
+
+					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
+						<suki:SettingsLayoutItem.Content>
+							<Border Background="LightGray" Height="300" />
+						</suki:SettingsLayoutItem.Content>
+					</suki:SettingsLayoutItem>
+
+					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
+						<suki:SettingsLayoutItem.Content>
+							<Border Background="LightGray" Height="300" />
+						</suki:SettingsLayoutItem.Content>
+					</suki:SettingsLayoutItem>
+				</objectModel:ObservableCollection>
+			</suki:SettingsLayout.Items>
+		</suki:SettingsLayout>
+	</suki:GlassCard>
 </UserControl>

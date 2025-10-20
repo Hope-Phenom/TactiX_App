@@ -55,5 +55,9 @@
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "选择战术文件：";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "运行时间：";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "战术时间：";
+
+        public string SETTINGS_PAGE_HEADER_NORMAL => "通用设置";
+        public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";
+        public string SETTINGS_PAGE_HEADER_ABOUT => "关于";
     }
 }
