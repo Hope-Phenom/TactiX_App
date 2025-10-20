@@ -1,17 +1,16 @@
-﻿using System;
-
-using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
 using SukiUI.Toasts;
-
+using System;
+using System.Diagnostics;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views.Popup;
+using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_OS_Tools;
 
@@ -22,16 +21,21 @@ public partial class MainWindow : SukiWindow,
     IRecipient<MB_WindowStatus>
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IOSTools _oSTools;
+    private readonly IOSes _oses;
     private readonly IMessenger _messenger;
+    private readonly L_Config _config;
 
     public MainWindow(IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
+        Opened += MainWindow_Opened;
+        Closed += MainWindow_Closed;
+
         _serviceProvider = serviceProvider;
-        _oSTools = _serviceProvider.GetRequiredService<IOSTools>();
+        _oses = _serviceProvider.GetRequiredService<IOSTools>().OSes;
         _messenger = _serviceProvider.GetRequiredService<IMessenger>();
+        _config = _oses.LoadConfig();
 
         _messenger.RegisterAll(this);
     }
@@ -44,6 +48,38 @@ public partial class MainWindow : SukiWindow,
         InitializeComponent();
     }
 #endif
+
+    private void MainWindow_Opened(object? sender, EventArgs e)
+    {
+        OsesSetHandle();
+
+        _oses.RegisterHotkey(
+            Avalonia.Input.Key.Left,
+            Avalonia.Input.KeyModifiers.Alt,
+            () =>
+            {
+                Process.GetCurrentProcess().Kill();
+            });
+
+        _oses.RegisterWndProcHookCallback(this);
+    }
+
+    private void MainWindow_Closed(object? sender, EventArgs e)
+    {
+        _oses.UnregisterAllHotkeys();
+    }
+
+    /// <summary>
+    /// OSTools绑定窗体句柄
+    /// </summary>
+    private void OsesSetHandle()
+    {
+        var platformHandle = TryGetPlatformHandle();
+        if (platformHandle != null)
+        {
+            _oses.SetMainWindowHandle(platformHandle.Handle);
+        }
+    }
 
     #region MessageBus 消息处理
 

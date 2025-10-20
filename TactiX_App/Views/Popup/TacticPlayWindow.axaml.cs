@@ -104,7 +104,7 @@ public partial class TacticPlayWindow : Window
         var platformHandle = TryGetPlatformHandle();
         if (platformHandle != null)
         {
-            _oses.SetHandle(platformHandle.Handle);
+            _oses.SetTacticPlayingWindowHandle(platformHandle.Handle);
         }
     }
 
