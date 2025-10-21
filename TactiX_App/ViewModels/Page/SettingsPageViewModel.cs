@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Collections;
+using Avalonia.Input;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
 using SukiUI.Controls;
 using TactiX_I18N;
 using TactiX_Logger;
+using TactiX_Models;
 using TactiX_Models.MessageBus;
+using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels.Page
 {
@@ -20,21 +23,30 @@ namespace TactiX_App.ViewModels.Page
         public ILanguage Language { get; private set; }
         private readonly Logger _logger;
         private readonly IMessenger _messenger;
+        private readonly L_Config _config;
         #endregion
 
         #region 数据绑定
+        public AvaloniaList<L_HotkeyBinding> Hotkeys => _config.Hotkeys;
+        public AvaloniaList<Key> Keys { get; private set; }
+        public AvaloniaList<KeyModifiers> KeyModifiers { get; private set; }
         #endregion
 
-        public SettingsPageViewModel(ILoggerContainer loggerContainer, ILang lang, IMessenger messenger)
+        public SettingsPageViewModel(ILoggerContainer loggerContainer, ILang lang, IMessenger messenger,
+            IOSTools oSTools)
         {
             Language = lang.Language;
 
             _logger = loggerContainer.Builder.GetCurrentClassLogger();
             _messenger = messenger;
+            _config = oSTools.OSes.LoadConfig();
 
             // SukiUI的SettingsLayout存在Bug，SettingsLayoutItems的Header
             // 如果设置了Header的数据绑定，Item将失效，因此只能通过消息手动更新
             UpdateHeader();
+
+            Keys = [.. Enum.GetValues<Key>()];
+            KeyModifiers = [.. Enum.GetValues<KeyModifiers>()];
         }
 
 #if DEBUG

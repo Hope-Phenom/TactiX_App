@@ -186,6 +186,10 @@
         /// 战术播放Window-当前战术步骤的时间戳
         /// </summary>
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP { get; }
+        /// <summary>
+        /// 战术播放Window-热键已被占用
+        /// </summary>
+        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS { get; }
         #endregion
 
         #region 设置页Page相关

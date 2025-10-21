@@ -7,6 +7,7 @@
 			 xmlns:objectModel="using:System.Collections.ObjectModel"
 			 mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
 			 x:DataType="vm:SettingsPageViewModel"
+			 x:Name="UserControlSelf"
 			 x:Class="TactiX_App.Views.Page.SettingsPageView">
 
 	<suki:GlassCard Margin="10">

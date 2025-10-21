@@ -59,5 +59,6 @@
         public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
         public string SETTINGS_PAGE_HEADER_ABOUT => "About";
+        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
     }
 }

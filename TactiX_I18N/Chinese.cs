@@ -59,5 +59,6 @@
         public string SETTINGS_PAGE_HEADER_NORMAL => "通用设置";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";
         public string SETTINGS_PAGE_HEADER_ABOUT => "关于";
+        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！";
     }
 }

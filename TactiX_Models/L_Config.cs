@@ -1,4 +1,6 @@
-﻿namespace TactiX_Models
+﻿using Avalonia.Collections;
+
+namespace TactiX_Models
 {
     /// <summary>
     /// 程序整体配置文件
@@ -26,5 +28,35 @@
         /// 战术播放模式下的透明度
         /// </summary>
         public double Opacity { get; set; } = 0.7;
+        /// <summary>
+        /// 热键绑定，默认使用Alt+方向键
+        /// </summary>
+        public AvaloniaList<L_HotkeyBinding> Hotkeys = new AvaloniaList<L_HotkeyBinding>()
+        {
+             new L_HotkeyBinding()
+             {
+                  Hotkey = L_HotkeyBindingEnum.StartOrResume,
+                  Modifiers = Avalonia.Input.KeyModifiers.Alt,
+                  Key = Avalonia.Input.Key.Up
+             },
+             new L_HotkeyBinding()
+             {
+                  Hotkey = L_HotkeyBindingEnum.Stop,
+                  Modifiers = Avalonia.Input.KeyModifiers.Alt,
+                  Key = Avalonia.Input.Key.Down
+             },
+             new L_HotkeyBinding()
+             {
+                  Hotkey = L_HotkeyBindingEnum.Previous,
+                  Modifiers = Avalonia.Input.KeyModifiers.Alt,
+                  Key = Avalonia.Input.Key.Left
+             },
+             new L_HotkeyBinding()
+             {
+                  Hotkey = L_HotkeyBindingEnum.Next,
+                  Modifiers = Avalonia.Input.KeyModifiers.Alt,
+                  Key = Avalonia.Input.Key.Right
+             }
+        };
     }
 }

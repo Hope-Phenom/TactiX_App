@@ -2,14 +2,17 @@
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
+using HarfBuzzSharp;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
 using SukiUI.Toasts;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views.Popup;
+using TactiX_I18N;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_OS_Tools;
@@ -20,6 +23,7 @@ public partial class MainWindow : SukiWindow,
     IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>, IRecipient<MB_OpenTacticPlayWindow>,
     IRecipient<MB_WindowStatus>
 {
+    public readonly ILanguage _language;
     private readonly IServiceProvider _serviceProvider;
     private readonly IOSes _oses;
     private readonly IMessenger _messenger;
@@ -33,6 +37,7 @@ public partial class MainWindow : SukiWindow,
         Closed += MainWindow_Closed;
 
         _serviceProvider = serviceProvider;
+        _language = _serviceProvider.GetRequiredService<ILang>().Language;
         _oses = _serviceProvider.GetRequiredService<IOSTools>().OSes;
         _messenger = _serviceProvider.GetRequiredService<IMessenger>();
         _config = _oses.LoadConfig();
@@ -52,14 +57,7 @@ public partial class MainWindow : SukiWindow,
     private void MainWindow_Opened(object? sender, EventArgs e)
     {
         OsesSetHandle();
-
-        _oses.RegisterHotkey(
-            Avalonia.Input.Key.Left,
-            Avalonia.Input.KeyModifiers.Alt,
-            () =>
-            {
-                Process.GetCurrentProcess().Kill();
-            });
+        RegisterAllHotkeys();
 
         _oses.RegisterWndProcHookCallback(this);
     }
@@ -78,6 +76,32 @@ public partial class MainWindow : SukiWindow,
         if (platformHandle != null)
         {
             _oses.SetMainWindowHandle(platformHandle.Handle);
+        }
+    }
+
+    /// <summary>
+    /// 注册所有的热键
+    /// </summary>
+    private void RegisterAllHotkeys()
+    {
+        foreach (var hotkeySetting in _config.Hotkeys)
+        {
+            var result = _oses.RegisterHotkey(
+                hotkeySetting.Key,
+                hotkeySetting.Modifiers,
+                () => _messenger.Send(new MB_Hotkey(hotkeySetting.Hotkey)));
+
+            if (!result)
+            {
+                _messenger.Send(new MB_ToastPureText() 
+                { 
+                    Message = string.Format(_language.TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS, 
+                        hotkeySetting.Modifiers, 
+                        hotkeySetting.Key),
+                    Title = _language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+            }
         }
     }
 
