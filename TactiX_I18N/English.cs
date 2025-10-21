@@ -27,6 +27,8 @@
         public string BUTTON_TXT_BACK => "Back";
         public string BUTTON_TXT_SUBMIT => "Submit";
         public string BUTTON_TXT_REFRESH => "Refresh";
+        public string NORMAL_TEXT_AVAILABLE => "Available";
+        public string NORMAL_TEXT_ERROR => "Error";
 
         public string HOMESCREEN_SIDE_NEWS => "News";
         public string HOMESCREEN_SIDE_TACTICSHALL => "Tactics Hall";
@@ -55,10 +57,11 @@
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "Select Tactical File:";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "Running time:";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Step Time:";
+        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
         public string SETTINGS_PAGE_HEADER_ABOUT => "About";
-        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
+        public string SETTINGS_PAGE_NORMAL_UPGRADE => "Check for updates";
     }
 }

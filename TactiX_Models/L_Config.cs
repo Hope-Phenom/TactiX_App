@@ -31,8 +31,8 @@ namespace TactiX_Models
         /// <summary>
         /// 热键绑定，默认使用Alt+方向键
         /// </summary>
-        public AvaloniaList<L_HotkeyBinding> Hotkeys = new AvaloniaList<L_HotkeyBinding>()
-        {
+        public L_HotkeyBinding[] Hotkeys =
+        [
              new L_HotkeyBinding()
              {
                   Hotkey = L_HotkeyBindingEnum.StartOrResume,
@@ -57,6 +57,6 @@ namespace TactiX_Models
                   Modifiers = Avalonia.Input.KeyModifiers.Alt,
                   Key = Avalonia.Input.Key.Right
              }
-        };
+        ];
     }
 }

@@ -57,7 +57,6 @@ public partial class MainWindow : SukiWindow,
     private void MainWindow_Opened(object? sender, EventArgs e)
     {
         OsesSetHandle();
-        RegisterAllHotkeys();
 
         _oses.RegisterWndProcHookCallback(this);
     }
@@ -82,8 +81,10 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     /// 注册所有的热键
     /// </summary>
-    private void RegisterAllHotkeys()
+    private bool RegisterAllHotkeys()
     {
+        var final = true;
+
         foreach (var hotkeySetting in _config.Hotkeys)
         {
             var result = _oses.RegisterHotkey(
@@ -102,7 +103,11 @@ public partial class MainWindow : SukiWindow,
                     Type = MB_Enum_ToastType.Error
                 });
             }
+
+            final &= result;
         }
+
+        return final;
     }
 
     #region MessageBus 消息处理
@@ -162,6 +167,8 @@ public partial class MainWindow : SukiWindow,
 
     public void Receive(MB_OpenTacticPlayWindow message)
     {
+        if (!RegisterAllHotkeys()) return;
+
         var tacPlayWindow = _serviceProvider.GetRequiredService<TacticPlayWindow>();
         tacPlayWindow.DataContext = _serviceProvider.GetRequiredService<TacticPlayWindowModel>();
 

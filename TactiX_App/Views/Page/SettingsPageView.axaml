@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,19 +17,24 @@
 
 					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
 						<suki:SettingsLayoutItem.Content>
-							<Border Background="LightGray" Height="300" />
+							<StackPanel Orientation="Vertical">
+								<Button Content="{Binding Language.SETTINGS_PAGE_NORMAL_UPGRADE}"
+										Command="{Binding CheckUpgradeCommand}"/>
+							</StackPanel>
 						</suki:SettingsLayoutItem.Content>
 					</suki:SettingsLayoutItem>
 
 					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
 						<suki:SettingsLayoutItem.Content>
-							<Border Background="LightGray" Height="300" />
+							<StackPanel x:Name="StackPanel_KeyMaps" Orientation="Vertical" />
 						</suki:SettingsLayoutItem.Content>
 					</suki:SettingsLayoutItem>
 
 					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
 						<suki:SettingsLayoutItem.Content>
-							<Border Background="LightGray" Height="300" />
+							<StackPanel Orientation="Vertical">
+								<Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
+							</StackPanel>
 						</suki:SettingsLayoutItem.Content>
 					</suki:SettingsLayoutItem>
 

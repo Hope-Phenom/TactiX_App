@@ -24,7 +24,7 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels
 {
-    public partial class HomeScreenViewModel : ViewModelBase
+    public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVersion>
     {
         #region DI容器注入
         private readonly Logger _logger;
@@ -88,6 +88,8 @@ namespace TactiX_App.ViewModels
             SettingsPageViewControl = _serviceProvider.GetRequiredService<SettingsPageView>();
             SettingsPageViewControl.DataContext = _serviceProvider.GetService<SettingsPageViewModel>();
             #endregion
+
+            _messenger.RegisterAll(this);
 
             Task.Run(CheckVersion);
         }
@@ -165,6 +167,11 @@ namespace TactiX_App.ViewModels
             var revision = version.Revision;
 
             return $"{major}.{minor}.{build}.{revision}";
+        }
+
+        public void Receive(MB_CheckVersion message)
+        {
+            Task.Run(CheckVersion);
         }
         #endregion
 

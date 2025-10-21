@@ -74,6 +74,8 @@ public partial class TacticPlayWindow : Window
         {
             WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
         });
+
+        _oses.UnregisterAllHotkeys();
     }
 
     private void TacticPlayWindow_PointerPressed(object? sender, PointerPressedEventArgs e)

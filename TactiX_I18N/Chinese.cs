@@ -27,6 +27,8 @@
         public string BUTTON_TXT_BACK => "返回";
         public string BUTTON_TXT_SUBMIT => "确定";
         public string BUTTON_TXT_REFRESH => "刷新";
+        public string NORMAL_TEXT_AVAILABLE => "可用";
+        public string NORMAL_TEXT_ERROR => "错误";
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
         public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";
@@ -55,10 +57,11 @@
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "选择战术文件：";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "运行时间：";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "战术时间：";
+        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "通用设置";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";
         public string SETTINGS_PAGE_HEADER_ABOUT => "关于";
-        public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！";
+        public string SETTINGS_PAGE_NORMAL_UPGRADE => "检查更新";
     }
 }

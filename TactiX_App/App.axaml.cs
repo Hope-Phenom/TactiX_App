@@ -11,6 +11,7 @@ using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Page;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views;
+using TactiX_App.Views.Component;
 using TactiX_App.Views.Page;
 using TactiX_App.Views.Popup;
 using TactiX_Exception;
@@ -63,6 +64,7 @@ public partial class App : Application
         services.AddTransient<ModsManagePageView>();
         services.AddTransient<TacticPlayWindow>();
         services.AddTransient<SettingsPageView>();
+        services.AddTransient<KeyMapItem>();
 
         var provider = services.BuildServiceProvider();
         var logger = provider.GetRequiredService<ILoggerContainer>().Builder.GetCurrentClassLogger();

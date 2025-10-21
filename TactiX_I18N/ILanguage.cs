@@ -205,6 +205,10 @@
         /// 设置页-GroupHeader-关于
         /// </summary>
         public string SETTINGS_PAGE_HEADER_ABOUT { get; }
+        /// <summary>
+        /// 设置页-通用设置-检查更新
+        /// </summary>
+        public string SETTINGS_PAGE_NORMAL_UPGRADE { get; }
         #endregion
 
         #endregion
@@ -239,6 +243,14 @@
         /// 通用按钮文本-刷新
         /// </summary>
         public string BUTTON_TXT_REFRESH { get; }
+        /// <summary>
+        /// 通用文本—可用
+        /// </summary>
+        public string NORMAL_TEXT_AVAILABLE { get; }
+        /// <summary>
+        /// 通用文本—错误
+        /// </summary>
+        public string NORMAL_TEXT_ERROR { get; }
         #endregion
     }
 }
