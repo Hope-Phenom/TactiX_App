@@ -76,6 +76,7 @@ public partial class TacticPlayWindow : Window
         });
 
         _oses.UnregisterAllHotkeys();
+        _oses.SaveConfig();
     }
 
     private void TacticPlayWindow_PointerPressed(object? sender, PointerPressedEventArgs e)

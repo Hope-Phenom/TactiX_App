@@ -45,10 +45,6 @@ namespace TactiX_Models.Tactics
         /// 更新时间
         /// </summary>
         public string UpdateTime { get; set; } = string.Empty;
-        /// <summary>
-        /// 动作列表
-        /// </summary>
-        public List<L_TacticAction> Actions { get; set; } = new();
 
         /// <summary>
         /// 对应MOD的名称
@@ -58,5 +54,10 @@ namespace TactiX_Models.Tactics
         /// 对应MOD的最低版本，如果装载的MOD不符合版本要求应该进行提示
         /// </summary>
         public ulong ModVersion { get; set; } = ulong.MinValue;
+
+        /// <summary>
+        /// 动作列表
+        /// </summary>
+        public List<L_TacticAction> Actions { get; set; } = new();
     }
 }

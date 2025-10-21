@@ -58,6 +58,9 @@
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "Running time:";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Step Time:";
         public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
+        public string TACTIC_PLAYING_OPACITY => "Tactical Playback Transparency:";
+        public string TACTIC_PLAYING_TIMELINE_CORRECTION => "Enable timeline correction";
+        public string TACTIC_PLAYING_FILEINFO => "Tactical Document Introduction:";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";

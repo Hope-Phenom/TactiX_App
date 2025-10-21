@@ -58,6 +58,9 @@
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "运行时间：";
         public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "战术时间：";
         public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！";
+        public string TACTIC_PLAYING_OPACITY => "战术播放透明度：";
+        public string TACTIC_PLAYING_TIMELINE_CORRECTION => "启用时间轴矫正";
+        public string TACTIC_PLAYING_FILEINFO => "战术文件介绍：";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "通用设置";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";

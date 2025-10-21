@@ -29,6 +29,10 @@ namespace TactiX_Models
         /// </summary>
         public double Opacity { get; set; } = 0.7;
         /// <summary>
+        /// 启用时间轴矫正
+        /// </summary>
+        public bool EnableTLCorr { get; set; } = true;
+        /// <summary>
         /// 热键绑定，默认使用Alt+方向键
         /// </summary>
         public L_HotkeyBinding[] Hotkeys =

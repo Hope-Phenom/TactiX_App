@@ -27,7 +27,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TactiX_App.ViewModels.Popup
 {
-    public partial class TacticPlayWindowModel : ViewModelBase
+    public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey>
     {
         #region DI容器注入
         public ILanguage Language { get; private set; }
@@ -85,6 +85,10 @@ namespace TactiX_App.ViewModels.Popup
         /// 战术播放时间戳（不受暂停影响）
         /// </summary>
         private uint _runningTimeStamp;
+        /// <summary>
+        /// 运行事件和战术播放时间的差值
+        /// </summary>
+        private uint _timeStampGap;
         #endregion
 
         #region 数据绑定-UI大小等控制
@@ -122,6 +126,7 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         [ObservableProperty]
         public IImage titleBarImage;
+        public L_Config Config => _config;
         #endregion
 
         #region 数据绑定-核心播放逻辑相关
@@ -164,6 +169,11 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         [ObservableProperty]
         public string currStepTimeStampTxt;
+        /// <summary>
+        /// 当前与标准时间的差值
+        /// </summary>
+        [ObservableProperty]
+        public string timeStampGapTxt;
         #endregion
 
         public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
@@ -184,6 +194,7 @@ namespace TactiX_App.ViewModels.Popup
             IsPrepare = true;
             timeStampTxt = "00:00";
             currStepTimeStampTxt = "00:00";
+            timeStampGapTxt = string.Empty;
 
             // 逻辑初始化
             TacticFiles = new AvaloniaList<string>();
@@ -194,9 +205,12 @@ namespace TactiX_App.ViewModels.Popup
             _isPause = false;
             _timeStamp = 0;
             _runningTimeStamp = 0;
+            _timeStampGap = 0;
 
             using var ms = new MemoryStream(_modPackage.ReadBinaryFile(TITLE_BAR_IMAGE));
             titleBarImage = new Bitmap(ms);
+
+            _messenger.RegisterAll(this);
         }
 
 #if DEBUG
@@ -259,6 +273,7 @@ namespace TactiX_App.ViewModels.Popup
             _isPause = false;
             _timeStamp = 0;
             _runningTimeStamp = 0;
+            _timeStampGap = 0;
             _currIndex = -1;
 
             SwtichToPlayingMode();
@@ -266,14 +281,16 @@ namespace TactiX_App.ViewModels.Popup
             if (CurrTactic.TacticType == L_TacticEnum.TIMELINE)
             {
                 _dispatcherTimer = new DispatcherTimer();
-                _dispatcherTimer.Tick += (s, e) => MoveNext();
-                _dispatcherTimer.Interval = REAL_TIME_INTERVAL;
-                MoveNext();
+                _dispatcherTimer.Tick += (s, e) => PlayNext();
+                _dispatcherTimer.Interval = Config.EnableTLCorr
+                    ? REAL_TIME_INTERVAL
+                    : NORMAL_TIME_INTERVAL;
+                PlayNext();
                 _dispatcherTimer.Start();
             }
             else
             {
-                MoveNext();
+                PlayNext();
             }
         }
 
@@ -337,6 +354,11 @@ namespace TactiX_App.ViewModels.Popup
             GroupHeight = GridLength.Star;
             MaterialIconKind = MaterialIconKind.ArrowExpandUp;
             _isMini = false;
+
+            _messenger.Send(new MB_WindowPointerTrans()
+            {
+                Enable = false
+            });
         }
         #endregion
 
@@ -344,7 +366,7 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// 播放战术到下一步
         /// </summary>
-        private void MoveNext()
+        private void PlayNext()
         {
             if (CurrTactic == null) return;
 
@@ -383,11 +405,27 @@ namespace TactiX_App.ViewModels.Popup
             _dispatcherTimer?.Stop();
         }
         /// <summary>
-        /// 播放上一步
+        /// 手动播放上一步
         /// </summary>
         private void MovePrevious()
         {
+            if (CurrTactic == null) return;
+
             if (_currIndex > 0) _currIndex--;
+
+            UpdateTacticTimeStamp();
+            BoardCastCurrStep();
+        }
+        /// <summary>
+        /// 手动播放下一步
+        /// </summary>
+        private void MoveNext()
+        {
+            if (CurrTactic == null) return;
+
+            var actions = CurrTactic!.Actions;
+
+            if (_currIndex < actions.Count - 1) _currIndex++;
 
             UpdateTacticTimeStamp();
             BoardCastCurrStep();
@@ -486,6 +524,17 @@ namespace TactiX_App.ViewModels.Popup
             if (!_isPause) _timeStamp++;
 
             _runningTimeStamp++;
+            _timeStampGap = _runningTimeStamp - _timeStamp;
+
+            if (_timeStampGap != 0)
+            {
+                var symbol = _timeStampGap > 0 ? "+" : "-";
+                TimeStampGapTxt = $"{symbol}{_timeStampGap} s";
+            }
+            else
+            {
+                TimeStampGapTxt = string.Empty;
+            }
 
             var sec = _runningTimeStamp % 60;
             var min = (_runningTimeStamp - sec) / 60;
@@ -536,6 +585,30 @@ namespace TactiX_App.ViewModels.Popup
                             .Replace("/", string.Empty));
                     }
                 });
+            }
+        }
+        #endregion
+
+        #region 快捷键消息处理
+        public void Receive(MB_Hotkey message)
+        {
+            switch (message.HotkeyEnum)
+            {
+                case L_HotkeyBindingEnum.StartOrResume:
+                    _isPause = !_isPause;
+                    break;
+                case L_HotkeyBindingEnum.Stop:
+                    StopPlayback();
+                    SwtichToNormalMode();
+                    break;
+                case L_HotkeyBindingEnum.Previous:
+                    Pause();
+                    MovePrevious();
+                    break;
+                case L_HotkeyBindingEnum.Next:
+                    Pause();
+                    MoveNext();
+                    break;
             }
         }
         #endregion

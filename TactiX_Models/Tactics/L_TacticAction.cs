@@ -41,5 +41,14 @@ namespace TactiX_Models.Tactics
             ItemAbbr = itemAbbr;
             Time = time;
         }
+
+        public override string ToString()
+        {
+            var sec = Time % 60;
+            var min = (Time - sec) / 60;
+            var timeStr = min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
+
+            return $"{timeStr}, {ItemAbbr}";
+        }
     }
 }

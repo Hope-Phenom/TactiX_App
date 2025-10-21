@@ -190,6 +190,18 @@
         /// 战术播放Window-热键已被占用
         /// </summary>
         public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS { get; }
+        /// <summary>
+        /// 战术播放Window-播放时透明度
+        /// </summary>
+        public string TACTIC_PLAYING_OPACITY { get; }
+        /// <summary>
+        /// 战术播放Window-启用时间轴矫正
+        /// </summary>
+        public string TACTIC_PLAYING_TIMELINE_CORRECTION { get; }
+        /// <summary>
+        /// 战术播放Window-战术文件介绍
+        /// </summary>
+        public string TACTIC_PLAYING_FILEINFO { get; }
         #endregion
 
         #region 设置页Page相关

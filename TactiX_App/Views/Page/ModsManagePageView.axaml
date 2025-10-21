@@ -46,7 +46,8 @@
 					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_INFO}">
 						<apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
 						                  IsAutoNameWidth="True" IsTitleVisible="False" 
-										  IsQuickFilterVisible="False" />
+										  IsQuickFilterVisible="False"
+										  IsCategoryVisible="False" />
 					</suki:GroupBox>
 				</suki:GlassCard>
 				<suki:GlassCard Grid.Column="4">
