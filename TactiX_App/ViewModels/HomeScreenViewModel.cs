@@ -61,6 +61,10 @@ namespace TactiX_App.ViewModels
         /// 设置页面组件
         /// </summary>
         public UserControl SettingsPageViewControl { get; private set; }
+        /// <summary>
+        /// 战术编辑器页面组件
+        /// </summary>
+        public UserControl TacticEditorPageViewControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -86,7 +90,9 @@ namespace TactiX_App.ViewModels
             ModsManagerPageViewControl = _serviceProvider.GetRequiredService<ModsManagePageView>();
             ModsManagerPageViewControl.DataContext = _serviceProvider.GetRequiredService<ModsManagePageViewModel>();
             SettingsPageViewControl = _serviceProvider.GetRequiredService<SettingsPageView>();
-            SettingsPageViewControl.DataContext = _serviceProvider.GetService<SettingsPageViewModel>();
+            SettingsPageViewControl.DataContext = _serviceProvider.GetRequiredService<SettingsPageViewModel>();
+            TacticEditorPageViewControl = _serviceProvider.GetRequiredService<TacticEditorPageView>();
+            TacticEditorPageViewControl.DataContext = _serviceProvider.GetRequiredService<TacticEditorPageViewModel>();
             #endregion
 
             _messenger.RegisterAll(this);

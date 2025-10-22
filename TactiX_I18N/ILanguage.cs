@@ -93,6 +93,10 @@
         /// 主页面-侧栏按钮-设置
         /// </summary>
         public string HOMESCREEN_SIDE_SETTINGS { get; }
+        /// <summary>
+        /// 主页面-侧边按钮-战术编辑
+        /// </summary>
+        public string HOMESCREEN_SIDE_EDITOR { get; }
         #endregion
 
         #region 新闻Page相关
