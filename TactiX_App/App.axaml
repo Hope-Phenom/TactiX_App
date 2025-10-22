@@ -7,8 +7,15 @@
 	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
 	<Application.Styles>
+
+		<FluentTheme />
+
 		<sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+
 		<materialIcons:MaterialIconStyles />
+
+		<!-- AvaloniaEdit styles (required!) -->
+		<StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
 
 		<!-- 为常见文本控件设置全局字体 -->
 		<Style Selector="TextBlock">

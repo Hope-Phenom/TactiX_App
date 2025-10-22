@@ -1,15 +1,43 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
 			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
-             x:DataType="vm:TacticEditorPageViewModel"
-             x:Class="TactiX_App.Views.Page.TacticEditorPageView">
+			 xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+			 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
+			 x:DataType="vm:TacticEditorPageViewModel"
+			 x:Class="TactiX_App.Views.Page.TacticEditorPageView">
 
-    <suki:GlassCard Margin="10">
-		
-    </suki:GlassCard>
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="10" />
+			<ColumnDefinition Width="200" />
+		</Grid.ColumnDefinitions>
+
+		<suki:GlassCard Margin="0" Grid.Column="0">
+			<AvaloniaEdit:TextEditor Text="Hello AvaloniaEdit!"
+									 ShowLineNumbers="True"
+									 FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"/>
+		</suki:GlassCard>
+
+		<Grid Margin="0" Grid.Column="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="10" />
+				<RowDefinition Height="300" />
+			</Grid.RowDefinitions>
+
+			<suki:GlassCard Margin="0" Grid.Row="0">
+
+			</suki:GlassCard>
+
+			<suki:GlassCard Margin="0" Grid.Row="2">
+
+			</suki:GlassCard>
+		</Grid>
+
+	</Grid>
 
 </UserControl>
