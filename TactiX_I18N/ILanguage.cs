@@ -253,6 +253,10 @@
         /// </summary>
         public string EDITOR_MENU_FILES_SAVE_AS { get; }
         /// <summary>
+        /// 编辑器Page-菜单栏-文件-导出为战术文件
+        /// </summary>
+        public string EDITOR_MENU_FILES_EXPORT { get; }
+        /// <summary>
         /// 编辑器Page-菜单栏-编辑
         /// </summary>
         public string EDITOR_MENU_HEADER_EDIT { get; }
@@ -273,9 +277,13 @@
         /// </summary>
         public string EDITOR_MENU_HEADER_HELP { get; }
         /// <summary>
-        /// 编辑器Page-菜单栏-帮助-关于
+        /// 编辑器Page-菜单栏-帮助-获取帮助
         /// </summary>
-        public string EDITOR_MENU_HELP_ABOUT { get; }
+        public string EDITOR_MENU_HELP_GET_HELP { get; }
+        /// <summary>
+        /// 编辑器Page-错误信息-文件无法转换为战术文件
+        /// </summary>
+        public string EDITOR_ERROR_FILE_CANT_CONVERT { get; }
 
         #endregion
 

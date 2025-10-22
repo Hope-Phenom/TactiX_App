@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using HarfBuzzSharp;
@@ -9,6 +10,8 @@ using SukiUI.Toasts;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Net.Http.Headers;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views.Popup;
@@ -21,13 +24,23 @@ namespace TactiX_App.Views;
 
 public partial class MainWindow : SukiWindow,
     IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>, IRecipient<MB_OpenTacticPlayWindow>,
-    IRecipient<MB_WindowStatus>
+    IRecipient<MB_WindowStatus>, IRecipient<MB_FileDialog>, IRecipient<MB_WindowTitle>
 {
-    public readonly ILanguage _language;
+    private readonly ILanguage _language;
     private readonly IServiceProvider _serviceProvider;
     private readonly IOSes _oses;
     private readonly IMessenger _messenger;
     private readonly L_Config _config;
+
+    private readonly string MAIN_WINDOW = "MainWindow";
+    private readonly FilePickerFileType _sourceFileType = new("TactiX Source")
+    {
+        Patterns = new[] { "*.tactixSource" }
+    };
+    private readonly FilePickerFileType _tectixFileType = new("TactiX")
+    {
+        Patterns = new[] { "*.tactix" }
+    };
 
     public MainWindow(IServiceProvider serviceProvider)
     {
@@ -192,5 +205,71 @@ public partial class MainWindow : SukiWindow,
                 break;
         }
     }
+
+    public void Receive(MB_FileDialog message)
+    {
+        if (!string.IsNullOrEmpty(message.FilePath)) return;
+
+        if (message.WindowName != MAIN_WINDOW) return;
+
+        if (message.IsOpenMode)
+        {
+            OpenFileDialog();
+        }
+        else
+        {
+            SaveFileDialog(message.Trigger);
+        }
+    }
+
+    public void Receive(MB_WindowTitle message)
+    {
+        if (message.WindowName != MAIN_WINDOW) return;
+
+        Title = message.Title;
+    }
     #endregion
+
+    /// <summary>
+    /// 打开文件选择弹窗
+    /// </summary>
+    private void OpenFileDialog()
+    {
+        var storageFiles = StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+        {
+            AllowMultiple = false,
+            FileTypeFilter = [_sourceFileType]
+        }).Result;
+
+        if (storageFiles.Count == 0) return;
+
+        _messenger.Send(new MB_FileDialog()
+        {
+            WindowName = MAIN_WINDOW,
+            FilePath = storageFiles.First().Path.AbsolutePath,
+            IsOpenMode = true
+        });
+    }
+
+    /// <summary>
+    /// 打开文件保存弹窗
+    /// </summary>
+    private void SaveFileDialog(string? trigger = null)
+    {
+        var storageFile = StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
+        {
+            FileTypeChoices = trigger == null ? [_sourceFileType] : [_tectixFileType],
+            ShowOverwritePrompt = true
+        }).Result;
+
+        if (storageFile == null) return;
+
+        _messenger.Send(new MB_FileDialog()
+        {
+            WindowName = MAIN_WINDOW,
+            FilePath = storageFile.Path.AbsolutePath,
+            IsOpenMode = false,
+            Trigger = trigger
+        });
+    }
 }

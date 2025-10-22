@@ -74,11 +74,13 @@
         public string EDITOR_MENU_FILES_OPEN => "Open";
         public string EDITOR_MENU_FILES_SAVE => "Save";
         public string EDITOR_MENU_FILES_SAVE_AS => "Save As";
+        public string EDITOR_MENU_FILES_EXPORT => "Export as Tactical File (*.tactix)";
         public string EDITOR_MENU_HEADER_EDIT => "Edit";
         public string EDITOR_MENU_EDIT_UNDO => "Undo";
         public string EDITOR_MENU_EDIT_REDO => "Redo";
         public string EDITOR_MENU_EDIT_INSERT_TEMPLATE => "Insert Template";
         public string EDITOR_MENU_HEADER_HELP => "Help";
-        public string EDITOR_MENU_HELP_ABOUT => "About";
+        public string EDITOR_MENU_HELP_GET_HELP => "Get help with tactical editing";
+        public string EDITOR_ERROR_FILE_CANT_CONVERT => "Failed to export the tactic file, please check if the format meets the requirements";
     }
 }

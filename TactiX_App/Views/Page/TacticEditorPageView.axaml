@@ -6,39 +6,61 @@
 			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 			 xmlns:document="using:AvaloniaEdit.Document"
 			 xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
 			 x:DataType="vm:TacticEditorPageViewModel"
 			 x:Class="TactiX_App.Views.Page.TacticEditorPageView">
+
+	<UserControl.KeyBindings>
+		<KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewFileCommand}"/>
+		<KeyBinding Gesture="Ctrl+O" Command="{Binding OpenFileCommand}"/>
+		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}"/>
+		<KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsFileCommand}"/>
+		<KeyBinding Gesture="Ctrl+E" Command="{Binding ExportCommand}"/>
+		<KeyBinding Gesture="Ctrl+I" Command="{Binding InsertTemplateCommand}"/>
+	</UserControl.KeyBindings>
 
 	<DockPanel>
 		<Menu DockPanel.Dock="Top">
 			<!-- 文件菜单 -->
 			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_FILES}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_NEW}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_NEW}"
+						  Command="{Binding CreateNewFileCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+N</KeyGesture>
 					</MenuItem.InputGesture>
 				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_OPEN}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_OPEN}"
+						  Command="{Binding OpenFileCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+O</KeyGesture>
 					</MenuItem.InputGesture>
 				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE}"
+						  Command="{Binding SaveFileCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+S</KeyGesture>
 					</MenuItem.InputGesture>
 				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE_AS}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE_AS}"
+						  Command="{Binding SaveAsFileCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+Shift+S</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+				<Separator />
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT}"
+						  Command="{Binding ExportCommand}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+E</KeyGesture>
 					</MenuItem.InputGesture>
 				</MenuItem>
 			</MenuItem>
 
 			<!-- 编辑菜单 -->
 			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_EDIT}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_EDIT_INSERT_TEMPLATE}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_EDIT_INSERT_TEMPLATE}"
+						  Command="{Binding InsertTemplateCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+I</KeyGesture>
 					</MenuItem.InputGesture>
@@ -47,7 +69,7 @@
 
 			<!-- 帮助菜单 -->
 			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_HELP}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_HELP_ABOUT}"/>
+				<MenuItem Header="{Binding Language.EDITOR_MENU_HELP_GET_HELP}"/>
 			</MenuItem>
 		</Menu>
 

@@ -17,6 +17,7 @@ using TactiX_App.Views.Popup;
 using TactiX_Exception;
 using TactiX_I18N;
 using TactiX_Logger;
+using TactiX_ModSupport;
 using TactiX_Network;
 using TactiX_OS_Tools;
 
@@ -42,6 +43,7 @@ public partial class App : Application
         services.AddSingleton<INetwork, Network>();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IMessenger>(messenger);
+        services.AddSingleton<ITactiXSourceEncoder, TactiXSourceEncoder>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();

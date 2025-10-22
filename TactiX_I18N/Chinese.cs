@@ -74,11 +74,13 @@
         public string EDITOR_MENU_FILES_OPEN => "打开已有战术文件";
         public string EDITOR_MENU_FILES_SAVE => "保存当前战术文件";
         public string EDITOR_MENU_FILES_SAVE_AS => "另存为当前战术文件";
+        public string EDITOR_MENU_FILES_EXPORT => "导出为战术文件(*.tactix)";
         public string EDITOR_MENU_HEADER_EDIT => "编辑";
         public string EDITOR_MENU_EDIT_UNDO => "撤销";
         public string EDITOR_MENU_EDIT_REDO => "重做";
         public string EDITOR_MENU_EDIT_INSERT_TEMPLATE => "插入模板";
         public string EDITOR_MENU_HEADER_HELP => "帮助";
-        public string EDITOR_MENU_HELP_ABOUT => "关于";
+        public string EDITOR_MENU_HELP_GET_HELP => "获取关于战术编辑的帮助";
+        public string EDITOR_ERROR_FILE_CANT_CONVERT => "无法导出战术文件，请检查格式是否符合要求";
     }
 }

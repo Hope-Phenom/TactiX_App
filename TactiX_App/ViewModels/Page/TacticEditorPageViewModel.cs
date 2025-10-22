@@ -1,7 +1,12 @@
-﻿using AvaloniaEdit.Document;
+﻿using Avalonia;
+using Avalonia.Dialogs;
+using Avalonia.Platform.Storage;
+using AvaloniaEdit.Document;
 using AvaloniaEdit.Highlighting;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,18 +14,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TactiX_I18N;
+using TactiX_Models.MessageBus;
+using TactiX_ModSupport;
 
 namespace TactiX_App.ViewModels.Page
 {
-    public partial class TacticEditorPageViewModel : ViewModelBase
+    public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_FileDialog>
     {
         #region DI容器注入
         private readonly ILanguage _language;
         private readonly IMessenger _messenger;
+        private readonly ITactiXSourceEncoder _encoder;
         #endregion
 
         #region 常量
         private const string TACTIC_TEMPLATE_NAME = "TacticTemplate.tactixSource";
+        private const string TITLE_HEADER = "TactiX - ";
+        private const string NEW_FILE = "New File";
+        private const string MAIN_WINDOW = "MainWindow";
+        private const string EXPORT_TRRIGER = "Export";
+        #endregion
+
+        #region 逻辑变量
+        private string _filePath = string.Empty;
+        private string _exportPath = string.Empty;
         #endregion
 
         #region 数据绑定
@@ -31,15 +48,207 @@ namespace TactiX_App.ViewModels.Page
         public TextDocument TextDocument { get; private set; }
         #endregion
 
-        public TacticEditorPageViewModel(IMessenger messenger, ILang lang)
+        public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder)
         {
             _language = lang.Language;
             _messenger = messenger;
+            _encoder = encoder;
+
+            _messenger.RegisterAll(this);
 
             TextDocument = new TextDocument();
+            CreateNewFile();
+        }
+
+
+        #region UI响应的Commands
+        /// <summary>
+        /// 创建新文件
+        /// </summary>
+        [RelayCommand]
+        public void CreateNewFile()
+        {
+            _filePath = string.Empty;
+
             TextDocument.Text = File.Exists(TACTIC_TEMPLATE_NAME)
                 ? File.ReadAllText(TACTIC_TEMPLATE_NAME)
                 : string.Empty;
+
+            _messenger.Send(new MB_WindowTitle()
+            {
+                Title = $"{TITLE_HEADER}{NEW_FILE}",
+                WindowName = MAIN_WINDOW
+            });
         }
+        /// <summary>
+        /// 打开文件
+        /// </summary>
+        [RelayCommand]
+        public void OpenFile()
+        {
+            _messenger.Send(new MB_FileDialog()
+            {
+                WindowName = MAIN_WINDOW,
+                IsOpenMode = true
+            });
+        }
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        [RelayCommand]
+        public void SaveFile()
+        {
+            SaveFileInner();
+        }
+        /// <summary>
+        /// 另存为文件
+        /// </summary>
+        [RelayCommand]
+        public void SaveAsFile()
+        {
+            SaveFileInner(true);
+        }
+        private void SaveFileInner(bool isSaveAs = false)
+        {
+            if (isSaveAs) _filePath = string.Empty;
+
+            if (string.IsNullOrEmpty(_filePath))
+            {
+                _messenger.Send(new MB_FileDialog()
+                {
+                    WindowName = MAIN_WINDOW,
+                    IsOpenMode = false
+                });
+            }
+            else
+            {
+                SaveFileHandle();
+            }
+        }
+        /// <summary>
+        /// 插入模板内容
+        /// </summary>
+        [RelayCommand]
+        public void InsertTemplate()
+        {
+            TextDocument.Text += File.Exists(TACTIC_TEMPLATE_NAME)
+                ? File.ReadAllText(TACTIC_TEMPLATE_NAME)
+                : string.Empty;
+        }
+        /// <summary>
+        /// 导出为战术文件
+        /// </summary>
+        [RelayCommand]
+        public void Export()
+        {
+            _messenger.Send(new MB_FileDialog()
+            {
+                WindowName = MAIN_WINDOW,
+                IsOpenMode = false,
+                Trigger = EXPORT_TRRIGER
+            });
+        }
+        #endregion
+
+        #region 消息处理
+        public void Receive(MB_FileDialog message)
+        {
+            if (string.IsNullOrEmpty(message.FilePath)) return;
+
+            if (message.WindowName != MAIN_WINDOW) return;
+
+            if (message.Trigger == EXPORT_TRRIGER)
+            { 
+                _exportPath = message.FilePath;
+            }
+            else
+            {
+                _filePath = message.FilePath;
+            }
+
+            if (message.IsOpenMode)
+            {
+                OpenFileHandle();
+            }
+            else
+            {
+                SaveFileHandle(message.Trigger);
+            }
+        }
+        #endregion
+
+        #region 逻辑
+        /// <summary>
+        /// 文件保存过程
+        /// </summary>
+        private void SaveFileHandle(string? trigger = null)
+        {
+            try
+            {
+                if (trigger == null)
+                {
+                    File.WriteAllText(_filePath, TextDocument.Text);
+                }
+                else
+                {
+                    var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
+                    if (tactix == null)
+                    {
+                        _messenger.Send(new MB_ToastPureText() 
+                        { 
+                            Message = Language.EDITOR_ERROR_FILE_CANT_CONVERT,
+                            Title = Language.TOAST_TITLE_ERROR,
+                            Type = MB_Enum_ToastType.Error
+                        });
+
+                        return;
+                    }
+
+                    var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
+                    File.WriteAllText(_exportPath, txt);
+                }
+
+                _messenger.Send(new MB_WindowTitle()
+                {
+                    Title = $"{TITLE_HEADER}{_filePath}",
+                    WindowName = MAIN_WINDOW
+                });
+            }
+            catch (Exception ex)
+            {
+                _messenger.Send(new MB_ToastPureText() 
+                { 
+                    Message = ex.Message,
+                    Type = MB_Enum_ToastType.Error,
+                    Title = _language.TOAST_TITLE_ERROR
+                });
+            }
+        }
+        /// <summary>
+        /// 文件打开过程
+        /// </summary>
+        private void OpenFileHandle()
+        {
+            try
+            {
+                TextDocument.Text = File.ReadAllText(_filePath);
+
+                _messenger.Send(new MB_WindowTitle()
+                {
+                    Title = $"{TITLE_HEADER}{_filePath}",
+                    WindowName = MAIN_WINDOW
+                });
+            }
+            catch (Exception ex)
+            {
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = ex.Message,
+                    Type = MB_Enum_ToastType.Error,
+                    Title = _language.TOAST_TITLE_ERROR
+                });
+            }
+        }
+        #endregion
     }
 }
