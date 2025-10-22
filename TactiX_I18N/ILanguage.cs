@@ -227,6 +227,58 @@
         public string SETTINGS_PAGE_NORMAL_UPGRADE { get; }
         #endregion
 
+        #region 编辑器Page相关
+        /// <summary>
+        /// 编辑器Page-MOD内容索引
+        /// </summary>
+        public string EDITOR_HEADER_MOD_ITEMS { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件
+        /// </summary>
+        public string EDITOR_MENU_HEADER_FILES { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件-新建文件
+        /// </summary>
+        public string EDITOR_MENU_FILES_NEW { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件-打开文件
+        /// </summary>
+        public string EDITOR_MENU_FILES_OPEN { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件-保存文件
+        /// </summary>
+        public string EDITOR_MENU_FILES_SAVE { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件-另存为文件
+        /// </summary>
+        public string EDITOR_MENU_FILES_SAVE_AS { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-编辑
+        /// </summary>
+        public string EDITOR_MENU_HEADER_EDIT { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-编辑-撤销
+        /// </summary>
+        public string EDITOR_MENU_EDIT_UNDO { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-编辑-重做
+        /// </summary>
+        public string EDITOR_MENU_EDIT_REDO { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-编辑-插入模板
+        /// </summary>
+        public string EDITOR_MENU_EDIT_INSERT_TEMPLATE { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-帮助
+        /// </summary>
+        public string EDITOR_MENU_HEADER_HELP { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-帮助-关于
+        /// </summary>
+        public string EDITOR_MENU_HELP_ABOUT { get; }
+
+        #endregion
+
         #endregion
 
         #region 错误码部分

@@ -67,5 +67,18 @@
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";
         public string SETTINGS_PAGE_HEADER_ABOUT => "关于";
         public string SETTINGS_PAGE_NORMAL_UPGRADE => "检查更新";
+
+        public string EDITOR_HEADER_MOD_ITEMS => "MOD内容索引";
+        public string EDITOR_MENU_HEADER_FILES => "文件";
+        public string EDITOR_MENU_FILES_NEW => "创建新的战术文件";
+        public string EDITOR_MENU_FILES_OPEN => "打开已有战术文件";
+        public string EDITOR_MENU_FILES_SAVE => "保存当前战术文件";
+        public string EDITOR_MENU_FILES_SAVE_AS => "另存为当前战术文件";
+        public string EDITOR_MENU_HEADER_EDIT => "编辑";
+        public string EDITOR_MENU_EDIT_UNDO => "撤销";
+        public string EDITOR_MENU_EDIT_REDO => "重做";
+        public string EDITOR_MENU_EDIT_INSERT_TEMPLATE => "插入模板";
+        public string EDITOR_MENU_HEADER_HELP => "帮助";
+        public string EDITOR_MENU_HELP_ABOUT => "关于";
     }
 }

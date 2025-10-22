@@ -15,7 +15,7 @@ namespace TactiX_Models.Tactics
         /// <summary>
         /// 星际争霸2模组（内置）
         /// </summary>
-        public const string MOD_NAME_SCII = "StarCraft II";
+        public const string MOD_NAME_SCII = "StarCraft2";
         #endregion
     }
 }

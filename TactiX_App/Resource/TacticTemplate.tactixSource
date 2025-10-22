@@ -1,0 +1,39 @@
+﻿// 模板版本：1.0
+// 以下信息请按需修改
+// 如要添加注释请参考此行，使用双斜杠开头即可
+
+// 战术名称
+Name: 新建战术
+
+// 作者
+Author: 作者
+
+// 战术介绍（请不要换行）
+Description: 新建战术
+
+// 适用版本
+ApplicableVersion: 1
+
+// 战术文件类型，Timeline或者Step二选一
+TacticType: Timeline
+
+// 战术文件的版本
+TacVersion: 1
+
+// 更新时间(年-月-日 时:分)
+UpdateTime: 2000-01-01 00:00
+
+// MOD名称
+ModName: StarCraft2
+
+// MOD最低版本
+ModVersion: 1
+
+// 行为列表，步骤请添加至花括号内
+// 每行依次为：步骤数,时间（秒或者分:秒的格式）
+Actions:
+{
+	1,5,Tscv
+	2,0:7,Tscv
+	3,00:08,Tscv
+}

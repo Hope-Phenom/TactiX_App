@@ -67,5 +67,18 @@
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
         public string SETTINGS_PAGE_HEADER_ABOUT => "About";
         public string SETTINGS_PAGE_NORMAL_UPGRADE => "Check for updates";
+
+        public string EDITOR_HEADER_MOD_ITEMS => "MOD Contents";
+        public string EDITOR_MENU_HEADER_FILES => "Files";
+        public string EDITOR_MENU_FILES_NEW => "Create";
+        public string EDITOR_MENU_FILES_OPEN => "Open";
+        public string EDITOR_MENU_FILES_SAVE => "Save";
+        public string EDITOR_MENU_FILES_SAVE_AS => "Save As";
+        public string EDITOR_MENU_HEADER_EDIT => "Edit";
+        public string EDITOR_MENU_EDIT_UNDO => "Undo";
+        public string EDITOR_MENU_EDIT_REDO => "Redo";
+        public string EDITOR_MENU_EDIT_INSERT_TEMPLATE => "Insert Template";
+        public string EDITOR_MENU_HEADER_HELP => "Help";
+        public string EDITOR_MENU_HELP_ABOUT => "About";
     }
 }

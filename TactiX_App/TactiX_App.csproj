@@ -16,6 +16,7 @@
     <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.7" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.7" />
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0" />
     <PackageReference Include="bodong.Avalonia.PropertyGrid" Version="11.3.3.2" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 
@@ -48,5 +49,11 @@
     <Compile Update="Views\Page\ModsManagePageView.axaml.cs">
       <DependentUpon>ModsManagePageView.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resource\TacticTemplate.tactixSource">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

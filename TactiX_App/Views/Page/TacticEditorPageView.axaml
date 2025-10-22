@@ -4,40 +4,74 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
 			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-			 xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+			 xmlns:document="using:AvaloniaEdit.Document"
+			 xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
 			 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
 			 x:DataType="vm:TacticEditorPageViewModel"
 			 x:Class="TactiX_App.Views.Page.TacticEditorPageView">
 
-	<Grid Margin="10">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="10" />
-			<ColumnDefinition Width="200" />
-		</Grid.ColumnDefinitions>
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<!-- 文件菜单 -->
+			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_FILES}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_NEW}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+N</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_OPEN}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+O</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+S</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE_AS}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+Shift+S</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+			</MenuItem>
 
-		<suki:GlassCard Margin="0" Grid.Column="0">
-			<AvaloniaEdit:TextEditor Text="Hello AvaloniaEdit!"
-									 ShowLineNumbers="True"
-									 FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"/>
-		</suki:GlassCard>
+			<!-- 编辑菜单 -->
+			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_EDIT}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_EDIT_INSERT_TEMPLATE}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+I</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+			</MenuItem>
 
-		<Grid Margin="0" Grid.Column="2">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*" />
-				<RowDefinition Height="10" />
-				<RowDefinition Height="300" />
-			</Grid.RowDefinitions>
+			<!-- 帮助菜单 -->
+			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_HELP}">
+				<MenuItem Header="{Binding Language.EDITOR_MENU_HELP_ABOUT}"/>
+			</MenuItem>
+		</Menu>
 
-			<suki:GlassCard Margin="0" Grid.Row="0">
+		<Grid Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="200" />
+			</Grid.ColumnDefinitions>
 
+			<suki:GlassCard Margin="0" Grid.Column="0">
+				<avaloniaEdit:TextEditor x:Name="Editor"
+										 ShowLineNumbers="True"
+										 FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"
+										 Document="{Binding TextDocument, Mode=TwoWay}"/>
 			</suki:GlassCard>
 
-			<suki:GlassCard Margin="0" Grid.Row="2">
+			<Grid Margin="0" Grid.Column="2">
+				<suki:GlassCard Margin="0">
 
-			</suki:GlassCard>
+				</suki:GlassCard>
+			</Grid>
+
 		</Grid>
-
-	</Grid>
+	</DockPanel>
 
 </UserControl>
