@@ -67,7 +67,7 @@
 				   Height="80"
 				   Margin="30,10,30,30"
 				   Classes="AppIcon"
-				   Source="avares://TactiX_App/Assets/avalonia-logo.ico" />
+				   Source="avares://TactiX_App/Assets/TactiX.ico" />
 		</suki:SukiSideMenu.HeaderContent>
 
 		<suki:SukiSideMenu.FooterContent>

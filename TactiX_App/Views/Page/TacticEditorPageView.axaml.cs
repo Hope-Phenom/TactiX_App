@@ -173,11 +173,13 @@ public partial class TacticEditorPageView : UserControl
             _modItems.AddRange(modDesc.Units);
             _modItems.AddRange(modDesc.Actions);
         }
-        catch
+        catch (Exception ex)
         {
             _messenger.Send(new MB_ToastPureText()
             {
-                Message = Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR,
+                Message = string.Format(Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR, 
+                    _config.CurrentlyEnabledMOD, 
+                    ex.Message),
                 Title = Language.TOAST_TITLE_ERROR,
                 Type = MB_Enum_ToastType.Error
             });

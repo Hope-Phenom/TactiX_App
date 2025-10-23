@@ -4,10 +4,23 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>TactiX.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Remove="Assets\TacticTemplate.tactixSource" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resource\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TactiX.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,8 +65,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resource\TacticTemplate.tactixSource">
+    <None Update="Assets\TacticTemplate.tactixSource">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resource\" />
   </ItemGroup>
 </Project>

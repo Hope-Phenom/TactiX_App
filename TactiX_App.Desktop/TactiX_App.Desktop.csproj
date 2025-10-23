@@ -8,7 +8,11 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>TactiX</AssemblyName>
+    <ApplicationIcon>TactiX.ico</ApplicationIcon>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="TactiX.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="11.3.7" />
