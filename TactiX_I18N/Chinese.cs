@@ -29,9 +29,11 @@
         public string BUTTON_TXT_REFRESH => "刷新";
         public string NORMAL_TEXT_AVAILABLE => "可用";
         public string NORMAL_TEXT_ERROR => "错误";
+        public string NORMAL_TEXT_DEVELOPING => "功能开发中，敬请期待。";
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
         public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";
+        public string HOMESCREEN_SIDE_REPLAY_ANALYSIS => "回放解析";
         public string HOMESCREEN_SIDE_MOD_MANANGMENT => "MOD管理";
         public string HOMESCREEN_SIDE_SETTINGS => "设置";
         public string HOMESCREEN_SIDE_EDITOR => "战术编辑";

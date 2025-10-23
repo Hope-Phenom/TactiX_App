@@ -56,6 +56,7 @@ public partial class App : Application
         services.AddTransient<TacticPlayWindowModel>();
         services.AddTransient<SettingsPageViewModel>();
         services.AddTransient<TacticEditorPageViewModel>();
+        services.AddTransient<ReplayAnalysisPageViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
         services.AddTransient<MainView>();
@@ -68,6 +69,7 @@ public partial class App : Application
         services.AddTransient<TacticPlayWindow>();
         services.AddTransient<SettingsPageView>();
         services.AddTransient<TacticEditorPageView>();
+        services.AddTransient<ReplayAnalysisPageView>();
 
         // 注册其他UI组件
         services.AddTransient<KeyMapItem>();

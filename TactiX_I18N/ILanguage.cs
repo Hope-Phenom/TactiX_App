@@ -86,6 +86,10 @@
         /// </summary>
         public string HOMESCREEN_SIDE_TACTICSHALL { get; }
         /// <summary>
+        /// 主页面-侧栏按钮-回放解析
+        /// </summary>
+        public string HOMESCREEN_SIDE_REPLAY_ANALYSIS { get; }
+        /// <summary>
         /// 主页面-侧栏按钮-MOD管理
         /// </summary>
         public string HOMESCREEN_SIDE_MOD_MANANGMENT { get; }
@@ -334,6 +338,10 @@
         /// 通用文本—错误
         /// </summary>
         public string NORMAL_TEXT_ERROR { get; }
+        /// <summary>
+        /// 通用文本-功能开发中，敬请期待
+        /// </summary>
+        public string NORMAL_TEXT_DEVELOPING { get; }
         #endregion
     }
 }

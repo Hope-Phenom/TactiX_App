@@ -1,29 +1,25 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TactiX_I18N;
-using TactiX_Logger;
 
 namespace TactiX_App.ViewModels.Page
 {
-    public class TacticsHallPageViewModel: ViewModelBase
+    public class ReplayAnalysisPageViewModel : ViewModelBase
     {
         #region DI容器注入
         private readonly ILanguage _language;
-        private readonly Logger _logger;
         #endregion
 
         #region 数据绑定
         public ILanguage Language => _language;
         #endregion
 
-        public TacticsHallPageViewModel(ILang lang, ILoggerContainer loggerContainer)
+        public ReplayAnalysisPageViewModel(ILang lang)
         {
             _language = lang.Language;
-            _logger = loggerContainer.Builder.GetCurrentClassLogger();
         }
     }
 }

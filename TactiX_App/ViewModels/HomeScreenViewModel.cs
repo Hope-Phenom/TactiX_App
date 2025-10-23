@@ -65,6 +65,10 @@ namespace TactiX_App.ViewModels
         /// 战术编辑器页面组件
         /// </summary>
         public UserControl TacticEditorPageViewControl { get; private set; }
+        /// <summary>
+        /// 回放解析页面组件
+        /// </summary>
+        public UserControl ReplayAnalysisPageViewControl { get; private set; }
         #endregion
 
         public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer, 
@@ -93,6 +97,8 @@ namespace TactiX_App.ViewModels
             SettingsPageViewControl.DataContext = _serviceProvider.GetRequiredService<SettingsPageViewModel>();
             TacticEditorPageViewControl = _serviceProvider.GetRequiredService<TacticEditorPageView>();
             TacticEditorPageViewControl.DataContext = _serviceProvider.GetRequiredService<TacticEditorPageViewModel>();
+            ReplayAnalysisPageViewControl = _serviceProvider.GetRequiredService<ReplayAnalysisPageView>();
+            ReplayAnalysisPageViewControl.DataContext = _serviceProvider.GetRequiredService<ReplayAnalysisPageViewModel>();
             #endregion
 
             _messenger.RegisterAll(this);

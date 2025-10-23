@@ -29,9 +29,11 @@
         public string BUTTON_TXT_REFRESH => "Refresh";
         public string NORMAL_TEXT_AVAILABLE => "Available";
         public string NORMAL_TEXT_ERROR => "Error";
+        public string NORMAL_TEXT_DEVELOPING => "Feature under development, stay tuned.";
 
         public string HOMESCREEN_SIDE_NEWS => "News";
         public string HOMESCREEN_SIDE_TACTICSHALL => "Tactics Hall";
+        public string HOMESCREEN_SIDE_REPLAY_ANALYSIS => "Replay Analysis";
         public string HOMESCREEN_SIDE_MOD_MANANGMENT => "MOD Management";
         public string HOMESCREEN_SIDE_SETTINGS => "Settings";
         public string HOMESCREEN_SIDE_EDITOR => "Tactic Editor";
