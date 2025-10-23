@@ -225,6 +225,10 @@
         /// 设置页-通用设置-检查更新
         /// </summary>
         public string SETTINGS_PAGE_NORMAL_UPGRADE { get; }
+        /// <summary>
+        /// 设置页-关于-额外说明
+        /// </summary>
+        public string SETTINGS_PAGE_ABOUT_RIGHTS { get; }
         #endregion
 
         #region 编辑器Page相关

@@ -1,6 +1,6 @@
 ### **最终用户许可协议（EULA）**
 
-**最后更新日期：** 2025年9月8日
+**最后更新日期：** 2025年10月23日
 
 **重要提示：请仔细阅读本最终用户许可协议（“本协议”）。一旦您下载、安装、复制或以任何方式使用本软件（“TactiX”或“软件”），即表示您同意接受本协议各项条款的约束。如果您不同意本协议条款，请勿使用本软件。**
 
@@ -10,7 +10,7 @@
 
 1.2 **“用户”** 或 **“您”** 指：下载、安装、访问或使用本软件的个人或单一实体。
 
-1.3 **“软件”** 指：由许可方提供的名为“星际争霸II助手”的应用程序、其所有更新版本以及相关文档。
+1.3 **“软件”** 指：由许可方提供的名为“TactiX”的应用程序、其所有更新版本以及相关文档。
 
 **第2条 许可授予**
 
@@ -42,13 +42,13 @@
 
 (a) 已通过贡献者协议（Contributor License Agreement, CLA）将其知识产权授予许可方 
 
-(b) 贡献者名单详见：https://github.com/xxx/CONTRIBUTORS.md 
+(b) 贡献者名单详见本软件的开源仓库 
 
 (c) 贡献者不承担用户使用责任
 
 **第5条 隐私与数据**
 
-5.1 **技术原理声明**：本软件是一个**外部辅助工具**。我们特此声明，**本软件绝不通过读取《星际争霸II》游戏客户端进程内存的方式获取任何游戏数据**。软件的功能（如游戏流程提醒等）均独立于客户端实现，仅战术文件的自动启动是**通过分析您的计算机屏幕截图（截屏）来实现的**。该技术原理旨在严格遵守暴雪娱乐的相关政策，避免对游戏客户端进行任何形式的修改或侵入。
+5.1 **技术原理声明**：本软件是一个**独立的工具软件**。我们特此声明，**本软件绝不通过读取《星际争霸II》游戏客户端进程内存的方式获取任何游戏数据**。软件的功能（如游戏流程提醒等）均独立于客户端实现，仅可能加入的战术文件的自动启动功能是**通过分析您的计算机屏幕截图（截屏）来实现的**。该技术原理旨在严格遵守暴雪娱乐的相关政策，避免对游戏客户端进行任何形式的修改或侵入。**本软件的所有技术实现路径均遵守《星际争霸II》的最终用户许可协议和隐私政策。**
 
 5.2 为改进软件和提供服务，我们可能会收集**匿名的、非个人身份识别信息**，例如：
 
@@ -58,7 +58,7 @@
 
 5.3 我们**不会**收集您的暴雪账号、密码、游戏内聊天记录、交易记录等个人敏感信息。
 
-5.4 我们的完整隐私政策详见：[在此处添加您的隐私政策链接]。
+5.4 我们的完整隐私政策详见：[**《TactiX 隐私政策》**](https://sc2.east-unicorn.cn/files/tactix/TactiX_%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96.pdf)。
 
 **第6条 第三方与开源组件**
 
@@ -66,13 +66,27 @@
 
 6.2 本软件使用的部分开源组件列表如下（包括但不限于）：
 
-- [例如：.NET Framework, 微软授权]
+- Avalonia，Avalonia Team，MIT，https://avaloniaui.net
 
-- [例如：OpenCV库，BSD许可]
+- bodong.Avalonia.PropertyGrid，bodong，MIT，https://github.com/bodong1987/Avalonia.PropertyGrid
 
-- [请在此处列出所有重要的开源项目及其许可协议]
+- CommunityToolkit.Mvvm，Microsoft，MIT，https://github.com/CommunityToolkit/dotnet
 
-- ... ...
+- Markdown.Avalonia，Bevan Arps(original)，whistyun，MIT，https://github.com/whistyun/Markdown.Avalonia
+
+- Material.Icons.Avalonia，SKProCH，MIT，https://github.com/AvaloniaUtils/Material.Icons.Avalonia/
+
+- Microsoft.Extensions.DependencyInjection，Microsoft，MIT，https://dot.net/
+
+- Newtonsoft.Json，James Newton-King，MIT，https://www.newtonsoft.com/json
+
+- NLog，Jarek Kowalski,Kim Christensen,Julian Verdurmen，BSD-3-Clause，https://nlog-project.org/
+
+- NuGet.Versioning，Microsoft，Apache-2.0，https://aka.ms/nugetprj
+
+- Refit，.NET Foundation and Contributors，MIT，https://github.com/reactiveui/refit
+
+- SukiUI，SukiUI，MIT，https://github.com/kikipoulet/SukiUI/
 
   用户可应要求获取开源代码副本。
 
@@ -113,7 +127,7 @@
 
 鉴于项目的非盈利性质及开发者隐私保护需求：
 
-10.3.1 开发者承诺在发生法定责任时通过sc2.legal@protonmail邮箱履行通知义务；
+10.3.1 开发者承诺在发生法定责任时通过 tactix_legal@licorne.ink 邮箱履行通知义务；
 
 10.3.2 用户追究责任需向该邮箱发送书面请求，开发者应在15日内提供法定纠纷解决所需的主体证明；
 
@@ -126,15 +140,3 @@
 11.2 如果本协议的任何条款被有管辖权的法院认定为无效，则该条款应自协议中移除，但不影响其余条款的效力。
 
 11.3 许可方有权随时修改本协议，修改后的协议将在软件内或官方网站上公布后生效。如果您在修改后继续使用软件，即表示您接受修改后的协议。
-
-------
-
-### **给您的使用说明和待办事项（[ ] 部分需要您补充）:**
-
-1. **【必须补充】法律实体信息**：填写第1.1条中的 [您的公司名称或个人名称]、[您的详细地址]和 [您的电子邮箱]。如果是个人的话，建议使用一个专门的、正式的邮箱（如 legal@yourdomain.com）。
-2. **【必须补充】开源组件列表**：仔细检查您的项目所依赖的所有第三方库（尤其是开源库），将它们的名称和对应的开源许可证（如MIT, GPL, Apache等）填写到第6.2条的列表中。这是许多开源许可证的合规性要求。
-3. **【建议补充】隐私政策链接**：虽然当前收集的数据很简单，但撰写一份简短的隐私政策（说明数据收集范围、用途、保护措施和用户权利）并放在您的网站或软件内，然后将链接填入第5.4条，这会显得非常专业和合规。
-4. **【注意】技术原理声明**：第5.1条已经根据您的要求，明确强调了“仅通过截屏”实现功能，且“不读取内存”。这是本协议的核心亮点，用于向用户和暴雪表明合规立场。
-5. **【发布】**: 将这份最终定稿的协议文本以 EULA.txt或License.txt的形式放入您的软件安装包中，并在软件的安装界面或“关于”页面提供查看本协议的选项。
-
-这份修订后的协议结构更清晰，权责更明确，特别是加入了关于技术实现方式的声明，能有效降低用户的疑虑和法律风险。

@@ -67,6 +67,7 @@
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";
         public string SETTINGS_PAGE_HEADER_ABOUT => "关于";
         public string SETTINGS_PAGE_NORMAL_UPGRADE => "检查更新";
+        public string SETTINGS_PAGE_ABOUT_RIGHTS => "使用本软件即表示您同意我们的《最终用户许可协议》和《隐私政策》。";
 
         public string EDITOR_HEADER_MOD_ITEMS => "MOD内容索引";
         public string EDITOR_MENU_HEADER_FILES => "文件";

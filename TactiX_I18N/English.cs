@@ -67,6 +67,7 @@
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
         public string SETTINGS_PAGE_HEADER_ABOUT => "About";
         public string SETTINGS_PAGE_NORMAL_UPGRADE => "Check for updates";
+        public string SETTINGS_PAGE_ABOUT_RIGHTS => "By using this software, you agree to our End User License Agreement and Privacy Policy.";
 
         public string EDITOR_HEADER_MOD_ITEMS => "MOD Contents";
         public string EDITOR_MENU_HEADER_FILES => "Files";

@@ -33,6 +33,8 @@
 					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
 						<suki:SettingsLayoutItem.Content>
 							<StackPanel Orientation="Vertical">
+								<Label Content="{Binding Language.SETTINGS_PAGE_ABOUT_RIGHTS}" />
+								<Grid Height="10" />
 								<Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
 							</StackPanel>
 						</suki:SettingsLayoutItem.Content>
