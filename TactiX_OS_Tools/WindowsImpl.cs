@@ -237,13 +237,19 @@ namespace TactiX_OS_Tools
         /// <param name="wParam">The parameters of the message.</param>
         private IntPtr HotKeyCallback(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // If not a hotkey message or the global hotkey for showing the window
-            if (msg != WM_HOTKEY) return IntPtr.Zero;
-
-            if (_hotkeys.TryGetValue((int)wParam, out var hotkeyInfo))
+            switch (msg)
             {
-                // 在UI线程执行操作
-                Dispatcher.UIThread.Post(() => hotkeyInfo?.Action?.Invoke());
+                case WM_HOTKEY:
+                    if (_hotkeys.TryGetValue((int)wParam, out var hotkeyInfo))
+                    {
+                        // 在UI线程执行操作
+                        Dispatcher.UIThread.Post(() => hotkeyInfo?.Action?.Invoke());
+                    }
+                    handled = true;
+                    break;
+                default:
+                    handled = false;
+                    break;
             }
 
             return IntPtr.Zero;
