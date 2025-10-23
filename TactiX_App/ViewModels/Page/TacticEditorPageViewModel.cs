@@ -14,8 +14,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TactiX_I18N;
+using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_ModSupport;
+using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels.Page
 {
@@ -25,6 +27,8 @@ namespace TactiX_App.ViewModels.Page
         private readonly ILanguage _language;
         private readonly IMessenger _messenger;
         private readonly ITactiXSourceEncoder _encoder;
+        private readonly IOSes _oses;
+        private readonly L_Config _config;
         #endregion
 
         #region 常量
@@ -48,15 +52,19 @@ namespace TactiX_App.ViewModels.Page
         public TextDocument TextDocument { get; private set; }
         #endregion
 
-        public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder)
+        public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder,
+            IOSTools oSTools)
         {
             _language = lang.Language;
             _messenger = messenger;
             _encoder = encoder;
+            _oses = oSTools.OSes;
+            _config = _oses.LoadConfig();
 
             _messenger.RegisterAll(this);
 
             TextDocument = new TextDocument();
+
             CreateNewFile();
         }
 
@@ -158,7 +166,7 @@ namespace TactiX_App.ViewModels.Page
             if (message.WindowName != MAIN_WINDOW) return;
 
             if (message.Trigger == EXPORT_TRRIGER)
-            { 
+            {
                 _exportPath = message.FilePath;
             }
             else
@@ -194,8 +202,8 @@ namespace TactiX_App.ViewModels.Page
                     var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
                     if (tactix == null)
                     {
-                        _messenger.Send(new MB_ToastPureText() 
-                        { 
+                        _messenger.Send(new MB_ToastPureText()
+                        {
                             Message = Language.EDITOR_ERROR_FILE_CANT_CONVERT,
                             Title = Language.TOAST_TITLE_ERROR,
                             Type = MB_Enum_ToastType.Error
@@ -216,8 +224,8 @@ namespace TactiX_App.ViewModels.Page
             }
             catch (Exception ex)
             {
-                _messenger.Send(new MB_ToastPureText() 
-                { 
+                _messenger.Send(new MB_ToastPureText()
+                {
                     Message = ex.Message,
                     Type = MB_Enum_ToastType.Error,
                     Title = _language.TOAST_TITLE_ERROR

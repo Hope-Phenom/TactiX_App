@@ -82,5 +82,6 @@
         public string EDITOR_MENU_HEADER_HELP => "Help";
         public string EDITOR_MENU_HELP_GET_HELP => "Get help with tactical editing";
         public string EDITOR_ERROR_FILE_CANT_CONVERT => "Failed to export the tactic file, please check if the format meets the requirements";
+        public string EDITOR_ERROR_MOD_NOT_SET => "The mod package is not set up, the editor cannot enable the completion feature";
     }
 }

@@ -284,7 +284,10 @@
         /// 编辑器Page-错误信息-文件无法转换为战术文件
         /// </summary>
         public string EDITOR_ERROR_FILE_CANT_CONVERT { get; }
-
+        /// <summary>
+        /// 编辑器Page-错误信息-Mod未设置无法启动关键词补全
+        /// </summary>
+        public string EDITOR_ERROR_MOD_NOT_SET { get; }
         #endregion
 
         #endregion

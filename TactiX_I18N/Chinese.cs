@@ -82,5 +82,6 @@
         public string EDITOR_MENU_HEADER_HELP => "帮助";
         public string EDITOR_MENU_HELP_GET_HELP => "获取关于战术编辑的帮助";
         public string EDITOR_ERROR_FILE_CANT_CONVERT => "无法导出战术文件，请检查格式是否符合要求";
+        public string EDITOR_ERROR_MOD_NOT_SET => "Mod包未设置，编辑器无法启用补全功能";
     }
 }
