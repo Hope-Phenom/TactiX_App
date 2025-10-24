@@ -23,6 +23,14 @@ namespace TactiX_Models.MessageBus
         /// <summary>
         /// 用于区分作用
         /// </summary>
-        public string? Trigger { get; set; }
+        public required string Trigger { get; set; }
+        /// <summary>
+        /// 文件过滤器
+        /// </summary>
+        public string? FileFilter { get; set; }
+        /// <summary>
+        /// 文件过滤器名称
+        /// </summary>
+        public string? FileFilterName { get; set; }
     }
 }

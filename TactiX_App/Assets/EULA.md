@@ -88,6 +88,8 @@
 
 - SukiUI，SukiUI，MIT，https://github.com/kikipoulet/SukiUI/
 
+- s2protocol.NET，Philipp Hetzner，https://github.com/ipax77/s2protocol.NET
+
   用户可应要求获取开源代码副本。
 
 **第7条 免责声明**

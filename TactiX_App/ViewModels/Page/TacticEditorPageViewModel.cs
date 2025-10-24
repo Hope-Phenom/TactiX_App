@@ -36,7 +36,8 @@ namespace TactiX_App.ViewModels.Page
         private const string TITLE_HEADER = "TactiX - ";
         private const string NEW_FILE = "New File";
         private const string MAIN_WINDOW = "MainWindow";
-        private const string EXPORT_TRRIGER = "Export";
+        private const string EXPORT_TRIGGER = "Export";
+        private const string TACEDIT_TRIGGER = "TacEdit";
         #endregion
 
         #region 逻辑变量
@@ -97,7 +98,10 @@ namespace TactiX_App.ViewModels.Page
             _messenger.Send(new MB_FileDialog()
             {
                 WindowName = MAIN_WINDOW,
-                IsOpenMode = true
+                IsOpenMode = true,
+                FileFilterName = "TactiX Source",
+                FileFilter = "*.tactixSource",
+                Trigger = TACEDIT_TRIGGER
             });
         }
         /// <summary>
@@ -125,12 +129,15 @@ namespace TactiX_App.ViewModels.Page
                 _messenger.Send(new MB_FileDialog()
                 {
                     WindowName = MAIN_WINDOW,
-                    IsOpenMode = false
+                    IsOpenMode = false,
+                    FileFilterName = "Tactix Source",
+                    FileFilter = "*.tactixSource",
+                    Trigger = TACEDIT_TRIGGER
                 });
             }
             else
             {
-                SaveFileHandle();
+                SaveFileHandle(TACEDIT_TRIGGER);
             }
         }
         /// <summary>
@@ -153,7 +160,9 @@ namespace TactiX_App.ViewModels.Page
             {
                 WindowName = MAIN_WINDOW,
                 IsOpenMode = false,
-                Trigger = EXPORT_TRRIGER
+                Trigger = EXPORT_TRIGGER,
+                FileFilterName = "TactiX Tactic Files",
+                FileFilter = "*.tactix"
             });
         }
         #endregion
@@ -162,14 +171,15 @@ namespace TactiX_App.ViewModels.Page
         public void Receive(MB_FileDialog message)
         {
             if (string.IsNullOrEmpty(message.FilePath)) return;
-
             if (message.WindowName != MAIN_WINDOW) return;
+            if (message.Trigger != EXPORT_TRIGGER 
+                && message.Trigger != TACEDIT_TRIGGER) return;
 
-            if (message.Trigger == EXPORT_TRRIGER)
+            if (message.Trigger == EXPORT_TRIGGER)
             {
                 _exportPath = message.FilePath;
             }
-            else
+            else if (message.Trigger == TACEDIT_TRIGGER)
             {
                 _filePath = message.FilePath;
             }
@@ -189,15 +199,15 @@ namespace TactiX_App.ViewModels.Page
         /// <summary>
         /// 文件保存过程
         /// </summary>
-        private void SaveFileHandle(string? trigger = null)
+        private void SaveFileHandle(string trigger)
         {
             try
             {
-                if (trigger == null)
+                if (trigger == TACEDIT_TRIGGER)
                 {
                     File.WriteAllText(_filePath, TextDocument.Text);
                 }
-                else
+                else if (trigger == EXPORT_TRIGGER)
                 {
                     var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
                     if (tactix == null)

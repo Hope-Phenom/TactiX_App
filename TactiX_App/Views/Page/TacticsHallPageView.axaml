@@ -12,7 +12,7 @@
 		<Label Content="{Binding Language.NORMAL_TEXT_DEVELOPING}"
 			   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
 			   VerticalAlignment="Center" VerticalContentAlignment="Center"
-			   FontSize="24" />
+			   FontSize="18" />
 	</suki:GlassCard>
 
 </UserControl>

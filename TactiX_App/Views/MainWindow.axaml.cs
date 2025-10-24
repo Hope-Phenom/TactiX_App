@@ -33,14 +33,6 @@ public partial class MainWindow : SukiWindow,
     private readonly L_Config _config;
 
     private readonly string MAIN_WINDOW = "MainWindow";
-    private readonly FilePickerFileType _sourceFileType = new("TactiX Source")
-    {
-        Patterns = new[] { "*.tactixSource" }
-    };
-    private readonly FilePickerFileType _tectixFileType = new("TactiX")
-    {
-        Patterns = new[] { "*.tactix" }
-    };
 
     public MainWindow(IServiceProvider serviceProvider)
     {
@@ -107,10 +99,10 @@ public partial class MainWindow : SukiWindow,
 
             if (!result)
             {
-                _messenger.Send(new MB_ToastPureText() 
-                { 
-                    Message = string.Format(_language.TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS, 
-                        hotkeySetting.Modifiers, 
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = string.Format(_language.TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS,
+                        hotkeySetting.Modifiers,
                         hotkeySetting.Key),
                     Title = _language.TOAST_TITLE_ERROR,
                     Type = MB_Enum_ToastType.Error
@@ -214,11 +206,11 @@ public partial class MainWindow : SukiWindow,
 
         if (message.IsOpenMode)
         {
-            OpenFileDialog();
+            OpenFileDialog(message);
         }
         else
         {
-            SaveFileDialog(message.Trigger);
+            SaveFileDialog(message);
         }
     }
 
@@ -233,12 +225,14 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     /// 打开文件选择弹窗
     /// </summary>
-    private void OpenFileDialog()
+    private void OpenFileDialog(MB_FileDialog message)
     {
+        if (string.IsNullOrEmpty(message.FileFilter) || string.IsNullOrEmpty(message.FileFilterName)) return;
+
         var storageFiles = StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
         {
             AllowMultiple = false,
-            FileTypeFilter = [_sourceFileType]
+            FileTypeFilter = [new FilePickerFileType(message.FileFilterName) { Patterns = [message.FileFilter] }]
         }).Result;
 
         if (storageFiles.Count == 0) return;
@@ -247,18 +241,21 @@ public partial class MainWindow : SukiWindow,
         {
             WindowName = MAIN_WINDOW,
             FilePath = storageFiles.First().Path.AbsolutePath,
-            IsOpenMode = true
+            IsOpenMode = true,
+            Trigger = message.Trigger
         });
     }
 
     /// <summary>
     /// 打开文件保存弹窗
     /// </summary>
-    private void SaveFileDialog(string? trigger = null)
+    private void SaveFileDialog(MB_FileDialog message)
     {
+        if (string.IsNullOrEmpty(message.FileFilter) || string.IsNullOrEmpty(message.FileFilterName)) return;
+
         var storageFile = StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
         {
-            FileTypeChoices = trigger == null ? [_sourceFileType] : [_tectixFileType],
+            FileTypeChoices = [new FilePickerFileType(message.FileFilterName) { Patterns = [message.FileFilter] }],
             ShowOverwritePrompt = true
         }).Result;
 
@@ -269,7 +266,7 @@ public partial class MainWindow : SukiWindow,
             WindowName = MAIN_WINDOW,
             FilePath = storageFile.Path.AbsolutePath,
             IsOpenMode = false,
-            Trigger = trigger
+            Trigger = message.Trigger
         });
     }
 }

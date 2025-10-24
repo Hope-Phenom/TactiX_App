@@ -298,6 +298,17 @@
         public string EDITOR_ERROR_MOD_NOT_SET { get; }
         #endregion
 
+        #region Replay分析Page相关
+        /// <summary>
+        /// Replay分析Page-功能开发中
+        /// </summary>
+        public string REPLAY_ANALYSIS_DEVELOPING { get; }
+        /// <summary>
+        /// Replay分析Page-按钮-解析SC2Replay
+        /// </summary>
+        public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY { get; }
+        #endregion
+
         #endregion
 
         #region 错误码部分

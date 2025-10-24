@@ -8,10 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="s2protocol.NET" Version="0.9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SC2ProductionDuration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

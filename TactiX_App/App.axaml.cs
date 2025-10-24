@@ -44,6 +44,7 @@ public partial class App : Application
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IMessenger>(messenger);
         services.AddSingleton<ITactiXSourceEncoder, TactiXSourceEncoder>();
+        services.AddSingleton<IReplayDecoder, SC2ReplayDecoder>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();

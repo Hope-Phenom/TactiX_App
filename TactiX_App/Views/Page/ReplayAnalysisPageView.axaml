@@ -8,11 +8,33 @@
 			 x:DataType="vm:ReplayAnalysisPageViewModel"
 			 x:Class="TactiX_App.Views.Page.ReplayAnalysisPageView">
 
-	<suki:GlassCard Margin="10">
-		<Label Content="{Binding Language.NORMAL_TEXT_DEVELOPING}"
-			   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-			   VerticalAlignment="Center" VerticalContentAlignment="Center"
-			   FontSize="24" />
-	</suki:GlassCard>
+	<Grid Margin="10">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="80" />
+		</Grid.RowDefinitions>
+
+		<suki:GlassCard Grid.Row="0">
+			<TextBlock Text="{Binding Language.REPLAY_ANALYSIS_DEVELOPING}"
+				   HorizontalAlignment="Center" VerticalAlignment="Center"
+				   FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
+		</suki:GlassCard>
+
+		<suki:GlassCard Grid.Row="2">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition Width="150" />
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Column="2" Command="{Binding DecodeSC2ReplayCommand}"
+						Content="{Binding Language.REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY}" />
+			</Grid>
+		</suki:GlassCard>
+
+	</Grid>
 
 </UserControl>
