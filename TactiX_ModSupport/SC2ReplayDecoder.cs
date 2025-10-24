@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Avalonia.Controls.Shapes;
+using Newtonsoft.Json;
 using s2protocol.NET;
 using s2protocol.NET.Models;
 using System;
@@ -17,6 +18,7 @@ namespace TactiX_ModSupport
 
         private Dictionary<string, int> _unitData;
         private Dictionary<string, int> _techData;
+        private Dictionary<string, string> _unitsDict;
         private Dictionary<int, string> _playerNames;
 
         private readonly ReplayDecoderOptions options;
@@ -32,11 +34,13 @@ namespace TactiX_ModSupport
                 if (sc2data == null) throw new Exception("CANT FIND SC2ProductionDuration.json");
                 _unitData = sc2data.Units;
                 _techData = sc2data.Techs;
+                _unitsDict = sc2data.UnitsDict;
             }
             else
             {
                 _unitData = new();
                 _techData = new();
+                _unitsDict = new();
             }
 
             _playerNames = new();
@@ -82,11 +86,15 @@ namespace TactiX_ModSupport
 
                     if (!replayActionDict.ContainsKey(playerName)) replayActionDict.Add(playerName, new());
 
+                    var name = evt.UnitTypeName;
+                    if (!_unitData.ContainsKey(name)) continue;
+
                     replayActionDict[playerName].Add(new L_ReplayAction()
                     {
-                        UnitName = evt.UnitTypeName,
+                        UnitName = name,
                         Gameloop = evt.Gameloop,
-                        Time = (int)Math.Floor(evt.Gameloop / 22.4)
+                        Time = (int)Math.Floor(evt.Gameloop / 22.4),
+                        Abbr = _unitsDict[name] 
                     });
                 }
 
@@ -105,9 +113,10 @@ namespace TactiX_ModSupport
 
                         replayActionDict[playerName].Add(new L_ReplayAction()
                         {
-                            UnitName = evt.UnitTypeName,
+                            UnitName = name,
                             Gameloop = startLoop,
-                            Time = (int)Math.Floor(startLoop / 22.4)
+                            Time = (int)Math.Floor(startLoop / 22.4),
+                            Abbr = _unitsDict[name]
                         });
                     }
                 }
@@ -127,9 +136,10 @@ namespace TactiX_ModSupport
 
                         replayActionDict[playerName].Add(new L_ReplayAction()
                         {
-                            UnitName = evt.UpgradeTypeName,
+                            UnitName = name,
                             Gameloop = startLoop,
-                            Time = (int)Math.Floor(startLoop / 22.4)
+                            Time = (int)Math.Floor(startLoop / 22.4),
+                            Abbr = _unitsDict[name]
                         });
                     }
                 }
@@ -139,6 +149,8 @@ namespace TactiX_ModSupport
                     replayActionDict[playerName] = replayActionDict[playerName]
                         .OrderBy(e => e.Gameloop)
                         .ToList();
+
+                    AdjustTime(replayActionDict[playerName]);
                 }
 
                 return replayActionDict;
@@ -149,10 +161,42 @@ namespace TactiX_ModSupport
             }
         }
 
+        private List<L_ReplayAction> AdjustTime(List<L_ReplayAction> list)
+        {
+            if (list.Count <= 1)
+                return list;
+
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                if (list[i].Time >= list[i + 1].Time)
+                {
+                    int j = i + 1;
+                    // 处理重复值的连锁反应
+                    while (j < list.Count)
+                    {
+                        if (list[j].Time <= list[j - 1].Time)
+                        {
+                            list[j].Time = list[j - 1].Time + 1;
+                            j++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    // 跳过已处理的部分
+                    i = j - 1;
+                }
+            }
+
+            return list;
+        }
+
         public class SC2DataDict
         {
             public required Dictionary<string, int> Units;
             public required Dictionary<string, int> Techs;
+            public required Dictionary<string, string> UnitsDict;
         }
     }
 }

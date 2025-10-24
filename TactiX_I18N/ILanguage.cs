@@ -307,6 +307,22 @@
         /// Replay分析Page-按钮-解析SC2Replay
         /// </summary>
         public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY { get; }
+        /// <summary>
+        /// Replay分析Page-解析错误
+        /// </summary>
+        public string REPLAY_ANALYSIS_DECODE_ERROR { get; }
+        /// <summary>
+        /// Replay分析Page-解析错误标题
+        /// </summary>
+        public string REPLAY_ANALYSIS_DECODE_ERROR_TITLE { get; }
+        /// <summary>
+        /// Replay分析Page-解析成功
+        /// </summary>
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS { get; }
+        /// <summary>
+        /// Replay分析Page-解析成功标题
+        /// </summary>
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE { get; }
         #endregion
 
         #endregion

@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\TacticTemplate.tactixSource">
+    <None Update="TacticTemplate.tactixSource">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

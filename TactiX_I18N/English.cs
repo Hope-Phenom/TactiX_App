@@ -89,5 +89,9 @@
 
         public string REPLAY_ANALYSIS_DEVELOPING => "The replay analysis feature is currently only available for StarCraft II and is still under development. \r\nYou can use the button below to analyze replay files and quickly create tactical documents.";
         public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY => "Analyzing Replay Files";
+        public string REPLAY_ANALYSIS_DECODE_ERROR => "An error occurred while trying to parse the Replay, error message {0}";
+        public string REPLAY_ANALYSIS_DECODE_ERROR_TITLE => "Analyzing Replay Anomalies";
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS => "Replay parsed successfully, file exported to: {0}";
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE => "Analysis successful";
     }
 }

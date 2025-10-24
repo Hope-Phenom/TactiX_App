@@ -89,5 +89,9 @@
 
         public string REPLAY_ANALYSIS_DEVELOPING => "Replay解析功能目前仅针对星际争霸2且功能仍处于开发中，\r\n您可以通过下方的按钮对Replay文件进行解析来快速创建战术文件。";
         public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY => "解析Replay文件";
+        public string REPLAY_ANALYSIS_DECODE_ERROR => "尝试解析Replay时发生了错误，错误信息{0}";
+        public string REPLAY_ANALYSIS_DECODE_ERROR_TITLE => "解析Replay异常";
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS => "解析Replay成功，文件已导出至：{0}";
+        public string REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE => "解析成功";
     }
 }

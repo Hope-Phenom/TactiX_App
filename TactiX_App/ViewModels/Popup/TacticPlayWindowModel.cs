@@ -377,14 +377,14 @@ namespace TactiX_App.ViewModels.Popup
             {
                 if (timeLineMode)
                 {
-                    UpdateTimeStamp();
-
                     if (_timeStamp == actions[_currIndex + 1].Time && !_isPause)
                     {
                         _currIndex++;
                         UpdateTacticTimeStamp();
                         BoardCastCurrStep();
                     }
+
+                    UpdateTimeStamp();
                 }
                 else
                 {

@@ -24,7 +24,8 @@ namespace TactiX_App.Views;
 
 public partial class MainWindow : SukiWindow,
     IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>, IRecipient<MB_OpenTacticPlayWindow>,
-    IRecipient<MB_WindowStatus>, IRecipient<MB_FileDialog>, IRecipient<MB_WindowTitle>
+    IRecipient<MB_WindowStatus>, IRecipient<MB_FileDialog>, IRecipient<MB_WindowTitle>,
+    IRecipient<MB_FolderDialog>
 {
     private readonly ILanguage _language;
     private readonly IServiceProvider _serviceProvider;
@@ -219,6 +220,26 @@ public partial class MainWindow : SukiWindow,
         if (message.WindowName != MAIN_WINDOW) return;
 
         Title = message.Title;
+    }
+
+    public void Receive(MB_FolderDialog message)
+    {
+        if (message.WindowName != MAIN_WINDOW) return;
+        if (!string.IsNullOrEmpty(message.FolderPath)) return;
+
+        var folder = StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions() 
+        { 
+             AllowMultiple = false
+        }).Result;
+
+        if (folder.Count == 0) return;
+
+        _messenger.Send(new MB_FolderDialog()
+        {
+            WindowName = MAIN_WINDOW,
+            Trigger = message.Trigger,
+            FolderPath = folder.First().Name
+        });
     }
     #endregion
 
