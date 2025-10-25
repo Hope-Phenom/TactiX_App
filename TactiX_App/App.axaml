@@ -38,6 +38,7 @@
 		</Style>
 	</Application.Styles>
 
+	<!--
 	<TrayIcon.Icons>
 		<TrayIcons>
 			<TrayIcon Icon="avares://TactiX_App/Assets/avalonia-logo.ico" ToolTipText="SukiUI Native Menu Demo">
@@ -56,4 +57,5 @@
 			</TrayIcon>
 		</TrayIcons>
 	</TrayIcon.Icons>
+	-->
 </Application>

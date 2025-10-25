@@ -128,7 +128,9 @@
 			</suki:GlassCard>
 			<suki:GlassCard Classes="HeaderCard" Grid.Row="2">
 				<suki:GroupBox Header="友情链接" Grid.Row="2">
-
+					<Label Content="{Binding Language.NORMAL_TEXT_FRIENDSHIP_LINKS}"
+						   VerticalContentAlignment="Center"
+						   HorizontalContentAlignment="Center"/>
 				</suki:GroupBox>
 			</suki:GlassCard>
 		</Grid>

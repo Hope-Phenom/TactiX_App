@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Material.Icons;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using NLog;
 using System;
@@ -14,6 +15,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TactiX_I18N;
@@ -23,7 +25,6 @@ using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
 using TactiX_ModSupport;
 using TactiX_OS_Tools;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TactiX_App.ViewModels.Popup
 {
@@ -43,6 +44,7 @@ namespace TactiX_App.ViewModels.Popup
         private const string TACTICS_FOLDER = "Tactics";
         private const string TACTICS_SEARCH_PATTERN = "*.tactix";
         private const string ICON_FOLDER = "icons";
+        private const string SOUND_FOLDER = "sounds";
         private readonly TimeSpan NORMAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 1, 0);
         private readonly TimeSpan REAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 0, 968);
         private readonly Point PLAYING_SIZE = new(700, 180);
@@ -88,7 +90,9 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// 运行事件和战术播放时间的差值
         /// </summary>
-        private uint _timeStampGap;
+        private uint _timeStampGap; 
+        private WaveOutEvent? _waveOut;
+        private WaveFileReader? _waveReader;
         #endregion
 
         #region 数据绑定-UI大小等控制
@@ -368,33 +372,41 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void PlayNext()
         {
-            if (CurrTactic == null) return;
-
-            var actions = CurrTactic.Actions;
-            var timeLineMode = CurrTactic.TacticType == L_TacticEnum.TIMELINE;
-
-            if (_currIndex < actions.Count - 1)
+            try
             {
-                if (timeLineMode)
+                if (CurrTactic == null) return;
+
+                var actions = CurrTactic.Actions;
+                var timeLineMode = CurrTactic.TacticType == L_TacticEnum.TIMELINE;
+
+                if (_currIndex < actions.Count - 1)
                 {
-                    if (_timeStamp == actions[_currIndex + 1].Time && !_isPause)
+                    if (timeLineMode)
+                    {
+                        if (_timeStamp == actions[_currIndex + 1].Time && !_isPause)
+                        {
+                            _currIndex++;
+                            UpdateTacticTimeStamp();
+                            BoardCastCurrStep();
+                            PlayWav();
+                        }
+
+                        UpdateTimeStamp();
+                    }
+                    else
                     {
                         _currIndex++;
-                        UpdateTacticTimeStamp();
                         BoardCastCurrStep();
                     }
-
-                    UpdateTimeStamp();
                 }
                 else
                 {
-                    _currIndex++;
-                    BoardCastCurrStep();
+                    StopPlayback();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                StopPlayback();
+                _logger.Error(ex.ToString());
             }
         }
         /// <summary>
@@ -409,26 +421,42 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void MovePrevious()
         {
-            if (CurrTactic == null) return;
+            try
+            {
+                if (CurrTactic == null) return;
 
-            if (_currIndex > 0) _currIndex--;
+                if (_currIndex > 0) _currIndex--;
 
-            UpdateTacticTimeStamp();
-            BoardCastCurrStep();
+                UpdateTacticTimeStamp();
+                BoardCastCurrStep();
+                PlayWav();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+            }
         }
         /// <summary>
         /// 手动播放下一步
         /// </summary>
         private void MoveNext()
         {
-            if (CurrTactic == null) return;
+            try
+            {
+                if (CurrTactic == null) return;
 
-            var actions = CurrTactic!.Actions;
+                var actions = CurrTactic!.Actions;
 
-            if (_currIndex < actions.Count - 1) _currIndex++;
+                if (_currIndex < actions.Count - 1) _currIndex++;
 
-            UpdateTacticTimeStamp();
-            BoardCastCurrStep();
+                UpdateTacticTimeStamp();
+                BoardCastCurrStep();
+                PlayWav();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+            }
         }
         /// <summary>
         /// 暂停
@@ -449,36 +477,43 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void BoardCastCurrStep()
         {
-            if (CurrTactic == null) return;
-            if (_modPackage.ModDesc == null) return;
-
-            for (int slotNo = 0; slotNo < 5; slotNo++)
+            try
             {
-                // 换算为对应的指针
-                var index = _currIndex + slotNo - 2;
+                if (CurrTactic == null) return;
+                if (_modPackage.ModDesc == null) return;
 
-                // 超出了范围，让Item显示为空
-                if (index < 0 || index >= CurrTactic.Actions.Count)
+                for (int slotNo = 0; slotNo < 5; slotNo++)
                 {
-                    _messenger.Send(new MB_DisplayStep()
-                    {
-                        SlotNo = slotNo
-                    });
-                }
-                // 范围内，广播显示内容
-                else
-                {
-                    var action = CurrTactic.Actions[index];
-                    var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                    var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                    // 换算为对应的指针
+                    var index = _currIndex + slotNo - 2;
 
-                    _messenger.Send(new MB_DisplayStep()
+                    // 超出了范围，让Item显示为空
+                    if (index < 0 || index >= CurrTactic.Actions.Count)
                     {
-                        SlotNo = slotNo,
-                        Desc = desc,
-                        Image = image
-                    });
+                        _messenger.Send(new MB_DisplayStep()
+                        {
+                            SlotNo = slotNo
+                        });
+                    }
+                    // 范围内，广播显示内容
+                    else
+                    {
+                        var action = CurrTactic.Actions[index];
+                        var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
+                        var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+
+                        _messenger.Send(new MB_DisplayStep()
+                        {
+                            SlotNo = slotNo,
+                            Desc = desc,
+                            Image = image
+                        });
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
             }
         }
         /// <summary>
@@ -499,21 +534,28 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void ResetSlots()
         {
-            ClearSlots();
-
-            if (CurrTactic == null || CurrTactic.Actions.Count < 3) return;
-
-            for (int slotNo = 3; slotNo < 5; slotNo++)
+            try
             {
-                var action = CurrTactic.Actions[slotNo - 3];
-                var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
-                _messenger.Send(new MB_DisplayStep()
+                ClearSlots();
+
+                if (CurrTactic == null || CurrTactic.Actions.Count < 3) return;
+
+                for (int slotNo = 3; slotNo < 5; slotNo++)
                 {
-                    SlotNo = slotNo,
-                    Desc = desc,
-                    Image = image
-                });
+                    var action = CurrTactic.Actions[slotNo - 3];
+                    var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
+                    var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                    _messenger.Send(new MB_DisplayStep()
+                    {
+                        SlotNo = slotNo,
+                        Desc = desc,
+                        Image = image
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
             }
         }
         /// <summary>
@@ -521,37 +563,51 @@ namespace TactiX_App.ViewModels.Popup
         /// </summary>
         private void UpdateTimeStamp()
         {
-            if (!_isPause) _timeStamp++;
-
-            _runningTimeStamp++;
-            _timeStampGap = _runningTimeStamp - _timeStamp;
-
-            if (_timeStampGap != 0)
+            try
             {
-                var symbol = _timeStampGap > 0 ? "+" : "-";
-                TimeStampGapTxt = $"{symbol}{_timeStampGap} s";
-            }
-            else
-            {
-                TimeStampGapTxt = string.Empty;
-            }
+                if (!_isPause) _timeStamp++;
 
-            var sec = _runningTimeStamp % 60;
-            var min = (_runningTimeStamp - sec) / 60;
-            TimeStampTxt = CombineTimeStr(min, sec);
+                _runningTimeStamp++;
+                _timeStampGap = _runningTimeStamp - _timeStamp;
+
+                if (_timeStampGap != 0)
+                {
+                    var symbol = _timeStampGap > 0 ? "+" : "-";
+                    TimeStampGapTxt = $"{symbol}{_timeStampGap} s";
+                }
+                else
+                {
+                    TimeStampGapTxt = string.Empty;
+                }
+
+                var sec = _runningTimeStamp % 60;
+                var min = (_runningTimeStamp - sec) / 60;
+                TimeStampTxt = CombineTimeStr(min, sec);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+            }
         }
         /// <summary>
         /// 更新战术时间戳
         /// </summary>
         private void UpdateTacticTimeStamp()
         {
-            if (CurrTactic == null || CurrTactic.TacticType == L_TacticEnum.STEP) return;
+            try
+            {
+                if (CurrTactic == null || CurrTactic.TacticType == L_TacticEnum.STEP) return;
 
-            var timestamp = CurrTactic.Actions[_currIndex].Time;
+                var timestamp = CurrTactic.Actions[_currIndex].Time;
 
-            var sec = timestamp % 60;
-            var min = (timestamp - sec) / 60;
-            CurrStepTimeStampTxt = CombineTimeStr(min, sec);
+                var sec = timestamp % 60;
+                var min = (timestamp - sec) / 60;
+                CurrStepTimeStampTxt = CombineTimeStr(min, sec);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+            }
         }
         /// <summary>
         /// 拼接时间字符串
@@ -586,6 +642,51 @@ namespace TactiX_App.ViewModels.Popup
                     }
                 });
             }
+        }
+
+        private void PlayWav()
+        {
+            try
+            {
+                if (CurrTactic == null) return;
+
+                var action = CurrTactic.Actions[_currIndex];
+                var wav = _modResourceCache.GetAudio(Path.Combine(SOUND_FOLDER, $"{action.ItemAbbr}.wav"));
+                PlayWavFromMemoryStream(wav);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+            }
+        }
+
+        private void PlayWavFromMemoryStream(byte[] wavData)
+        {
+            try
+            {
+                StopWav();
+
+                var memoryStream = new MemoryStream(wavData);
+                _waveReader = new WaveFileReader(memoryStream);
+                _waveOut = new WaveOutEvent();
+                _waveOut.Init(_waveReader);
+                _waveOut.PlaybackStopped += (e, a) => { memoryStream.Dispose(); };
+                _waveOut.Play();
+            }
+            catch (Exception ex)
+            {
+                StopWav();
+                _logger.Error(ex.ToString());
+            }
+        }
+
+        private void StopWav()
+        {
+            _waveOut?.Stop();
+            _waveOut?.Dispose();
+            _waveReader?.Dispose();
+            _waveOut = null;
+            _waveReader = null;
         }
         #endregion
 

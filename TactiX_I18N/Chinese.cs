@@ -30,6 +30,7 @@
         public string NORMAL_TEXT_AVAILABLE => "可用";
         public string NORMAL_TEXT_ERROR => "错误";
         public string NORMAL_TEXT_DEVELOPING => "功能开发中，敬请期待。";
+        public string NORMAL_TEXT_FRIENDSHIP_LINKS => "欢迎交换友情链接！";
 
         public string HOMESCREEN_SIDE_NEWS => "新闻资讯";
         public string HOMESCREEN_SIDE_TACTICSHALL => "战术大厅";

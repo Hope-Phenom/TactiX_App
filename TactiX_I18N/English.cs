@@ -30,6 +30,7 @@
         public string NORMAL_TEXT_AVAILABLE => "Available";
         public string NORMAL_TEXT_ERROR => "Error";
         public string NORMAL_TEXT_DEVELOPING => "Feature under development, stay tuned.";
+        public string NORMAL_TEXT_FRIENDSHIP_LINKS => "Welcome to exchange friendship links!";
 
         public string HOMESCREEN_SIDE_NEWS => "News";
         public string HOMESCREEN_SIDE_TACTICSHALL => "Tactics Hall";

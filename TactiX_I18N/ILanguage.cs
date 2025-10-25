@@ -369,6 +369,10 @@
         /// 通用文本-功能开发中，敬请期待
         /// </summary>
         public string NORMAL_TEXT_DEVELOPING { get; }
+        /// <summary>
+        /// 友情链接
+        /// </summary>
+        public string NORMAL_TEXT_FRIENDSHIP_LINKS { get; }
         #endregion
     }
 }
