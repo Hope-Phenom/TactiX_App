@@ -7,7 +7,7 @@ namespace TactiX_Network
 #if DEBUG
         private const string WebServerUrl = "http://127.0.0.1:5112";
 #else
-        private const string WebServerUrl = "https://api.east-unicorn.cn";
+        private const string WebServerUrl = "https://api.east-unicorn.cn:8088";
 #endif
 
         public Network()
