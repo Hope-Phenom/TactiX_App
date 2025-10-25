@@ -238,7 +238,7 @@ public partial class MainWindow : SukiWindow,
         {
             WindowName = MAIN_WINDOW,
             Trigger = message.Trigger,
-            FolderPath = folder.First().Name
+            FolderPath = folder.First().TryGetLocalPath()
         });
     }
     #endregion
@@ -261,7 +261,7 @@ public partial class MainWindow : SukiWindow,
         _messenger.Send(new MB_FileDialog()
         {
             WindowName = MAIN_WINDOW,
-            FilePath = storageFiles.First().Path.AbsolutePath,
+            FilePath = storageFiles.First().TryGetLocalPath(),
             IsOpenMode = true,
             Trigger = message.Trigger
         });
@@ -285,7 +285,7 @@ public partial class MainWindow : SukiWindow,
         _messenger.Send(new MB_FileDialog()
         {
             WindowName = MAIN_WINDOW,
-            FilePath = storageFile.Path.AbsolutePath,
+            FilePath = storageFile.TryGetLocalPath(),
             IsOpenMode = false,
             Trigger = message.Trigger
         });
