@@ -4,6 +4,7 @@ using s2protocol.NET;
 using s2protocol.NET.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,7 +88,11 @@ namespace TactiX_ModSupport
                     if (!replayActionDict.ContainsKey(playerName)) replayActionDict.Add(playerName, new());
 
                     var name = evt.UnitTypeName;
-                    if (!_unitData.ContainsKey(name)) continue;
+                    if (!_unitsDict.ContainsKey(name))
+                    {
+                        Debug.WriteLine($"Error Unit Name: {name}");
+                        continue;
+                    }
 
                     replayActionDict[playerName].Add(new L_ReplayAction()
                     {
@@ -119,6 +124,10 @@ namespace TactiX_ModSupport
                             Abbr = _unitsDict[name]
                         });
                     }
+                    else
+                    {
+                        Debug.WriteLine($"Error Unit Name: {name}");
+                    }
                 }
 
                 foreach (var evt in replay.TrackerEvents.SUpgradeEvents)
@@ -141,6 +150,10 @@ namespace TactiX_ModSupport
                             Time = (int)Math.Floor(startLoop / 22.4),
                             Abbr = _unitsDict[name]
                         });
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Error Unit Name: {name}");
                     }
                 }
 

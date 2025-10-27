@@ -32,5 +32,9 @@ namespace TactiX_Models.MessageBus
         /// 文件过滤器名称
         /// </summary>
         public string? FileFilterName { get; set; }
+        /// <summary>
+        /// 建议初始目录
+        /// </summary>
+        public string? SuggestStartLocation { get; set; }
     }
 }

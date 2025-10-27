@@ -274,10 +274,19 @@ public partial class MainWindow : SukiWindow,
     {
         if (string.IsNullOrEmpty(message.FileFilter) || string.IsNullOrEmpty(message.FileFilterName)) return;
 
+        IStorageFolder? suggestFoldr = null;
+        if (message.SuggestStartLocation != null)
+        {
+            suggestFoldr = StorageProvider
+                .TryGetFolderFromPathAsync(message.SuggestStartLocation)
+                .Result;
+        }
+
         var storageFile = StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
         {
             FileTypeChoices = [new FilePickerFileType(message.FileFilterName) { Patterns = [message.FileFilter] }],
-            ShowOverwritePrompt = true
+            ShowOverwritePrompt = true,
+            SuggestedStartLocation = suggestFoldr
         }).Result;
 
         if (storageFile == null) return;

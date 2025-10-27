@@ -20,5 +20,9 @@ namespace TactiX_Models.MessageBus
         /// 目录地址
         /// </summary>
         public string? FolderPath { get; set; }
+        /// <summary>
+        /// 建议初始目录
+        /// </summary>
+        public string? SuggestStartLocation { get; set; }
     }
 }

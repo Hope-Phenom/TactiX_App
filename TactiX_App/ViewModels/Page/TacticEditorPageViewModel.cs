@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Dialogs;
+using Avalonia.Logging;
 using Avalonia.Platform.Storage;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Highlighting;
@@ -7,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TactiX_I18N;
+using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_ModSupport;
@@ -29,9 +32,11 @@ namespace TactiX_App.ViewModels.Page
         private readonly ITactiXSourceEncoder _encoder;
         private readonly IOSes _oses;
         private readonly L_Config _config;
+        private readonly ILogger _logger;
         #endregion
 
         #region 常量
+        private const string TACTICS_FOLDER = "Tactics";
         private const string TACTIC_TEMPLATE_NAME = "TacticTemplate.tactixSource";
         private const string TITLE_HEADER = "TactiX - ";
         private const string NEW_FILE = "New File";
@@ -54,13 +59,14 @@ namespace TactiX_App.ViewModels.Page
         #endregion
 
         public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder,
-            IOSTools oSTools)
+            IOSTools oSTools, ILoggerContainer loggerContainer)
         {
             _language = lang.Language;
             _messenger = messenger;
             _encoder = encoder;
             _oses = oSTools.OSes;
             _config = _oses.LoadConfig();
+            _logger = loggerContainer.Builder.GetCurrentClassLogger();
 
             _messenger.RegisterAll(this);
 
@@ -156,13 +162,29 @@ namespace TactiX_App.ViewModels.Page
         [RelayCommand]
         public void Export()
         {
+            string? suggestPath = null;
+
+            try
+            {
+                using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+                if (mod.ModDesc != null) suggestPath = Path.Combine(
+                    Environment.CurrentDirectory,
+                    TACTICS_FOLDER,
+                    mod.ModDesc.TacticsPath);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Get Suggest Path Error: {ex.Message}");
+            }
+
             _messenger.Send(new MB_FileDialog()
             {
                 WindowName = MAIN_WINDOW,
                 IsOpenMode = false,
                 Trigger = EXPORT_TRIGGER,
                 FileFilterName = "TactiX Tactic Files",
-                FileFilter = "*.tactix"
+                FileFilter = "*.tactix",
+                SuggestStartLocation = suggestPath
             });
         }
         #endregion
