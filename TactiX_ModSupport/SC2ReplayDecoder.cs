@@ -78,6 +78,7 @@ namespace TactiX_ModSupport
                 foreach (var evt in replay.TrackerEvents.SUnitInitEvents)
                 {
                     if (evt.Gameloop == 0) continue;
+                    if (evt.ControlPlayerId == 0) continue;
 
                     var playerName = _playerNames[evt.ControlPlayerId];
 
@@ -102,6 +103,7 @@ namespace TactiX_ModSupport
                 foreach (var evt in replay.TrackerEvents.SUnitBornEvents)
                 {
                     if (evt.Gameloop == 0) continue;
+                    if (evt.ControlPlayerId == 0) continue;
 
                     var playerName = _playerNames[evt.ControlPlayerId];
 
