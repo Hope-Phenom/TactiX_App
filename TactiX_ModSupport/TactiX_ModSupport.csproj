@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NLog" Version="6.0.5" />
     <PackageReference Include="s2protocol.NET" Version="0.9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TactiX_Logger\TactiX_Logger.csproj" />
     <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj" />
   </ItemGroup>
 

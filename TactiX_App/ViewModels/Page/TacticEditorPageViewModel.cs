@@ -246,6 +246,15 @@ namespace TactiX_App.ViewModels.Page
 
                     var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
                     File.WriteAllText(_exportPath, txt);
+
+                    _messenger.Send(new MB_ToastPureText()
+                    {
+                        Message = string.Format(
+                            Language.EDITOR_EXPORT_SUCCESS_INFO, 
+                            $"{Environment.NewLine}{_exportPath}"),
+                        Title = Language.EDITOR_EXPORT_SUCCESS_TITLE,
+                        Type = MB_Enum_ToastType.Success
+                    });
                 }
 
                 _messenger.Send(new MB_WindowTitle()

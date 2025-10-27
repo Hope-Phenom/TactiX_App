@@ -141,7 +141,7 @@ public partial class MainWindow : SukiWindow,
         {
             ToastHost.Manager.CreateToast()
                 .OfType(NotificationTypeConvert(msg.Type))
-                .Dismiss().After(TimeSpan.FromSeconds(30))
+                .Dismiss().After(TimeSpan.FromSeconds(15))
                 .Dismiss().ByClicking()
                 .WithTitle(msg.Title)
                 .WithContent(msg.Message)
@@ -155,7 +155,7 @@ public partial class MainWindow : SukiWindow,
         {
             ToastHost.Manager.CreateToast()
                 .OfType(NotificationTypeConvert(msg.Type))
-                .Dismiss().After(TimeSpan.FromSeconds(30))
+                .Dismiss().After(TimeSpan.FromSeconds(15))
                 .Dismiss().ByClicking()
                 .WithTitle(msg.Title)
                 .WithContent(msg.Message)

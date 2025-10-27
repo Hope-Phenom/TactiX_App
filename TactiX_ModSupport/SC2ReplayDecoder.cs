@@ -1,14 +1,7 @@
-﻿using Avalonia.Controls.Shapes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using NLog;
 using s2protocol.NET;
-using s2protocol.NET.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using TactiX_Logger;
 using TactiX_Models.Tactics;
 
 namespace TactiX_ModSupport
@@ -23,9 +16,12 @@ namespace TactiX_ModSupport
         private Dictionary<int, string> _playerNames;
 
         private readonly ReplayDecoderOptions options;
+        private readonly ILogger _logger;
 
-        public SC2ReplayDecoder()
+        public SC2ReplayDecoder(ILoggerContainer loggerContainer)
         {
+            _logger = loggerContainer.Builder.GetCurrentClassLogger();
+
             // 为了避免UI预览器崩溃因此加了过滤
             // 实际逻辑没有必要这么复杂
             if (File.Exists(DATA_DICT_JSON))
@@ -90,7 +86,7 @@ namespace TactiX_ModSupport
                     var name = evt.UnitTypeName;
                     if (!_unitsDict.ContainsKey(name))
                     {
-                        Debug.WriteLine($"Error Unit Name: {name}");
+                        _logger.Error($"Error Unit Name: {name}");
                         continue;
                     }
 
@@ -99,7 +95,7 @@ namespace TactiX_ModSupport
                         UnitName = name,
                         Gameloop = evt.Gameloop,
                         Time = (int)Math.Floor(evt.Gameloop / 22.4),
-                        Abbr = _unitsDict[name] 
+                        Abbr = _unitsDict[name]
                     });
                 }
 
@@ -126,7 +122,7 @@ namespace TactiX_ModSupport
                     }
                     else
                     {
-                        Debug.WriteLine($"Error Unit Name: {name}");
+                        _logger.Error($"Error Unit Name: {name}");
                     }
                 }
 
@@ -153,7 +149,7 @@ namespace TactiX_ModSupport
                     }
                     else
                     {
-                        Debug.WriteLine($"Error Unit Name: {name}");
+                        _logger.Error($"Error Unit Name: {name}");
                     }
                 }
 

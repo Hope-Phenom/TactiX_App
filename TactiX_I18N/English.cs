@@ -87,6 +87,8 @@
         public string EDITOR_MENU_HELP_GET_HELP => "Get help with tactical editing";
         public string EDITOR_ERROR_FILE_CANT_CONVERT => "Failed to export the tactic file, please check if the format meets the requirements";
         public string EDITOR_ERROR_MOD_NOT_SET => "The mod package is not set up, the editor cannot enable the completion feature";
+        public string EDITOR_EXPORT_SUCCESS_TITLE => "Export successful";
+        public string EDITOR_EXPORT_SUCCESS_INFO => "Tactical file exported successfully, exported to: {0}";
 
         public string REPLAY_ANALYSIS_DEVELOPING => "The replay analysis feature is currently only available for StarCraft II and is still under development. \r\nYou can use the button below to analyze replay files and quickly create tactical documents.";
         public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY => "Analyzing Replay Files";

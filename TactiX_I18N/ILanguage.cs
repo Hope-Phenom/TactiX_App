@@ -296,6 +296,14 @@
         /// 编辑器Page-错误信息-Mod未设置无法启动关键词补全
         /// </summary>
         public string EDITOR_ERROR_MOD_NOT_SET { get; }
+        /// <summary>
+        /// 编辑器Page-导出成功信息标题
+        /// </summary>
+        public string EDITOR_EXPORT_SUCCESS_TITLE { get; }
+        /// <summary>
+        /// 编辑器Page-导出成功信息内容
+        /// </summary>
+        public string EDITOR_EXPORT_SUCCESS_INFO { get; }
         #endregion
 
         #region Replay分析Page相关
