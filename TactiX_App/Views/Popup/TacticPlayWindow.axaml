@@ -169,6 +169,24 @@
 							<CheckBox Content="{Binding Language.TACTIC_PLAYING_TIMELINE_CORRECTION}"
 									  VerticalContentAlignment="Center" VerticalAlignment="Center"
 									  IsChecked="{Binding Config.EnableTLCorr, Mode=TwoWay}"/>
+							<Grid Height="10" />
+							<Label Content="{Binding Language.TACTIC_PLAYING_MODITEM_ENABLE}" />
+							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_NONE}"
+									  VerticalContentAlignment="Center" VerticalAlignment="Center"
+									  IsChecked="{Binding Config.ModItemTypeEnable[0]}"
+									  IsEnabled="False"/>
+							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_WORKER}"
+									  VerticalContentAlignment="Center" VerticalAlignment="Center"
+									  IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}"/>
+							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_ARMY}"
+									  VerticalContentAlignment="Center" VerticalAlignment="Center"
+									  IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}"/>
+							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_BUILDING}"
+									  VerticalContentAlignment="Center" VerticalAlignment="Center"
+									  IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}"/>
+							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_TECH}"
+									  VerticalContentAlignment="Center" VerticalAlignment="Center"
+									  IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}"/>
 						</StackPanel>
 					</Grid>
 

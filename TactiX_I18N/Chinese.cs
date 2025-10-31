@@ -65,6 +65,12 @@
         public string TACTIC_PLAYING_OPACITY => "战术播放透明度：";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "启用时间轴矫正";
         public string TACTIC_PLAYING_FILEINFO => "战术文件介绍：";
+        public string TACTIC_PLAYING_MODITEM_ENABLE => "显示以下类型的步骤：";
+        public string TACTIC_PLAYING_MODITEM_NONE => "通用";
+        public string TACTIC_PLAYING_MODITEM_WORKER => "生产单位";
+        public string TACTIC_PLAYING_MODITEM_ARMY => "军事单位";
+        public string TACTIC_PLAYING_MODITEM_BUILDING => "建筑";
+        public string TACTIC_PLAYING_MODITEM_TECH => "科技";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "通用设置";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "快捷键设置";

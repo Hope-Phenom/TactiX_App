@@ -210,6 +210,30 @@
         /// 战术播放Window-战术文件介绍
         /// </summary>
         public string TACTIC_PLAYING_FILEINFO { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_ENABLE { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用-未分类
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_NONE { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用-生产单位
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_WORKER { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用-军事单位
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_ARMY { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用-建筑
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_BUILDING { get; }
+        /// <summary>
+        /// 战术播放Window-Mod类型启用-科技
+        /// </summary>
+        public string TACTIC_PLAYING_MODITEM_TECH { get; }
         #endregion
 
         #region 设置页Page相关

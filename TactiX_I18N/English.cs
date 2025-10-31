@@ -65,6 +65,12 @@
         public string TACTIC_PLAYING_OPACITY => "Tactical Playback Transparency:";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "Enable timeline correction";
         public string TACTIC_PLAYING_FILEINFO => "Tactical Document Introduction:";
+        public string TACTIC_PLAYING_MODITEM_ENABLE => "Show steps of the following types:";
+        public string TACTIC_PLAYING_MODITEM_NONE => "Normal";
+        public string TACTIC_PLAYING_MODITEM_WORKER => "Worker Unit";
+        public string TACTIC_PLAYING_MODITEM_ARMY => "Military Unit";
+        public string TACTIC_PLAYING_MODITEM_BUILDING => "Building";
+        public string TACTIC_PLAYING_MODITEM_TECH => "Tech";
 
         public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
         public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using TactiX_Models.Tactics;
 
 namespace TactiX_Models
 {
@@ -35,7 +36,7 @@ namespace TactiX_Models
         /// <summary>
         /// 热键绑定，默认使用Alt+方向键
         /// </summary>
-        public L_HotkeyBinding[] Hotkeys =
+        public L_HotkeyBinding[] Hotkeys { get; set; } =
         [
              new L_HotkeyBinding()
              {
@@ -62,5 +63,17 @@ namespace TactiX_Models
                   Key = Avalonia.Input.Key.Right
              }
         ];
+        /// <summary>
+        /// Mod中元素的播放设定
+        /// </summary>
+        public Dictionary<L_ModItemTypeEnum, bool> ModItemTypeEnable { get; set; } = 
+            new Dictionary<L_ModItemTypeEnum, bool>()
+            {
+                { L_ModItemTypeEnum.None, true },
+                { L_ModItemTypeEnum.Worker, true },
+                { L_ModItemTypeEnum.Army, true },
+                { L_ModItemTypeEnum.Building, true },
+                { L_ModItemTypeEnum.Tech, true },
+            };
     }
 }

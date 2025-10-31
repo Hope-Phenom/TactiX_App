@@ -1,4 +1,10 @@
-﻿using Avalonia.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -10,14 +16,7 @@ using Material.Icons;
 using NAudio.Wave;
 using Newtonsoft.Json;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
@@ -90,7 +89,7 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// 运行事件和战术播放时间的差值
         /// </summary>
-        private uint _timeStampGap; 
+        private uint _timeStampGap;
         private WaveOutEvent? _waveOut;
         private WaveFileReader? _waveReader;
         #endregion
@@ -289,11 +288,13 @@ namespace TactiX_App.ViewModels.Popup
                 _dispatcherTimer.Interval = Config.EnableTLCorr
                     ? REAL_TIME_INTERVAL
                     : NORMAL_TIME_INTERVAL;
+                BoardCastCurrStep();
                 PlayNext();
                 _dispatcherTimer.Start();
             }
             else
             {
+                BoardCastCurrStep();
                 PlayNext();
             }
         }
@@ -321,6 +322,10 @@ namespace TactiX_App.ViewModels.Popup
             try
             {
                 CurrTactic = JsonConvert.DeserializeObject<L_Tactic>(File.ReadAllText(filePath));
+
+                if (CurrTactic == null) return;
+
+                SortActionsByModItemType(CurrTactic);
             }
             catch (Exception ex)
             {
@@ -696,6 +701,22 @@ namespace TactiX_App.ViewModels.Popup
             _waveReader?.Dispose();
             _waveOut = null;
             _waveReader = null;
+        }
+        /// <summary>
+        /// 根据配置筛选战术动作
+        /// </summary>
+        private void SortActionsByModItemType(L_Tactic tactic)
+        {
+            var conf = _config.ModItemTypeEnable;
+            var list = new List<L_TacticAction>();
+            for (int i = 0; i < tactic.Actions.Count; i++)
+            {
+                var action = tactic.Actions[i];
+                var type = _modItems.Where(item => item.Abbr == action.ItemAbbr).First().Type;
+                if (conf[type]) list.Add(action);
+            }
+
+            tactic.Actions = list;
         }
         #endregion
 

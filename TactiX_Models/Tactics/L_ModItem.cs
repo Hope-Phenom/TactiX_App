@@ -20,6 +20,10 @@ namespace TactiX_Models.Tactics
         /// 展示文本
         /// </summary>
         public string Desc { get; set; } = string.Empty;
+        /// <summary>
+        /// 单位类型
+        /// </summary>
+        public L_ModItemTypeEnum Type { get; set; } = L_ModItemTypeEnum.None;
 
         public override string ToString()
         {
