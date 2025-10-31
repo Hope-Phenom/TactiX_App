@@ -28,7 +28,8 @@
 		<vm:TacticPlayWindowModel UIHeight="700"
 								  HorizontalLineHeight="10"
 								  GroupHeight="*"
-								  MaterialIconKind="ArrowExpandUp"/>
+								  MaterialIconKind="ArrowExpandUp"
+								  IsPrepare="False"/>
 	</Design.DataContext>
 
 	<Window.Styles>

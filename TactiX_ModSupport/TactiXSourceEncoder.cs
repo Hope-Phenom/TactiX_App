@@ -48,13 +48,16 @@ namespace TactiX_ModSupport
                     if (condtion_action)
                     {
                         var strs = _line.Replace("-", "").Split(',');
-                        if (strs.Length != 3) continue;
+                        if (strs.Length != 3 && strs.Length != 4) continue;
 
                         tactix.Actions.Add(new L_TacticAction()
                         {
                             Step = Convert.ToUInt16(strs[0]),
                             Time = TimeParser.ConvertToSeconds(strs[1]),
-                            ItemAbbr = strs[2]
+                            ItemAbbr = strs[2],
+                            Supply = strs.Length == 4
+                                ? strs[3]
+                                : string.Empty
                         });
                     }
                     else if (condtion_useless)

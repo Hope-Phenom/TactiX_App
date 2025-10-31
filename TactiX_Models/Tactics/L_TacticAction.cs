@@ -24,6 +24,10 @@ namespace TactiX_Models.Tactics
         /// 时间/秒
         /// </summary>
         public uint Time { get; set; } = 0;
+        /// <summary>
+        /// 人口情况
+        /// </summary>
+        public string Supply { get; set; } = string.Empty;
 
         /// <summary>
         /// 动作对象，只记录基础信息和MOD中的映射关系
@@ -48,7 +52,7 @@ namespace TactiX_Models.Tactics
             var min = (Time - sec) / 60;
             var timeStr = min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
 
-            return $"{timeStr}, {ItemAbbr}";
+            return $"{timeStr}, {ItemAbbr}, {Supply}";
         }
     }
 }

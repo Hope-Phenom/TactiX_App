@@ -130,7 +130,7 @@ namespace TactiX_App.ViewModels.Page
                         var act = keyValue.Value[i - 1];
                         if (act == null) continue;
 
-                        sb.AppendLine($"- {i}, {SecondsToMmSs(act.Time)}, {act.Abbr}");
+                        sb.AppendLine($"- {i}, {SecondsToMmSs(act.Time)}, {act.Abbr}, {act.Supply}");
                     }
 
                     File.WriteAllText(filePath, sb.ToString());

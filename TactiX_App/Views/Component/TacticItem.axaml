@@ -12,15 +12,27 @@
 	<Border BorderThickness="3" CornerRadius="5">
 		<Grid x:Name="Grid_Main" Margin="0" RenderTransformOrigin="0.5, 0.5">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="100" />
+				<RowDefinition Height="90" />
 				<RowDefinition Height="10" />
-				<RowDefinition Height="30" />
+				<RowDefinition Height="40" />
 			</Grid.RowDefinitions>
 
-			<Image Margin="0" x:Name="Image_Icon" Grid.Row="0" />
-			<Label Margin="0" x:Name="Label_Desc" Grid.Row="2"
-				   HorizontalContentAlignment="Center"
-				   FontWeight="Bold"/>
+			<Grid Margin="0" Grid.Row="0">
+				<Image Margin="0" x:Name="Image_Icon" />
+				<Label x:Name="Label_Supply"
+					   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+					   HorizontalContentAlignment="Center"
+					   VerticalContentAlignment="Center"
+					   Foreground="Red"
+					   FontWeight="Bold"
+					   Margin="0,0,7,7"/>
+			</Grid>
+			<TextBlock Margin="0" x:Name="Textblock_Desc" Grid.Row="2"
+					   TextWrapping="WrapWithOverflow"
+					   TextAlignment="Center"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   FontWeight="Bold"/>
 		</Grid>
 	</Border>
 

@@ -60,7 +60,7 @@
         public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "The MOD file you attempted to load is in an incorrect format. Please check it in the MOD management tab.";
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "Select Tactical File:";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "Running time:";
-        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Step Time:";
+        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Standing Time:";
         public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
         public string TACTIC_PLAYING_OPACITY => "Tactical Playback Transparency:";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "Enable timeline correction";

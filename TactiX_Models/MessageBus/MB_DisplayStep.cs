@@ -20,5 +20,9 @@ namespace TactiX_Models.MessageBus
         /// 展示的ICON，Bitmap格式
         /// </summary>
         public object? Image { get; set; }
+        /// <summary>
+        /// 展示的人口信息
+        /// </summary>
+        public string? Supply { get; set; }
     }
 }

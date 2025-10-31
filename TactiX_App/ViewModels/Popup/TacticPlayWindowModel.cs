@@ -180,6 +180,12 @@ namespace TactiX_App.ViewModels.Popup
         public string timeStampGapTxt;
         #endregion
 
+#if DEBUG
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
+        public TacticPlayWindowModel() { } // 此构造函数仅用于保证可预览
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
+#endif
+
         public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
             IOSTools oSTools)
         {
@@ -216,12 +222,6 @@ namespace TactiX_App.ViewModels.Popup
 
             _messenger.RegisterAll(this);
         }
-
-#if DEBUG
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
-        public TacticPlayWindowModel() { } // 此构造函数仅用于保证可预览
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
-#endif
 
         #region Command和事件响应
         /// <summary>
@@ -500,13 +500,17 @@ namespace TactiX_App.ViewModels.Popup
                     {
                         var action = CurrTactic.Actions[index];
                         var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                        var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                        var itemName = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                        var itemTime = ConvertTimeToHHMMStr(action.Time);
+                        var desc = $"{itemName}{Environment.NewLine}{itemTime}";
+                        var supply = action.Supply;
 
                         _messenger.Send(new MB_DisplayStep()
                         {
                             SlotNo = slotNo,
                             Desc = desc,
-                            Image = image
+                            Image = image,
+                            Supply = supply
                         });
                     }
                 }
@@ -580,9 +584,7 @@ namespace TactiX_App.ViewModels.Popup
                     TimeStampGapTxt = string.Empty;
                 }
 
-                var sec = _runningTimeStamp % 60;
-                var min = (_runningTimeStamp - sec) / 60;
-                TimeStampTxt = CombineTimeStr(min, sec);
+                TimeStampTxt = ConvertTimeToHHMMStr(_runningTimeStamp);
             }
             catch (Exception ex)
             {
@@ -600,9 +602,7 @@ namespace TactiX_App.ViewModels.Popup
 
                 var timestamp = CurrTactic.Actions[_currIndex].Time;
 
-                var sec = timestamp % 60;
-                var min = (timestamp - sec) / 60;
-                CurrStepTimeStampTxt = CombineTimeStr(min, sec);
+                CurrStepTimeStampTxt = ConvertTimeToHHMMStr(timestamp);
             }
             catch (Exception ex)
             {
@@ -616,6 +616,15 @@ namespace TactiX_App.ViewModels.Popup
         private string CombineTimeStr(uint min, uint sec)
         {
             return min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
+        }
+        /// <summary>
+        /// 将秒数转成HHMM格式的字符串
+        /// </summary>
+        private string ConvertTimeToHHMMStr(uint time)
+        {
+            var sec = time % 60;
+            var min = (time - sec) / 60;
+            return CombineTimeStr(min, sec);
         }
         #endregion
 

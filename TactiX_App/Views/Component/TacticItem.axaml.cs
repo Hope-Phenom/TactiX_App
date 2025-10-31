@@ -33,6 +33,7 @@ public partial class TacticItem : UserControl, IRecipient<MB_DisplayStep>
             Image_Icon.Source = null;
         }
 
-        Label_Desc.Content = message.Desc ?? string.Empty;
+        Textblock_Desc.Text = message.Desc ?? string.Empty;
+        Label_Supply.Content = message.Supply ?? string.Empty;
     }
 }

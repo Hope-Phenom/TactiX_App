@@ -60,7 +60,7 @@
         public string TACTIC_PLAYING_MOD_FORMAT_ERROR => "尝试加载的MOD文件格式不正确，请前往MOD管理选项卡进行检查。";
         public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "选择战术文件：";
         public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "运行时间：";
-        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "战术时间：";
+        public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "标准时间：";
         public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS => "热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！";
         public string TACTIC_PLAYING_OPACITY => "战术播放透明度：";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "启用时间轴矫正";

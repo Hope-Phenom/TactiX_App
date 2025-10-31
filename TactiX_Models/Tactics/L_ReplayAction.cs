@@ -28,10 +28,14 @@ namespace TactiX_Models.Tactics
         /// 单位缩写
         /// </summary>
         public required string Abbr { get; set; }
+        /// <summary>
+        /// 人口情况
+        /// </summary>
+        public string? Supply { get; set; }
 
         public override string ToString()
         {
-            return $"GameLoop: {Gameloop}, UnitName: [{UnitName}/{Abbr}], Time: {Time}";
+            return $"GameLoop: {Gameloop}, UnitName: [{UnitName}/{Abbr}], Time: {Time}, Supply: {Supply}";
         }
     }
 }
