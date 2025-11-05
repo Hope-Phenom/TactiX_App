@@ -8,7 +8,7 @@
         public string VERSION_CONTROL_TOAST_TITLE => "Checking program version...";
         public string VERSION_CONTROL_BANNED => "The current version [{0}] has been disabled. The program will redirect to the update page and exit automatically shortly!";
         public string VERSION_CONTROL_FORCE_UPGRADE => "A mandatory update version [{0}] is available. The program will redirect to the update page and exit automatically shortly!";
-        public string VERSION_CONTROL_NEW_VERSION => "The current version is [{0}], and a new version [{1}] is available. Would you like to proceed with the update?";
+        public string VERSION_CONTROL_NEW_VERSION => "The current version is [{0}], and a new version [{1}] is available. Do you want to jump to the download page?";
         public string VERSION_CONTROL_ERROR => "An error occurred while checking the version information. Error message: {0}";
 
         public string ERROR_POPUP_TITLE => "Error Message";
@@ -65,6 +65,7 @@
         public string TACTIC_PLAYING_OPACITY => "Tactical Playback Transparency:";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "Enable timeline correction";
         public string TACTIC_PLAYING_FILEINFO => "Tactical Document Introduction:";
+        public string TACTIC_PLAYING_BTN_OPEN_FOLDER => "Folder";
         public string TACTIC_PLAYING_MODITEM_ENABLE => "Show steps of the following types:";
         public string TACTIC_PLAYING_MODITEM_NONE => "Normal";
         public string TACTIC_PLAYING_MODITEM_WORKER => "Worker Unit";
@@ -85,6 +86,7 @@
         public string EDITOR_MENU_FILES_SAVE => "Save";
         public string EDITOR_MENU_FILES_SAVE_AS => "Save As";
         public string EDITOR_MENU_FILES_EXPORT => "Export as Tactical File (*.tactix)";
+        public string EDITOR_MENU_FILES_EXPORT_TO => "Export to ...";
         public string EDITOR_MENU_HEADER_EDIT => "Edit";
         public string EDITOR_MENU_EDIT_UNDO => "Undo";
         public string EDITOR_MENU_EDIT_REDO => "Redo";

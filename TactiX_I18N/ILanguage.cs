@@ -211,6 +211,10 @@
         /// </summary>
         public string TACTIC_PLAYING_FILEINFO { get; }
         /// <summary>
+        /// 战术播放Window-打开目录按钮
+        /// </summary>
+        public string TACTIC_PLAYING_BTN_OPEN_FOLDER { get; }
+        /// <summary>
         /// 战术播放Window-Mod类型启用
         /// </summary>
         public string TACTIC_PLAYING_MODITEM_ENABLE { get; }
@@ -285,9 +289,13 @@
         /// </summary>
         public string EDITOR_MENU_FILES_SAVE_AS { get; }
         /// <summary>
-        /// 编辑器Page-菜单栏-文件-导出为战术文件
+        /// 编辑器Page-菜单栏-文件-导出战术文件
         /// </summary>
         public string EDITOR_MENU_FILES_EXPORT { get; }
+        /// <summary>
+        /// 编辑器Page-菜单栏-文件-导出战术文件至
+        /// </summary>
+        public string EDITOR_MENU_FILES_EXPORT_TO { get; }
         /// <summary>
         /// 编辑器Page-菜单栏-编辑
         /// </summary>

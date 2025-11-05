@@ -65,6 +65,8 @@ public partial class MainWindow : SukiWindow,
         OsesSetHandle();
 
         _oses.RegisterWndProcHookCallback(this);
+
+        _messenger.Send(new MB_CheckVersion());
     }
 
     private void MainWindow_Closed(object? sender, EventArgs e)
@@ -159,16 +161,15 @@ public partial class MainWindow : SukiWindow,
                 .Dismiss().ByClicking()
                 .WithTitle(msg.Title)
                 .WithContent(msg.Message)
+                .WithActionButton(_language.BUTTON_TXT_SUBMIT, _ =>
+                {
+                    if (!string.IsNullOrEmpty(msg.Release_Url))
+                    {
+                        _oses.OpenUrl(msg.Release_Url);
+                    }
+                }, true)
                 .Queue();
         }));
-
-        if (!string.IsNullOrEmpty(msg.Release_Url))
-        {
-            if (DataContext is MainViewModel vm)
-            {
-                vm.OSTools.OSes.OpenUrl(msg.Release_Url);
-            }
-        }
     }
 
     public void Receive(MB_OpenTacticPlayWindow message)
@@ -227,9 +228,9 @@ public partial class MainWindow : SukiWindow,
         if (message.WindowName != MAIN_WINDOW) return;
         if (!string.IsNullOrEmpty(message.FolderPath)) return;
 
-        var folder = StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions() 
-        { 
-             AllowMultiple = false
+        var folder = StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
+        {
+            AllowMultiple = false
         }).Result;
 
         if (folder.Count == 0) return;

@@ -36,7 +36,7 @@ namespace TactiX_App.ViewModels.Page
         private const string FILE_DIALOG_TRRIGER = "ReplayAnalysis";
         private const string FOLDER_DIALOG_TRRIGER = "ReplayAnalysisFolder";
         private const string TEMPLATE_PATH = "TacticTemplate.tactixSource";
-        private const string EXPORT_FILE_NAME = "DECODE_{0}_{1}.tactixSource";
+        private const string EXPORT_FILE_NAME = "{0}_{1}.tactixSource";
 
         private Dictionary<string, List<L_ReplayAction>>? _actionsDict;
         private string? _folderPath;

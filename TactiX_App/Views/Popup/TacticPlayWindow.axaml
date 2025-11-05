@@ -143,6 +143,8 @@
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="10" />
 						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="10" />
+						<ColumnDefinition Width="100" />
 					</Grid.ColumnDefinitions>
 
 					<Label Grid.Column="0" VerticalContentAlignment="Center"
@@ -150,6 +152,12 @@
 					<ComboBox Grid.Column="2" Margin="0"
 							  ItemsSource="{Binding TacticFiles}"
 							  SelectedItem="{Binding SelectedTacticFile}"/>
+					<Button Grid.Column="4" Margin="0" Height="34" Width="100"
+							Content="{Binding Language.TACTIC_PLAYING_BTN_OPEN_FOLDER}"
+							HorizontalAlignment="Center" VerticalAlignment="Center"
+							HorizontalContentAlignment="Center"							
+							VerticalContentAlignment="Center"
+							Command="{Binding OpenFolderCommand}"/>
 				</Grid>
 
 				<Grid Grid.Row="2">

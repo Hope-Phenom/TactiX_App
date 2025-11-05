@@ -102,8 +102,6 @@ namespace TactiX_App.ViewModels
             #endregion
 
             _messenger.RegisterAll(this);
-
-            Task.Run(CheckVersion);
         }
 
         #region 版本检查

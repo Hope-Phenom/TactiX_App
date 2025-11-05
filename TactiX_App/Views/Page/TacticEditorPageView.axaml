@@ -17,6 +17,7 @@
 		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}"/>
 		<KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsFileCommand}"/>
 		<KeyBinding Gesture="Ctrl+E" Command="{Binding ExportCommand}"/>
+		<KeyBinding Gesture="Ctrl+Shift+E" Command="{Binding ExportCommand}"/>
 		<KeyBinding Gesture="Ctrl+I" Command="{Binding InsertTemplateCommand}"/>
 	</UserControl.KeyBindings>
 
@@ -53,6 +54,12 @@
 						  Command="{Binding ExportCommand}">
 					<MenuItem.InputGesture>
 						<KeyGesture>Ctrl+E</KeyGesture>
+					</MenuItem.InputGesture>
+				</MenuItem>
+				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT_TO}"
+						  Command="{Binding ExportToCommand}">
+					<MenuItem.InputGesture>
+						<KeyGesture>Ctrl+Shift+E</KeyGesture>
 					</MenuItem.InputGesture>
 				</MenuItem>
 			</MenuItem>

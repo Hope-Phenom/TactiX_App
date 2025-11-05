@@ -157,10 +157,10 @@ namespace TactiX_App.ViewModels.Page
                 : string.Empty;
         }
         /// <summary>
-        /// 导出为战术文件
+        /// 导出战术文件至
         /// </summary>
         [RelayCommand]
-        public void Export()
+        public void ExportTo()
         {
             string? suggestPath = null;
 
@@ -185,6 +185,56 @@ namespace TactiX_App.ViewModels.Page
                 FileFilterName = "TactiX Tactic Files",
                 FileFilter = "*.tactix",
                 SuggestStartLocation = suggestPath
+            });
+        }
+        /// <summary>
+        /// 导出战术文件到默认目录
+        /// </summary>
+        [RelayCommand]
+        public void Export()
+        {
+            using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+            if (mod.ModDesc == null)
+            {
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR,
+                    Title = Language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+
+                return;
+            }
+
+            var suggestPath = Path.Combine(
+                    Environment.CurrentDirectory,
+                    TACTICS_FOLDER,
+                    mod.ModDesc.TacticsPath);
+
+            var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
+            if (tactix == null)
+            {
+                _messenger.Send(new MB_ToastPureText()
+                {
+                    Message = Language.EDITOR_ERROR_FILE_CANT_CONVERT,
+                    Title = Language.TOAST_TITLE_ERROR,
+                    Type = MB_Enum_ToastType.Error
+                });
+
+                return;
+            }
+
+            var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
+            var outPath = Path.Combine(suggestPath, Path.GetFileNameWithoutExtension(_filePath) + ".tactix");
+            File.WriteAllText(outPath, txt);
+
+            _messenger.Send(new MB_ToastPureText()
+            {
+                Message = string.Format(
+                    Language.EDITOR_EXPORT_SUCCESS_INFO,
+                    $"{Environment.NewLine}{outPath}"),
+                Title = Language.EDITOR_EXPORT_SUCCESS_TITLE,
+                Type = MB_Enum_ToastType.Success
             });
         }
         #endregion

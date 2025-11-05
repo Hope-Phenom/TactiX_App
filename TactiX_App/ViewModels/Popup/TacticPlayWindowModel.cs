@@ -307,7 +307,14 @@ namespace TactiX_App.ViewModels.Popup
         {
             ListTacticFiles();
         }
-
+        /// <summary>
+        /// 打开当前的战术目录
+        /// </summary>
+        [RelayCommand]
+        public void OpenFolder()
+        {
+            _oses.OpenUrl(_filePrefix);
+        }
         /// <summary>
         /// 战术文件选择项发生变化
         /// </summary>

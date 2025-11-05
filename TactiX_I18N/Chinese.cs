@@ -8,7 +8,7 @@
         public string VERSION_CONTROL_TOAST_TITLE => "检查程序版本...";
         public string VERSION_CONTROL_BANNED => "当前版本[{0}]已被禁用，稍后程序将跳转至更新页面并自动退出！";
         public string VERSION_CONTROL_FORCE_UPGRADE => "存在强制更新版本[{0}]，稍后程序将跳转至更新页面并自动退出！";
-        public string VERSION_CONTROL_NEW_VERSION => "当前版本[{0}]，存在新版本[{1}]，是否进行更新？";
+        public string VERSION_CONTROL_NEW_VERSION => "当前版本[{0}]，存在新版本[{1}]，是否跳转至下载页？";
         public string VERSION_CONTROL_ERROR => "检查版本信息时发生错误，错误信息：{0}";
 
         public string ERROR_POPUP_TITLE => "错误信息";
@@ -65,6 +65,7 @@
         public string TACTIC_PLAYING_OPACITY => "战术播放透明度：";
         public string TACTIC_PLAYING_TIMELINE_CORRECTION => "启用时间轴矫正";
         public string TACTIC_PLAYING_FILEINFO => "战术文件介绍：";
+        public string TACTIC_PLAYING_BTN_OPEN_FOLDER => "打开目录";
         public string TACTIC_PLAYING_MODITEM_ENABLE => "显示以下类型的步骤：";
         public string TACTIC_PLAYING_MODITEM_NONE => "通用";
         public string TACTIC_PLAYING_MODITEM_WORKER => "生产单位";
@@ -84,7 +85,8 @@
         public string EDITOR_MENU_FILES_OPEN => "打开已有战术文件";
         public string EDITOR_MENU_FILES_SAVE => "保存当前战术文件";
         public string EDITOR_MENU_FILES_SAVE_AS => "另存为当前战术文件";
-        public string EDITOR_MENU_FILES_EXPORT => "导出为战术文件(*.tactix)";
+        public string EDITOR_MENU_FILES_EXPORT => "导出战术文件(*.tactix)";
+        public string EDITOR_MENU_FILES_EXPORT_TO => "导出战术文件至...";
         public string EDITOR_MENU_HEADER_EDIT => "编辑";
         public string EDITOR_MENU_EDIT_UNDO => "撤销";
         public string EDITOR_MENU_EDIT_REDO => "重做";
