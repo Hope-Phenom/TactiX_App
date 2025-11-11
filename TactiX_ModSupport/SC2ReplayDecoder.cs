@@ -13,18 +13,18 @@ namespace TactiX_ModSupport
         private const string DATA_DICT_JSON = "SC2ProductionDuration.json";
 
         private readonly ReplayDecoderOptions options;
-        private readonly ILogger _logger;
+        private readonly Logger _logger;
 
         public readonly SC2DataDict SC2Data;
 
-        private Dictionary<string, int> _unitData => SC2Data.Units;
-        private Dictionary<string, int> _techData => SC2Data.Techs;
-        private Dictionary<string, string> _unitsDict => SC2Data.UnitsDict;
-        private Dictionary<string, int> _supplyCost => SC2Data.SupplyCost;
-        private Dictionary<string, int> _supplySupport => SC2Data.SupplySupport;
-        private List<string> _ignore => SC2Data.Ignore;
-        private List<string> _terranBuildingTypeChange => SC2Data.TerranBuildingTypeChange;
-        private List<string> _zergBuildingTypeChange => SC2Data.ZergBuildingTypeChange;
+        private Dictionary<string, int> UnitData => SC2Data.Units;
+        private Dictionary<string, int> TechData => SC2Data.Techs;
+        private Dictionary<string, string> UnitsDict => SC2Data.UnitsDict;
+        private Dictionary<string, int> SupplyCost => SC2Data.SupplyCost;
+        private Dictionary<string, int> SupplySupport => SC2Data.SupplySupport;
+        private List<string> Ignore => SC2Data.Ignore;
+        private List<string> TerranBuildingTypeChange => SC2Data.TerranBuildingTypeChange;
+        private List<string> ZergBuildingTypeChange => SC2Data.ZergBuildingTypeChange;
 
         private Dictionary<int, string> playerNames;
         private Dictionary<string, int> supplyCostDict;
@@ -73,19 +73,19 @@ namespace TactiX_ModSupport
         {
             try
             {
-                playerNames = new Dictionary<int, string>();
-                supplyCostDict = new Dictionary<string, int>();
-                supplySupportDict = new Dictionary<string, int>();
-                supplySupportChangeDict = new Dictionary<string, List<(int, int, int)>>();
-                raceDict = new Dictionary<string, string>(); 
-                replayActionDict = new Dictionary<string, List<L_ReplayAction>>();
+                playerNames = [];
+                supplyCostDict = [];
+                supplySupportDict = [];
+                supplySupportChangeDict = [];
+                raceDict = [];
+                replayActionDict = [];
 
                 ReplayDecoder decoder = new();
                 Sc2Replay? replay = await decoder.DecodeAsync(replayPath, options);
 
                 if (replay == null
                     || replay.Details == null
-                    || replay.TrackerEvents == null) return new Dictionary<string, List<L_ReplayAction>>();
+                    || replay.TrackerEvents == null) return [];
 
                 var sameRace = HasDuplicateRace(replay);
 
@@ -147,9 +147,7 @@ namespace TactiX_ModSupport
 
                 foreach (var playerName in replayActionDict.Keys)
                 {
-                    replayActionDict[playerName] = replayActionDict[playerName]
-                        .OrderBy(e => e.Gameloop)
-                        .ToList();
+                    replayActionDict[playerName] = [.. replayActionDict[playerName].OrderBy(e => e.Gameloop)];
 
                     AdjustTime(replayActionDict[playerName]);
                 }
@@ -158,7 +156,7 @@ namespace TactiX_ModSupport
             }
             catch
             {
-                return new Dictionary<string, List<L_ReplayAction>>();
+                return [];
             }
         }
 
@@ -174,25 +172,25 @@ namespace TactiX_ModSupport
                 }
 
                 var unitName = evt.UnitTypeName;
-                if (_ignore.Contains(unitName)) continue;   // 过滤单位
+                if (Ignore.Contains(unitName)) continue;   // 过滤单位
 
                 var playerName = playerNames[evt.ControlPlayerId];
 
-                if (_supplyCost.ContainsKey(unitName))                            // 单位生产消耗的人口是立即的
+                if (SupplyCost.TryGetValue(unitName, out int value))                            // 单位生产消耗的人口是立即的
                 {
-                    supplyCostDict[playerName] += _supplyCost[unitName];
+                    supplyCostDict[playerName] += value;
                 }
 
-                if (_supplySupport.ContainsKey(unitName))                         // 人口增加的单位/建筑是完成后才生效的
+                if (SupplySupport.ContainsKey(unitName))                         // 人口增加的单位/建筑是完成后才生效的
                 {
                     if (evt.SUnitDoneEvent != null)
                     {
                         supplySupportChangeDict[playerName]
-                            .Add((evt.SUnitDoneEvent.Gameloop, _supplySupport[unitName], 0));
+                            .Add((evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName], 0));
                     }
                 }
 
-                if (!_unitsDict.ContainsKey(unitName))
+                if (!UnitsDict.ContainsKey(unitName))
                 {
                     _logger.Error($"Error Unit Name: {unitName}");
                     continue;
@@ -203,7 +201,7 @@ namespace TactiX_ModSupport
                     UnitName = unitName,
                     Gameloop = evt.Gameloop,
                     Time = (int)Math.Floor(evt.Gameloop / 22.4),
-                    Abbr = _unitsDict[unitName],
+                    Abbr = UnitsDict[unitName],
                     Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
                 });
             }
@@ -221,22 +219,22 @@ namespace TactiX_ModSupport
                 }
 
                 var unitName = evt.UnitTypeName;
-                if (_ignore.Contains(unitName)) continue;   // 过滤单位
+                if (Ignore.Contains(unitName)) continue;   // 过滤单位
 
                 var playerName = playerNames[evt.ControlPlayerId];
-                var startLoop = evt.Gameloop - _unitData[unitName] * 16;
+                var startLoop = evt.Gameloop - UnitData[unitName] * 16;
 
-                if (_supplyCost.ContainsKey(unitName))                             // 单位生产消耗的人口是立即的
+                if (SupplyCost.TryGetValue(unitName, out int cost))                             // 单位生产消耗的人口是立即的
                 {
-                    supplyCostDict[playerName] += _supplyCost[unitName];
+                    supplyCostDict[playerName] += cost;
                 }
 
-                if (_supplySupport.ContainsKey(unitName))                          // 人口增加的单位/建筑是完成后才生效的；
+                if (SupplySupport.TryGetValue(unitName, out int supply))                          // 人口增加的单位/建筑是完成后才生效的；
                 {                                                                  // Born为已完成，直接增加
-                    supplySupportDict[playerName] += _supplySupport[unitName];
+                    supplySupportDict[playerName] += supply;
                 }
 
-                if (!_unitData.ContainsKey(unitName))
+                if (!UnitData.ContainsKey(unitName))
                 {
                     _logger.Error($"Error Unit Name: {unitName}");
                     continue;
@@ -247,7 +245,7 @@ namespace TactiX_ModSupport
                     UnitName = unitName,
                     Gameloop = startLoop,
                     Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = _unitsDict[unitName],
+                    Abbr = UnitsDict[unitName],
                     Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
                 });
             }
@@ -260,24 +258,24 @@ namespace TactiX_ModSupport
                 if (evt.Gameloop != gameloop) continue;
 
                 var upgradeName = evt.UpgradeTypeName;
-                if (_ignore.Contains(upgradeName)) continue;// 过滤升级
+                if (Ignore.Contains(upgradeName)) continue;// 过滤升级
 
                 var playerName = playerNames[evt.PlayerId];
 
-                if (!_techData.ContainsKey(upgradeName))
+                if (!TechData.ContainsKey(upgradeName))
                 {
                     _logger.Error($"Error Upgrade Name: {upgradeName}");
                     continue;
                 }
 
-                var startLoop = evt.Gameloop - _techData[upgradeName] * 16;
+                var startLoop = evt.Gameloop - TechData[upgradeName] * 16;
 
                 replayActionDict[playerName].Add(new L_ReplayAction()
                 {
                     UnitName = upgradeName,
                     Gameloop = startLoop,
                     Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = _unitsDict[upgradeName],
+                    Abbr = UnitsDict[upgradeName],
                     Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
                 });
             }
@@ -291,8 +289,8 @@ namespace TactiX_ModSupport
                 if (evt.Gameloop != gameloop) continue;
 
                 var unitName = evt.UnitTypeName;
-                if (_ignore.Contains(unitName)) continue;
-                if (!_unitsDict.ContainsKey(unitName))
+                if (Ignore.Contains(unitName)) continue;
+                if (!UnitsDict.ContainsKey(unitName))
                 {
                     _logger.Error($"Error Unit Name: {unitName}");
                     continue;
@@ -300,8 +298,8 @@ namespace TactiX_ModSupport
 
                 string? playerName = null;
 
-                var isTerran = _terranBuildingTypeChange.Contains(unitName);
-                var isZerg = _zergBuildingTypeChange.Contains(unitName);
+                var isTerran = TerranBuildingTypeChange.Contains(unitName);
+                var isZerg = ZergBuildingTypeChange.Contains(unitName);
 
                 if (isTerran)
                 {
@@ -323,20 +321,20 @@ namespace TactiX_ModSupport
 
                 if (string.IsNullOrEmpty(playerName)) continue;
 
-                var startLoop = evt.Gameloop - _unitData[unitName] * 16;
+                var startLoop = evt.Gameloop - UnitData[unitName] * 16;
 
                 replayActionDict[playerName].Add(new L_ReplayAction()
                 {
                     UnitName = unitName,
                     Gameloop = startLoop,
                     Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = _unitsDict[unitName],
+                    Abbr = UnitsDict[unitName],
                     Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
                 });
             }
         }
 
-        private List<L_ReplayAction> AdjustTime(List<L_ReplayAction> list)
+        private static List<L_ReplayAction> AdjustTime(List<L_ReplayAction> list)
         {
             if (list.Count <= 1)
                 return list;
@@ -367,7 +365,7 @@ namespace TactiX_ModSupport
             return list;
         }
 
-        private bool HasDuplicateRace(Sc2Replay sc2Replay)
+        private static bool HasDuplicateRace(Sc2Replay sc2Replay)
         {
             var players = sc2Replay.Details!.Players;
 

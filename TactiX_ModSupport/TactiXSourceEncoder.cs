@@ -33,7 +33,7 @@ namespace TactiX_ModSupport
                         .Replace("，", ",");
 
                     // Actions 需要特殊处理
-                    var condtion_action = _line.StartsWith("-");
+                    var condtion_action = _line.StartsWith('-');
                     // 空行或者注释直接跳过
                     var condtion_useless = _line.Equals(Environment.NewLine)
                         || _line.StartsWith("//")
@@ -66,11 +66,11 @@ namespace TactiX_ModSupport
                     }
                     else
                     {
-                        var propertyName = _line.Substring(0, _line.IndexOf(":"));
+                        var propertyName = _line[.._line.IndexOf(':')];
                         var property = tactix.GetType().GetProperty(propertyName);
                         if (property == null) continue;
 
-                        var value = _line.Substring(_line.IndexOf(":") + 1);
+                        var value = _line[(_line.IndexOf(':') + 1)..];
 
                         if (condition_uint)
                         {

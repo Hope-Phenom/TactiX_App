@@ -44,8 +44,8 @@ namespace TactiX_App.ViewModels.Popup
         private const string TACTICS_SEARCH_PATTERN = "*.tactix";
         private const string ICON_FOLDER = "icons";
         private const string SOUND_FOLDER = "sounds";
-        private readonly TimeSpan NORMAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 1, 0);
-        private readonly TimeSpan REAL_TIME_INTERVAL = new TimeSpan(0, 0, 0, 0, 968);
+        private readonly TimeSpan NORMAL_TIME_INTERVAL = new(0, 0, 0, 1, 0);
+        private readonly TimeSpan REAL_TIME_INTERVAL = new(0, 0, 0, 0, 968);
         private readonly Point PLAYING_SIZE = new(700, 180);
         private readonly Point MINI_SIZE = new(700, 230);
         private readonly Point NORMAL_SIZE = new(700, 700);
@@ -73,7 +73,7 @@ namespace TactiX_App.ViewModels.Popup
         /// <summary>
         /// Mod中的对象列表（Action和Unit合并）
         /// </summary>
-        private List<L_ModItem> _modItems;
+        private readonly List<L_ModItem> _modItems;
         /// <summary>
         /// 是否是暂停模式
         /// </summary>
@@ -206,7 +206,7 @@ namespace TactiX_App.ViewModels.Popup
             timeStampGapTxt = string.Empty;
 
             // 逻辑初始化
-            TacticFiles = new AvaloniaList<string>();
+            TacticFiles = [];
             _filePrefix = Path.Combine(TACTICS_FOLDER, _modPackage.ModDesc!.TacticsPath);
             ListTacticFiles();
 
@@ -625,14 +625,14 @@ namespace TactiX_App.ViewModels.Popup
         /// 拼接时间字符串
         /// </summary>
         /// <returns></returns>
-        private string CombineTimeStr(uint min, uint sec)
+        private static string CombineTimeStr(uint min, uint sec)
         {
             return min.ToString().PadLeft(2, '0') + ":" + sec.ToString().PadLeft(2, '0');
         }
         /// <summary>
         /// 将秒数转成HHMM格式的字符串
         /// </summary>
-        private string ConvertTimeToHHMMStr(uint time)
+        private static string ConvertTimeToHHMMStr(uint time)
         {
             var sec = time % 60;
             var min = (time - sec) / 60;
