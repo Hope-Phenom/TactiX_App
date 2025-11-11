@@ -40,11 +40,11 @@ namespace TactiX_App.ViewModels
         /// <summary>
         /// 官方QQ频道
         /// </summary>
-        public string QqChatUrl => "https://pd.qq.com/s/4vr81w4yl?b=9";
+        public static string QqChatUrl => "https://pd.qq.com/s/4vr81w4yl?b=9";
         /// <summary>
         /// 项目主页
         /// </summary>
-        public string HomePageUrl => "https://sc2.east-unicorn.cn";
+        public static string HomePageUrl => "https://sc2.east-unicorn.cn";
         /// <summary>
         /// 新闻页面组件
         /// </summary>
@@ -164,7 +164,7 @@ namespace TactiX_App.ViewModels
         /// 获取当前运行的版本号
         /// </summary>
         /// <returns>版本号字符串-{major}.{minor}.{build}.{revision}</returns>
-        private string GetCurrVersion()
+        private static string GetCurrVersion()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             AssemblyName assemblyName = assembly.GetName();

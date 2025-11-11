@@ -30,10 +30,9 @@ namespace TactiX_ModSupport
         private Dictionary<string, int> supplyCostDict;
         private Dictionary<string, int> supplySupportDict;
         /// <summary>
-        /// 绷不住了，这里用元组减少代码量
-        /// 依次代表 Gameloop、变化量、是否已处理(0为未处理)
+        /// 待处理的人口变化事件集合
         /// </summary>
-        private Dictionary<string, List<(int, int, int)>> supplySupportChangeDict;
+        private Dictionary<string, List<DoneEvtRecord>> supplySupportChangeDict;
         /// <summary>
         /// 建筑的升级变形事件是不包括playerId的，因此尝试用种族分配来处理
         /// 如果种族不重复，则按照种族来分配升级的建筑，否则跳过解析
@@ -120,29 +119,41 @@ namespace TactiX_ModSupport
                     playerIndex++;
                 }
 
-                // 从1开始排除开局就存在的单位
-                // C#版本的解析库将不同的事件解析成了不同的独立的List，导致自动计算人口更加复杂，必须人工按gameloop进行
-                for (int i = 1; i < replay.Header.ElapsedGameLoops; i++)
+                var trackers = new List<TrackerEvent>();
+                trackers.AddRange(replay.TrackerEvents.SUnitInitEvents);
+                trackers.AddRange(replay.TrackerEvents.SUnitBornEvents);
+                trackers.AddRange(replay.TrackerEvents.SUpgradeEvents);
+                trackers.AddRange(replay.TrackerEvents.SUnitTypeChangeEvents);
+                trackers.AddRange(replay.TrackerEvents.SUnitDoneEvents);
+                trackers = [.. trackers.OrderBy(e => e.Gameloop)];
+
+                for (int i = 0; i < trackers.Count; i++)
                 {
-                    foreach (var playName in supplySupportChangeDict.Keys)
+                    var evt = trackers[i];
+                    var gameloop = evt.Gameloop;
+
+                    if (evt.Gameloop == 0) continue;
+
+                    switch (evt.EventType)
                     {
-                        var list = supplySupportChangeDict[playName];
-                        for (int j = 0; j < list.Count; j++)
-                        {
-                            var result = list[j];
-
-                            if (result.Item1 != i) continue; // 不在要处理的Gameloop，跳过
-                            if (result.Item3 == 1) continue; // 已处理，跳过
-
-                            supplySupportDict[playName] += result.Item2;
-                            result.Item3 = 1;                // 标记为已处理，避免循环中操作List
-                        }
+                        case TrackerEventType.SUnitInitEvent:
+                            HandleSUnitInitEvent((SUnitInitEvent)evt);
+                            break;
+                        case TrackerEventType.SUnitBornEvent:
+                            HandleSUnitBornEvent((SUnitBornEvent)evt);
+                            break;
+                        case TrackerEventType.SUpgradeEvent:
+                            HandleSUpgradeEvent((SUpgradeEvent)evt);
+                            break;
+                        case TrackerEventType.SUnitTypeChangeEvent:
+                            HandleSUnitTypeChangeEvent((SUnitTypeChangeEvent)evt, sameRace);
+                            break;
+                        case TrackerEventType.SUnitDoneEvent:
+                            HandleSUnitDoneEvent((SUnitDoneEvent)evt);
+                            break;
+                        default: 
+                            break;
                     }
-
-                    HandleSUnitInitEvents(replay.TrackerEvents.SUnitInitEvents, i);
-                    HandleSUnitBornEvents(replay.TrackerEvents.SUnitBornEvents, i);
-                    HandleSUpgradeEvents(replay.TrackerEvents.SUpgradeEvents, i);
-                    HandleSUnitTypeChangeEvents(replay.TrackerEvents.SUnitTypeChangeEvents, i, sameRace);
                 }
 
                 foreach (var playerName in replayActionDict.Keys)
@@ -160,177 +171,178 @@ namespace TactiX_ModSupport
             }
         }
 
-        private void HandleSUnitInitEvents(ICollection<SUnitInitEvent> sUnitInitEvents, int gameloop)
+        private void HandleSUnitInitEvent(SUnitInitEvent evt)
         {
-            foreach (var evt in sUnitInitEvents)
+            if (evt.ControlPlayerId == 0)                                      // 排除非玩家控制单位
             {
-                if (evt.Gameloop != gameloop) continue;
-                if (evt.ControlPlayerId == 0)
-                {
-                    _logger.Warn(evt.UnitTypeName);
-                    continue;     // 排除非玩家控制单位
-                }
-
-                var unitName = evt.UnitTypeName;
-                if (Ignore.Contains(unitName)) continue;   // 过滤单位
-
-                var playerName = playerNames[evt.ControlPlayerId];
-
-                if (SupplyCost.TryGetValue(unitName, out int value))                            // 单位生产消耗的人口是立即的
-                {
-                    supplyCostDict[playerName] += value;
-                }
-
-                if (SupplySupport.ContainsKey(unitName))                         // 人口增加的单位/建筑是完成后才生效的
-                {
-                    if (evt.SUnitDoneEvent != null)
-                    {
-                        supplySupportChangeDict[playerName]
-                            .Add((evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName], 0));
-                    }
-                }
-
-                if (!UnitsDict.ContainsKey(unitName))
-                {
-                    _logger.Error($"Error Unit Name: {unitName}");
-                    continue;
-                }
-
-                replayActionDict[playerName].Add(new L_ReplayAction()
-                {
-                    UnitName = unitName,
-                    Gameloop = evt.Gameloop,
-                    Time = (int)Math.Floor(evt.Gameloop / 22.4),
-                    Abbr = UnitsDict[unitName],
-                    Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
-                });
+                _logger.Warn(evt.UnitTypeName);
+                return;
             }
+
+            var unitName = evt.UnitTypeName;
+            if (Ignore.Contains(unitName)) return;                             // 过滤单位
+
+            var playerName = playerNames[evt.ControlPlayerId];
+
+            if (SupplyCost.TryGetValue(unitName, out int cost))                // 单位生产消耗的人口是立即的
+            {
+                supplyCostDict[playerName] += cost;
+            }
+
+            if (SupplySupport.ContainsKey(unitName))                           // 人口增加的单位/建筑是完成后才生效的
+            {
+                if (evt.SUnitDoneEvent != null)
+                {
+                    supplySupportChangeDict[playerName]
+                        .Add(new(evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName]));
+                }
+            }
+
+            if (!UnitsDict.TryGetValue(unitName, out string? unitAbbr))
+            {
+                _logger.Error($"Error Unit Name: {unitName}");
+                return;
+            }
+
+            replayActionDict[playerName].Add(new L_ReplayAction()
+            {
+                UnitName = unitName,
+                Gameloop = evt.Gameloop,
+                Time = (int)Math.Floor(evt.Gameloop / 22.4),
+                Abbr = unitAbbr,
+                Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            });
         }
 
-        private void HandleSUnitBornEvents(ICollection<SUnitBornEvent> sUnitBornEvents, int gameloop)
+        private void HandleSUnitBornEvent(SUnitBornEvent evt)
         {
-            foreach (var evt in sUnitBornEvents)
+            if (evt.ControlPlayerId == 0)                                       // 排除非玩家控制单位
             {
-                if (evt.Gameloop != gameloop) continue;
-                if (evt.ControlPlayerId == 0)
-                {
-                    _logger.Warn(evt.UnitTypeName);
-                    continue;     // 排除非玩家控制单位
-                }
-
-                var unitName = evt.UnitTypeName;
-                if (Ignore.Contains(unitName)) continue;   // 过滤单位
-
-                var playerName = playerNames[evt.ControlPlayerId];
-                var startLoop = evt.Gameloop - UnitData[unitName] * 16;
-
-                if (SupplyCost.TryGetValue(unitName, out int cost))                             // 单位生产消耗的人口是立即的
-                {
-                    supplyCostDict[playerName] += cost;
-                }
-
-                if (SupplySupport.TryGetValue(unitName, out int supply))                          // 人口增加的单位/建筑是完成后才生效的；
-                {                                                                  // Born为已完成，直接增加
-                    supplySupportDict[playerName] += supply;
-                }
-
-                if (!UnitData.ContainsKey(unitName))
-                {
-                    _logger.Error($"Error Unit Name: {unitName}");
-                    continue;
-                }
-
-                replayActionDict[playerName].Add(new L_ReplayAction()
-                {
-                    UnitName = unitName,
-                    Gameloop = startLoop,
-                    Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = UnitsDict[unitName],
-                    Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
-                });
+                _logger.Warn(evt.UnitTypeName);
+                return;
             }
+
+            var unitName = evt.UnitTypeName;
+            if (Ignore.Contains(unitName)) return;                             // 过滤单位
+
+            var playerName = playerNames[evt.ControlPlayerId];
+            var startLoop = evt.Gameloop - UnitData[unitName] * 16;
+
+            if (SupplyCost.TryGetValue(unitName, out int cost))                // 单位生产消耗的人口是立即的
+            {
+                supplyCostDict[playerName] += cost;
+            }
+
+            if (SupplySupport.TryGetValue(unitName, out int supply))           // 人口增加的单位/建筑是完成后才生效的；
+            {                                                                  // Born为已完成，直接增加
+                supplySupportDict[playerName] += supply;
+            }
+
+            if (!UnitData.ContainsKey(unitName))
+            {
+                _logger.Error($"Error Unit Name: {unitName}");
+                return;
+            }
+
+            replayActionDict[playerName].Add(new L_ReplayAction()
+            {
+                UnitName = unitName,
+                Gameloop = startLoop,
+                Time = (int)Math.Floor(startLoop / 22.4),
+                Abbr = UnitsDict[unitName],
+                Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            });
         }
 
-        private void HandleSUpgradeEvents(ICollection<SUpgradeEvent> sUpgradeEvents, int gameloop)
+        private void HandleSUpgradeEvent(SUpgradeEvent evt)
         {
-            foreach (var evt in sUpgradeEvents)
+            var upgradeName = evt.UpgradeTypeName;
+            if (Ignore.Contains(upgradeName)) return;                                        // 过滤升级
+
+            var playerName = playerNames[evt.PlayerId];
+
+            if (!TechData.TryGetValue(upgradeName, out int techTime))
             {
-                if (evt.Gameloop != gameloop) continue;
-
-                var upgradeName = evt.UpgradeTypeName;
-                if (Ignore.Contains(upgradeName)) continue;// 过滤升级
-
-                var playerName = playerNames[evt.PlayerId];
-
-                if (!TechData.ContainsKey(upgradeName))
-                {
-                    _logger.Error($"Error Upgrade Name: {upgradeName}");
-                    continue;
-                }
-
-                var startLoop = evt.Gameloop - TechData[upgradeName] * 16;
-
-                replayActionDict[playerName].Add(new L_ReplayAction()
-                {
-                    UnitName = upgradeName,
-                    Gameloop = startLoop,
-                    Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = UnitsDict[upgradeName],
-                    Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
-                });
+                _logger.Error($"Error Upgrade Name: {upgradeName}");
+                return;
             }
+
+            var startLoop = evt.Gameloop - techTime* 16;
+
+            replayActionDict[playerName].Add(new L_ReplayAction()
+            {
+                UnitName = upgradeName,
+                Gameloop = startLoop,
+                Time = (int)Math.Floor(startLoop / 22.4),
+                Abbr = UnitsDict[upgradeName],
+                Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            });
         }
 
-        private void HandleSUnitTypeChangeEvents(ICollection<SUnitTypeChangeEvent> sUnitTypeChangeEvents, int gameloop, bool isSameRace)
+        private void HandleSUnitTypeChangeEvent(SUnitTypeChangeEvent evt, bool isSameRace)
         {
-            foreach (var evt in sUnitTypeChangeEvents)
+            if (isSameRace) return;
+
+            var unitName = evt.UnitTypeName;
+            if (Ignore.Contains(unitName)) return;
+            if (!UnitsDict.TryGetValue(unitName, out string? unitAbbr))
             {
-                if (isSameRace) break;
-                if (evt.Gameloop != gameloop) continue;
+                _logger.Error($"Error Unit Name: {unitName}");
+                return;
+            }
 
-                var unitName = evt.UnitTypeName;
-                if (Ignore.Contains(unitName)) continue;
-                if (!UnitsDict.ContainsKey(unitName))
+            string? playerName = null;
+
+            var isTerran = TerranBuildingTypeChange.Contains(unitName);
+            var isZerg = ZergBuildingTypeChange.Contains(unitName);
+
+            if (isTerran)
+            {
+                playerName = raceDict.TryGetValue("Terran", out var terranName)
+                    ? terranName
+                    : raceDict.TryGetValue("人类", out var chineseName)
+                        ? chineseName
+                        : null;
+            }
+
+            if (isZerg)
+            {
+                playerName = raceDict.TryGetValue("Zerg", out var terranName)
+                    ? terranName
+                    : raceDict.TryGetValue("异虫", out var chineseName)
+                        ? chineseName
+                        : null;
+            }
+
+            if (string.IsNullOrEmpty(playerName)) return;
+
+            var startLoop = evt.Gameloop - UnitData[unitName] * 16;
+
+            replayActionDict[playerName].Add(new L_ReplayAction()
+            {
+                UnitName = unitName,
+                Gameloop = startLoop,
+                Time = (int)Math.Floor(startLoop / 22.4),
+                Abbr = unitAbbr,
+                Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            });
+        }
+
+        private void HandleSUnitDoneEvent(SUnitDoneEvent evt)
+        {
+            foreach (var playName in supplySupportChangeDict.Keys)
+            {
+                var list = supplySupportChangeDict[playName];
+                for (int j = 0; j < list.Count; j++)
                 {
-                    _logger.Error($"Error Unit Name: {unitName}");
-                    continue;
+                    var record = list[j];
+
+                    if (record.Gameloop != evt.Gameloop) continue; // 不在要处理的gameloop，跳过
+                    if (record.Handled) continue;                  // 已处理，跳过
+
+                    supplySupportDict[playName] += record.Delta;
+                    record.Handled = true;                         // 标记为已处理，避免循环中操作List
                 }
-
-                string? playerName = null;
-
-                var isTerran = TerranBuildingTypeChange.Contains(unitName);
-                var isZerg = ZergBuildingTypeChange.Contains(unitName);
-
-                if (isTerran)
-                {
-                    playerName = raceDict.TryGetValue("Terran", out var terranName)
-                        ? terranName
-                        : raceDict.TryGetValue("人类", out var chineseName)
-                            ? chineseName
-                            : null;
-                }
-
-                if (isZerg)
-                {
-                    playerName = raceDict.TryGetValue("Zerg", out var terranName)
-                        ? terranName
-                        : raceDict.TryGetValue("异虫", out var chineseName)
-                            ? chineseName
-                            : null;
-                }
-
-                if (string.IsNullOrEmpty(playerName)) continue;
-
-                var startLoop = evt.Gameloop - UnitData[unitName] * 16;
-
-                replayActionDict[playerName].Add(new L_ReplayAction()
-                {
-                    UnitName = unitName,
-                    Gameloop = startLoop,
-                    Time = (int)Math.Floor(startLoop / 22.4),
-                    Abbr = UnitsDict[unitName],
-                    Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
-                });
             }
         }
 
@@ -391,6 +403,19 @@ namespace TactiX_ModSupport
             public required List<string> Ignore;
             public required List<string> TerranBuildingTypeChange;
             public required List<string> ZergBuildingTypeChange;
+        }
+
+        /// <summary>
+        /// 待处理Done事件记录
+        /// </summary>
+        /// <param name="gameloop">要处理事件的gameloop</param>
+        /// <param name="delta">变化量</param>
+        /// <param name="handled">是否已处理，默认否</param>
+        public class DoneEvtRecord(int gameloop, int delta, bool handled = false)
+        {
+            public int Gameloop = gameloop;
+            public int Delta = delta;
+            public bool Handled = handled;
         }
     }
 }

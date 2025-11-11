@@ -36,8 +36,7 @@ namespace TactiX_App.ViewModels.Page
         public IAvaloniaList<N_NewsSys> List_SysNews { get; private set; }
         public IAvaloniaList<N_VideoInfo> List_Videos { get; private set; }
 
-        public NewsPageViewModel(ILang lang, IServiceProvider serviceProvider, IOSTools oSTools,
-            ILoggerContainer loggerContainer, INetwork network,
+        public NewsPageViewModel(ILang lang, IOSTools oSTools, ILoggerContainer loggerContainer, INetwork network,
             IMessenger messenger)
         {
             Language = lang.Language;
