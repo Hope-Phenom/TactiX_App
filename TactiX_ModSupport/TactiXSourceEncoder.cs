@@ -50,15 +50,29 @@ namespace TactiX_ModSupport
                         var strs = _line.Replace("-", "").Split(',');
                         if (strs.Length != 3 && strs.Length != 4) continue;
 
-                        tactix.Actions.Add(new L_TacticAction()
+                        var action = new L_TacticAction();
+                        action.Step = Convert.ToUInt16(strs[0]);
+                        action.Time = TimeParser.ConvertToSeconds(strs[1]);
+
+                        // 判断是否添加了个数标签
+                        if (strs[2].IndexOf("*") != -1)
                         {
-                            Step = Convert.ToUInt16(strs[0]),
-                            Time = TimeParser.ConvertToSeconds(strs[1]),
-                            ItemAbbr = strs[2],
-                            Supply = strs.Length == 4
+                            var arr = strs[2].Split('*');
+                            var abbr = arr[0];
+                            var number = Convert.ToInt32(arr[1]);
+
+                            action.ItemAbbr = abbr;
+                            action.Number = number;
+                        }
+                        else
+                        {
+                            action.ItemAbbr = strs[2];
+                            action.Supply = strs.Length == 4
                                 ? strs[3]
-                                : string.Empty
-                        });
+                                : string.Empty;
+                        }
+
+                        tactix.Actions.Add(action);
                     }
                     else if (condtion_useless)
                     {

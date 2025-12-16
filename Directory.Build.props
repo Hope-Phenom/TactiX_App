@@ -6,7 +6,7 @@
 
 		<!-- 统一版本控制 -->
 		<VersionMajor>1</VersionMajor>
-		<VersionMinor>1</VersionMinor>
+		<VersionMinor>2</VersionMinor>
 		<VersionBuild>1</VersionBuild>
 		<VersionRevision>0</VersionRevision>
 		<VersionSuffix Condition="'$(Configuration)' == 'Debug'">dev</VersionSuffix>
