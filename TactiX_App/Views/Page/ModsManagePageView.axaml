@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
                 <suki:GlassCard Grid.Column="0">
-                    <suki:GroupBox Header="{Binding Language.ModsManageViewLocalModsHeader}">
+                    <suki:GroupBox Header="{StaticResource ModsManageViewLocalModsHeader}">
                         <Grid Margin="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -42,7 +42,7 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard Grid.Column="2">
-                    <suki:GroupBox Header="{Binding Language.ModsManageViewSelectedModInfo}">
+                    <suki:GroupBox Header="{StaticResource ModsManageViewSelectedModInfo}">
                         <apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
                                           IsAutoNameWidth="True" IsTitleVisible="False"
                                           IsQuickFilterVisible="False"
@@ -50,15 +50,15 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard Grid.Column="4">
-                    <suki:GroupBox Header="{Binding Language.ModsManageViewSelectedModAction}">
+                    <suki:GroupBox Header="{StaticResource ModsManageViewSelectedModAction}">
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{Binding Language.ModsManageViewModActionLabelSelected}" />
+                            <Label Content="{StaticResource ModsManageViewModActionLabelSelected}" />
                             <Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
                             <Grid Height="15" />
-                            <Button Content="{Binding Language.ModsManageViewModActionEnableSelected}"
+                            <Button Content="{StaticResource ModsManageViewModActionEnableSelected}"
                                     Command="{Binding EnableSelectedModCommand}" />
                             <Grid Height="15" />
-                            <Button Content="{Binding Language.ModsManageViewModActionDeleteSelected}"
+                            <Button Content="{StaticResource ModsManageViewModActionDeleteSelected}"
                                     Command="{Binding DeleteSelectedModCommand}" />
                         </StackPanel>
                     </suki:GroupBox>
@@ -77,10 +77,10 @@
                     <TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Button Grid.Column="2"
-                            Content="{Binding Language.ButtonTxtRefresh}"
+                            Content="{StaticResource ButtonTxtRefresh}"
                             Command="{Binding CheckLocalModsCommand}" />
                     <Button Grid.Column="4"
-                            Content="{Binding Language.ModsManageViewLocalModsFolder}"
+                            Content="{StaticResource ModsManageViewLocalModsFolder}"
                             Command="{Binding OpenLocalFolderCommand}" />
                 </Grid>
             </suki:GlassCard>

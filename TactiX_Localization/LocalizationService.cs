@@ -1,12 +1,10 @@
-﻿using System;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 
-namespace TactiX_App.Service;
+namespace TactiX_Localization;
 
 using Avalonia;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
-using System.Linq;
 
 public class LocalizationService : ILocalizationService
 {
@@ -19,7 +17,7 @@ public class LocalizationService : ILocalizationService
     public void ChangeLanguage(string cultureCode)
     {
         // 尝试加载对应的语言资源
-        var resourcePath = $"avares://YourAssembly/Resources/Languages/Strings.{cultureCode}.axaml";
+        var resourcePath = $"avares://TactiX_Localization/Resources/Locales/Strings.{cultureCode}.axaml";
 
         try
         {

@@ -25,11 +25,11 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Content="{Binding Language.LicenseViewBtnDecline}"
+                    Content="{StaticResource LicenseViewBtnDecline}"
                     Command="{Binding Btn_CloseCommand}" />
             <Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Content="{Binding Language.LicenseViewBtnAccept}"
+                    Content="{StaticResource LicenseViewBtnAccept}"
                     Command="{Binding Btn_AgressCommand}" />
         </Grid>
     </Grid>

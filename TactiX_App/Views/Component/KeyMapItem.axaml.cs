@@ -3,7 +3,7 @@ using System.Linq;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Input;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Models;
 using TactiX_OS_Tools;
 
@@ -16,21 +16,21 @@ public partial class KeyMapItem : UserControl
     private LHotkeyBindingEnum _hotkeyBindingEnum;
 
 #if DEBUG
-#pragma warning disable CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
-    public KeyMapItem() // �˹��캯�������ڱ�֤��Ԥ��
+#pragma warning disable CS8618
+    public KeyMapItem()
     {
         InitializeComponent();
     }
-#pragma warning restore CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
+#pragma warning restore CS8618
 #endif
 
-    public KeyMapItem(IosTools oSTools, ILang lang)
+    public KeyMapItem(IosTools oSTools, ILocalizationService localizationService)
     {
         InitializeComponent();
 
         _oses = oSTools.OSes;
         _config = _oses.LoadConfig();
-        _language = lang.Language;
+        _localizationService = localizationService;
 
         Keys = [.. Enum.GetValues<Key>()];
         KeyModifiers = [.. Enum.GetValues<KeyModifiers>()];
@@ -84,15 +84,15 @@ public partial class KeyMapItem : UserControl
         if (_hotkeyBinding == null) return;
 
         Label_Status.Content = _oses.IsHotkeyAvailable(_hotkeyBinding.Key, _hotkeyBinding.Modifiers)
-            ? _language.NormalTextAvailable
-            : _language.NormalTextError;
+            ? _localizationService.GetString("NormalTextAvailable")
+            : _localizationService.GetString("NormalTextError");
     }
 
-    #region DI����ע��
+    #region DI容器注入
 
+    private readonly ILocalizationService _localizationService;
     private readonly IoSes _oses;
     private readonly LConfig _config;
-    private readonly ILanguage _language;
 
     #endregion
 }

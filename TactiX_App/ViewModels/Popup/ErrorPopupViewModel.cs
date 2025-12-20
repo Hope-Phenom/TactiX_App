@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
-using TactiX_I18N;
 using TactiX_Models.MessageBus;
 using TactiX_Models.Network;
 using TactiX_Network;
@@ -20,10 +19,8 @@ public partial class ErrorPopupViewModel : ViewModelBase
     /// </summary>
     private int _times;
 
-    public ErrorPopupViewModel(ILoggerContainer logger, ILang lang, INetwork network, IMessenger messenger)
+    public ErrorPopupViewModel(ILoggerContainer logger, INetwork network, IMessenger messenger)
     {
-        Language = lang.Language;
-
         _network = network;
         _logger = logger.Builder.GetCurrentClassLogger();
         _messenger = messenger;
@@ -75,8 +72,7 @@ public partial class ErrorPopupViewModel : ViewModelBase
     }
 
     #region DI容器注入
-
-    public ILanguage Language { get; private set; }
+    
     private readonly INetwork _network;
     private readonly Logger _logger;
     private readonly IMessenger _messenger;

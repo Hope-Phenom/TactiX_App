@@ -27,28 +27,27 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.3.7"/>
+        <PackageReference Include="Avalonia" Version="11.3.10" />
         <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0"/>
         <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.7"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.7"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.10" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.10" />
         <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0"/>
         <PackageReference Include="bodong.Avalonia.PropertyGrid" Version="11.3.3.2"/>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
 
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.7"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.10" />
         <PackageReference Include="Markdown.Avalonia.Tight" Version="11.0.2"/>
         <PackageReference Include="Material.Icons.Avalonia" Version="2.4.1"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
         <PackageReference Include="NAudio" Version="2.2.1"/>
-        <PackageReference Include="NuGet.Versioning" Version="6.14.0"/>
+        <PackageReference Include="NuGet.Versioning" Version="7.0.1" />
         <PackageReference Include="SukiUI" Version="6.0.3"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj"/>
-        <ProjectReference Include="..\TactiX_I18N\TactiX_I18N.csproj"/>
         <ProjectReference Include="..\TactiX_Logger\TactiX_Logger.csproj"/>
         <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj"/>
         <ProjectReference Include="..\TactiX_ModSupport\TactiX_ModSupport.csproj"/>

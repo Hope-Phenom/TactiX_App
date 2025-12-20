@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TactiX_App.Service;
+namespace TactiX_Localization;
 
 /// <summary>
 ///     本地化服务，基于Avalonia资源字典实现

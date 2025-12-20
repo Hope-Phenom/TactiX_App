@@ -22,39 +22,39 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <!-- �ļ��˵� -->
-            <MenuItem Header="{Binding Language.EditorMenuHeaderFiles}">
-                <MenuItem Header="{Binding Language.EditorMenuFilesNew}"
+            <MenuItem Header="{StaticResource EditorMenuHeaderFiles}">
+                <MenuItem Header="{StaticResource EditorMenuFilesNew}"
                           Command="{Binding CreateNewFileCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+N</KeyGesture>
                     </MenuItem.InputGesture>
                 </MenuItem>
-                <MenuItem Header="{Binding Language.EditorMenuFilesOpen}"
+                <MenuItem Header="{StaticResource EditorMenuFilesOpen}"
                           Command="{Binding OpenFileCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+O</KeyGesture>
                     </MenuItem.InputGesture>
                 </MenuItem>
-                <MenuItem Header="{Binding Language.EditorMenuFilesSave}"
+                <MenuItem Header="{StaticResource EditorMenuFilesSave}"
                           Command="{Binding SaveFileCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+S</KeyGesture>
                     </MenuItem.InputGesture>
                 </MenuItem>
-                <MenuItem Header="{Binding Language.EditorMenuFilesSaveAs}"
+                <MenuItem Header="{StaticResource EditorMenuFilesSaveAs}"
                           Command="{Binding SaveAsFileCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+Shift+S</KeyGesture>
                     </MenuItem.InputGesture>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="{Binding Language.EditorMenuFilesExport}"
+                <MenuItem Header="{StaticResource EditorMenuFilesExport}"
                           Command="{Binding ExportCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+E</KeyGesture>
                     </MenuItem.InputGesture>
                 </MenuItem>
-                <MenuItem Header="{Binding Language.EditorMenuFilesExportTo}"
+                <MenuItem Header="{StaticResource EditorMenuFilesExportTo}"
                           Command="{Binding ExportToCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+Shift+E</KeyGesture>
@@ -63,8 +63,8 @@
             </MenuItem>
 
             <!-- �༭�˵� -->
-            <MenuItem Header="{Binding Language.EditorMenuHeaderEdit}">
-                <MenuItem Header="{Binding Language.EditorMenuEditInsertTemplate}"
+            <MenuItem Header="{StaticResource EditorMenuHeaderEdit}">
+                <MenuItem Header="{StaticResource EditorMenuEditInsertTemplate}"
                           Command="{Binding InsertTemplateCommand}">
                     <MenuItem.InputGesture>
                         <KeyGesture>Ctrl+I</KeyGesture>
@@ -73,8 +73,8 @@
             </MenuItem>
 
             <!-- �����˵� -->
-            <MenuItem Header="{Binding Language.EditorMenuHeaderHelp}">
-                <MenuItem Header="{Binding Language.EditorMenuHelpGetHelp}" />
+            <MenuItem Header="{StaticResource EditorMenuHeaderHelp}">
+                <MenuItem Header="{StaticResource EditorMenuHelpGetHelp}" />
             </MenuItem>
         </Menu>
 

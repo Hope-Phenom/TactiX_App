@@ -7,12 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Refit" Version="8.0.0"/>
-        <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0"/>
+        <PackageReference Include="Refit" Version="9.0.2" />
+        <PackageReference Include="Refit.Newtonsoft.Json" Version="9.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Tactix_Exception\TactiX_Exception.csproj"/>
         <ProjectReference Include="..\TactiX_Models\TactiX_Models.csproj"/>
     </ItemGroup>
 

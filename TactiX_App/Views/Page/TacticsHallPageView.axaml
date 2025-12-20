@@ -9,7 +9,7 @@
              x:Class="TactiX_App.Views.Page.TacticsHallPageView">
 
     <suki:GlassCard Margin="10">
-        <Label Content="{Binding Language.NormalTextDeveloping}"
+        <Label Content="{StaticResource NormalTextDeveloping}"
                HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                VerticalAlignment="Center" VerticalContentAlignment="Center"
                FontSize="18" />

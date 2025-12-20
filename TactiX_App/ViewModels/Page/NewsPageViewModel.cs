@@ -11,7 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using NLog;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models.MessageBus;
 using TactiX_Models.Network;
@@ -22,11 +22,10 @@ namespace TactiX_App.ViewModels.Page;
 
 public partial class NewsPageViewModel : ViewModelBase
 {
-    public NewsPageViewModel(ILang lang, IosTools oSTools, ILoggerContainer loggerContainer, INetwork network,
+    public NewsPageViewModel(ILocalizationService localizationService, IosTools oSTools, ILoggerContainer loggerContainer, INetwork network,
         IMessenger messenger)
     {
-        Language = lang.Language;
-
+        _localizationService = localizationService;
         _oses = oSTools.OSes;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _network = network;
@@ -57,16 +56,14 @@ public partial class NewsPageViewModel : ViewModelBase
         try
         {
             var news = await _network.Client.GetNews();
-            if (news == null || news.Count == 0) return;
+            if (news.Count == 0) return;
 
             var topicsNews = news
-                .Where(t => t.Type == 0)
-                .First();
+                .First(t => t.Type == 0);
             await UpdateTopics(topicsNews);
 
             var videosNews = news
-                .Where(t => t.Type == 1)
-                .First();
+                .First(t => t.Type == 1);
             await UpdateVideos(videosNews);
 
             var newsSys = await _network.Client.GetN_NewsSys();
@@ -77,8 +74,8 @@ public partial class NewsPageViewModel : ViewModelBase
             _logger.Error($"NewsPageViewModel.UpdateNews Error: {ex.Message}");
             _messenger.Send(new MbToastPureText
             {
-                Message = $"{Language.NewsPageErrorNetwork}，错误信息：{ex.Message}",
-                Title = Language.ToastTitleError,
+                Message = $"{_localizationService.GetString("NewsPageErrorNetwork")}，错误信息：{ex.Message}",
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
         }
@@ -87,7 +84,7 @@ public partial class NewsPageViewModel : ViewModelBase
     /// <summary>
     ///     更新热帖
     /// </summary>
-    public async Task UpdateTopics(NNews news)
+    private async Task UpdateTopics(NNews? news)
     {
         await Task.Run(() =>
         {
@@ -123,7 +120,7 @@ public partial class NewsPageViewModel : ViewModelBase
     /// <summary>
     ///     更新视频信息
     /// </summary>
-    public async Task UpdateVideos(NNews news)
+    private async Task UpdateVideos(NNews? news)
     {
         await Task.Run(async () =>
         {
@@ -153,16 +150,16 @@ public partial class NewsPageViewModel : ViewModelBase
             foreach (var v in newsSys)
             {
                 var displayText = v.Title;
-                if (displayText.Length > 30)
-                    displayText = string.Concat("● ", displayText.AsSpan(0, 27), "...");
-                else
-                    displayText = string.Concat("● ", displayText);
+                
+                displayText = displayText.Length > 30 
+                    ? string.Concat("● ", displayText.AsSpan(0, 27), "...") 
+                    : string.Concat("● ", displayText);
 
                 var news = new NNewsSys
                 {
                     DateTime = v.DateTime,
                     Link = v.Link,
-                    Title = "● " + v.Title
+                    Title = "● " + displayText
                 };
 
                 Dispatcher.UIThread.Post(() => ListSysNews.Add(news));
@@ -189,7 +186,7 @@ public partial class NewsPageViewModel : ViewModelBase
 
     #region DI容器注入
 
-    public ILanguage Language { get; }
+    private readonly ILocalizationService _localizationService;
     private readonly IoSes _oses;
     private readonly Logger _logger;
     private readonly INetwork _network;

@@ -1,14 +1,14 @@
 ﻿using TactiX_Exception;
-using TactiX_I18N;
+using TactiX_Localization;
 
 namespace TactiX_OS_Tools;
 
 public class OsTools : IosTools
 {
-    public OsTools(ILang lang, ITactiXExceptionFactory exceptionFactory)
+    public OsTools(ILocalizationService localizationService, ITactiXExceptionFactory exceptionFactory)
     {
 #if OS_WINDOWS
-        OSes = new WindowsImpl(lang.Language, exceptionFactory);
+        OSes = new WindowsImpl(localizationService, exceptionFactory);
 #endif
     }
 

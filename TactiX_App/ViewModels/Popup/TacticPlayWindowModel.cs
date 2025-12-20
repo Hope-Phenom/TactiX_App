@@ -15,8 +15,8 @@ using Material.Icons;
 using NAudio.Wave;
 using Newtonsoft.Json;
 using NLog;
-using TactiX_I18N;
 using TactiX_Logger;
+using TactiX_Localization;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
@@ -35,13 +35,14 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
 #endif
 
-    public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
-        IosTools oSTools)
+    public TacticPlayWindowModel(ILocalizationService localizationService, ILoggerContainer loggerContainer, 
+        IMessenger messenger, IosTools oSTools)
     {
-        Language = lang.Language;
+        _localizationService = localizationService;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _messenger = messenger;
         _oses = oSTools.OSes;
+        Config = _oses.LoadConfig();
         Config = _oses.LoadConfig();
 
         // 加载指定MOD
@@ -100,7 +101,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
 
     #region DI容器注入
 
-    public ILanguage Language { get; }
+    private readonly ILocalizationService _localizationService;
     private readonly Logger _logger;
     private readonly IMessenger _messenger;
     private readonly IoSes _oses;
@@ -393,7 +394,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
             _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Title = Language.ToastTitleError,
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
         }

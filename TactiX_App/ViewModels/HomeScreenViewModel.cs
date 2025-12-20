@@ -11,7 +11,7 @@ using NuGet.Versioning;
 using SukiUI;
 using TactiX_App.ViewModels.Page;
 using TactiX_App.Views.Page;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
@@ -24,17 +24,16 @@ namespace TactiX_App.ViewModels;
 
 public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVersion>
 {
-    public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer,
+    public HomeScreenViewModel(ILocalizationService localizationService, ILoggerContainer loggerContainer,
         INetwork network, IMessenger messenger, IosTools oSTools, IServiceProvider serviceProvider)
     {
+        _localizationService = localizationService;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _network = network;
         _messenger = messenger;
         _oSes = oSTools.OSes;
         _serviceProvider = serviceProvider;
         _config = _oSes.LoadConfig();
-
-        Language = lang.Language;
 
         #region 组件注册
 
@@ -61,6 +60,7 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
 
     #region DI容器注入
 
+    private readonly ILocalizationService _localizationService;
     private readonly Logger _logger;
     private readonly INetwork _network;
     private readonly IMessenger _messenger;
@@ -71,8 +71,6 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
     #endregion
 
     #region 常/变量
-
-    public ILanguage Language { get; }
 
     /// <summary>
     ///     官方QQ频道
@@ -138,10 +136,10 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
             if (lastest.CompareTo(curr) == 0) return;
 
             var messageText = resp.Banned
-                ? string.Format(Language.VersionControlBanned, currVer)
+                ? string.Format(_localizationService.GetString("VersionControlBanned"), currVer)
                 : resp.ForceUpgrade
-                    ? string.Format(Language.VersionControlForceUpgrade, resp.LastestVersion)
-                    : string.Format(Language.VersionControlNewVersion, currVer, resp.LastestVersion);
+                    ? string.Format(_localizationService.GetString("VersionControlForceUpgrade"), resp.LastestVersion)
+                    : string.Format(_localizationService.GetString("VersionControlNewVersion"), currVer, resp.LastestVersion);
 
             var type = resp.Banned
                 ? MbEnumToastType.Error
@@ -151,7 +149,7 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
 
             var msg = new MbToastVersion
             {
-                Title = Language.VersionControlToastTitle,
+                Title = _localizationService.GetString("VersionControlToastTitle"),
                 Message = messageText,
                 Type = type,
                 ReleaseUrl = resp.ReleaseUrl
@@ -163,8 +161,8 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
         {
             var msg = new MbToastVersion
             {
-                Title = Language.ToastTitleError,
-                Message = string.Format(Language.VersionControlError, ex.Message),
+                Title = _localizationService.GetString("ToastTitleError"),
+                Message = string.Format(_localizationService.GetString("VersionControlError"), ex.Message),
                 Type = MbEnumToastType.Error,
                 ReleaseUrl = string.Empty
             };
@@ -223,8 +221,8 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
             {
                 _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TacticPlayingModNotSelected,
-                    Title = Language.ToastTitleError,
+                    Message = _localizationService.GetString("TacticPlayingModNotSelected"),
+                    Title = _localizationService.GetString("ToastTitleError"),
                     Type = MbEnumToastType.Error
                 });
 
@@ -236,8 +234,8 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
             {
                 _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TacticPlayingModNotExists,
-                    Title = Language.ToastTitleError,
+                    Message = _localizationService.GetString("TacticPlayingModNotExists"),
+                    Title = _localizationService.GetString("ToastTitleError"),
                     Type = MbEnumToastType.Error
                 });
 
@@ -250,8 +248,8 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
             {
                 _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TacticPlayingModFormatError,
-                    Title = Language.ToastTitleError,
+                    Message = _localizationService.GetString("TacticPlayingModFormatError"),
+                    Title = _localizationService.GetString("ToastTitleError"),
                     Type = MbEnumToastType.Error
                 });
 
@@ -265,8 +263,8 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
         {
             _messenger.Send(new MbToastPureText
             {
-                Message = Language.TacticPlayingModFormatError,
-                Title = Language.ToastTitleError,
+                Message = _localizationService.GetString("TacticPlayingModFormatError"),
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
         }
@@ -275,7 +273,7 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
             _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Title = Language.ToastTitleError,
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
         }

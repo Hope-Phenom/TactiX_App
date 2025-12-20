@@ -9,7 +9,7 @@ using SukiUI.Controls;
 using SukiUI.Toasts;
 using TactiX_App.ViewModels.Popup;
 using TactiX_App.Views.Popup;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_OS_Tools;
@@ -21,15 +21,16 @@ public partial class MainWindow : SukiWindow,
     IRecipient<MbWindowStatus>, IRecipient<MbFileDialog>, IRecipient<MbWindowTitle>,
     IRecipient<MbFolderDialog>
 {
+    private readonly ILocalizationService _localizationService;
     private readonly LConfig _config;
-    private readonly ILanguage _language;
     private readonly IMessenger _messenger;
     private readonly IoSes _oses;
     private readonly IServiceProvider _serviceProvider;
 
     private readonly string _mainWindow = "MainWindow";
 
-    public MainWindow(IServiceProvider serviceProvider)
+    public MainWindow(IServiceProvider serviceProvider, ILocalizationService localizationService,
+        IosTools osTools, IMessenger messenger)
     {
         InitializeComponent();
 
@@ -37,9 +38,9 @@ public partial class MainWindow : SukiWindow,
         Closed += MainWindow_Closed;
 
         _serviceProvider = serviceProvider;
-        _language = _serviceProvider.GetRequiredService<ILang>().Language;
-        _oses = _serviceProvider.GetRequiredService<IosTools>().OSes;
-        _messenger = _serviceProvider.GetRequiredService<IMessenger>();
+        _localizationService = localizationService;
+        _oses = osTools.OSes;
+        _messenger = messenger;
         _config = _oses.LoadConfig();
 
         _messenger.RegisterAll(this);
@@ -94,10 +95,10 @@ public partial class MainWindow : SukiWindow,
             if (!result)
                 _messenger.Send(new MbToastPureText
                 {
-                    Message = string.Format(_language.TacticPlayingHotkeyAlreadyExsits,
+                    Message = string.Format(_localizationService.GetString("TacticPlayingHotkeyAlreadyExsits"),
                         hotkeySetting.Modifiers,
                         hotkeySetting.Key),
-                    Title = _language.ToastTitleError,
+                    Title = _localizationService.GetString("ToastTitleError"),
                     Type = MbEnumToastType.Error
                 });
 
@@ -205,7 +206,7 @@ public partial class MainWindow : SukiWindow,
                 .Dismiss().ByClicking()
                 .WithTitle(msg.Title)
                 .WithContent(msg.Message)
-                .WithActionButton(_language.ButtonTxtSubmit, _ =>
+                .WithActionButton(_localizationService.GetString("ButtonTxtSubmit"), _ =>
                 {
                     if (!string.IsNullOrEmpty(msg.ReleaseUrl)) _oses.OpenUrl(msg.ReleaseUrl);
                 }, true)

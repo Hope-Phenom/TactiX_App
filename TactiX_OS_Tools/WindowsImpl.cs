@@ -6,24 +6,24 @@ using Avalonia.Input;
 using Avalonia.Threading;
 using Newtonsoft.Json;
 using TactiX_Exception;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Models;
 
 namespace TactiX_OS_Tools;
 
 public class WindowsImpl : IoSes
 {
-    public WindowsImpl(ILanguage language, ITactiXExceptionFactory tactiXExceptionFactory)
+    public WindowsImpl(ILocalizationService localizationService, ITactiXExceptionFactory tactiXExceptionFactory)
     {
-        Language = language;
-        TactiXExceptionFactory = tactiXExceptionFactory;
+        _localizationService = localizationService;
+        _tactiXExceptionFactory = tactiXExceptionFactory;
 
         AppDataFolderPath = GetAppDataFolderPath();
         Config = LoadConfig();
     }
 
-    private ILanguage Language { get; }
-    private ITactiXExceptionFactory TactiXExceptionFactory { get; }
+    private readonly ITactiXExceptionFactory _tactiXExceptionFactory;
+    private readonly ILocalizationService _localizationService;
 
     private string AppName => "TactiX";
     private string ConfigName => ".config";
@@ -38,7 +38,7 @@ public class WindowsImpl : IoSes
             var assemblyName = assembly.GetName().Name ?? string.Empty;
             var app = Process.GetProcessesByName(assemblyName);
             if (app.Length > 1)
-                throw TactiXExceptionFactory.Create(TactiXErrorCodes.ErrorMuiltProcess, Language.ErrorMuiltProcess);
+                throw _tactiXExceptionFactory.Create(TactiXErrorCodes.ErrorMuiltProcess, _localizationService.GetString("ErrorMuiltProcess"));
 
             return true;
         }
@@ -46,10 +46,8 @@ public class WindowsImpl : IoSes
 
     public void SetMouseTransport(bool enable)
     {
-        /**
-         * 虽然设计上来说已经通过接口进行了区分，非Windows时不会进入此处
-         * 但是为了避免将来可能出现的奇怪的问题还是用预编译彻底排除代码
-         **/
+        // 虽然设计上来说已经通过接口进行了区分，非Windows时不会进入此处
+        // 但是为了避免将来可能出现的奇怪的问题还是用预编译彻底排除代码
 #if OS_WINDOWS
         // 获取当前扩展样式
         var style = GetWindowLong(TacticPlayingWindowHwnd, GWL_EXSTYLE);

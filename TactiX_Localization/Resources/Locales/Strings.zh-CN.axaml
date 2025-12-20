@@ -97,7 +97,7 @@
     <x:String x:Key="EditorExportSuccessTitle">导出成功</x:String>
     <x:String x:Key="EditorExportSuccessInfo">战术文件导出成功，已导出至：{0}</x:String>
 
-    <x:String x:Key="ReplayAnalysisDeveloping">Replay解析功能目前仅针对星际争霸2且功能仍处于开发中，\r\n您可以通过下方的按钮对Replay文件进行解析来快速创建战术文件。</x:String>
+    <x:String x:Key="ReplayAnalysisDeveloping">Replay解析功能目前仅针对星际争霸2且功能仍处于开发中，&#10;您可以通过下方的按钮对Replay文件进行解析来快速创建战术文件。</x:String>
     <x:String x:Key="ReplayAnalysisBtnDecodeSc2Replay">解析Replay文件</x:String>
     <x:String x:Key="ReplayAnalysisDecodeError">尝试解析Replay时发生了错误，错误信息{0}</x:String>
     <x:String x:Key="ReplayAnalysisDecodeErrorTitle">解析Replay异常</x:String>

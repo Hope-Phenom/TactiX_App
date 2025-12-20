@@ -97,7 +97,7 @@
     <x:String x:Key="EditorExportSuccessTitle">Export successful</x:String>
     <x:String x:Key="EditorExportSuccessInfo">Tactical file exported successfully, exported to: {0}</x:String>
 
-    <x:String x:Key="ReplayAnalysisDeveloping">The replay analysis feature is currently only available for StarCraft II and is still under development. \r\nYou can use the button below to analyze replay files and quickly create tactical documents.</x:String>
+    <x:String x:Key="ReplayAnalysisDeveloping">The replay analysis feature is currently only available for StarCraft II and is still under development. &#10;You can use the button below to analyze replay files and quickly create tactical documents.</x:String>
     <x:String x:Key="ReplayAnalysisBtnDecodeSc2Replay">Analyzing Replay Files</x:String>
     <x:String x:Key="ReplayAnalysisDecodeError">An error occurred while trying to parse the Replay, error message {0}</x:String>
     <x:String x:Key="ReplayAnalysisDecodeErrorTitle">Analyzing Replay Anomalies</x:String>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using NLog;
 using s2protocol.NET;
 using s2protocol.NET.Models;
@@ -363,16 +364,14 @@ public class Sc2ReplayDecoder : IReplayDecoder
     {
         var players = sc2Replay.Details!.Players;
 
-        if (players == null || players.Count < 2)
+        if (players.Count < 2)
             return false;
 
         var seen = new HashSet<string>();
-        foreach (var player in players)
-            if (!seen.Add(player.Race)) // 如果添加失败，说明已存在
-                return true;
-        return false;
+        return players.Any(player => !seen.Add(player.Race));
     }
 
+    [SuppressMessage("ReSharper", "UnassignedField.Global")]
     public class Sc2DataDict
     {
         public required List<string> Ignore;
@@ -391,7 +390,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
     /// <param name="gameloop">要处理事件的gameloop</param>
     /// <param name="delta">变化量</param>
     /// <param name="handled">是否已处理，默认否</param>
-    public class DoneEvtRecord(int gameloop, int delta, bool handled = false)
+    private class DoneEvtRecord(int gameloop, int delta, bool handled = false)
     {
         public int Delta = delta;
         public int Gameloop = gameloop;

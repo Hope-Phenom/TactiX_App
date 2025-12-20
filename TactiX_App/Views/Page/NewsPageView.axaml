@@ -22,7 +22,7 @@
                 <RowDefinition Height="0.26*" />
             </Grid.RowDefinitions>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleForum}">
+                <suki:GroupBox Header="{StaticResource NewsPageViewTitleForum}">
                     <ItemsRepeater ItemsSource="{Binding ListTopics, Mode=OneWay}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
@@ -52,7 +52,7 @@
                 </suki:GroupBox>
             </suki:GlassCard>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
-                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleSysNews}">
+                <suki:GroupBox Header="{StaticResource NewsPageViewTitleSysNews}">
                     <ItemsRepeater ItemsSource="{Binding ListSysNews, Mode=OneWay}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
@@ -89,7 +89,7 @@
                 <RowDefinition Height="0.26*" />
             </Grid.RowDefinitions>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleVideos}">
+                <suki:GroupBox Header="{StaticResource NewsPageViewTitleVideos}">
                     <ItemsRepeater ItemsSource="{Binding ListVideos, Mode=OneWay}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout MinItemWidth="192"
@@ -131,7 +131,7 @@
             </suki:GlassCard>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
                 <suki:GroupBox Header="友情链接">
-                    <Label Content="{Binding Language.NormalTextFriendshipLinks}"
+                    <Label Content="{StaticResource NormalTextFriendshipLinks}"
                            VerticalContentAlignment="Center"
                            HorizontalContentAlignment="Center" />
                 </suki:GroupBox>

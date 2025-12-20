@@ -10,7 +10,7 @@ using AvaloniaEdit.Document;
 using AvaloniaEdit.Utils;
 using CommunityToolkit.Mvvm.Messaging;
 using TactiX_App.Model;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
@@ -21,11 +21,11 @@ namespace TactiX_App.Views.Page;
 
 public partial class TacticEditorPageView : UserControl
 {
-    public TacticEditorPageView(ILang lang, IosTools oSTools, IMessenger messenger)
+    public TacticEditorPageView(ILocalizationService localizationService, IosTools oSTools, IMessenger messenger)
     {
         InitializeComponent();
 
-        Language = lang.Language;
+        _localizationService = localizationService;
         _oses = oSTools.OSes;
         _config = _oses.LoadConfig();
         _messenger = messenger;
@@ -39,19 +39,13 @@ public partial class TacticEditorPageView : UserControl
     }
 
 #if DEBUG
-#pragma warning disable CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
-    public TacticEditorPageView() // �˹��캯�������ڱ�֤��Ԥ��
+#pragma warning disable CS8618
+    public TacticEditorPageView()
     {
         InitializeComponent();
     }
-#pragma warning restore CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
+#pragma warning restore CS8618
 #endif
-
-    #region ���ݰ�
-
-    public ILanguage Language { get; }
-
-    #endregion
 
     private void TacticEditorPageView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
@@ -67,22 +61,18 @@ public partial class TacticEditorPageView : UserControl
 
     private void ShowCompletion()
     {
-        // �ر����еĲ�ȫ���ڣ�������ڣ�
         if (_completionWindow != null)
         {
             _completionWindow.Closed -= OnCompletionWindowClosed; // �Ƴ�֮ǰ���¼�����
             _completionWindow.Close();
             _completionWindow = null;
         }
-
-        // ��ȡ��ǰ���ǰ�ĵ���Ƭ��
+        
         var segment = GetWordSegmentBeforeCaret();
         var partialWord = Editor.Document.GetText(segment);
-
-        // ������ȫ����
+        
         _completionWindow = new CompletionWindow(Editor.TextArea);
-
-        // ������ȫ���б�
+        
         var completionData = _modItems
             .Where(item => item.Abbr.StartsWith(partialWord, StringComparison.OrdinalIgnoreCase))
             .Select(item => new ModCompletionData(_modResourceCache, segment, item))
@@ -90,13 +80,10 @@ public partial class TacticEditorPageView : UserControl
 
         if (!completionData.Any()) return;
 
-        // ���ò�ȫ����
         _completionWindow.CompletionList.CompletionData.AddRange(completionData);
-
-        // ���ڹر�ʱ��������
+        
         _completionWindow.Closed += OnCompletionWindowClosed;
-
-        // ��ʾ��ȫ����
+        
         _completionWindow.Show();
     }
 
@@ -113,7 +100,6 @@ public partial class TacticEditorPageView : UserControl
         var caret = Editor.TextArea.Caret;
         var document = Editor.Document;
 
-        // ���ҵ�����ʼλ��
         var start = caret.Offset - 1;
         while (start > 0 && IsWordCharacter(document.GetCharAt(start - 1))) start--;
 
@@ -134,8 +120,8 @@ public partial class TacticEditorPageView : UserControl
         if (string.IsNullOrEmpty(_config.CurrentlyEnabledMod))
             _messenger.Send(new MbToastPureText
             {
-                Message = Language.EditorErrorModNotSet,
-                Title = Language.ToastTitleError,
+                Message = _localizationService.GetString("EditorErrorModNotSet"),
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
 
@@ -154,24 +140,25 @@ public partial class TacticEditorPageView : UserControl
         {
             _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.ModsManageViewSelectedModError,
+                Message = string.Format(_localizationService.GetString("ModsManageViewSelectedModError"),
                     _config.CurrentlyEnabledMod,
                     ex.Message),
-                Title = Language.ToastTitleError,
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
         }
     }
 
-    #region DI����ע��
+    #region DI容器注入
 
+    private readonly ILocalizationService _localizationService;
     private readonly IoSes _oses;
     private readonly LConfig _config;
     private readonly IMessenger _messenger;
 
     #endregion
 
-    #region ����
+    #region 变量/常量
 
     private readonly List<LModItem> _modItems;
     private CompletionWindow? _completionWindow;

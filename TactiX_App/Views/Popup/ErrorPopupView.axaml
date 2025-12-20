@@ -9,7 +9,7 @@
         Width="600" Height="400"
         CanResize="False"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Language.ErrorPopupTitle}">
+        Title="{StaticResource ErrorPopupTitle}">
 
     <Design.DataContext>
         <vm:ErrorPopupViewModel />
@@ -28,15 +28,15 @@
             <RowDefinition Height="10" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        <Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{Binding Language.ErrorPopupLabelErrorCode}" />
+        <Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{StaticResource ErrorPopupLabelErrorCode}" />
         <TextBox x:Name="Tbx_ErrorCode" Grid.Row="1" Text="{Binding ReportModel.ErrorCode}" IsReadOnly="True" />
-        <Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{Binding Language.ErrorPopupLabelErrorDesc}" />
+        <Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{StaticResource ErrorPopupLabelErrorDesc}" />
         <TextBox x:Name="Tbx_ErrorDesc" Grid.Row="3" Text="{Binding ReportModel.ErrorDesc}" IsReadOnly="True" />
-        <Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{Binding Language.ErrorPopupLabelFeedback}" />
+        <Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{StaticResource ErrorPopupLabelFeedback}" />
         <TextBox x:Name="Tbx_FeedbackWay" Grid.Row="5"
                  Text="{Binding ReportModel.FeedbackWay, Mode=TwoWay}" />
-        <Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{Binding Language.ErrorPopupLabelUserDesc}" />
-        <TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{Binding Language.ErrorPopupTbxUserDesc}"
+        <Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{StaticResource ErrorPopupLabelUserDesc}" />
+        <TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{StaticResource ErrorPopupTbxUserDesc}"
                  Text="{Binding ReportModel.FeedbackInfo, Mode=TwoWay}" />
         <Grid Grid.Row="9" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -45,10 +45,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Width="120" Height="30" HorizontalContentAlignment="Center"
-                    Content="{Binding Language.ErrorPopupBtnSendFeedback}"
+                    Content="{StaticResource ErrorPopupBtnSendFeedback}"
                     Command="{Binding PostReport}" />
             <Button Grid.Column="2" Width="120" Height="30" HorizontalContentAlignment="Center"
-                    Content="{Binding Language.ErrorPopupBtnClose}" />
+                    Content="{StaticResource ErrorPopupBtnClose}" />
         </Grid>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@ using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
@@ -16,22 +16,16 @@ namespace TactiX_App.ViewModels.Page;
 public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     IRecipient<MbFileDialog>, IRecipient<MbFolderDialog>
 {
-    public ReplayAnalysisPageViewModel(ILang lang, IReplayDecoder replayDecoder, IMessenger messenger,
+    public ReplayAnalysisPageViewModel(ILocalizationService localizationService, IReplayDecoder replayDecoder, IMessenger messenger,
         ILoggerContainer loggerContainer)
     {
-        Language = lang.Language;
+        _localizationService = localizationService;
         _replayDecoder = replayDecoder;
         _messenger = messenger;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
 
         _messenger.RegisterAll(this);
     }
-
-    #region 数据绑定
-
-    public ILanguage Language { get; }
-
-    #endregion
 
     #region Command绑定
 
@@ -55,6 +49,7 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
 
     #region DI容器注入
 
+    private readonly ILocalizationService _localizationService;
     private readonly IReplayDecoder _replayDecoder;
     private readonly IMessenger _messenger;
     private readonly ILogger _logger;
@@ -146,8 +141,10 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
 
             _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.ReplayAnalysisDecodeSuccess, exportPaths),
-                Title = Language.ReplayAnalysisDecodeSuccessTitle,
+                Message = string.Format(
+                    _localizationService.GetString("ReplayAnalysisDecodeSuccess"), 
+                    exportPaths),
+                Title = _localizationService.GetString("ReplayAnalysisDecodeSuccessTitle"),
                 Type = MbEnumToastType.Success
             });
         }
@@ -155,8 +152,10 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
         {
             _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.ReplayAnalysisDecodeError, ex.Message),
-                Title = Language.ReplayAnalysisDecodeErrorTitle,
+                Message = string.Format(
+                    _localizationService.GetString("ReplayAnalysisDecodeError"), 
+                    ex.Message),
+                Title = _localizationService.GetString("ReplayAnalysisDecodeErrorTitle"),
                 Type = MbEnumToastType.Error
             });
 

@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using NLog;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
@@ -16,10 +16,10 @@ namespace TactiX_App.ViewModels.Page;
 
 public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFileDialog>
 {
-    public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder,
+    public TacticEditorPageViewModel(IMessenger messenger, ILocalizationService localizationService, ITactiXSourceEncoder encoder,
         IosTools oSTools, ILoggerContainer loggerContainer)
     {
-        Language = lang.Language;
+        _localizationService = localizationService;
         _messenger = messenger;
         _encoder = encoder;
         _oses = oSTools.OSes;
@@ -56,6 +56,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
 
     #region DI容器注入
 
+    private readonly ILocalizationService _localizationService;
     private readonly IMessenger _messenger;
     private readonly ITactiXSourceEncoder _encoder;
     private readonly IoSes _oses;
@@ -84,8 +85,6 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
     #endregion
 
     #region 数据绑定
-
-    public ILanguage Language { get; }
 
     /// <summary>
     ///     编辑器中的文本
@@ -222,8 +221,8 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
         {
             _messenger.Send(new MbToastPureText
             {
-                Message = Language.ModsManageViewSelectedModError,
-                Title = Language.ToastTitleError,
+                Message = _localizationService.GetString("ModsManageViewSelectedModError"),
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
 
@@ -240,8 +239,8 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
         {
             _messenger.Send(new MbToastPureText
             {
-                Message = Language.EditorErrorFileCantConvert,
-                Title = Language.ToastTitleError,
+                Message = _localizationService.GetString("EditorErrorFileCantConvert"),
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
 
@@ -255,9 +254,9 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
         _messenger.Send(new MbToastPureText
         {
             Message = string.Format(
-                Language.EditorExportSuccessInfo,
+                _localizationService.GetString("EditorExportSuccessInfo"),
                 $"{Environment.NewLine}{outPath}"),
-            Title = Language.EditorExportSuccessTitle,
+            Title = _localizationService.GetString("EditorExportSuccessTitle"),
             Type = MbEnumToastType.Success
         });
     }
@@ -284,8 +283,8 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
                 {
                     _messenger.Send(new MbToastPureText
                     {
-                        Message = Language.EditorErrorFileCantConvert,
-                        Title = Language.ToastTitleError,
+                        Message = _localizationService.GetString("EditorErrorFileCantConvert"),
+                        Title = _localizationService.GetString("ToastTitleError"),
                         Type = MbEnumToastType.Error
                     });
 
@@ -298,9 +297,9 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
                 _messenger.Send(new MbToastPureText
                 {
                     Message = string.Format(
-                        Language.EditorExportSuccessInfo,
+                        _localizationService.GetString("EditorExportSuccessInfo"),
                         $"{Environment.NewLine}{_exportPath}"),
-                    Title = Language.EditorExportSuccessTitle,
+                    Title = _localizationService.GetString("EditorExportSuccessTitle"),
                     Type = MbEnumToastType.Success
                 });
             }
@@ -317,7 +316,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
             {
                 Message = ex.Message,
                 Type = MbEnumToastType.Error,
-                Title = Language.ToastTitleError
+                Title = _localizationService.GetString("ToastTitleError")
             });
         }
     }
@@ -343,7 +342,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
             {
                 Message = ex.Message,
                 Type = MbEnumToastType.Error,
-                Title = Language.ToastTitleError
+                Title = _localizationService.GetString("ToastTitleError")
             });
         }
     }

@@ -16,7 +16,7 @@ using TactiX_App.Views.Component;
 using TactiX_App.Views.Page;
 using TactiX_App.Views.Popup;
 using TactiX_Exception;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_ModSupport;
 using TactiX_Network;
@@ -43,7 +43,6 @@ public class App : Application
 
         // 注册服务
         services.AddSingleton<ILoggerContainer, LoggerContainer>();
-        services.AddSingleton<ILang, Lang>();
         services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
         services.AddSingleton<IosTools, OsTools>();
         services.AddSingleton<INetwork, Network>();

@@ -1,4 +1,4 @@
-﻿using TactiX_I18N;
+﻿using TactiX_Localization;
 
 namespace TactiX_Exception;
 
@@ -8,25 +8,26 @@ namespace TactiX_Exception;
 [Serializable]
 public class TactiXException : Exception
 {
-    public TactiXException(ILang lang)
+    public TactiXException(ILocalizationService localizationService)
     {
+        _localizationService = localizationService;
         ErrorDesc = string.Empty;
-        Language = lang.Language;
     }
 
     /// <summary>
     ///     传参构建异常
     /// </summary>
+    /// <param name="localizationService">本地化服务</param>
     /// <param name="errorCode">错误码</param>
     /// <param name="errorDesc">错误信息</param>
-    public TactiXException(ILang lang, TactiXErrorCodes errorCode, string errorDesc)
+    public TactiXException(ILocalizationService localizationService, TactiXErrorCodes errorCode, string errorDesc)
     {
+        _localizationService = localizationService;
         ErrorCode = errorCode;
         ErrorDesc = errorDesc;
-        Language = lang.Language;
     }
 
-    public ILanguage Language { get; private set; }
+    private readonly ILocalizationService _localizationService;
 
     /// <summary>
     ///     错误码
@@ -40,7 +41,7 @@ public class TactiXException : Exception
 
     public override string ToString()
     {
-        return Language.ErrorDescTemplate
+        return _localizationService.GetString("ErrorDescTemplate")
             .Replace("{0}", $"{ErrorCode}")
             .Replace("{1}", ErrorDesc);
     }

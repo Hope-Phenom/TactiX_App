@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
@@ -18,11 +18,11 @@ namespace TactiX_App.ViewModels.Page;
 
 public partial class ModsManagePageViewModel : ViewModelBase
 {
-    public ModsManagePageViewModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
+    public ModsManagePageViewModel(ILocalizationService localizationService, ILoggerContainer loggerContainer,
+        IMessenger messenger,
         IosTools oSTools)
     {
-        Language = lang.Language;
-
+        _localizationService = localizationService;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _messenger = messenger;
         _oses = oSTools.OSes;
@@ -47,7 +47,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     {
         var files = Directory.GetFiles(MODS_FOLDER, "*.zip");
         var len = files.Length;
-        Info = string.Format(Language.ModsManageViewLocalModsInfo, len);
+        Info = string.Format(_localizationService.GetString("ModsManageViewLocalModsInfo"), len);
 
         if (len > 0)
         {
@@ -87,12 +87,14 @@ public partial class ModsManagePageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var errMsg = string.Format(Language.ModsManageViewSelectedModError, SelectedItem, ex.Message);
+            var errMsg = string.Format(_localizationService.GetString("ModsManageViewSelectedModError")
+                , SelectedItem,
+                ex.Message);
 
             _messenger.Send(new MbToastPureText
             {
                 Message = errMsg,
-                Title = Language.ToastTitleError,
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
 
@@ -129,13 +131,15 @@ public partial class ModsManagePageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var errMsg = string.Format(Language.ModsManageViewModActionDeleteSelectedError, SelectedItem,
+            var errMsg = string.Format(
+                _localizationService.GetString("ModsManageViewModActionDeleteSelectedError"),
+                SelectedItem,
                 ex.Message);
 
             _messenger.Send(new MbToastPureText
             {
                 Message = errMsg,
-                Title = Language.ToastTitleError,
+                Title = _localizationService.GetString("ToastTitleError"),
                 Type = MbEnumToastType.Error
             });
 
@@ -145,7 +149,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
 
     #region DI注入
 
-    public ILanguage Language { get; }
+    private readonly ILocalizationService _localizationService;
     private readonly Logger _logger;
     private readonly IMessenger _messenger;
     private readonly IoSes _oses;

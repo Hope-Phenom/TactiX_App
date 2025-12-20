@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 using TactiX_App.Service;
-using TactiX_I18N;
+using TactiX_Localization;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_OS_Tools;
@@ -25,9 +25,8 @@ public partial class LicenseViewModel : ViewModelBase
 
     [ObservableProperty] public string markdownText;
 
-    public LicenseViewModel(IosTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger)
+    public LicenseViewModel(IosTools oSTools, INavigationService navigation, ILoggerContainer logger)
     {
-        Language = lang.Language;
         EulaText = GetTextFromRes(EULA_RES_PATH);
         PpText = GetTextFromRes(PP_RES_PATH);
 
@@ -40,7 +39,6 @@ public partial class LicenseViewModel : ViewModelBase
         Status = 0;
     }
 
-    public ILanguage Language { get; private set; }
     public string EulaText { get; }
     public string PpText { get; }
 

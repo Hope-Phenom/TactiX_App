@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Messaging;
-using TactiX_I18N;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
 using TactiX_OS_Tools;
@@ -15,13 +13,13 @@ namespace TactiX_App.Views.Popup;
 public partial class TacticPlayWindow : Window
     , IRecipient<MbWindowClose>, IRecipient<MbWindowPointerTrans>
 {
-    #region ����/����
+    #region 变量/常量
 
     private const string WINDOW_NAME = "TacticPlayWindow";
 
     #endregion
 
-    public TacticPlayWindow(IMessenger messenger, IosTools oSTools, ILang lang)
+    public TacticPlayWindow(IMessenger messenger, IosTools oSTools)
     {
         InitializeComponent();
 
@@ -39,9 +37,9 @@ public partial class TacticPlayWindow : Window
     }
 
 #if DEBUG
-#pragma warning disable CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
-    public TacticPlayWindow() // �˹��캯�������ڱ�֤��Ԥ��
-#pragma warning restore CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
+#pragma warning disable CS8618
+    public TacticPlayWindow()
+#pragma warning restore CS8618
     {
         InitializeComponent();
     }
@@ -98,7 +96,7 @@ public partial class TacticPlayWindow : Window
     }
 
     /// <summary>
-    ///     OSTools�󶨴�����
+    ///     OSTools注册窗体句柄
     /// </summary>
     private void OsesSetHandle()
     {
@@ -106,7 +104,7 @@ public partial class TacticPlayWindow : Window
         if (platformHandle != null) _oses.SetTacticPlayingWindowHandle(platformHandle.Handle);
     }
 
-    #region DI����ע��
+    #region DI容器注入
 
     private readonly IMessenger _messenger;
     private readonly IoSes _oses;
