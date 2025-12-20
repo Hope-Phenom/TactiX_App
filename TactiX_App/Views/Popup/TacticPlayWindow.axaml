@@ -1,3 +1,4 @@
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:component="using:TactiX_App.Views.Component"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,6 +36,7 @@
     </Window.Styles>
 
     <Grid Margin="10">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="160" />
             <RowDefinition Height="{Binding HorizontalLineHeight}" />
@@ -48,25 +50,12 @@
                 <Grid Margin="0" IsVisible="{Binding IsPrepare}">
                     <Image Margin="0" Source="{Binding TitleBarImage}" />
                 </Grid>
-                <Grid Margin="0" IsVisible="{Binding !IsPrepare}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
+                <Grid Margin="0"
+                      IsVisible="{Binding !IsPrepare}"
+                      ColumnDefinitions="*,10,100">
 
-                    <Grid Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"
+                          ColumnDefinitions="*,10,*,20,*,20,*,10,*">
 
                         <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Grid.RenderTransform>
@@ -111,12 +100,7 @@
                             <Label />
                             <Label Content="{StaticResource TacticPlayingLabelCurrStepTimestamp}"
                                    FontWeight="Bold" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                            <Grid ColumnDefinitions="*,10,*">
                                 <Label Grid.Column="0" Content="{Binding CurrStepTimeStampTxt}"
                                        FontWeight="Bold" />
                                 <Label Grid.Column="2" Content="{Binding TimeStampGapTxt}"
@@ -129,21 +113,11 @@
         </suki:GlassCard>
 
         <suki:GlassCard Grid.Row="2" BorderThickness="3">
-            <Grid Margin="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Grid Margin="0" 
+                  RowDefinitions="40,30,*">
 
-                <Grid Grid.Row="0" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" VerticalAlignment="Center" 
+                      ColumnDefinitions="Auto,10,*,10,100">
 
                     <Label Grid.Column="0" VerticalContentAlignment="Center"
                            Content="{StaticResource TacticPlayingLabelFileSelected}" />
@@ -196,12 +170,8 @@
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                    <Grid Grid.Column="2"
+                          RowDefinitions="Auto,10,*">
                         <Label Grid.Row="0" Content="{StaticResource TacticPlayingFileinfo}" />
                         <apc:PropertyGrid Grid.Row="2" IsReadOnly="True"
                                           IsAutoNameWidth="True" IsTitleVisible="False"
@@ -213,16 +183,9 @@
             </Grid>
         </suki:GlassCard>
 
-        <Grid Grid.Row="4" Width="510">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="4"
+              Width="510"
+              ColumnDefinitions="120,10,120,10,120,10,120">
 
             <Button Width="120" Grid.Column="0" Command="{Binding PullWindowCommand}">
                 <materialIcons:MaterialIcon Kind="{Binding MaterialIconKind}"
@@ -244,3 +207,4 @@
     </Grid>
 
 </Window>
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
