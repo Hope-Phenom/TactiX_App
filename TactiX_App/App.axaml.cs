@@ -51,6 +51,7 @@ public class App : Application
         services.AddSingleton<IMessenger>(messenger);
         services.AddSingleton<ITactiXSourceEncoder, TactiXSourceEncoder>();
         services.AddSingleton<IReplayDecoder, Sc2ReplayDecoder>();
+        services.AddSingleton<ILocalizationService, LocalizationService>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();
@@ -83,6 +84,10 @@ public class App : Application
         services.AddTransient<KeyMapItem>();
 
         var provider = services.BuildServiceProvider();
+        
+        var localizationService = provider.GetRequiredService<ILocalizationService>();
+        localizationService.ChangeLanguage(CultureInfo.InstalledUICulture.Name);
+        
         var vm = provider.GetRequiredService<MainViewModel>();
 
         // Line below is needed to remove Avalonia data validation.

@@ -1,0 +1,107 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <x:String x:Key="LicenseViewBtnAccept">接受</x:String>
+    <x:String x:Key="LicenseViewBtnDecline">拒绝</x:String>
+
+    <x:String x:Key="VersionControlToastTitle">检查程序版本...</x:String>
+    <x:String x:Key="VersionControlBanned">当前版本[{0}]已被禁用，稍后程序将跳转至更新页面并自动退出！</x:String>
+    <x:String x:Key="VersionControlForceUpgrade">存在强制更新版本[{0}]，稍后程序将跳转至更新页面并自动退出！</x:String>
+    <x:String x:Key="VersionControlNewVersion">当前版本[{0}]，存在新版本[{1}]，是否跳转至下载页？</x:String>
+    <x:String x:Key="VersionControlError">检查版本信息时发生错误，错误信息：{0}</x:String>
+
+    <x:String x:Key="ErrorPopupTitle">错误信息</x:String>
+    <x:String x:Key="ErrorPopupLabelErrorCode">错误代码：</x:String>
+    <x:String x:Key="ErrorPopupLabelErrorDesc">错误信息：</x:String>
+    <x:String x:Key="ErrorPopupLabelFeedback">反馈途径（Email、QQ等）：</x:String>
+    <x:String x:Key="ErrorPopupLabelUserDesc">错误情形描述：</x:String>
+    <x:String x:Key="ErrorPopupTbxUserDesc">请在此文本框中输入错误情形。</x:String>
+    <x:String x:Key="ErrorPopupBtnSendFeedback">发送错误报告</x:String>
+    <x:String x:Key="ErrorPopupBtnClose">关闭</x:String>
+
+    <x:String x:Key="ErrorDescTemplate">程序发生异常，错误码：{0}，错误信息：{1}。</x:String>
+    <x:String x:Key="ErrorMuiltProcess">重复打开了多个进程，本进程将退出！</x:String>
+
+    <x:String x:Key="ToastTitleError">发生了一个错误</x:String>
+    <x:String x:Key="ButtonTxtBack">返回</x:String>
+    <x:String x:Key="ButtonTxtSubmit">确定</x:String>
+    <x:String x:Key="ButtonTxtRefresh">刷新</x:String>
+    <x:String x:Key="NormalTextAvailable">可用</x:String>
+    <x:String x:Key="NormalTextError">错误</x:String>
+    <x:String x:Key="NormalTextDeveloping">功能开发中，敬请期待。</x:String>
+    <x:String x:Key="NormalTextFriendshipLinks">欢迎交换友情链接！</x:String>
+
+    <x:String x:Key="HomescreenSideNews">新闻资讯</x:String>
+    <x:String x:Key="HomescreenSideTacticshall">战术大厅</x:String>
+    <x:String x:Key="HomescreenSideReplayAnalysis">回放解析</x:String>
+    <x:String x:Key="HomescreenSideModManangment">MOD管理</x:String>
+    <x:String x:Key="HomescreenSideSettings">设置</x:String>
+    <x:String x:Key="HomescreenSideEditor">战术编辑</x:String>
+
+    <x:String x:Key="NewsPageViewTitleForum">论坛热帖</x:String>
+    <x:String x:Key="NewsPageViewTitleSysNews">系统公告</x:String>
+    <x:String x:Key="NewsPageViewTitleVideos">视频推荐</x:String>
+    <x:String x:Key="NewsPageErrorNetwork">由于网络问题，未能更新新闻信息</x:String>
+
+    <x:String x:Key="ModsManageViewLocalModsHeader">本地Mod包</x:String>
+    <x:String x:Key="ModsManageViewLocalModsFolder">打开本地目录</x:String>
+    <x:String x:Key="ModsManageViewLocalModsInfo">本地检索到[{0}]个可用Mod(s)。</x:String>
+    <x:String x:Key="ModsManageViewSelectedModInfo">选定MOD信息</x:String>
+    <x:String x:Key="ModsManageViewSelectedModAction">MOD管理</x:String>
+    <x:String x:Key="ModsManageViewSelectedModError">尝试读取[{0}]Mod包时发生错误，错误信息：{1}</x:String>
+    <x:String x:Key="ModsManageViewModActionLabelSelected">当前启用MOD：</x:String>
+    <x:String x:Key="ModsManageViewModActionEnableSelected">启用选定MOD</x:String>
+    <x:String x:Key="ModsManageViewModActionDeleteSelected">删除选定MOD</x:String>
+    <x:String x:Key="ModsManageViewModActionDeleteSelectedError">尝试删除[{0}]Mod包时发生错误，错误信息：{1}</x:String>
+
+    <x:String x:Key="TacticPlayingModNotSelected">没有选定MOD文件，无法打开战术播放界面。请前往MOD管理选项卡进行配置。</x:String>
+    <x:String x:Key="TacticPlayingModNotExists">配置的MOD文件不存在，请前往MOD管理选项卡进行检查。</x:String>
+    <x:String x:Key="TacticPlayingModFormatError">尝试加载的MOD文件格式不正确，请前往MOD管理选项卡进行检查。</x:String>
+    <x:String x:Key="TacticPlayingLabelFileSelected">选择战术文件：</x:String>
+    <x:String x:Key="TacticPlayingLabelCurrRealTimestamp">运行时间：</x:String>
+    <x:String x:Key="TacticPlayingLabelCurrStepTimestamp">标准时间：</x:String>
+    <x:String x:Key="TacticPlayingHotkeyAlreadyExsits">热键[{0}+{1}]已被占用，请检查是否与其他程序存在冲突！</x:String>
+    <x:String x:Key="TacticPlayingOpacity">战术播放透明度：</x:String>
+    <x:String x:Key="TacticPlayingTimelineCorrection">启用时间轴矫正</x:String>
+    <x:String x:Key="TacticPlayingFileinfo">战术文件介绍：</x:String>
+    <x:String x:Key="TacticPlayingBtnOpenFolder">打开目录</x:String>
+    <x:String x:Key="TacticPlayingModitemEnable">显示以下类型的步骤：</x:String>
+    <x:String x:Key="TacticPlayingModitemNone">通用</x:String>
+    <x:String x:Key="TacticPlayingModitemWorker">生产单位</x:String>
+    <x:String x:Key="TacticPlayingModitemArmy">军事单位</x:String>
+    <x:String x:Key="TacticPlayingModitemBuilding">建筑</x:String>
+    <x:String x:Key="TacticPlayingModitemTech">科技</x:String>
+
+    <x:String x:Key="SettingsPageHeaderNormal">通用设置</x:String>
+    <x:String x:Key="SettingsPageHeaderHotkey">快捷键设置</x:String>
+    <x:String x:Key="SettingsPageHeaderAbout">关于</x:String>
+    <x:String x:Key="SettingsPageNormalUpgrade">检查更新</x:String>
+    <x:String x:Key="SettingsPageAboutRights">使用本软件即表示您同意我们的《最终用户许可协议》和《隐私政策》。</x:String>
+
+    <x:String x:Key="EditorHeaderModItems">MOD内容索引</x:String>
+    <x:String x:Key="EditorMenuHeaderFiles">文件</x:String>
+    <x:String x:Key="EditorMenuFilesNew">创建新的战术文件</x:String>
+    <x:String x:Key="EditorMenuFilesOpen">打开已有战术文件</x:String>
+    <x:String x:Key="EditorMenuFilesSave">保存当前战术文件</x:String>
+    <x:String x:Key="EditorMenuFilesSaveAs">另存为当前战术文件</x:String>
+    <x:String x:Key="EditorMenuFilesExport">导出战术文件(*.tactix)</x:String>
+    <x:String x:Key="EditorMenuFilesExportTo">导出战术文件至...</x:String>
+    <x:String x:Key="EditorMenuHeaderEdit">编辑</x:String>
+    <x:String x:Key="EditorMenuEditUndo">撤销</x:String>
+    <x:String x:Key="EditorMenuEditRedo">重做</x:String>
+    <x:String x:Key="EditorMenuEditInsertTemplate">插入模板</x:String>
+    <x:String x:Key="EditorMenuHeaderHelp">帮助</x:String>
+    <x:String x:Key="EditorMenuHelpGetHelp">获取关于战术编辑的帮助</x:String>
+    <x:String x:Key="EditorErrorFileCantConvert">无法导出战术文件，请检查格式是否符合要求</x:String>
+    <x:String x:Key="EditorErrorModNotSet">Mod包未设置，编辑器无法启用补全功能</x:String>
+    <x:String x:Key="EditorExportSuccessTitle">导出成功</x:String>
+    <x:String x:Key="EditorExportSuccessInfo">战术文件导出成功，已导出至：{0}</x:String>
+
+    <x:String x:Key="ReplayAnalysisDeveloping">Replay解析功能目前仅针对星际争霸2且功能仍处于开发中，\r\n您可以通过下方的按钮对Replay文件进行解析来快速创建战术文件。</x:String>
+    <x:String x:Key="ReplayAnalysisBtnDecodeSc2Replay">解析Replay文件</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeError">尝试解析Replay时发生了错误，错误信息{0}</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeErrorTitle">解析Replay异常</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeSuccess">解析Replay成功，文件已导出至：{0}</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeSuccessTitle">解析成功</x:String>
+
+</ResourceDictionary>

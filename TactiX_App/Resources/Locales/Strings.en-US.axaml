@@ -1,0 +1,107 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <x:String x:Key="LicenseViewBtnAccept">Accept</x:String>
+    <x:String x:Key="LicenseViewBtnDecline">Decline</x:String>
+
+    <x:String x:Key="VersionControlToastTitle">Checking program version...</x:String>
+    <x:String x:Key="VersionControlBanned">The current version [{0}] has been disabled. The program will redirect to the update page and exit automatically shortly!</x:String>
+    <x:String x:Key="VersionControlForceUpgrade">A mandatory update version [{0}] is available. The program will redirect to the update page and exit automatically shortly!</x:String>
+    <x:String x:Key="VersionControlNewVersion">The current version is [{0}], and a new version [{1}] is available. Do you want to jump to the download page?</x:String>
+    <x:String x:Key="VersionControlError">An error occurred while checking the version information. Error message: {0}</x:String>
+
+    <x:String x:Key="ErrorPopupTitle">Error Message</x:String>
+    <x:String x:Key="ErrorPopupLabelErrorCode">Error Code:</x:String>
+    <x:String x:Key="ErrorPopupLabelErrorDesc">Error Message:</x:String>
+    <x:String x:Key="ErrorPopupLabelFeedback">Feedback channels (Email, QQ, etc.)</x:String>
+    <x:String x:Key="ErrorPopupLabelUserDesc">Error scenario description:</x:String>
+    <x:String x:Key="ErrorPopupTbxUserDesc">Please enter the error situation in this text box.</x:String>
+    <x:String x:Key="ErrorPopupBtnSendFeedback">Send error report</x:String>
+    <x:String x:Key="ErrorPopupBtnClose">Close</x:String>
+
+    <x:String x:Key="ErrorDescTemplate">An exception occurred in the program, error code: {0}, error message: {1}.</x:String>
+    <x:String x:Key="ErrorMuiltProcess">Multiple processes have been opened repeatedly, this process will exit!</x:String>
+
+    <x:String x:Key="ToastTitleError">An error occurred</x:String>
+    <x:String x:Key="ButtonTxtBack">Back</x:String>
+    <x:String x:Key="ButtonTxtSubmit">Submit</x:String>
+    <x:String x:Key="ButtonTxtRefresh">Refresh</x:String>
+    <x:String x:Key="NormalTextAvailable">Available</x:String>
+    <x:String x:Key="NormalTextError">Error</x:String>
+    <x:String x:Key="NormalTextDeveloping">Feature under development, stay tuned.</x:String>
+    <x:String x:Key="NormalTextFriendshipLinks">Welcome to exchange friendship links!</x:String>
+
+    <x:String x:Key="HomescreenSideNews">News</x:String>
+    <x:String x:Key="HomescreenSideTacticshall">Tactics Hall</x:String>
+    <x:String x:Key="HomescreenSideReplayAnalysis">Replay Analysis</x:String>
+    <x:String x:Key="HomescreenSideModManangment">MOD Management</x:String>
+    <x:String x:Key="HomescreenSideSettings">Settings</x:String>
+    <x:String x:Key="HomescreenSideEditor">Tactic Editor</x:String>
+
+    <x:String x:Key="NewsPageViewTitleForum">Hot Topics on the Forum</x:String>
+    <x:String x:Key="NewsPageViewTitleSysNews">System Announcement</x:String>
+    <x:String x:Key="NewsPageViewTitleVideos">Video Recommendations</x:String>
+    <x:String x:Key="NewsPageErrorNetwork">Due to network issues, the news information could not be updated</x:String>
+
+    <x:String x:Key="ModsManageViewLocalModsHeader">Local Mod Package(s)</x:String>
+    <x:String x:Key="ModsManageViewLocalModsFolder">Open Local Folder</x:String>
+    <x:String x:Key="ModsManageViewLocalModsInfo">Local search found [{0}] available Mod(s).</x:String>
+    <x:String x:Key="ModsManageViewSelectedModInfo">Selected MOD information</x:String>
+    <x:String x:Key="ModsManageViewSelectedModAction">MOD Management</x:String>
+    <x:String x:Key="ModsManageViewSelectedModError">An error occurred while attempting to read the [{0}] mod package. Error message: {1}</x:String>
+    <x:String x:Key="ModsManageViewModActionLabelSelected">Currently enabled MODs:</x:String>
+    <x:String x:Key="ModsManageViewModActionEnableSelected">Enable selected MOD</x:String>
+    <x:String x:Key="ModsManageViewModActionDeleteSelected">Delete selected MOD</x:String>
+    <x:String x:Key="ModsManageViewModActionDeleteSelectedError">An error occurred while attempting to delete the [{0}] mod package. Error message: {1}</x:String>
+
+    <x:String x:Key="TacticPlayingModNotSelected">No MOD file selected, unable to open the tactical playback interface. Please go to the MOD Management tab to configure.</x:String>
+    <x:String x:Key="TacticPlayingModNotExists">The configured MOD file does not exist, please check in the MOD management tab.</x:String>
+    <x:String x:Key="TacticPlayingModFormatError">The MOD file you attempted to load is in an incorrect format. Please check it in the MOD management tab.</x:String>
+    <x:String x:Key="TacticPlayingLabelFileSelected">Select Tactical File:</x:String>
+    <x:String x:Key="TacticPlayingLabelCurrRealTimestamp">Running time:</x:String>
+    <x:String x:Key="TacticPlayingLabelCurrStepTimestamp">Standing Time:</x:String>
+    <x:String x:Key="TacticPlayingHotkeyAlreadyExsits">The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!</x:String>
+    <x:String x:Key="TacticPlayingOpacity">Tactical Playback Transparency:</x:String>
+    <x:String x:Key="TacticPlayingTimelineCorrection">Enable timeline correction</x:String>
+    <x:String x:Key="TacticPlayingFileinfo">Tactical Document Introduction:</x:String>
+    <x:String x:Key="TacticPlayingBtnOpenFolder">Folder</x:String>
+    <x:String x:Key="TacticPlayingModitemEnable">Show steps of the following types:</x:String>
+    <x:String x:Key="TacticPlayingModitemNone">Normal</x:String>
+    <x:String x:Key="TacticPlayingModitemWorker">Worker Unit</x:String>
+    <x:String x:Key="TacticPlayingModitemArmy">Military Unit</x:String>
+    <x:String x:Key="TacticPlayingModitemBuilding">Building</x:String>
+    <x:String x:Key="TacticPlayingModitemTech">Tech</x:String>
+
+    <x:String x:Key="SettingsPageHeaderNormal">General Settings</x:String>
+    <x:String x:Key="SettingsPageHeaderHotkey">Shortcut Key Settings</x:String>
+    <x:String x:Key="SettingsPageHeaderAbout">About</x:String>
+    <x:String x:Key="SettingsPageNormalUpgrade">Check for updates</x:String>
+    <x:String x:Key="SettingsPageAboutRights">By using this software, you agree to our End User License Agreement and Privacy Policy.</x:String>
+
+    <x:String x:Key="EditorHeaderModItems">MOD Contents</x:String>
+    <x:String x:Key="EditorMenuHeaderFiles">Files</x:String>
+    <x:String x:Key="EditorMenuFilesNew">Create</x:String>
+    <x:String x:Key="EditorMenuFilesOpen">Open</x:String>
+    <x:String x:Key="EditorMenuFilesSave">Save</x:String>
+    <x:String x:Key="EditorMenuFilesSaveAs">Save As</x:String>
+    <x:String x:Key="EditorMenuFilesExport">Export as Tactical File (*.tactix)</x:String>
+    <x:String x:Key="EditorMenuFilesExportTo">Export to ...</x:String>
+    <x:String x:Key="EditorMenuHeaderEdit">Edit</x:String>
+    <x:String x:Key="EditorMenuEditUndo">Undo</x:String>
+    <x:String x:Key="EditorMenuEditRedo">Redo</x:String>
+    <x:String x:Key="EditorMenuEditInsertTemplate">Insert Template</x:String>
+    <x:String x:Key="EditorMenuHeaderHelp">Help</x:String>
+    <x:String x:Key="EditorMenuHelpGetHelp">Get help with tactical editing</x:String>
+    <x:String x:Key="EditorErrorFileCantConvert">Failed to export the tactic file, please check if the format meets the requirements</x:String>
+    <x:String x:Key="EditorErrorModNotSet">The mod package is not set up, the editor cannot enable the completion feature</x:String>
+    <x:String x:Key="EditorExportSuccessTitle">Export successful</x:String>
+    <x:String x:Key="EditorExportSuccessInfo">Tactical file exported successfully, exported to: {0}</x:String>
+
+    <x:String x:Key="ReplayAnalysisDeveloping">The replay analysis feature is currently only available for StarCraft II and is still under development. \r\nYou can use the button below to analyze replay files and quickly create tactical documents.</x:String>
+    <x:String x:Key="ReplayAnalysisBtnDecodeSc2Replay">Analyzing Replay Files</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeError">An error occurred while trying to parse the Replay, error message {0}</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeErrorTitle">Analyzing Replay Anomalies</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeSuccess">Replay parsed successfully, file exported to: {0}</x:String>
+    <x:String x:Key="ReplayAnalysisDecodeSuccessTitle">Analysis successful</x:String>
+
+</ResourceDictionary>
