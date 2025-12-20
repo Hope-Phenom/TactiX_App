@@ -42,16 +42,6 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideModManangment}"
-                               Classes="Compact">
-            <suki:SukiSideMenuItem.Icon>
-                <materialIcons:MaterialIcon Kind="PackageVariantClosed" />
-            </suki:SukiSideMenuItem.Icon>
-            <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding ModsManagerPageViewControl}" />
-            </suki:SukiSideMenuItem.PageContent>
-        </suki:SukiSideMenuItem>
-
         <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideEditor}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
@@ -59,6 +49,16 @@
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
                 <ContentControl Content="{Binding TacticEditorPageViewControl}" />
+            </suki:SukiSideMenuItem.PageContent>
+        </suki:SukiSideMenuItem>
+
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideModManangment}"
+                               Classes="Compact">
+            <suki:SukiSideMenuItem.Icon>
+                <materialIcons:MaterialIcon Kind="PackageVariantClosed" />
+            </suki:SukiSideMenuItem.Icon>
+            <suki:SukiSideMenuItem.PageContent>
+                <ContentControl Content="{Binding ModsManagerPageViewControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -95,9 +95,6 @@
                 <Button Classes="Basic" Command="{Binding OpenWebUrlCommand}"
                         CommandParameter="{Binding HomePageUrl}">
                     <materialIcons:MaterialIcon Kind="Web" />
-                </Button>
-                <Button Classes="Basic" Command="{Binding ThemeSwtichCommand}">
-                    <materialIcons:MaterialIcon Kind="ThemeLightDark" />
                 </Button>
                 <Button Classes="Basic" Command="{Binding OpenPreparePageCommand}">
                     <materialIcons:MaterialIcon Kind="BookPlay" />

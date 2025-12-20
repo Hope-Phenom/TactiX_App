@@ -36,10 +36,6 @@ public partial class TacticPlayWindow : Window
         _config = _oses.LoadConfig();
 
         _messenger.RegisterAll(this);
-
-        RequestedThemeVariant = _config.NightMode
-            ? ThemeVariant.Dark
-            : ThemeVariant.Light;
     }
 
 #if DEBUG

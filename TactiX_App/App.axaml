@@ -3,14 +3,14 @@
              xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="TactiX_App.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Styles>
 
         <FluentTheme />
 
-        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+        <sukiUi:SukiTheme ThemeColor="Blue" />
 
         <materialIcons:MaterialIconStyles />
 

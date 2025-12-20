@@ -211,17 +211,6 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
     }
 
     /// <summary>
-    ///     切换明暗主题色
-    /// </summary>
-    [RelayCommand]
-    public void ThemeSwtich()
-    {
-        _config.NightMode = !_config.NightMode;
-        SukiTheme.GetInstance().SwitchBaseTheme();
-        _oSes.SaveConfig();
-    }
-
-    /// <summary>
     ///     打开战术准备页面
     /// </summary>
     [RelayCommand]

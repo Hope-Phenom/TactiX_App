@@ -31,11 +31,6 @@ public class MainViewModel : ViewModelBase, IRecipient<MbNavigationTo>, IRecipie
         ToastManager = new SukiToastManager();
         DialogManager = new SukiDialogManager();
 
-        var theme = _config.NightMode
-            ? ThemeVariant.Dark
-            : ThemeVariant.Light;
-        SukiTheme.GetInstance().ChangeBaseTheme(theme);
-
         if (!_config.EulaAccepted || !_config.PpAccepted)
             Navigation.NavigateTo<LicenseViewModel>();
         else

@@ -1,10 +1,12 @@
-﻿using Avalonia;
+﻿using System.Globalization;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
-using NLog;
+using SukiUI;
 using TactiX_App.Service;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Page;
@@ -31,6 +33,11 @@ public class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // 设置暗主题和本地化
+        var sukiTheme = SukiTheme.GetInstance();
+        sukiTheme.ChangeBaseTheme(ThemeVariant.Dark);
+        sukiTheme.Locale = CultureInfo.InstalledUICulture;
+        
         var services = new ServiceCollection();
         var messenger = WeakReferenceMessenger.Default;
 
@@ -59,6 +66,7 @@ public class App : Application
         services.AddTransient<ReplayAnalysisPageViewModel>();
 
         // 注册Views (Avalonia需要手动注册视图)
+        services.AddTransient<MainWindow>();
         services.AddTransient<MainView>();
         services.AddTransient<LicenseView>();
         services.AddTransient<ErrorPopupView>();
@@ -75,7 +83,6 @@ public class App : Application
         services.AddTransient<KeyMapItem>();
 
         var provider = services.BuildServiceProvider();
-        var logger = provider.GetRequiredService<ILoggerContainer>().Builder.GetCurrentClassLogger();
         var vm = provider.GetRequiredService<MainViewModel>();
 
         // Line below is needed to remove Avalonia data validation.
@@ -84,16 +91,25 @@ public class App : Application
 
         DataContext = vm;
 
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            desktop.MainWindow = new MainWindow(provider)
+        switch (ApplicationLifetime)
+        {
+            case IClassicDesktopStyleApplicationLifetime desktop:
             {
-                DataContext = vm
-            };
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-            singleViewPlatform.MainView = new MainView
+                var mainWindow = provider.GetRequiredService<MainWindow>();
+                mainWindow.DataContext = vm;
+            
+                desktop.MainWindow = mainWindow;
+                break;
+            }
+            case ISingleViewApplicationLifetime singleViewPlatform:
             {
-                DataContext = vm
-            };
+                var mainView = provider.GetRequiredService<MainView>();
+                mainView.DataContext = vm;
+            
+                singleViewPlatform.MainView = mainView;
+                break;
+            }
+        }
 
         base.OnFrameworkInitializationCompleted();
     }

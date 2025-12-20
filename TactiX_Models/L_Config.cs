@@ -20,11 +20,6 @@ public class LConfig
      public bool PpAccepted { get; set; } = false;
 
      /// <summary>
-     ///     是否是夜间模式
-     /// </summary>
-     public bool NightMode { get; set; } = false;
-
-     /// <summary>
      ///     当前启用的MOD的路径
      /// </summary>
      public string CurrentlyEnabledMod { get; set; } = string.Empty;
