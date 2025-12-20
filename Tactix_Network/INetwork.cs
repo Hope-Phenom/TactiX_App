@@ -1,7 +1,6 @@
-﻿namespace TactiX_Network
+﻿namespace TactiX_Network;
+
+public interface INetwork
 {
-    public interface INetwork
-    {
-        public INetworkApi Client { get; }
-    }
+    public INetworkApi Client { get; }
 }

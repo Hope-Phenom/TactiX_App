@@ -1,54 +1,54 @@
 <Window xmlns="https://github.com/avaloniaui"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup"
-		mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
-		x:Class="TactiX_App.Views.Popup.ErrorPopupView"
-		x:DataType="vm:ErrorPopupViewModel"
-		Width="600" Height="400"
-		CanResize="False"
-		WindowStartupLocation="CenterScreen"
-		Title="{Binding Language.ERROR_POPUP_TITLE}" >
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        x:Class="TactiX_App.Views.Popup.ErrorPopupView"
+        x:DataType="vm:ErrorPopupViewModel"
+        Width="600" Height="400"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Language.ERROR_POPUP_TITLE}">
 
-	<Design.DataContext>
-		<vm:ErrorPopupViewModel />
-	</Design.DataContext>
+    <Design.DataContext>
+        <vm:ErrorPopupViewModel />
+    </Design.DataContext>
 
-	<Grid Margin="10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30" />
-			<RowDefinition Height="30" />
-			<RowDefinition Height="30" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="30" />
-			<RowDefinition Height="30" />
-			<RowDefinition Height="30" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="10" />
-			<RowDefinition Height="30" />
-		</Grid.RowDefinitions>
-		<Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_CODE}" />
-		<TextBox x:Name="Tbx_ErrorCode" Grid.Row="1" Text="{Binding ReportModel.Error_Code}" IsReadOnly="True" />
-		<Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_DESC}" />
-		<TextBox x:Name="Tbx_ErrorDesc" Grid.Row="3" Text="{Binding ReportModel.Error_Desc}" IsReadOnly="True" />
-		<Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{Binding Language.ERROR_POPUP_LABEL_FEEDBACK}" />
-		<TextBox x:Name="Tbx_FeedbackWay" Grid.Row="5"
-				 Text="{Binding ReportModel.Feedback_Way, Mode=TwoWay}" />
-		<Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{Binding Language.ERROR_POPUP_LABEL_USER_DESC}" />
-		<TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{Binding Language.ERROR_POPUP_TBX_USER_DESC}"
-				 Text="{Binding ReportModel.Feedback_Info, Mode=TwoWay}" />
-		<Grid Grid.Row="9" HorizontalAlignment="Center">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="30" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Button Grid.Column="0" Width="120" Height="30" HorizontalContentAlignment="Center"
-					Content="{Binding Language.ERROR_POPUP_BTN_SEND_FEEDBACK}"
-					Command="{Binding PostReport}"/>
-			<Button Grid.Column="2" Width="120" Height="30" HorizontalContentAlignment="Center"
-					Content="{Binding Language.ERROR_POPUP_BTN_CLOSE}" />
-		</Grid>
-	</Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_CODE}" />
+        <TextBox x:Name="Tbx_ErrorCode" Grid.Row="1" Text="{Binding ReportModel.Error_Code}" IsReadOnly="True" />
+        <Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_DESC}" />
+        <TextBox x:Name="Tbx_ErrorDesc" Grid.Row="3" Text="{Binding ReportModel.Error_Desc}" IsReadOnly="True" />
+        <Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{Binding Language.ERROR_POPUP_LABEL_FEEDBACK}" />
+        <TextBox x:Name="Tbx_FeedbackWay" Grid.Row="5"
+                 Text="{Binding ReportModel.Feedback_Way, Mode=TwoWay}" />
+        <Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{Binding Language.ERROR_POPUP_LABEL_USER_DESC}" />
+        <TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{Binding Language.ERROR_POPUP_TBX_USER_DESC}"
+                 Text="{Binding ReportModel.Feedback_Info, Mode=TwoWay}" />
+        <Grid Grid.Row="9" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="120" Height="30" HorizontalContentAlignment="Center"
+                    Content="{Binding Language.ERROR_POPUP_BTN_SEND_FEEDBACK}"
+                    Command="{Binding PostReport}" />
+            <Button Grid.Column="2" Width="120" Height="30" HorizontalContentAlignment="Center"
+                    Content="{Binding Language.ERROR_POPUP_BTN_CLOSE}" />
+        </Grid>
+    </Grid>
 </Window>

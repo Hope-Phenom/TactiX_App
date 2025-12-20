@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.Messaging;
 using TactiX_Models.MessageBus;
@@ -8,11 +7,6 @@ namespace TactiX_App.Views.Component;
 
 public partial class TacticItem : UserControl, IRecipient<MB_DisplayStep>
 {
-    /// <summary>
-    /// ²ÛÎ»ÐòºÅ£¬0ÖÁ4£¬´ú±í´Ó×óµ½ÓÒµÚ1ÖÁ5¸ö
-    /// </summary>
-    public int SlotNo { get; set; }
-
     public TacticItem()
     {
         InitializeComponent();
@@ -20,18 +14,19 @@ public partial class TacticItem : UserControl, IRecipient<MB_DisplayStep>
         WeakReferenceMessenger.Default.RegisterAll(this);
     }
 
+    /// <summary>
+    ///     ï¿½ï¿½Î»ï¿½ï¿½Å£ï¿½0ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½1ï¿½ï¿½5ï¿½ï¿½
+    /// </summary>
+    public int SlotNo { get; set; }
+
     public void Receive(MB_DisplayStep message)
     {
         if (message.SlotNo != SlotNo) return;
 
         if (message.Image != null && message.Image is Bitmap bitmap)
-        {
             Image_Icon.Source = bitmap;
-        }
         else
-        {
             Image_Icon.Source = null;
-        }
 
         Textblock_Desc.Text = message.Desc ?? string.Empty;
         Label_Supply.Content = message.Supply ?? string.Empty;

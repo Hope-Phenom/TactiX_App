@@ -1,19 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
+﻿using System.IO.Compression;
+using Newtonsoft.Json;
 using TactiX_Models.Tactics;
 
 namespace TactiX_ModSupport;
 
 public class ModPackage : IDisposable
 {
-    private ZipArchive _archive;
-    private FileStream _fileStream;
+    private readonly ZipArchive _archive;
     private readonly Dictionary<string, ZipArchiveEntry> _entries = new();
-
-    public L_ModDesc? ModDesc { get; private set; }
+    private readonly FileStream _fileStream;
 
     public ModPackage(string zipFilePath)
     {
@@ -21,12 +16,18 @@ public class ModPackage : IDisposable
         _archive = new ZipArchive(_fileStream, ZipArchiveMode.Read);
 
         // 缓存所有条目路径（小写优化查找）
-        foreach (var entry in _archive.Entries)
-        {
-            _entries[entry.FullName.ToLowerInvariant()] = entry;
-        }
+        foreach (var entry in _archive.Entries) _entries[entry.FullName.ToLowerInvariant()] = entry;
 
         LoadManifest();
+    }
+
+    public L_ModDesc? ModDesc { get; private set; }
+
+    public void Dispose()
+    {
+        _archive?.Dispose();
+        _fileStream?.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void LoadManifest()
@@ -42,10 +43,7 @@ public class ModPackage : IDisposable
     {
         var normalizedPath = relativePath.Replace('\\', '/').ToLowerInvariant();
 
-        if (_entries.TryGetValue(normalizedPath, out var entry))
-        {
-            return entry.Open();
-        }
+        if (_entries.TryGetValue(normalizedPath, out var entry)) return entry.Open();
 
         throw new FileNotFoundException($"File not found in mod package: {relativePath}");
     }
@@ -63,12 +61,5 @@ public class ModPackage : IDisposable
         using var stream = GetFileStream(relativePath);
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
-    }
-
-    public void Dispose()
-    {
-        _archive?.Dispose();
-        _fileStream?.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

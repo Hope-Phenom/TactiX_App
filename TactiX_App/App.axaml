@@ -1,44 +1,44 @@
 <Application xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
-			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-			 x:Class="TactiX_App.App"
-			 RequestedThemeVariant="Default">
-	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             x:Class="TactiX_App.App"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-	<Application.Styles>
+    <Application.Styles>
 
-		<FluentTheme />
+        <FluentTheme />
 
-		<sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
 
-		<materialIcons:MaterialIconStyles />
+        <materialIcons:MaterialIconStyles />
 
-		<!-- AvaloniaEdit styles (required!) -->
-		<StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        <!-- AvaloniaEdit styles (required!) -->
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
 
-		<!-- 为常见文本控件设置全局字体 -->
-		<Style Selector="TextBlock">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-		<Style Selector="TextBox">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-		<Style Selector="Button">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-		<Style Selector="Label">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-		<Style Selector="ComboBox">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-		<Style Selector="ComboBoxItem">
-			<Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
-		</Style>
-	</Application.Styles>
+        <!-- 为常见文本控件设置全局字体 -->
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+        <Style Selector="Label">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+        <Style Selector="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, SimSun, sans-serif" />
+        </Style>
+    </Application.Styles>
 
-	<!--
+    <!--
 	<TrayIcon.Icons>
 		<TrayIcons>
 			<TrayIcon Icon="avares://TactiX_App/Assets/avalonia-logo.ico" ToolTipText="SukiUI Native Menu Demo">

@@ -1,11 +1,8 @@
-using Avalonia;
+using System;
+using System.Linq;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Linq;
 using TactiX_I18N;
 using TactiX_Models;
 using TactiX_OS_Tools;
@@ -14,41 +11,17 @@ namespace TactiX_App.Views.Component;
 
 public partial class KeyMapItem : UserControl
 {
-    #region DIÈÝÆ÷×¢Èë
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
-    private readonly ILanguage _language;
-    #endregion
-
-    public AvaloniaList<Key> Keys { get; private set; }
-    public AvaloniaList<KeyModifiers> KeyModifiers { get; private set; }
-
     private L_HotkeyBinding? _hotkeyBinding;
 
     private L_HotkeyBindingEnum _hotkeyBindingEnum;
-    public L_HotkeyBindingEnum HotkeyBindingEnum 
-    {
-        get => _hotkeyBindingEnum;
-        set
-        {
-            _hotkeyBindingEnum = value;
-            _hotkeyBinding = _config.Hotkeys
-                .Where(o => o.Hotkey == HotkeyBindingEnum)
-                .First();
-
-            Label_KeyName.Content =  _hotkeyBindingEnum.ToString();
-            ComboBox_Keys.SelectedItem = _hotkeyBinding.Key;
-            ComboBox_KeyModifiers.SelectedItem = _hotkeyBinding.Modifiers;
-        }
-    }
 
 #if DEBUG
-#pragma warning disable CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
-    public KeyMapItem() // ´Ë¹¹Ôìº¯Êý½öÓÃÓÚ±£Ö¤¿ÉÔ¤ÀÀ
+#pragma warning disable CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
+    public KeyMapItem() // ï¿½Ë¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ö¤ï¿½ï¿½Ô¤ï¿½ï¿½
     {
         InitializeComponent();
-    } 
-#pragma warning restore CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
+    }
+#pragma warning restore CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
 #endif
 
     public KeyMapItem(IOSTools oSTools, ILang lang)
@@ -67,6 +40,25 @@ public partial class KeyMapItem : UserControl
 
         ComboBox_Keys.SelectionChanged += ComboBox_Keys_SelectionChanged;
         ComboBox_KeyModifiers.SelectionChanged += ComboBox_KeyModifiers_SelectionChanged;
+    }
+
+    public AvaloniaList<Key> Keys { get; }
+    public AvaloniaList<KeyModifiers> KeyModifiers { get; }
+
+    public L_HotkeyBindingEnum HotkeyBindingEnum
+    {
+        get => _hotkeyBindingEnum;
+        set
+        {
+            _hotkeyBindingEnum = value;
+            _hotkeyBinding = _config.Hotkeys
+                .Where(o => o.Hotkey == HotkeyBindingEnum)
+                .First();
+
+            Label_KeyName.Content = _hotkeyBindingEnum.ToString();
+            ComboBox_Keys.SelectedItem = _hotkeyBinding.Key;
+            ComboBox_KeyModifiers.SelectedItem = _hotkeyBinding.Modifiers;
+        }
     }
 
     private void ComboBox_Keys_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -95,4 +87,12 @@ public partial class KeyMapItem : UserControl
             ? _language.NORMAL_TEXT_AVAILABLE
             : _language.NORMAL_TEXT_ERROR;
     }
+
+    #region DIï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
+
+    private readonly IOSes _oses;
+    private readonly L_Config _config;
+    private readonly ILanguage _language;
+
+    #endregion
 }

@@ -5,7 +5,6 @@ using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
-
 using TactiX_App.Service;
 using TactiX_App.ViewModels;
 using TactiX_App.ViewModels.Page;
@@ -23,7 +22,7 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App;
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {
@@ -86,19 +85,15 @@ public partial class App : Application
         DataContext = vm;
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
             desktop.MainWindow = new MainWindow(provider)
             {
                 DataContext = vm
             };
-        }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
             singleViewPlatform.MainView = new MainView
             {
                 DataContext = vm
             };
-        }
 
         base.OnFrameworkInitializationCompleted();
     }

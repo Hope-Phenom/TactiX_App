@@ -1,10 +1,8 @@
+using System;
 using Avalonia;
-using Avalonia.Collections;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using TactiX_App.Views.Component;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
@@ -14,13 +12,6 @@ namespace TactiX_App.Views.Page;
 
 public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsLayoutItemsHeader>
 {
-    #region DIÈÝÆ÷×¢Èë
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
-    #endregion
-
     public SettingsPageView(IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider)
     {
         InitializeComponent();
@@ -34,33 +25,14 @@ public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsL
         AttachedToVisualTree += SettingsPageView_AttachedToVisualTree;
     }
 
-    private void SettingsPageView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
-    {
-        UpdateKeyMap();
-    }
-
 #if DEBUG
-#pragma warning disable CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
-    public SettingsPageView() // ´Ë¹¹Ôìº¯Êý½öÓÃÓÚ±£Ö¤¿ÉÔ¤ÀÀ
+#pragma warning disable CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
+    public SettingsPageView() // ï¿½Ë¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ö¤ï¿½ï¿½Ô¤ï¿½ï¿½
     {
         InitializeComponent();
     }
-#pragma warning restore CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
+#pragma warning restore CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
 #endif
-
-    public void UpdateKeyMap()
-    {
-        if (StackPanel_KeyMaps.Children.Count >= _config.Hotkeys.Length) return;
-
-        foreach (var hotkey in _config.Hotkeys)
-        {
-            var keymap = _serviceProvider.GetRequiredService<KeyMapItem>();
-            keymap.HotkeyBindingEnum = hotkey.Hotkey;
-
-            StackPanel_KeyMaps.Children.Add(keymap);
-            StackPanel_KeyMaps.Children.Add(new Grid() { Height = 10 });
-        }
-    }
 
     public void Receive(MB_FIX_SettingsLayoutItemsHeader message)
     {
@@ -77,4 +49,32 @@ public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsL
                 break;
         }
     }
+
+    private void SettingsPageView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        UpdateKeyMap();
+    }
+
+    public void UpdateKeyMap()
+    {
+        if (StackPanel_KeyMaps.Children.Count >= _config.Hotkeys.Length) return;
+
+        foreach (var hotkey in _config.Hotkeys)
+        {
+            var keymap = _serviceProvider.GetRequiredService<KeyMapItem>();
+            keymap.HotkeyBindingEnum = hotkey.Hotkey;
+
+            StackPanel_KeyMaps.Children.Add(keymap);
+            StackPanel_KeyMaps.Children.Add(new Grid { Height = 10 });
+        }
+    }
+
+    #region DIï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
+
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IMessenger _messenger;
+    private readonly IOSes _oses;
+    private readonly L_Config _config;
+
+    #endregion
 }

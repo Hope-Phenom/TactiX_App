@@ -1,24 +1,24 @@
 <Project>
-  <PropertyGroup>
+    <PropertyGroup>
 
-    <Nullable>enable</Nullable>
-    <AvaloniaVersion>11.1.0</AvaloniaVersion>
+        <Nullable>enable</Nullable>
+        <AvaloniaVersion>11.1.0</AvaloniaVersion>
 
-		<!-- 统一版本控制 -->
-		<VersionMajor>1</VersionMajor>
-		<VersionMinor>2</VersionMinor>
-		<VersionBuild>1</VersionBuild>
-		<VersionRevision>0</VersionRevision>
-		<VersionSuffix Condition="'$(Configuration)' == 'Debug'">dev</VersionSuffix>
-		<VersionSuffix Condition="'$(Configuration)' != 'Debug'">alpha</VersionSuffix>
-		<!-- 自动生成日期时间部分 -->
-		<BuildDate>$([System.DateTime]::Now.ToString("yyyyMMdd"))</BuildDate>
-		<BuildTime>$([System.DateTime]::Now.ToString("HHmm"))</BuildTime>
-		<!-- 组合完整版本 -->
-		<Version>$(VersionMajor).$(VersionMinor).$(VersionBuild).$(VersionRevision)</Version>
-		<FileVersion>$(Version)</FileVersion>
-		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionBuild).$(VersionRevision)</AssemblyVersion>
-		<InformationalVersion>$(Version)-$(VersionSuffix)-Built$([System.DateTime]::Now.ToString("yyyyMMddHHmm"))</InformationalVersion>
+        <!-- 统一版本控制 -->
+        <VersionMajor>1</VersionMajor>
+        <VersionMinor>2</VersionMinor>
+        <VersionBuild>1</VersionBuild>
+        <VersionRevision>0</VersionRevision>
+        <VersionSuffix Condition="'$(Configuration)' == 'Debug'">dev</VersionSuffix>
+        <VersionSuffix Condition="'$(Configuration)' != 'Debug'">alpha</VersionSuffix>
+        <!-- 自动生成日期时间部分 -->
+        <BuildDate>$([System.DateTime]::Now.ToString("yyyyMMdd"))</BuildDate>
+        <BuildTime>$([System.DateTime]::Now.ToString("HHmm"))</BuildTime>
+        <!-- 组合完整版本 -->
+        <Version>$(VersionMajor).$(VersionMinor).$(VersionBuild).$(VersionRevision)</Version>
+        <FileVersion>$(Version)</FileVersion>
+        <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+        <InformationalVersion>$(Version)-$(VersionSuffix)-Built$([System.DateTime]::Now.ToString("yyyyMMddHHmm"))</InformationalVersion>
 
-  </PropertyGroup>
+    </PropertyGroup>
 </Project>

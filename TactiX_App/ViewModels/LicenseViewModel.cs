@@ -1,92 +1,89 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
-
 using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
-
 using TactiX_App.Service;
 using TactiX_I18N;
 using TactiX_Logger;
 using TactiX_Models;
 using TactiX_OS_Tools;
 
-namespace TactiX_App.ViewModels
+namespace TactiX_App.ViewModels;
+
+public partial class LicenseViewModel : ViewModelBase
 {
-    public partial class LicenseViewModel : ViewModelBase
+    private const string EULA_ResPath = "avares://TactiX_App/Assets/EULA.md";
+    private const string PP_ResPath = "avares://TactiX_App/Assets/Privacy_Policy.md";
+    private readonly L_Config _config;
+    private readonly ILogger _logger;
+
+    private readonly INavigationService _navigationService;
+    private readonly IOSTools _oSTools;
+
+    [ObservableProperty] public string markdownText;
+
+    public LicenseViewModel(IOSTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger)
     {
-        private const string EULA_ResPath = "avares://TactiX_App/Assets/EULA.md";
-        private const string PP_ResPath = "avares://TactiX_App/Assets/Privacy_Policy.md";
+        Language = lang.Language;
+        EULA_Text = GetTextFromRes(EULA_ResPath);
+        PP_Text = GetTextFromRes(PP_ResPath);
 
-        public ILanguage Language { get; private set; }
-        public string EULA_Text { get; private set; }
-        public string PP_Text { get; private set; }
+        _oSTools = oSTools;
+        _navigationService = navigation;
+        _logger = logger.Builder.GetCurrentClassLogger();
+        _config = oSTools.OSes.LoadConfig();
 
-        private readonly INavigationService _navigationService;
-        private readonly ILogger _logger;
-        private readonly IOSTools _oSTools;
-        private readonly L_Config _config;
+        MarkdownText = EULA_Text;
+        Status = 0;
+    }
 
-        /// <summary>
-        /// 接受状态，0-未接受，1-只接受了EULA，2-全部接受
-        /// </summary>
-        private int Status { get; set; }
+    public ILanguage Language { get; private set; }
+    public string EULA_Text { get; }
+    public string PP_Text { get; }
 
-        [ObservableProperty]
-        public string markdownText;
+    /// <summary>
+    ///     接受状态，0-未接受，1-只接受了EULA，2-全部接受
+    /// </summary>
+    private int Status { get; set; }
 
-        public LicenseViewModel(IOSTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger) 
+    private string GetTextFromRes(string path)
+    {
+        using var stream = AssetLoader.Open(new Uri(path));
+        using var reader = new StreamReader(stream);
+        return reader.ReadToEnd();
+    }
+
+    [RelayCommand]
+    public void Btn_Close()
+    {
+        Process.GetCurrentProcess().Kill();
+        _logger.Warn("DECLINE & EXIT.");
+    }
+
+    [RelayCommand]
+    public void Btn_Agress()
+    {
+        Status++;
+
+        if (Status == 1)
         {
-            Language = lang.Language;
-            EULA_Text = GetTextFromRes(EULA_ResPath);
-            PP_Text = GetTextFromRes(PP_ResPath);
+            _config.EulaAccepted = true;
+            _oSTools.OSes.SaveConfig();
+            _logger.Info("Agress EULA.");
 
-            _oSTools = oSTools;
-            _navigationService = navigation;
-            _logger = logger.Builder.GetCurrentClassLogger();
-            _config = oSTools.OSes.LoadConfig();
-
-            MarkdownText = EULA_Text;
-            Status = 0;
+            MarkdownText = PP_Text;
         }
-
-        private string GetTextFromRes(string path)
+        else
         {
-            using var stream = AssetLoader.Open(new Uri(path));
-            using var reader = new StreamReader(stream);
-            return reader.ReadToEnd();
-        }
+            _config.PPAccepted = true;
+            _oSTools.OSes.SaveConfig();
+            _logger.Info("Agress PP.");
 
-        [RelayCommand]
-        public void Btn_Close()
-        {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-            _logger.Warn("DECLINE & EXIT.");
-        }
-
-        [RelayCommand]
-        public void Btn_Agress()
-        {
-            Status++;
-
-            if (Status == 1)
-            {
-                _config.EulaAccepted = true;
-                _oSTools.OSes.SaveConfig();
-                _logger.Info("Agress EULA.");
-
-                MarkdownText = PP_Text;
-            }
-            else
-            {
-                _config.PPAccepted = true;
-                _oSTools.OSes.SaveConfig();
-                _logger.Info("Agress PP.");
-
-                _navigationService.NavigateTo<HomeScreenViewModel>();
-                _logger.Info("Navi to HomeScreenView.");
-            }
+            _navigationService.NavigateTo<HomeScreenViewModel>();
+            _logger.Info("Navi to HomeScreenView.");
         }
     }
 }

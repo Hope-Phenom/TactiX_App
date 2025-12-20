@@ -1,93 +1,91 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
-			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-			 xmlns:document="using:AvaloniaEdit.Document"
-			 xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
-			 xmlns:system="clr-namespace:System;assembly=mscorlib"
-			 mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
-			 x:DataType="vm:TacticEditorPageViewModel"
-			 x:Class="TactiX_App.Views.Page.TacticEditorPageView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
+             x:DataType="vm:TacticEditorPageViewModel"
+             x:Class="TactiX_App.Views.Page.TacticEditorPageView">
 
-	<UserControl.KeyBindings>
-		<KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewFileCommand}"/>
-		<KeyBinding Gesture="Ctrl+O" Command="{Binding OpenFileCommand}"/>
-		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}"/>
-		<KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsFileCommand}"/>
-		<KeyBinding Gesture="Ctrl+E" Command="{Binding ExportCommand}"/>
-		<KeyBinding Gesture="Ctrl+Shift+E" Command="{Binding ExportCommand}"/>
-		<KeyBinding Gesture="Ctrl+I" Command="{Binding InsertTemplateCommand}"/>
-	</UserControl.KeyBindings>
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewFileCommand}" />
+        <KeyBinding Gesture="Ctrl+O" Command="{Binding OpenFileCommand}" />
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}" />
+        <KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsFileCommand}" />
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding ExportCommand}" />
+        <KeyBinding Gesture="Ctrl+Shift+E" Command="{Binding ExportCommand}" />
+        <KeyBinding Gesture="Ctrl+I" Command="{Binding InsertTemplateCommand}" />
+    </UserControl.KeyBindings>
 
-	<DockPanel>
-		<Menu DockPanel.Dock="Top">
-			<!-- ÎÄ¼þ²Ëµ¥ -->
-			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_FILES}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_NEW}"
-						  Command="{Binding CreateNewFileCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+N</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_OPEN}"
-						  Command="{Binding OpenFileCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+O</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE}"
-						  Command="{Binding SaveFileCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+S</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE_AS}"
-						  Command="{Binding SaveAsFileCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+Shift+S</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-				<Separator />
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT}"
-						  Command="{Binding ExportCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+E</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-				<MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT_TO}"
-						  Command="{Binding ExportToCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+Shift+E</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-			</MenuItem>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <!-- ï¿½Ä¼ï¿½ï¿½Ëµï¿½ -->
+            <MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_FILES}">
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_NEW}"
+                          Command="{Binding CreateNewFileCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+N</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_OPEN}"
+                          Command="{Binding OpenFileCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+O</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE}"
+                          Command="{Binding SaveFileCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+S</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_SAVE_AS}"
+                          Command="{Binding SaveAsFileCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+Shift+S</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT}"
+                          Command="{Binding ExportCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+E</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+                <MenuItem Header="{Binding Language.EDITOR_MENU_FILES_EXPORT_TO}"
+                          Command="{Binding ExportToCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+Shift+E</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+            </MenuItem>
 
-			<!-- ±à¼­²Ëµ¥ -->
-			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_EDIT}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_EDIT_INSERT_TEMPLATE}"
-						  Command="{Binding InsertTemplateCommand}">
-					<MenuItem.InputGesture>
-						<KeyGesture>Ctrl+I</KeyGesture>
-					</MenuItem.InputGesture>
-				</MenuItem>
-			</MenuItem>
+            <!-- ï¿½à¼­ï¿½Ëµï¿½ -->
+            <MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_EDIT}">
+                <MenuItem Header="{Binding Language.EDITOR_MENU_EDIT_INSERT_TEMPLATE}"
+                          Command="{Binding InsertTemplateCommand}">
+                    <MenuItem.InputGesture>
+                        <KeyGesture>Ctrl+I</KeyGesture>
+                    </MenuItem.InputGesture>
+                </MenuItem>
+            </MenuItem>
 
-			<!-- °ïÖú²Ëµ¥ -->
-			<MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_HELP}">
-				<MenuItem Header="{Binding Language.EDITOR_MENU_HELP_GET_HELP}"/>
-			</MenuItem>
-		</Menu>
+            <!-- ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ -->
+            <MenuItem Header="{Binding Language.EDITOR_MENU_HEADER_HELP}">
+                <MenuItem Header="{Binding Language.EDITOR_MENU_HELP_GET_HELP}" />
+            </MenuItem>
+        </Menu>
 
-		<Grid Margin="10">
-			<suki:GlassCard Margin="0">
-				<avaloniaEdit:TextEditor x:Name="Editor"
-										 ShowLineNumbers="True"
-										 FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"
-										 Document="{Binding TextDocument, Mode=TwoWay}"/>
-			</suki:GlassCard>
-		</Grid>
-	</DockPanel>
+        <Grid Margin="10">
+            <suki:GlassCard Margin="0">
+                <avaloniaEdit:TextEditor x:Name="Editor"
+                                         ShowLineNumbers="True"
+                                         FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"
+                                         Document="{Binding TextDocument, Mode=TwoWay}" />
+            </suki:GlassCard>
+        </Grid>
+    </DockPanel>
 
 </UserControl>

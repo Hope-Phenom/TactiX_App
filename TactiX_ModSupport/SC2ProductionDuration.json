@@ -19,7 +19,6 @@
     "Cyclone": 45,
     "OrbitalCommand": 35,
     "PlanetaryFortress": 51,
-
     "Drone": 17,
     "Overlord": 25,
     "Zergling": 24,
@@ -40,7 +39,6 @@
     "Lurker": 25,
     "Lair": 81,
     "Hive": 100,
-
     "Probe": 17,
     "Zealot": 38,
     "Stalker": 38,
@@ -74,7 +72,6 @@
     "TerranInfantryArmorsLevel1": 161,
     "TerranInfantryArmorsLevel2": 192,
     "TerranInfantryArmorsLevel3": 222,
-
     "ProtossGroundWeaponsLevel1": 171,
     "ProtossGroundWeaponsLevel2": 205,
     "ProtossGroundWeaponsLevel3": 238,
@@ -90,7 +87,6 @@
     "ProtossShieldsLevel1": 171,
     "ProtossShieldsLevel2": 205,
     "ProtossShieldsLevel3": 238,
-
     "ZergMeleeWeaponsLevel1": 160,
     "ZergMeleeWeaponsLevel2": 192,
     "ZergMeleeWeaponsLevel3": 222,
@@ -106,7 +102,6 @@
     "ZergFlyerArmorsLevel1": 160,
     "ZergFlyerArmorsLevel2": 192,
     "ZergFlyerArmorsLevel3": 222,
-
     "ShieldWall": 112,
     "Stimpack": 142,
     "PunisherGrenades": 61,
@@ -126,7 +121,6 @@
     "InterferenceMatrix": 80,
     "CycloneLockOnDamageUpgrade": 141,
     "MedivacCaduceusReactor": 71,
-
     "WarpGateResearch": 141,
     "Charge": 141,
     "BlinkTech": 171,
@@ -139,7 +133,6 @@
     "PhoenixRangeUpgrade": 90,
     "VoidRaySpeedUpgrade": 113,
     "TempestGroundAttackUpgrade": 141,
-
     "zerglingmovementspeed": 112,
     "zerglingattackspeed": 131,
     "GlialReconstitution": 112,
@@ -377,7 +370,6 @@
     "WidowMine": 2,
     "Liberator": 3,
     "Cyclone": 3,
-
     "Drone": 1,
     "Zergling": 1,
     "Queen": 2,
@@ -395,7 +387,6 @@
     "Viper": 3,
     "Ravager": 1,
     "Lurker": 1,
-
     "Probe": 1,
     "Zealot": 2,
     "Stalker": 2,
@@ -419,10 +410,8 @@
   "SupplySupport": {
     "CommandCenter": 15,
     "SupplyDepot": 8,
-
     "Hatchery": 6,
     "Overlord": 8,
-
     "Nexus": 15,
     "Pylon": 8
   },

@@ -1,9 +1,8 @@
 ﻿using NLog.Config;
 
-namespace TactiX_Logger
+namespace TactiX_Logger;
+
+public interface ILoggerContainer
 {
-    public interface ILoggerContainer
-    {
-        public ISetupBuilder Builder { get; }
-    }
+    public ISetupBuilder Builder { get; }
 }

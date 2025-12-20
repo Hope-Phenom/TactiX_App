@@ -1,47 +1,47 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
-			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-			 xmlns:objectModel="using:System.Collections.ObjectModel"
-			 mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
-			 x:DataType="vm:SettingsPageViewModel"
-			 x:Name="UserControlSelf"
-			 x:Class="TactiX_App.Views.Page.SettingsPageView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:objectModel="using:System.Collections.ObjectModel"
+             mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
+             x:DataType="vm:SettingsPageViewModel"
+             x:Name="UserControlSelf"
+             x:Class="TactiX_App.Views.Page.SettingsPageView">
 
-	<suki:GlassCard Margin="10">
-		<suki:SettingsLayout>
-			<suki:SettingsLayout.Items>
-				<objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+    <suki:GlassCard Margin="10">
+        <suki:SettingsLayout>
+            <suki:SettingsLayout.Items>
+                <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
 
-					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
-						<suki:SettingsLayoutItem.Content>
-							<StackPanel Orientation="Vertical">
-								<Button Content="{Binding Language.SETTINGS_PAGE_NORMAL_UPGRADE}"
-										Command="{Binding CheckUpgradeCommand}"/>
-							</StackPanel>
-						</suki:SettingsLayoutItem.Content>
-					</suki:SettingsLayoutItem>
+                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
+                        <suki:SettingsLayoutItem.Content>
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="{Binding Language.SETTINGS_PAGE_NORMAL_UPGRADE}"
+                                        Command="{Binding CheckUpgradeCommand}" />
+                            </StackPanel>
+                        </suki:SettingsLayoutItem.Content>
+                    </suki:SettingsLayoutItem>
 
-					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
-						<suki:SettingsLayoutItem.Content>
-							<StackPanel x:Name="StackPanel_KeyMaps" Orientation="Vertical" />
-						</suki:SettingsLayoutItem.Content>
-					</suki:SettingsLayoutItem>
+                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
+                        <suki:SettingsLayoutItem.Content>
+                            <StackPanel x:Name="StackPanel_KeyMaps" Orientation="Vertical" />
+                        </suki:SettingsLayoutItem.Content>
+                    </suki:SettingsLayoutItem>
 
-					<suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
-						<suki:SettingsLayoutItem.Content>
-							<StackPanel Orientation="Vertical">
-								<Label Content="{Binding Language.SETTINGS_PAGE_ABOUT_RIGHTS}" />
-								<Grid Height="10" />
-								<Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
-							</StackPanel>
-						</suki:SettingsLayoutItem.Content>
-					</suki:SettingsLayoutItem>
+                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
+                        <suki:SettingsLayoutItem.Content>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="{Binding Language.SETTINGS_PAGE_ABOUT_RIGHTS}" />
+                                <Grid Height="10" />
+                                <Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
+                            </StackPanel>
+                        </suki:SettingsLayoutItem.Content>
+                    </suki:SettingsLayoutItem>
 
-				</objectModel:ObservableCollection>
-			</suki:SettingsLayout.Items>
-		</suki:SettingsLayout>
-	</suki:GlassCard>
+                </objectModel:ObservableCollection>
+            </suki:SettingsLayout.Items>
+        </suki:SettingsLayout>
+    </suki:GlassCard>
 </UserControl>

@@ -1,39 +1,39 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
-			 mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="140"
-			 Background="Transparent"
-			 Width="100" Height="140"
-			 x:DataType="vm:TacticPlayWindowModel"
-			 x:Class="TactiX_App.Views.Component.TacticItem">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="140"
+             Background="Transparent"
+             Width="100" Height="140"
+             x:DataType="vm:TacticPlayWindowModel"
+             x:Class="TactiX_App.Views.Component.TacticItem">
 
-	<Border BorderThickness="3" CornerRadius="5">
-		<Grid x:Name="Grid_Main" Margin="0" RenderTransformOrigin="0.5, 0.5">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="90" />
-				<RowDefinition Height="10" />
-				<RowDefinition Height="40" />
-			</Grid.RowDefinitions>
+    <Border BorderThickness="3" CornerRadius="5">
+        <Grid x:Name="Grid_Main" Margin="0" RenderTransformOrigin="0.5, 0.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
 
-			<Grid Margin="0" Grid.Row="0">
-				<Image Margin="0" x:Name="Image_Icon" />
-				<Label x:Name="Label_Supply"
-					   HorizontalAlignment="Right" VerticalAlignment="Bottom"
-					   HorizontalContentAlignment="Center"
-					   VerticalContentAlignment="Center"
-					   Foreground="Red"
-					   FontWeight="Bold"
-					   Margin="0,0,7,7"/>
-			</Grid>
-			<TextBlock Margin="0" x:Name="Textblock_Desc" Grid.Row="2"
-					   TextWrapping="WrapWithOverflow"
-					   TextAlignment="Center"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"
-					   FontWeight="Bold"/>
-		</Grid>
-	</Border>
+            <Grid Margin="0" Grid.Row="0">
+                <Image Margin="0" x:Name="Image_Icon" />
+                <Label x:Name="Label_Supply"
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="Red"
+                       FontWeight="Bold"
+                       Margin="0,0,7,7" />
+            </Grid>
+            <TextBlock Margin="0" x:Name="Textblock_Desc" Grid.Row="2"
+                       TextWrapping="WrapWithOverflow"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="Bold" />
+        </Grid>
+    </Border>
 
 </UserControl>

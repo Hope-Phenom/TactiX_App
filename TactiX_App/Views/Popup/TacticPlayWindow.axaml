@@ -1,248 +1,246 @@
 <Window xmlns="https://github.com/avaloniaui"
-		xmlns:component="using:TactiX_App.Views.Component"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
-		xmlns:lang="clr-namespace:TactiX_I18N;assembly=TactiX_I18N"
-		xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-		xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
-		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-		xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
-		mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
-		x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
-		x:DataType="vm:TacticPlayWindowModel"
-		ExtendClientAreaChromeHints="NoChrome"
-		ExtendClientAreaToDecorationsHint="True"
-		ExtendClientAreaTitleBarHeightHint="-1"
-		SystemDecorations="None"
-		CanMaximize="False"
-		CanMinimize="False"
-		CanResize="False"
-		Topmost="True"
-		Width="700"
-		Height="{Binding UIHeight}"
-		Title="TacticPlayWindow">
+        xmlns:component="using:TactiX_App.Views.Component"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
+        x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
+        x:DataType="vm:TacticPlayWindowModel"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        SystemDecorations="None"
+        CanMaximize="False"
+        CanMinimize="False"
+        CanResize="False"
+        Topmost="True"
+        Width="700"
+        Height="{Binding UIHeight}"
+        Title="TacticPlayWindow">
 
-	<Design.DataContext>
-		<vm:TacticPlayWindowModel UIHeight="700"
-								  HorizontalLineHeight="10"
-								  GroupHeight="*"
-								  MaterialIconKind="ArrowExpandUp"
-								  IsPrepare="False"/>
-	</Design.DataContext>
+    <Design.DataContext>
+        <vm:TacticPlayWindowModel UIHeight="700"
+                                  HorizontalLineHeight="10"
+                                  GroupHeight="*"
+                                  MaterialIconKind="ArrowExpandUp"
+                                  IsPrepare="False" />
+    </Design.DataContext>
 
-	<Window.Styles>
-		<FluentTheme />
-	</Window.Styles>
+    <Window.Styles>
+        <FluentTheme />
+    </Window.Styles>
 
-	<Grid Margin="10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="160" />
-			<RowDefinition Height="{Binding HorizontalLineHeight}" />
-			<RowDefinition Height="{Binding GroupHeight}" />
-			<RowDefinition Height="10" />
-			<RowDefinition Height="40" />
-		</Grid.RowDefinitions>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160" />
+            <RowDefinition Height="{Binding HorizontalLineHeight}" />
+            <RowDefinition Height="{Binding GroupHeight}" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
 
-		<suki:GlassCard Grid.Row="0" BorderThickness="3">
-			<Grid Margin="0">
-				<Grid Margin="0" IsVisible="{Binding IsPrepare}">
-					<Image Margin="0" Source="{Binding TitleBarImage}" />
-				</Grid>
-				<Grid Margin="0" IsVisible="{Binding !IsPrepare}">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="100" />
-					</Grid.ColumnDefinitions>
+        <suki:GlassCard Grid.Row="0" BorderThickness="3">
+            <Grid Margin="0">
+                <Grid Margin="0" IsVisible="{Binding IsPrepare}">
+                    <Image Margin="0" Source="{Binding TitleBarImage}" />
+                </Grid>
+                <Grid Margin="0" IsVisible="{Binding !IsPrepare}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
 
-					<Grid Grid.Column="0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="10" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="20" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="20" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="10" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-						<Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-							<Grid.RenderTransform>
-								<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-							</Grid.RenderTransform>
-							<component:TacticItem SlotNo="0"/>
-						</Grid>
+                        <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                            </Grid.RenderTransform>
+                            <component:TacticItem SlotNo="0" />
+                        </Grid>
 
-						<Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-							<Grid.RenderTransform>
-								<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-							</Grid.RenderTransform>
-							<component:TacticItem SlotNo="1"/>
-						</Grid>
+                        <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                            </Grid.RenderTransform>
+                            <component:TacticItem SlotNo="1" />
+                        </Grid>
 
-						<Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-							<component:TacticItem SlotNo="2"/>
-						</Grid>
+                        <Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <component:TacticItem SlotNo="2" />
+                        </Grid>
 
-						<Grid Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">
-							<Grid.RenderTransform>
-								<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-							</Grid.RenderTransform>
-							<component:TacticItem SlotNo="3"/>
-						</Grid>
+                        <Grid Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                            </Grid.RenderTransform>
+                            <component:TacticItem SlotNo="3" />
+                        </Grid>
 
-						<Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
-							<Grid.RenderTransform>
-								<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-							</Grid.RenderTransform>
-							<component:TacticItem SlotNo="4"/>
-						</Grid>
+                        <Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                            </Grid.RenderTransform>
+                            <component:TacticItem SlotNo="4" />
+                        </Grid>
 
-					</Grid>
+                    </Grid>
 
-					<Grid Grid.Column="2" VerticalAlignment="Center">
-						<StackPanel Orientation="Vertical">
-							<Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP}"
-								   FontWeight="Bold"/>
-							<Label Content="{Binding TimeStampTxt}"
-								   FontWeight="Bold"/>
-							<Label />
-							<Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP}"
-								   FontWeight="Bold"/>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
-									<ColumnDefinition Width="10" />
-									<ColumnDefinition Width="*" />
-								</Grid.ColumnDefinitions>
-								<Label Grid.Column="0" Content="{Binding CurrStepTimeStampTxt}"
-									   FontWeight="Bold"/>
-								<Label Grid.Column="2" Content="{Binding TimeStampGapTxt}"
-									   FontWeight="Bold"/>
-							</Grid>
-						</StackPanel>
-					</Grid>
-				</Grid>
-			</Grid>
-		</suki:GlassCard>
+                    <Grid Grid.Column="2" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP}"
+                                   FontWeight="Bold" />
+                            <Label Content="{Binding TimeStampTxt}"
+                                   FontWeight="Bold" />
+                            <Label />
+                            <Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP}"
+                                   FontWeight="Bold" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="{Binding CurrStepTimeStampTxt}"
+                                       FontWeight="Bold" />
+                                <Label Grid.Column="2" Content="{Binding TimeStampGapTxt}"
+                                       FontWeight="Bold" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </suki:GlassCard>
 
-		<suki:GlassCard Grid.Row="2" BorderThickness="3">
-			<Grid Margin="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="40" />
-					<RowDefinition Height="30" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
+        <suki:GlassCard Grid.Row="2" BorderThickness="3">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-				<Grid Grid.Row="0" VerticalAlignment="Center">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="100" />
-					</Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" VerticalContentAlignment="Center"
-						   Content="{Binding Language.TACTIC_PLAYING_LABEL_FILE_SELECTED}" />
-					<ComboBox Grid.Column="2" Margin="0"
-							  ItemsSource="{Binding TacticFiles}"
-							  SelectedItem="{Binding SelectedTacticFile}"/>
-					<Button Grid.Column="4" Margin="0" Height="34" Width="100"
-							Content="{Binding Language.TACTIC_PLAYING_BTN_OPEN_FOLDER}"
-							HorizontalAlignment="Center" VerticalAlignment="Center"
-							HorizontalContentAlignment="Center"							
-							VerticalContentAlignment="Center"
-							Command="{Binding OpenFolderCommand}"/>
-				</Grid>
+                    <Label Grid.Column="0" VerticalContentAlignment="Center"
+                           Content="{Binding Language.TACTIC_PLAYING_LABEL_FILE_SELECTED}" />
+                    <ComboBox Grid.Column="2" Margin="0"
+                              ItemsSource="{Binding TacticFiles}"
+                              SelectedItem="{Binding SelectedTacticFile}" />
+                    <Button Grid.Column="4" Margin="0" Height="34" Width="100"
+                            Content="{Binding Language.TACTIC_PLAYING_BTN_OPEN_FOLDER}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding OpenFolderCommand}" />
+                </Grid>
 
-				<Grid Grid.Row="2">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="20" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
 
-					<Grid Grid.Column="0">
-						<StackPanel Orientation="Vertical">
-							<Label Content="{Binding Language.TACTIC_PLAYING_OPACITY}" />
-							<Slider Maximum="1" Minimum="0.2" TickFrequency="0.1"
-									IsSnapToTickEnabled="True"
-									Value="{Binding Config.Opacity, Mode=TwoWay}"/>
-							<Grid Height="10" />
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_TIMELINE_CORRECTION}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.EnableTLCorr, Mode=TwoWay}"/>
-							<Grid Height="10" />
-							<Label Content="{Binding Language.TACTIC_PLAYING_MODITEM_ENABLE}" />
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_NONE}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.ModItemTypeEnable[0]}"
-									  IsEnabled="False"/>
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_WORKER}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}"/>
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_ARMY}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}"/>
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_BUILDING}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}"/>
-							<CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_TECH}"
-									  VerticalContentAlignment="Center" VerticalAlignment="Center"
-									  IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}"/>
-						</StackPanel>
-					</Grid>
+                    <Grid Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Language.TACTIC_PLAYING_OPACITY}" />
+                            <Slider Maximum="1" Minimum="0.2" TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Value="{Binding Config.Opacity, Mode=TwoWay}" />
+                            <Grid Height="10" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_TIMELINE_CORRECTION}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.EnableTLCorr, Mode=TwoWay}" />
+                            <Grid Height="10" />
+                            <Label Content="{Binding Language.TACTIC_PLAYING_MODITEM_ENABLE}" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_NONE}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.ModItemTypeEnable[0]}"
+                                      IsEnabled="False" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_WORKER}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_ARMY}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_BUILDING}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}" />
+                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_TECH}"
+                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}" />
+                        </StackPanel>
+                    </Grid>
 
-					<Grid Grid.Column="2">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="10" />
-							<RowDefinition Height="*" />
-						</Grid.RowDefinitions>
-						<Label Grid.Row="0" Content="{Binding Language.TACTIC_PLAYING_FILEINFO}" />
-						<apc:PropertyGrid Grid.Row="2" IsReadOnly="True"
-										  IsAutoNameWidth="True" IsTitleVisible="False"
-										  IsQuickFilterVisible="False"
-										  DataContext="{Binding CurrTactic}"
-										  IsCategoryVisible="False"/>
-					</Grid>
-				</Grid>
-			</Grid>
-		</suki:GlassCard>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="{Binding Language.TACTIC_PLAYING_FILEINFO}" />
+                        <apc:PropertyGrid Grid.Row="2" IsReadOnly="True"
+                                          IsAutoNameWidth="True" IsTitleVisible="False"
+                                          IsQuickFilterVisible="False"
+                                          DataContext="{Binding CurrTactic}"
+                                          IsCategoryVisible="False" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </suki:GlassCard>
 
-		<Grid Grid.Row="4" Width="510">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="120" />
-				<ColumnDefinition Width="10" />
-				<ColumnDefinition Width="120" />
-				<ColumnDefinition Width="10" />
-				<ColumnDefinition Width="120" />
-				<ColumnDefinition Width="10" />
-				<ColumnDefinition Width="120" />
-			</Grid.ColumnDefinitions>
+        <Grid Grid.Row="4" Width="510">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
 
-			<Button Width="120" Grid.Column="0" Command="{Binding PullWindowCommand}">
-				<materialIcons:MaterialIcon Kind="{Binding MaterialIconKind}"
-											Width="25" Height="25" />
-			</Button>
-			<Button Width="120" Grid.Column="2" Command="{Binding RefreshCommand}">
-				<materialIcons:MaterialIcon Kind="Refresh"
-											Width="25" Height="25" />
-			</Button>
-			<Button Width="120" Grid.Column="4" Command="{Binding CloseWindowCommand}">
-				<materialIcons:MaterialIcon Kind="CloseCircleOutline"
-											Width="25" Height="25" />
-			</Button>
-			<Button Width="120" Grid.Column="6" Command="{Binding PlayTacticCommand}">
-				<materialIcons:MaterialIcon Kind="PlayCircleOutline"
-											Width="25" Height="25" />
-			</Button>
-		</Grid>
-	</Grid>
+            <Button Width="120" Grid.Column="0" Command="{Binding PullWindowCommand}">
+                <materialIcons:MaterialIcon Kind="{Binding MaterialIconKind}"
+                                            Width="25" Height="25" />
+            </Button>
+            <Button Width="120" Grid.Column="2" Command="{Binding RefreshCommand}">
+                <materialIcons:MaterialIcon Kind="Refresh"
+                                            Width="25" Height="25" />
+            </Button>
+            <Button Width="120" Grid.Column="4" Command="{Binding CloseWindowCommand}">
+                <materialIcons:MaterialIcon Kind="CloseCircleOutline"
+                                            Width="25" Height="25" />
+            </Button>
+            <Button Width="120" Grid.Column="6" Command="{Binding PlayTacticCommand}">
+                <materialIcons:MaterialIcon Kind="PlayCircleOutline"
+                                            Width="25" Height="25" />
+            </Button>
+        </Grid>
+    </Grid>
 
 </Window>

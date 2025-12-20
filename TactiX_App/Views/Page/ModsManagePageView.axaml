@@ -1,91 +1,90 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
-			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-			 xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
-			 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
-			 mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
-			 x:Class="TactiX_App.Views.Page.ModsManagePageView"
-			 x:DataType="vm:ModsManagePageViewModel">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
+             FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
+             mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
+             x:Class="TactiX_App.Views.Page.ModsManagePageView"
+             x:DataType="vm:ModsManagePageViewModel">
 
-	<Grid Margin="10">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*" />
-				<RowDefinition Height="10" />
-				<RowDefinition Height="100" />
-			</Grid.RowDefinitions>
+    <Grid Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
 
-			<Grid Grid.Row="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*" />
-					<ColumnDefinition Width="10" />
-					<ColumnDefinition Width="3*" />
-					<ColumnDefinition Width="10" />
-					<ColumnDefinition Width="250" />
-				</Grid.ColumnDefinitions>
-				<suki:GlassCard Grid.Column="0">
-					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_HEADER}">
-						<Grid Margin="0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
-								<RowDefinition Height="10" />
-								<RowDefinition Height="128" />
-							</Grid.RowDefinitions>							
-							<ListBox Margin="0" ItemsSource="{Binding ModsList}" Grid.Row="0"
-									 SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
-							<Image Width="128" Height="128" Source="{Binding SelectedModIcon}" 
-			                       Grid.Row="2" />
-						</Grid>
-					</suki:GroupBox>
-				</suki:GlassCard>
-				<suki:GlassCard Grid.Column="2">
-					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_INFO}">
-						<apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
-						                  IsAutoNameWidth="True" IsTitleVisible="False" 
-										  IsQuickFilterVisible="False"
-										  IsCategoryVisible="False" />
-					</suki:GroupBox>
-				</suki:GlassCard>
-				<suki:GlassCard Grid.Column="4">
-					<suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_ACTION}">
-						<StackPanel Orientation="Vertical">
-							<Label Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED}" />
-							<Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
-							<Grid Height="15" />
-							<Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED}"
-			                        Command="{Binding EnableSelectedModCommand}" />
-							<Grid Height="15" />
-							<Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED}"
-			                        Command="{Binding DeleteSelectedModCommand}" />
-						</StackPanel>
-					</suki:GroupBox>
-				</suki:GlassCard>
-			</Grid>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+                <suki:GlassCard Grid.Column="0">
+                    <suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_HEADER}">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="128" />
+                            </Grid.RowDefinitions>
+                            <ListBox Margin="0" ItemsSource="{Binding ModsList}" Grid.Row="0"
+                                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+                            <Image Width="128" Height="128" Source="{Binding SelectedModIcon}"
+                                   Grid.Row="2" />
+                        </Grid>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Grid.Column="2">
+                    <suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_INFO}">
+                        <apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
+                                          IsAutoNameWidth="True" IsTitleVisible="False"
+                                          IsQuickFilterVisible="False"
+                                          IsCategoryVisible="False" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Grid.Column="4">
+                    <suki:GroupBox Header="{Binding Language.MODS_MANAGE_VIEW_SELECTED_MOD_ACTION}">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED}" />
+                            <Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
+                            <Grid Height="15" />
+                            <Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED}"
+                                    Command="{Binding EnableSelectedModCommand}" />
+                            <Grid Height="15" />
+                            <Button Content="{Binding Language.MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED}"
+                                    Command="{Binding DeleteSelectedModCommand}" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+            </Grid>
 
-			<suki:GlassCard Grid.Row="2">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="100" />
-						<ColumnDefinition Width="10" />
-						<ColumnDefinition Width="200" />
-					</Grid.ColumnDefinitions>
-					<TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
-							   VerticalAlignment="Center" HorizontalAlignment="Center" />
-					<Button Grid.Column="2"
-							Content="{Binding Language.BUTTON_TXT_REFRESH}"
-							Command="{Binding CheckLocalModsCommand}" />
-					<Button Grid.Column="4"
-							Content="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER}"
-							Command="{Binding OpenLocalFolderCommand}" />
-				</Grid>
-			</suki:GlassCard>
-		</Grid>
-	</Grid>
+            <suki:GlassCard Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Button Grid.Column="2"
+                            Content="{Binding Language.BUTTON_TXT_REFRESH}"
+                            Command="{Binding CheckLocalModsCommand}" />
+                    <Button Grid.Column="4"
+                            Content="{Binding Language.MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER}"
+                            Command="{Binding OpenLocalFolderCommand}" />
+                </Grid>
+            </suki:GlassCard>
+        </Grid>
+    </Grid>
 
 </UserControl>

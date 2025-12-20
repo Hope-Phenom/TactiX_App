@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace TactiX_App.Views.Page;
 
@@ -8,7 +6,7 @@ public partial class ModsManagePageView : UserControl
 {
     public ModsManagePageView()
     {
-        // ÏÔÊ½µØÇå³şÉÏÏÂÎÄ±ÜÃâ´¥·¢ÀàĞÍ×ª»»
+        // ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½â´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
         DataContext = null;
 
         InitializeComponent();

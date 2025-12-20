@@ -2,37 +2,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
-						 xmlns:vm="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
-						 xmlns:md="using:Markdown.Avalonia"
-						 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-						 FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
-						 x:DataType="vm:LicenseViewModel"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels;assembly=TactiX_App"
+             xmlns:md="using:Markdown.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
+             x:DataType="vm:LicenseViewModel"
              x:Class="TactiX_App.Views.LicenseView">
-		
-		<Grid Margin="10">
-				<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="10" />
-						<RowDefinition Height="40" />
-				</Grid.RowDefinitions>
-				<md:MarkdownScrollViewer x:Name="MarkdownViewer" Grid.Row="0" 
-																 Markdown="{Binding MarkdownText}" />
-				<Grid Grid.Row="2">
-						<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="10" />
-								<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-										HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-										Content="{Binding Language.LICENSE_VIEW_BTN_DECLINE}"
-										Command="{Binding Btn_CloseCommand}" />
-						<Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-										HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-										Content="{Binding Language.LICENSE_VIEW_BTN_ACCEPT}"
-										Command="{Binding Btn_AgressCommand}"/>
-				</Grid>
-		</Grid>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <md:MarkdownScrollViewer x:Name="MarkdownViewer" Grid.Row="0"
+                                 Markdown="{Binding MarkdownText}" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Content="{Binding Language.LICENSE_VIEW_BTN_DECLINE}"
+                    Command="{Binding Btn_CloseCommand}" />
+            <Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Content="{Binding Language.LICENSE_VIEW_BTN_ACCEPT}"
+                    Command="{Binding Btn_AgressCommand}" />
+        </Grid>
+    </Grid>
 
 </UserControl>

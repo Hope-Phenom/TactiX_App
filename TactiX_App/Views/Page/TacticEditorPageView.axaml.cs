@@ -1,17 +1,14 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media.Imaging;
-using AvaloniaEdit.CodeCompletion;
-using AvaloniaEdit.Document;
-using AvaloniaEdit.Editing;
-using AvaloniaEdit.Utils;
-using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media.Imaging;
+using AvaloniaEdit.CodeCompletion;
+using AvaloniaEdit.Document;
+using AvaloniaEdit.Utils;
+using CommunityToolkit.Mvvm.Messaging;
 using TactiX_App.Model;
 using TactiX_I18N;
 using TactiX_Models;
@@ -24,34 +21,16 @@ namespace TactiX_App.Views.Page;
 
 public partial class TacticEditorPageView : UserControl
 {
-    #region DIÈÝÆ÷×¢Èë
-    private ILanguage _language;
-    private IOSes _oses;
-    private L_Config _config;
-    private IMessenger _messenger;
-    #endregion
-
-    #region ±äÁ¿
-    private readonly List<L_ModItem> _modItems;
-    private CompletionWindow? _completionWindow;
-    private ModPackage? _modPackage;
-    private ModResourceCache<Bitmap>? _modResourceCache;
-    #endregion
-
-    #region Êý¾Ý°ó¶¨
-    public ILanguage Language => _language;
-    #endregion
-
     public TacticEditorPageView(ILang lang, IOSTools oSTools, IMessenger messenger)
     {
         InitializeComponent();
 
-        _language = lang.Language;
+        Language = lang.Language;
         _oses = oSTools.OSes;
         _config = _oses.LoadConfig();
         _messenger = messenger;
 
-        _modItems = new();
+        _modItems = new List<L_ModItem>();
 
         Editor.SyntaxHighlighting = new TacticHighlightingDefinition();
         Editor.TextArea.TextEntered += TextArea_TextEntered;
@@ -60,13 +39,19 @@ public partial class TacticEditorPageView : UserControl
     }
 
 #if DEBUG
-#pragma warning disable CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
-    public TacticEditorPageView() // ´Ë¹¹Ôìº¯Êý½öÓÃÓÚ±£Ö¤¿ÉÔ¤ÀÀ
+#pragma warning disable CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
+    public TacticEditorPageView() // ï¿½Ë¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ö¤ï¿½ï¿½Ô¤ï¿½ï¿½
     {
         InitializeComponent();
     }
-#pragma warning restore CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
+#pragma warning restore CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
 #endif
+
+    #region ï¿½ï¿½ï¿½Ý°ï¿½
+
+    public ILanguage Language { get; }
+
+    #endregion
 
     private void TacticEditorPageView_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
@@ -77,30 +62,27 @@ public partial class TacticEditorPageView : UserControl
     {
         if (string.IsNullOrEmpty(e.Text)) return;
 
-        if (char.IsLetter(e.Text[0]))
-        {
-            ShowCompletion();
-        }
+        if (char.IsLetter(e.Text[0])) ShowCompletion();
     }
 
     private void ShowCompletion()
     {
-        // ¹Ø±ÕÏÖÓÐµÄ²¹È«´°¿Ú£¨Èç¹û´æÔÚ£©
+        // ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ÐµÄ²ï¿½È«ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
         if (_completionWindow != null)
         {
-            _completionWindow.Closed -= OnCompletionWindowClosed; // ÒÆ³ýÖ®Ç°µÄÊÂ¼þ´¦Àí
+            _completionWindow.Closed -= OnCompletionWindowClosed; // ï¿½Æ³ï¿½Ö®Ç°ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
             _completionWindow.Close();
             _completionWindow = null;
         }
 
-        // »ñÈ¡µ±Ç°¹â±êÇ°µÄµ¥´ÊÆ¬¶Î
+        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ç°ï¿½Äµï¿½ï¿½ï¿½Æ¬ï¿½ï¿½
         var segment = GetWordSegmentBeforeCaret();
         var partialWord = Editor.Document.GetText(segment);
 
-        // ´´½¨²¹È«´°¿Ú
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
         _completionWindow = new CompletionWindow(Editor.TextArea);
 
-        // ´´½¨²¹È«ÏîÁÐ±í
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ð±ï¿½
         var completionData = _modItems
             .Where(item => item.Abbr.StartsWith(partialWord, StringComparison.OrdinalIgnoreCase))
             .Select(item => new ModCompletionData(_modResourceCache, segment, item))
@@ -108,13 +90,13 @@ public partial class TacticEditorPageView : UserControl
 
         if (!completionData.Any()) return;
 
-        // ÉèÖÃ²¹È«Êý¾Ý
+        // ï¿½ï¿½ï¿½Ã²ï¿½È«ï¿½ï¿½ï¿½ï¿½
         _completionWindow.CompletionList.CompletionData.AddRange(completionData);
 
-        // ´°¿Ú¹Ø±ÕÊ±ÇåÀíÒýÓÃ
+        // ï¿½ï¿½ï¿½Ú¹Ø±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         _completionWindow.Closed += OnCompletionWindowClosed;
 
-        // ÏÔÊ¾²¹È«´°¿Ú
+        // ï¿½ï¿½Ê¾ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
         _completionWindow.Show();
     }
 
@@ -131,12 +113,9 @@ public partial class TacticEditorPageView : UserControl
         var caret = Editor.TextArea.Caret;
         var document = Editor.Document;
 
-        // ²éÕÒµ¥´ÊÆðÊ¼Î»ÖÃ
-        int start = caret.Offset - 1;
-        while (start > 0 && IsWordCharacter(document.GetCharAt(start - 1)))
-        {
-            start--;
-        }
+        // ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+        var start = caret.Offset - 1;
+        while (start > 0 && IsWordCharacter(document.GetCharAt(start - 1))) start--;
 
         return new SimpleSegment(start, caret.Offset - start);
     }
@@ -153,19 +132,17 @@ public partial class TacticEditorPageView : UserControl
         _modItems.Clear();
 
         if (string.IsNullOrEmpty(_config.CurrentlyEnabledMOD))
-        {
-            _messenger.Send(new MB_ToastPureText()
+            _messenger.Send(new MB_ToastPureText
             {
                 Message = Language.EDITOR_ERROR_MOD_NOT_SET,
                 Title = Language.TOAST_TITLE_ERROR,
                 Type = MB_Enum_ToastType.Error
             });
-        }
 
         try
         {
             _modPackage = new ModPackage(_config.CurrentlyEnabledMOD);
-            _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, (ms) => new Bitmap(ms));
+            _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, ms => new Bitmap(ms));
 
             var modDesc = _modPackage.ModDesc;
             if (modDesc == null) return;
@@ -175,14 +152,31 @@ public partial class TacticEditorPageView : UserControl
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText()
+            _messenger.Send(new MB_ToastPureText
             {
-                Message = string.Format(Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR, 
-                    _config.CurrentlyEnabledMOD, 
+                Message = string.Format(Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR,
+                    _config.CurrentlyEnabledMOD,
                     ex.Message),
                 Title = Language.TOAST_TITLE_ERROR,
                 Type = MB_Enum_ToastType.Error
             });
         }
     }
+
+    #region DIï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
+
+    private readonly IOSes _oses;
+    private readonly L_Config _config;
+    private readonly IMessenger _messenger;
+
+    #endregion
+
+    #region ï¿½ï¿½ï¿½ï¿½
+
+    private readonly List<L_ModItem> _modItems;
+    private CompletionWindow? _completionWindow;
+    private ModPackage? _modPackage;
+    private ModResourceCache<Bitmap>? _modResourceCache;
+
+    #endregion
 }

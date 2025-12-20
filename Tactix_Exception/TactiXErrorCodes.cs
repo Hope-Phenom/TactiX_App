@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TactiX_Exception;
 
-namespace TactiX_Exception
+public enum TactiXErrorCodes
 {
-    public enum TactiXErrorCodes
-    {
-        /// <summary>
-        /// 成功，无异常，或手动上报/建议
-        /// </summary>
-        SUCCESS = 0,
-        /// <summary>
-        /// 重复启动进程
-        /// </summary>
-        ERROR_MUILT_PROCESS,
-        /// <summary>
-        /// 网络连接问题
-        /// </summary>
-        ERROR_NETWORK
-    }
+    /// <summary>
+    ///     成功，无异常，或手动上报/建议
+    /// </summary>
+    SUCCESS = 0,
+
+    /// <summary>
+    ///     重复启动进程
+    /// </summary>
+    ERROR_MUILT_PROCESS,
+
+    /// <summary>
+    ///     网络连接问题
+    /// </summary>
+    ERROR_NETWORK
 }

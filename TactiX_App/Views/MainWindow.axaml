@@ -1,33 +1,32 @@
 <suki:SukiWindow xmlns="https://github.com/avaloniaui"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:vm="using:TactiX_App.ViewModels"
-				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-				 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-				 xmlns:views="clr-namespace:TactiX_App.Views"
-				 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-				 mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
-				 Width="1380" Height="900"
-				 BackgroundStyle="Bubble"
-				 WindowStartupLocation="CenterScreen"
-				 Title="TactiX"
-				 CanResize="True"
-				 x:Class="TactiX_App.Views.MainWindow"
-				 x:DataType="vm:MainViewModel"
-				 x:Name="MainSukiWindow">
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:vm="using:TactiX_App.ViewModels"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                 xmlns:views="clr-namespace:TactiX_App.Views"
+                 mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
+                 Width="1380" Height="900"
+                 BackgroundStyle="Bubble"
+                 WindowStartupLocation="CenterScreen"
+                 Title="TactiX"
+                 CanResize="True"
+                 x:Class="TactiX_App.Views.MainWindow"
+                 x:DataType="vm:MainViewModel"
+                 x:Name="MainSukiWindow">
 
-	<suki:SukiWindow.LogoContent>
-		<Image Height="24" Width="24" Source="avares://TactiX_App/Assets/TactiX.ico" />
-	</suki:SukiWindow.LogoContent>
+    <suki:SukiWindow.LogoContent>
+        <Image Height="24" Width="24" Source="avares://TactiX_App/Assets/TactiX.ico" />
+    </suki:SukiWindow.LogoContent>
 
-	<suki:SukiWindow.Hosts>
-		<suki:SukiToastHost x:Name="ToastHost" MaxToasts="5"
-							Manager="{Binding ToastManager}"/>
-		<suki:SukiDialogHost x:Name="DialogHost"
-							 Manager="{Binding DialogManager}"/>
-	</suki:SukiWindow.Hosts>
+    <suki:SukiWindow.Hosts>
+        <suki:SukiToastHost x:Name="ToastHost" MaxToasts="5"
+                            Manager="{Binding ToastManager}" />
+        <suki:SukiDialogHost x:Name="DialogHost"
+                             Manager="{Binding DialogManager}" />
+    </suki:SukiWindow.Hosts>
 
-	<Grid Margin="0">
-		<views:MainView x:Name="MainViewContainer" />
-	</Grid>
+    <Grid Margin="0">
+        <views:MainView x:Name="MainViewContainer" />
+    </Grid>
 </suki:SukiWindow>

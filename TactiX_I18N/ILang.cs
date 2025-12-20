@@ -1,7 +1,6 @@
-﻿namespace TactiX_I18N
+﻿namespace TactiX_I18N;
+
+public interface ILang
 {
-    public interface ILang
-    {
-        public ILanguage Language { get; }
-    }
+    public ILanguage Language { get; }
 }

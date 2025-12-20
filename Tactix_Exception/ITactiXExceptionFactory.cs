@@ -1,8 +1,7 @@
-﻿namespace TactiX_Exception
+﻿namespace TactiX_Exception;
+
+public interface ITactiXExceptionFactory
 {
-    public interface ITactiXExceptionFactory
-    {
-        public TactiXException Create();
-        public TactiXException Create(TactiXErrorCodes errorCode, string errorDesc);
-    }
+    public TactiXException Create();
+    public TactiXException Create(TactiXErrorCodes errorCode, string errorDesc);
 }

@@ -1,14 +1,6 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
-using CommunityToolkit.Mvvm.Messaging;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using TactiX_App.ViewModels.Popup;
-using TactiX_Exception;
-using TactiX_I18N;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Messaging;
 using TactiX_Models.MessageBus;
 
 namespace TactiX_App.Views.Popup;
@@ -28,15 +20,10 @@ public partial class ErrorPopupView : Window, IRecipient<MB_WindowClose>
         _messenger.RegisterAll(this);
     }
 
-    private void ErrorPopupView_Closed(object? sender, EventArgs e)
-    {
-        _messenger?.UnregisterAll(this);
-    }
-
 #if DEBUG
-#pragma warning disable CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
-    public ErrorPopupView()        // ´Ë¹¹Ôìº¯Êý½öÓÃÓÚ±£Ö¤´°Ìåä¯ÀÀÕý³£
-#pragma warning restore CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
+#pragma warning disable CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
+    public ErrorPopupView() // ï¿½Ë¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#pragma warning restore CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
     {
         InitializeComponent();
     }
@@ -44,9 +31,11 @@ public partial class ErrorPopupView : Window, IRecipient<MB_WindowClose>
 
     public void Receive(MB_WindowClose message)
     {
-        if (message.Name.Equals(WINDOW_NAME))
-        {
-            Close();
-        }
+        if (message.Name.Equals(WINDOW_NAME)) Close();
+    }
+
+    private void ErrorPopupView_Closed(object? sender, EventArgs e)
+    {
+        _messenger?.UnregisterAll(this);
     }
 }

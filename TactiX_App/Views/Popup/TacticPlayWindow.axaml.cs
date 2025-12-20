@@ -1,13 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Messaging;
-using HarfBuzzSharp;
-using System;
-using System.Collections.Generic;
 using TactiX_I18N;
 using TactiX_Models;
 using TactiX_Models.MessageBus;
@@ -18,14 +15,10 @@ namespace TactiX_App.Views.Popup;
 public partial class TacticPlayWindow : Window
     , IRecipient<MB_WindowClose>, IRecipient<MB_WindowPointerTrans>
 {
-    #region DIÈÝÆ÷×¢Èë
-    private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
-    #endregion
+    #region ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 
-    #region ±äÁ¿/³£Á¿
     private const string WINDOW_NAME = "TacticPlayWindow";
+
     #endregion
 
     public TacticPlayWindow(IMessenger messenger, IOSTools oSTools, ILang lang)
@@ -50,13 +43,25 @@ public partial class TacticPlayWindow : Window
     }
 
 #if DEBUG
-#pragma warning disable CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
-    public TacticPlayWindow()  // ´Ë¹¹Ôìº¯Êý½öÓÃÓÚ±£Ö¤¿ÉÔ¤ÀÀ
-#pragma warning restore CS8618 // ÔÚÍË³ö¹¹Ôìº¯ÊýÊ±£¬²»¿ÉÎª null µÄ×Ö¶Î±ØÐë°üº¬·Ç null Öµ¡£Çë¿¼ÂÇÌí¼Ó "required" ÐÞÊÎ·û»òÉùÃ÷Îª¿ÉÎª null¡£
+#pragma warning disable CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
+    public TacticPlayWindow() // ï¿½Ë¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ö¤ï¿½ï¿½Ô¤ï¿½ï¿½
+#pragma warning restore CS8618 // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª null ï¿½ï¿½ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null Öµï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "required" ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Îª nullï¿½ï¿½
     {
         InitializeComponent();
     }
 #endif
+
+    public void Receive(MB_WindowClose message)
+    {
+        if (!message.Name.Equals(WINDOW_NAME)) return;
+
+        Close();
+    }
+
+    public void Receive(MB_WindowPointerTrans message)
+    {
+        _oses.SetMouseTransport(message.Enable);
+    }
 
     private void TacticPlayWindow_Opened(object? sender, EventArgs e)
     {
@@ -70,7 +75,7 @@ public partial class TacticPlayWindow : Window
 
     private void TacticPlayWindow_Closed(object? sender, EventArgs e)
     {
-        _messenger.Send(new MB_WindowStatus() 
+        _messenger.Send(new MB_WindowStatus
         {
             WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
         });
@@ -81,15 +86,12 @@ public partial class TacticPlayWindow : Window
 
     private void TacticPlayWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (e.Pointer.Type == PointerType.Mouse)
-        {
-            BeginMoveDrag(e);
-        }
+        if (e.Pointer.Type == PointerType.Mouse) BeginMoveDrag(e);
     }
 
     private void TacticPlayWindow_PointerExited(object? sender, PointerEventArgs e)
     {
-        TransparencyLevelHint = new List<WindowTransparencyLevel>() { WindowTransparencyLevel.Transparent };
+        TransparencyLevelHint = new List<WindowTransparencyLevel> { WindowTransparencyLevel.Transparent };
         Opacity = _config.Opacity;
     }
 
@@ -100,26 +102,19 @@ public partial class TacticPlayWindow : Window
     }
 
     /// <summary>
-    /// OSTools°ó¶¨´°Ìå¾ä±ú
+    ///     OSToolsï¿½ó¶¨´ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     private void OsesSetHandle()
     {
         var platformHandle = TryGetPlatformHandle();
-        if (platformHandle != null)
-        {
-            _oses.SetTacticPlayingWindowHandle(platformHandle.Handle);
-        }
+        if (platformHandle != null) _oses.SetTacticPlayingWindowHandle(platformHandle.Handle);
     }
 
-    public void Receive(MB_WindowClose message)
-    {
-        if (!message.Name.Equals(WINDOW_NAME)) return;
+    #region DIï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 
-        Close();
-    }
+    private readonly IMessenger _messenger;
+    private readonly IOSes _oses;
+    private readonly L_Config _config;
 
-    public void Receive(MB_WindowPointerTrans message)
-    {
-        _oses.SetMouseTransport(message.Enable);
-    }
+    #endregion
 }

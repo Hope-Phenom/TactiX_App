@@ -1,40 +1,40 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:suki="https://github.com/kikipoulet/SukiUI"
-			 xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 x:DataType="vm:ReplayAnalysisPageViewModel"
-			 x:Class="TactiX_App.Views.Page.ReplayAnalysisPageView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:ReplayAnalysisPageViewModel"
+             x:Class="TactiX_App.Views.Page.ReplayAnalysisPageView">
 
-	<Grid Margin="10">
+    <Grid Margin="10">
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="10" />
-			<RowDefinition Height="80" />
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
 
-		<suki:GlassCard Grid.Row="0">
-			<TextBlock Text="{Binding Language.REPLAY_ANALYSIS_DEVELOPING}"
-				   HorizontalAlignment="Center" VerticalAlignment="Center"
-				   FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
-		</suki:GlassCard>
+        <suki:GlassCard Grid.Row="0">
+            <TextBlock Text="{Binding Language.REPLAY_ANALYSIS_DEVELOPING}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
+        </suki:GlassCard>
 
-		<suki:GlassCard Grid.Row="2">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="10" />
-					<ColumnDefinition Width="150" />
-				</Grid.ColumnDefinitions>
+        <suki:GlassCard Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
 
-				<Button Grid.Column="2" Command="{Binding DecodeSC2ReplayCommand}"
-						Content="{Binding Language.REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY}" />
-			</Grid>
-		</suki:GlassCard>
+                <Button Grid.Column="2" Command="{Binding DecodeSC2ReplayCommand}"
+                        Content="{Binding Language.REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY}" />
+            </Grid>
+        </suki:GlassCard>
 
-	</Grid>
+    </Grid>
 
 </UserControl>
