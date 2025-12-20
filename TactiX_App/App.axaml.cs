@@ -38,12 +38,12 @@ public class App : Application
         services.AddSingleton<ILoggerContainer, LoggerContainer>();
         services.AddSingleton<ILang, Lang>();
         services.AddSingleton<ITactiXExceptionFactory, TactiXExceptionFactory>();
-        services.AddSingleton<IOSTools, OSTools>();
+        services.AddSingleton<IosTools, OsTools>();
         services.AddSingleton<INetwork, Network>();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IMessenger>(messenger);
         services.AddSingleton<ITactiXSourceEncoder, TactiXSourceEncoder>();
-        services.AddSingleton<IReplayDecoder, SC2ReplayDecoder>();
+        services.AddSingleton<IReplayDecoder, Sc2ReplayDecoder>();
 
         // 注册ViewModels
         services.AddTransient<MainViewModel>();

@@ -4,7 +4,7 @@
 ///     版本控制响应数据
 /// </summary>
 [Serializable]
-public class N_VersionControlResp
+public class NVersionControlResp
 {
     /// <summary>
     ///     最新的版本
@@ -19,10 +19,10 @@ public class N_VersionControlResp
     /// <summary>
     ///     是否要进行强制升级
     /// </summary>
-    public bool Force_Upgrade { get; set; }
+    public bool ForceUpgrade { get; set; }
 
     /// <summary>
     ///     发布地址
     /// </summary>
-    public required string Release_Url { get; set; }
+    public required string ReleaseUrl { get; set; }
 }

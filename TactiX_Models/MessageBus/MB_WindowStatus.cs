@@ -1,13 +1,13 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_WindowStatus
+public class MbWindowStatus
 {
-    public enum MB_ENUM_WINDOW_STATUS
+    public enum MbEnumWindowStatus
     {
         Normal = 0,
         Minimized,
         Maximized
     }
 
-    public MB_ENUM_WINDOW_STATUS WindowStatus { get; set; }
+    public MbEnumWindowStatus WindowStatus { get; set; }
 }

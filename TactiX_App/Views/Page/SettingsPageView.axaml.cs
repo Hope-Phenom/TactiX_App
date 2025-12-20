@@ -10,9 +10,9 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.Views.Page;
 
-public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsLayoutItemsHeader>
+public partial class SettingsPageView : UserControl, IRecipient<MbFixSettingsLayoutItemsHeader>
 {
-    public SettingsPageView(IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider)
+    public SettingsPageView(IMessenger messenger, IosTools oSTools, IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
@@ -34,7 +34,7 @@ public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsL
 #pragma warning restore CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
 #endif
 
-    public void Receive(MB_FIX_SettingsLayoutItemsHeader message)
+    public void Receive(MbFixSettingsLayoutItemsHeader message)
     {
         switch (message.Name)
         {
@@ -73,8 +73,8 @@ public partial class SettingsPageView : UserControl, IRecipient<MB_FIX_SettingsL
 
     private readonly IServiceProvider _serviceProvider;
     private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
+    private readonly IoSes _oses;
+    private readonly LConfig _config;
 
     #endregion
 }

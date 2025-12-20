@@ -5,7 +5,7 @@ using TactiX_Models.MessageBus;
 
 namespace TactiX_App.Views.Component;
 
-public partial class TacticItem : UserControl, IRecipient<MB_DisplayStep>
+public partial class TacticItem : UserControl, IRecipient<MbDisplayStep>
 {
     public TacticItem()
     {
@@ -19,7 +19,7 @@ public partial class TacticItem : UserControl, IRecipient<MB_DisplayStep>
     /// </summary>
     public int SlotNo { get; set; }
 
-    public void Receive(MB_DisplayStep message)
+    public void Receive(MbDisplayStep message)
     {
         if (message.SlotNo != SlotNo) return;
 

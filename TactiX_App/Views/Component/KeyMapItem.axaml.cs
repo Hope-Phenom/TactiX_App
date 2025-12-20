@@ -11,9 +11,9 @@ namespace TactiX_App.Views.Component;
 
 public partial class KeyMapItem : UserControl
 {
-    private L_HotkeyBinding? _hotkeyBinding;
+    private LHotkeyBinding? _hotkeyBinding;
 
-    private L_HotkeyBindingEnum _hotkeyBindingEnum;
+    private LHotkeyBindingEnum _hotkeyBindingEnum;
 
 #if DEBUG
 #pragma warning disable CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
@@ -24,7 +24,7 @@ public partial class KeyMapItem : UserControl
 #pragma warning restore CS8618 // ���˳����캯��ʱ������Ϊ null ���ֶα�������� null ֵ���뿼������ "required" ���η�������Ϊ��Ϊ null��
 #endif
 
-    public KeyMapItem(IOSTools oSTools, ILang lang)
+    public KeyMapItem(IosTools oSTools, ILang lang)
     {
         InitializeComponent();
 
@@ -45,7 +45,7 @@ public partial class KeyMapItem : UserControl
     public AvaloniaList<Key> Keys { get; }
     public AvaloniaList<KeyModifiers> KeyModifiers { get; }
 
-    public L_HotkeyBindingEnum HotkeyBindingEnum
+    public LHotkeyBindingEnum HotkeyBindingEnum
     {
         get => _hotkeyBindingEnum;
         set
@@ -84,14 +84,14 @@ public partial class KeyMapItem : UserControl
         if (_hotkeyBinding == null) return;
 
         Label_Status.Content = _oses.IsHotkeyAvailable(_hotkeyBinding.Key, _hotkeyBinding.Modifiers)
-            ? _language.NORMAL_TEXT_AVAILABLE
-            : _language.NORMAL_TEXT_ERROR;
+            ? _language.NormalTextAvailable
+            : _language.NormalTextError;
     }
 
     #region DI����ע��
 
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
+    private readonly IoSes _oses;
+    private readonly LConfig _config;
     private readonly ILanguage _language;
 
     #endregion

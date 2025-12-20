@@ -13,7 +13,7 @@ using TactiX_OS_Tools;
 namespace TactiX_App.Views.Popup;
 
 public partial class TacticPlayWindow : Window
-    , IRecipient<MB_WindowClose>, IRecipient<MB_WindowPointerTrans>
+    , IRecipient<MbWindowClose>, IRecipient<MbWindowPointerTrans>
 {
     #region ����/����
 
@@ -21,7 +21,7 @@ public partial class TacticPlayWindow : Window
 
     #endregion
 
-    public TacticPlayWindow(IMessenger messenger, IOSTools oSTools, ILang lang)
+    public TacticPlayWindow(IMessenger messenger, IosTools oSTools, ILang lang)
     {
         InitializeComponent();
 
@@ -51,14 +51,14 @@ public partial class TacticPlayWindow : Window
     }
 #endif
 
-    public void Receive(MB_WindowClose message)
+    public void Receive(MbWindowClose message)
     {
         if (!message.Name.Equals(WINDOW_NAME)) return;
 
         Close();
     }
 
-    public void Receive(MB_WindowPointerTrans message)
+    public void Receive(MbWindowPointerTrans message)
     {
         _oses.SetMouseTransport(message.Enable);
     }
@@ -75,9 +75,9 @@ public partial class TacticPlayWindow : Window
 
     private void TacticPlayWindow_Closed(object? sender, EventArgs e)
     {
-        _messenger.Send(new MB_WindowStatus
+        _messenger.Send(new MbWindowStatus
         {
-            WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
+            WindowStatus = MbWindowStatus.MbEnumWindowStatus.Normal
         });
 
         _oses.UnregisterAllHotkeys();
@@ -113,8 +113,8 @@ public partial class TacticPlayWindow : Window
     #region DI����ע��
 
     private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
+    private readonly IoSes _oses;
+    private readonly LConfig _config;
 
     #endregion
 }

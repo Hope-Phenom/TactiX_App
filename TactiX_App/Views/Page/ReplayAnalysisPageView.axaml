@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <suki:GlassCard Grid.Row="0">
-            <TextBlock Text="{Binding Language.REPLAY_ANALYSIS_DEVELOPING}"
+            <TextBlock Text="{Binding Language.ReplayAnalysisDeveloping}"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
         </suki:GlassCard>
@@ -30,8 +30,8 @@
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="2" Command="{Binding DecodeSC2ReplayCommand}"
-                        Content="{Binding Language.REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY}" />
+                <Button Grid.Column="2" Command="{Binding DecodeSc2ReplayCommand}"
+                        Content="{Binding Language.ReplayAnalysisBtnDecodeSc2Replay}" />
             </Grid>
         </suki:GlassCard>
 

@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.Tactics;
 
-public enum L_ModItemTypeEnum
+public enum LModItemTypeEnum
 {
     /// <summary>
     ///     未分类

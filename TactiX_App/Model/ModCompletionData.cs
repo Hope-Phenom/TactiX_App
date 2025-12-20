@@ -16,7 +16,7 @@ public class ModCompletionData : ICompletionData
 
     private readonly ISegment? _segment;
 
-    public ModCompletionData(ModResourceCache<Bitmap>? modResourceCache, ISegment? segment, L_ModItem modItem)
+    public ModCompletionData(ModResourceCache<Bitmap>? modResourceCache, ISegment? segment, LModItem modItem)
     {
         Image = modResourceCache == null
             ? null

@@ -21,7 +21,7 @@ public class ModPackage : IDisposable
         LoadManifest();
     }
 
-    public L_ModDesc? ModDesc { get; private set; }
+    public LModDesc? ModDesc { get; private set; }
 
     public void Dispose()
     {
@@ -36,7 +36,7 @@ public class ModPackage : IDisposable
         using var reader = new StreamReader(manifestStream);
         var json = reader.ReadToEnd();
 
-        ModDesc = JsonConvert.DeserializeObject<L_ModDesc>(json);
+        ModDesc = JsonConvert.DeserializeObject<LModDesc>(json);
     }
 
     public Stream GetFileStream(string relativePath)

@@ -7,36 +7,36 @@ using TactiX_Models.Tactics;
 
 namespace TactiX_ModSupport;
 
-public class SC2ReplayDecoder : IReplayDecoder
+public class Sc2ReplayDecoder : IReplayDecoder
 {
     private const string DATA_DICT_JSON = "SC2ProductionDuration.json";
     private readonly Logger _logger;
 
-    private readonly ReplayDecoderOptions options;
+    private readonly ReplayDecoderOptions _options;
 
-    public readonly SC2DataDict SC2Data;
+    private readonly Sc2DataDict _sc2Data;
 
-    private Dictionary<int, string> playerNames;
+    private Dictionary<int, string> _playerNames;
 
     /// <summary>
     ///     建筑的升级变形事件是不包括playerId的，因此尝试用种族分配来处理
     ///     如果种族不重复，则按照种族来分配升级的建筑，否则跳过解析
     /// </summary>
-    private Dictionary<string, string> raceDict;
+    private Dictionary<string, string> _raceDict;
 
-    private Dictionary<string, List<L_ReplayAction>> replayActionDict;
-    private Dictionary<string, int> supplyCostDict;
+    private Dictionary<string, List<LReplayAction>> _replayActionDict;
+    private Dictionary<string, int> _supplyCostDict;
 
     /// <summary>
     ///     待处理的人口变化事件集合
     /// </summary>
-    private Dictionary<string, List<DoneEvtRecord>> supplySupportChangeDict;
+    private Dictionary<string, List<DoneEvtRecord>> _supplySupportChangeDict;
 
-    private Dictionary<string, int> supplySupportDict;
+    private Dictionary<string, int> _supplySupportDict;
 
 
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
-    public SC2ReplayDecoder(ILoggerContainer loggerContainer)
+    public Sc2ReplayDecoder(ILoggerContainer loggerContainer)
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
     {
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
@@ -47,11 +47,11 @@ public class SC2ReplayDecoder : IReplayDecoder
         {
             var txt = File.ReadAllText(DATA_DICT_JSON);
             if (string.IsNullOrEmpty(txt)) throw new Exception("CANT FIND SC2ProductionDuration.json");
-            SC2Data = JsonConvert.DeserializeObject<SC2DataDict>(txt)!;
-            if (SC2Data == null) throw new Exception("SC2ProductionDuration.json File is Broken");
+            _sc2Data = JsonConvert.DeserializeObject<Sc2DataDict>(txt)!;
+            if (_sc2Data == null) throw new Exception("SC2ProductionDuration.json File is Broken");
         }
 
-        options = new ReplayDecoderOptions
+        _options = new ReplayDecoderOptions
         {
             Details = true,
             Metadata = true,
@@ -62,28 +62,28 @@ public class SC2ReplayDecoder : IReplayDecoder
         };
     }
 
-    private Dictionary<string, int> UnitData => SC2Data.Units;
-    private Dictionary<string, int> TechData => SC2Data.Techs;
-    private Dictionary<string, string> UnitsDict => SC2Data.UnitsDict;
-    private Dictionary<string, int> SupplyCost => SC2Data.SupplyCost;
-    private Dictionary<string, int> SupplySupport => SC2Data.SupplySupport;
-    private List<string> Ignore => SC2Data.Ignore;
-    private List<string> TerranBuildingTypeChange => SC2Data.TerranBuildingTypeChange;
-    private List<string> ZergBuildingTypeChange => SC2Data.ZergBuildingTypeChange;
+    private Dictionary<string, int> UnitData => _sc2Data.Units;
+    private Dictionary<string, int> TechData => _sc2Data.Techs;
+    private Dictionary<string, string> UnitsDict => _sc2Data.UnitsDict;
+    private Dictionary<string, int> SupplyCost => _sc2Data.SupplyCost;
+    private Dictionary<string, int> SupplySupport => _sc2Data.SupplySupport;
+    private List<string> Ignore => _sc2Data.Ignore;
+    private List<string> TerranBuildingTypeChange => _sc2Data.TerranBuildingTypeChange;
+    private List<string> ZergBuildingTypeChange => _sc2Data.ZergBuildingTypeChange;
 
-    public async Task<Dictionary<string, List<L_ReplayAction>>> DecodeReplay(string replayPath)
+    public async Task<Dictionary<string, List<LReplayAction>>> DecodeReplay(string replayPath)
     {
         try
         {
-            playerNames = [];
-            supplyCostDict = [];
-            supplySupportDict = [];
-            supplySupportChangeDict = [];
-            raceDict = [];
-            replayActionDict = [];
+            _playerNames = [];
+            _supplyCostDict = [];
+            _supplySupportDict = [];
+            _supplySupportChangeDict = [];
+            _raceDict = [];
+            _replayActionDict = [];
 
             ReplayDecoder decoder = new();
-            var replay = await decoder.DecodeAsync(replayPath, options);
+            var replay = await decoder.DecodeAsync(replayPath, _options);
 
             if (replay == null
                 || replay.Details == null
@@ -95,15 +95,15 @@ public class SC2ReplayDecoder : IReplayDecoder
             foreach (var player in replay.Details.Players)
             {
                 var playerName = $"{player.Name}_{playerIndex}"; // 规避出现同样ID（主要是人机）的情况
-                playerNames.Add(playerIndex, playerName);
+                _playerNames.Add(playerIndex, playerName);
 
-                replayActionDict.EnsureKeyExists(playerName);
-                supplyCostDict.EnsureKeyExists(playerName);
-                supplySupportDict.EnsureKeyExists(playerName);
-                supplySupportChangeDict.EnsureKeyExists(playerName);
+                _replayActionDict.EnsureKeyExists(playerName);
+                _supplyCostDict.EnsureKeyExists(playerName);
+                _supplySupportDict.EnsureKeyExists(playerName);
+                _supplySupportChangeDict.EnsureKeyExists(playerName);
 
-                supplyCostDict[playerName] = 12;
-                supplySupportDict[playerName] = player.Race switch // 不同语言客户端的rep种族字段也会不一样
+                _supplyCostDict[playerName] = 12;
+                _supplySupportDict[playerName] = player.Race switch // 不同语言客户端的rep种族字段也会不一样
                 {
                     "Protoss" => 15,
                     "Terran" => 15,
@@ -114,7 +114,7 @@ public class SC2ReplayDecoder : IReplayDecoder
                     _ => 15
                 };
 
-                if (!sameRace) raceDict.Add(player.Race, playerName);
+                if (!sameRace) _raceDict.Add(player.Race, playerName);
 
                 playerIndex++;
             }
@@ -154,14 +154,14 @@ public class SC2ReplayDecoder : IReplayDecoder
                 }
             }
 
-            foreach (var playerName in replayActionDict.Keys)
+            foreach (var playerName in _replayActionDict.Keys)
             {
-                replayActionDict[playerName] = [.. replayActionDict[playerName].OrderBy(e => e.Gameloop)];
+                _replayActionDict[playerName] = [.. _replayActionDict[playerName].OrderBy(e => e.Gameloop)];
 
-                AdjustTime(replayActionDict[playerName]);
+                AdjustTime(_replayActionDict[playerName]);
             }
 
-            return replayActionDict;
+            return _replayActionDict;
         }
         catch
         {
@@ -180,14 +180,14 @@ public class SC2ReplayDecoder : IReplayDecoder
         var unitName = evt.UnitTypeName;
         if (Ignore.Contains(unitName)) return; // 过滤单位
 
-        var playerName = playerNames[evt.ControlPlayerId];
+        var playerName = _playerNames[evt.ControlPlayerId];
 
         if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
-            supplyCostDict[playerName] += cost;
+            _supplyCostDict[playerName] += cost;
 
         if (SupplySupport.ContainsKey(unitName)) // 人口增加的单位/建筑是完成后才生效的
             if (evt.SUnitDoneEvent != null)
-                supplySupportChangeDict[playerName]
+                _supplySupportChangeDict[playerName]
                     .Add(new DoneEvtRecord(evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName]));
 
         if (!UnitsDict.TryGetValue(unitName, out var unitAbbr))
@@ -196,13 +196,13 @@ public class SC2ReplayDecoder : IReplayDecoder
             return;
         }
 
-        replayActionDict[playerName].Add(new L_ReplayAction
+        _replayActionDict[playerName].Add(new LReplayAction
         {
             UnitName = unitName,
             Gameloop = evt.Gameloop,
             Time = (int)Math.Floor(evt.Gameloop / 22.4),
             Abbr = unitAbbr,
-            Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
     }
 
@@ -217,15 +217,15 @@ public class SC2ReplayDecoder : IReplayDecoder
         var unitName = evt.UnitTypeName;
         if (Ignore.Contains(unitName)) return; // 过滤单位
 
-        var playerName = playerNames[evt.ControlPlayerId];
+        var playerName = _playerNames[evt.ControlPlayerId];
         var startLoop = evt.Gameloop - UnitData[unitName] * 16;
 
         if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
-            supplyCostDict[playerName] += cost;
+            _supplyCostDict[playerName] += cost;
 
         if (SupplySupport.TryGetValue(unitName, out var supply)) // 人口增加的单位/建筑是完成后才生效的；
             // Born为已完成，直接增加
-            supplySupportDict[playerName] += supply;
+            _supplySupportDict[playerName] += supply;
 
         if (!UnitData.ContainsKey(unitName))
         {
@@ -233,13 +233,13 @@ public class SC2ReplayDecoder : IReplayDecoder
             return;
         }
 
-        replayActionDict[playerName].Add(new L_ReplayAction
+        _replayActionDict[playerName].Add(new LReplayAction
         {
             UnitName = unitName,
             Gameloop = startLoop,
             Time = (int)Math.Floor(startLoop / 22.4),
             Abbr = UnitsDict[unitName],
-            Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
     }
 
@@ -248,7 +248,7 @@ public class SC2ReplayDecoder : IReplayDecoder
         var upgradeName = evt.UpgradeTypeName;
         if (Ignore.Contains(upgradeName)) return; // 过滤升级
 
-        var playerName = playerNames[evt.PlayerId];
+        var playerName = _playerNames[evt.PlayerId];
 
         if (!TechData.TryGetValue(upgradeName, out var techTime))
         {
@@ -258,13 +258,13 @@ public class SC2ReplayDecoder : IReplayDecoder
 
         var startLoop = evt.Gameloop - techTime * 16;
 
-        replayActionDict[playerName].Add(new L_ReplayAction
+        _replayActionDict[playerName].Add(new LReplayAction
         {
             UnitName = upgradeName,
             Gameloop = startLoop,
             Time = (int)Math.Floor(startLoop / 22.4),
             Abbr = UnitsDict[upgradeName],
-            Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
     }
 
@@ -286,16 +286,16 @@ public class SC2ReplayDecoder : IReplayDecoder
         var isZerg = ZergBuildingTypeChange.Contains(unitName);
 
         if (isTerran)
-            playerName = raceDict.TryGetValue("Terran", out var terranName)
+            playerName = _raceDict.TryGetValue("Terran", out var terranName)
                 ? terranName
-                : raceDict.TryGetValue("人类", out var chineseName)
+                : _raceDict.TryGetValue("人类", out var chineseName)
                     ? chineseName
                     : null;
 
         if (isZerg)
-            playerName = raceDict.TryGetValue("Zerg", out var terranName)
+            playerName = _raceDict.TryGetValue("Zerg", out var terranName)
                 ? terranName
-                : raceDict.TryGetValue("异虫", out var chineseName)
+                : _raceDict.TryGetValue("异虫", out var chineseName)
                     ? chineseName
                     : null;
 
@@ -303,21 +303,21 @@ public class SC2ReplayDecoder : IReplayDecoder
 
         var startLoop = evt.Gameloop - UnitData[unitName] * 16;
 
-        replayActionDict[playerName].Add(new L_ReplayAction
+        _replayActionDict[playerName].Add(new LReplayAction
         {
             UnitName = unitName,
             Gameloop = startLoop,
             Time = (int)Math.Floor(startLoop / 22.4),
             Abbr = unitAbbr,
-            Supply = $"{supplyCostDict[playerName]}/{supplySupportDict[playerName]}"
+            Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
     }
 
     private void HandleSUnitDoneEvent(SUnitDoneEvent evt)
     {
-        foreach (var playName in supplySupportChangeDict.Keys)
+        foreach (var playName in _supplySupportChangeDict.Keys)
         {
-            var list = supplySupportChangeDict[playName];
+            var list = _supplySupportChangeDict[playName];
             for (var j = 0; j < list.Count; j++)
             {
                 var record = list[j];
@@ -325,13 +325,13 @@ public class SC2ReplayDecoder : IReplayDecoder
                 if (record.Gameloop != evt.Gameloop) continue; // 不在要处理的gameloop，跳过
                 if (record.Handled) continue; // 已处理，跳过
 
-                supplySupportDict[playName] += record.Delta;
+                _supplySupportDict[playName] += record.Delta;
                 record.Handled = true; // 标记为已处理，避免循环中操作List
             }
         }
     }
 
-    private static List<L_ReplayAction> AdjustTime(List<L_ReplayAction> list)
+    private static List<LReplayAction> AdjustTime(List<LReplayAction> list)
     {
         if (list.Count <= 1)
             return list;
@@ -373,7 +373,7 @@ public class SC2ReplayDecoder : IReplayDecoder
         return false;
     }
 
-    public class SC2DataDict
+    public class Sc2DataDict
     {
         public required List<string> Ignore;
         public required Dictionary<string, int> SupplyCost;

@@ -1,9 +1,9 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_ToastVersion : MB_ToastPureText
+public class MbToastVersion : MbToastPureText
 {
     /// <summary>
     ///     版本发布地址，用于网页跳转
     /// </summary>
-    public required string Release_Url { get; set; }
+    public required string ReleaseUrl { get; set; }
 }

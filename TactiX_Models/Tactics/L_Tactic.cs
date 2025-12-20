@@ -4,7 +4,7 @@
 ///     战术文件，包含基本信息、对应的MOD和步骤数据
 /// </summary>
 [Serializable]
-public class L_Tactic
+public class LTactic
 {
     /// <summary>
     ///     每个战术文件的唯一ID
@@ -34,7 +34,7 @@ public class L_Tactic
     /// <summary>
     ///     战术文件类型，时间线模式或者单步模式
     /// </summary>
-    public L_TacticEnum TacticType { get; set; } = L_TacticEnum.TIMELINE;
+    public LTacticEnum TacticType { get; set; } = LTacticEnum.Timeline;
 
     /// <summary>
     ///     战术文件的版本，相同Guid不同版本的文件会被视为同一个战术的迭代
@@ -49,7 +49,7 @@ public class L_Tactic
     /// <summary>
     ///     对应MOD的名称
     /// </summary>
-    public string ModName { get; set; } = L_StaticValue.MOD_NAME_SCII;
+    public string ModName { get; set; } = LStaticValue.ModNameScii;
 
     /// <summary>
     ///     对应MOD的最低版本，如果装载的MOD不符合版本要求应该进行提示
@@ -59,5 +59,5 @@ public class L_Tactic
     /// <summary>
     ///     动作列表
     /// </summary>
-    public List<L_TacticAction> Actions { get; set; } = new();
+    public List<LTacticAction> Actions { get; set; } = new();
 }

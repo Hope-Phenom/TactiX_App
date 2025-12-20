@@ -15,34 +15,34 @@ namespace TactiX_App.ViewModels;
 
 public partial class LicenseViewModel : ViewModelBase
 {
-    private const string EULA_ResPath = "avares://TactiX_App/Assets/EULA.md";
-    private const string PP_ResPath = "avares://TactiX_App/Assets/Privacy_Policy.md";
-    private readonly L_Config _config;
+    private const string EULA_RES_PATH = "avares://TactiX_App/Assets/EULA.md";
+    private const string PP_RES_PATH = "avares://TactiX_App/Assets/Privacy_Policy.md";
+    private readonly LConfig _config;
     private readonly ILogger _logger;
 
     private readonly INavigationService _navigationService;
-    private readonly IOSTools _oSTools;
+    private readonly IosTools _oSTools;
 
     [ObservableProperty] public string markdownText;
 
-    public LicenseViewModel(IOSTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger)
+    public LicenseViewModel(IosTools oSTools, ILang lang, INavigationService navigation, ILoggerContainer logger)
     {
         Language = lang.Language;
-        EULA_Text = GetTextFromRes(EULA_ResPath);
-        PP_Text = GetTextFromRes(PP_ResPath);
+        EulaText = GetTextFromRes(EULA_RES_PATH);
+        PpText = GetTextFromRes(PP_RES_PATH);
 
         _oSTools = oSTools;
         _navigationService = navigation;
         _logger = logger.Builder.GetCurrentClassLogger();
         _config = oSTools.OSes.LoadConfig();
 
-        MarkdownText = EULA_Text;
+        MarkdownText = EulaText;
         Status = 0;
     }
 
     public ILanguage Language { get; private set; }
-    public string EULA_Text { get; }
-    public string PP_Text { get; }
+    public string EulaText { get; }
+    public string PpText { get; }
 
     /// <summary>
     ///     接受状态，0-未接受，1-只接受了EULA，2-全部接受
@@ -74,11 +74,11 @@ public partial class LicenseViewModel : ViewModelBase
             _oSTools.OSes.SaveConfig();
             _logger.Info("Agress EULA.");
 
-            MarkdownText = PP_Text;
+            MarkdownText = PpText;
         }
         else
         {
-            _config.PPAccepted = true;
+            _config.PpAccepted = true;
             _oSTools.OSes.SaveConfig();
             _logger.Info("Agress PP.");
 

@@ -17,17 +17,17 @@ using TactiX_OS_Tools;
 namespace TactiX_App.Views;
 
 public partial class MainWindow : SukiWindow,
-    IRecipient<MB_ToastPureText>, IRecipient<MB_ToastVersion>, IRecipient<MB_OpenTacticPlayWindow>,
-    IRecipient<MB_WindowStatus>, IRecipient<MB_FileDialog>, IRecipient<MB_WindowTitle>,
-    IRecipient<MB_FolderDialog>
+    IRecipient<MbToastPureText>, IRecipient<MbToastVersion>, IRecipient<MbOpenTacticPlayWindow>,
+    IRecipient<MbWindowStatus>, IRecipient<MbFileDialog>, IRecipient<MbWindowTitle>,
+    IRecipient<MbFolderDialog>
 {
-    private readonly L_Config _config;
+    private readonly LConfig _config;
     private readonly ILanguage _language;
     private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
+    private readonly IoSes _oses;
     private readonly IServiceProvider _serviceProvider;
 
-    private readonly string MAIN_WINDOW = "MainWindow";
+    private readonly string _mainWindow = "MainWindow";
 
     public MainWindow(IServiceProvider serviceProvider)
     {
@@ -38,7 +38,7 @@ public partial class MainWindow : SukiWindow,
 
         _serviceProvider = serviceProvider;
         _language = _serviceProvider.GetRequiredService<ILang>().Language;
-        _oses = _serviceProvider.GetRequiredService<IOSTools>().OSes;
+        _oses = _serviceProvider.GetRequiredService<IosTools>().OSes;
         _messenger = _serviceProvider.GetRequiredService<IMessenger>();
         _config = _oses.LoadConfig();
 
@@ -60,7 +60,7 @@ public partial class MainWindow : SukiWindow,
 
         _oses.RegisterWndProcHookCallback(this);
 
-        _messenger.Send(new MB_CheckVersion());
+        _messenger.Send(new MbCheckVersion());
     }
 
     private void MainWindow_Closed(object? sender, EventArgs e)
@@ -89,16 +89,16 @@ public partial class MainWindow : SukiWindow,
             var result = _oses.RegisterHotkey(
                 hotkeySetting.Key,
                 hotkeySetting.Modifiers,
-                () => _messenger.Send(new MB_Hotkey(hotkeySetting.Hotkey)));
+                () => _messenger.Send(new MbHotkey(hotkeySetting.Hotkey)));
 
             if (!result)
-                _messenger.Send(new MB_ToastPureText
+                _messenger.Send(new MbToastPureText
                 {
-                    Message = string.Format(_language.TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS,
+                    Message = string.Format(_language.TacticPlayingHotkeyAlreadyExsits,
                         hotkeySetting.Modifiers,
                         hotkeySetting.Key),
-                    Title = _language.TOAST_TITLE_ERROR,
-                    Type = MB_Enum_ToastType.Error
+                    Title = _language.ToastTitleError,
+                    Type = MbEnumToastType.Error
                 });
 
             final &= result;
@@ -110,7 +110,7 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     ///     打开文件选择弹窗
     /// </summary>
-    private void OpenFileDialog(MB_FileDialog message)
+    private void OpenFileDialog(MbFileDialog message)
     {
         if (string.IsNullOrEmpty(message.FileFilter) || string.IsNullOrEmpty(message.FileFilterName)) return;
 
@@ -122,9 +122,9 @@ public partial class MainWindow : SukiWindow,
 
         if (storageFiles.Count == 0) return;
 
-        _messenger.Send(new MB_FileDialog
+        _messenger.Send(new MbFileDialog
         {
-            WindowName = MAIN_WINDOW,
+            WindowName = _mainWindow,
             FilePath = storageFiles[0].TryGetLocalPath(),
             IsOpenMode = true,
             Trigger = message.Trigger
@@ -134,7 +134,7 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     ///     打开文件保存弹窗
     /// </summary>
-    private void SaveFileDialog(MB_FileDialog message)
+    private void SaveFileDialog(MbFileDialog message)
     {
         if (string.IsNullOrEmpty(message.FileFilter) || string.IsNullOrEmpty(message.FileFilterName)) return;
 
@@ -153,9 +153,9 @@ public partial class MainWindow : SukiWindow,
 
         if (storageFile == null) return;
 
-        _messenger.Send(new MB_FileDialog
+        _messenger.Send(new MbFileDialog
         {
-            WindowName = MAIN_WINDOW,
+            WindowName = _mainWindow,
             FilePath = storageFile.TryGetLocalPath(),
             IsOpenMode = false,
             Trigger = message.Trigger
@@ -167,21 +167,21 @@ public partial class MainWindow : SukiWindow,
     /// <summary>
     ///     枚举转换
     /// </summary>
-    private static NotificationType NotificationTypeConvert(MB_Enum_ToastType type)
+    private static NotificationType NotificationTypeConvert(MbEnumToastType enumToastType)
     {
-        var _type = type switch
+        var type = enumToastType switch
         {
-            MB_Enum_ToastType.Info => NotificationType.Information,
-            MB_Enum_ToastType.Success => NotificationType.Success,
-            MB_Enum_ToastType.Warn => NotificationType.Warning,
-            MB_Enum_ToastType.Error => NotificationType.Error,
+            MbEnumToastType.Info => NotificationType.Information,
+            MbEnumToastType.Success => NotificationType.Success,
+            MbEnumToastType.Warn => NotificationType.Warning,
+            MbEnumToastType.Error => NotificationType.Error,
             _ => NotificationType.Information
         };
 
-        return _type;
+        return type;
     }
 
-    public void Receive(MB_ToastPureText msg)
+    public void Receive(MbToastPureText msg)
     {
         Dispatcher.UIThread.InvokeAsync(() =>
         {
@@ -195,7 +195,7 @@ public partial class MainWindow : SukiWindow,
         });
     }
 
-    public void Receive(MB_ToastVersion msg)
+    public void Receive(MbToastVersion msg)
     {
         Dispatcher.UIThread.InvokeAsync(() =>
         {
@@ -205,15 +205,15 @@ public partial class MainWindow : SukiWindow,
                 .Dismiss().ByClicking()
                 .WithTitle(msg.Title)
                 .WithContent(msg.Message)
-                .WithActionButton(_language.BUTTON_TXT_SUBMIT, _ =>
+                .WithActionButton(_language.ButtonTxtSubmit, _ =>
                 {
-                    if (!string.IsNullOrEmpty(msg.Release_Url)) _oses.OpenUrl(msg.Release_Url);
+                    if (!string.IsNullOrEmpty(msg.ReleaseUrl)) _oses.OpenUrl(msg.ReleaseUrl);
                 }, true)
                 .Queue();
         });
     }
 
-    public void Receive(MB_OpenTacticPlayWindow message)
+    public void Receive(MbOpenTacticPlayWindow message)
     {
         if (!RegisterAllHotkeys()) return;
 
@@ -225,27 +225,27 @@ public partial class MainWindow : SukiWindow,
         tacPlayWindow.ShowDialog(this);
     }
 
-    public void Receive(MB_WindowStatus message)
+    public void Receive(MbWindowStatus message)
     {
         switch (message.WindowStatus)
         {
-            case MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal:
+            case MbWindowStatus.MbEnumWindowStatus.Normal:
                 WindowState = WindowState.Normal;
                 break;
-            case MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Minimized:
+            case MbWindowStatus.MbEnumWindowStatus.Minimized:
                 WindowState = WindowState.Minimized;
                 break;
-            case MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Maximized:
+            case MbWindowStatus.MbEnumWindowStatus.Maximized:
                 WindowState = WindowState.Maximized;
                 break;
         }
     }
 
-    public void Receive(MB_FileDialog message)
+    public void Receive(MbFileDialog message)
     {
         if (!string.IsNullOrEmpty(message.FilePath)) return;
 
-        if (message.WindowName != MAIN_WINDOW) return;
+        if (message.WindowName != _mainWindow) return;
 
         if (message.IsOpenMode)
             OpenFileDialog(message);
@@ -253,16 +253,16 @@ public partial class MainWindow : SukiWindow,
             SaveFileDialog(message);
     }
 
-    public void Receive(MB_WindowTitle message)
+    public void Receive(MbWindowTitle message)
     {
-        if (message.WindowName != MAIN_WINDOW) return;
+        if (message.WindowName != _mainWindow) return;
 
         Title = message.Title;
     }
 
-    public void Receive(MB_FolderDialog message)
+    public void Receive(MbFolderDialog message)
     {
-        if (message.WindowName != MAIN_WINDOW) return;
+        if (message.WindowName != _mainWindow) return;
         if (!string.IsNullOrEmpty(message.FolderPath)) return;
 
         var folder = StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
@@ -272,9 +272,9 @@ public partial class MainWindow : SukiWindow,
 
         if (folder.Count == 0) return;
 
-        _messenger.Send(new MB_FolderDialog
+        _messenger.Send(new MbFolderDialog
         {
-            WindowName = MAIN_WINDOW,
+            WindowName = _mainWindow,
             Trigger = message.Trigger,
             FolderPath = folder[0].TryGetLocalPath()
         });

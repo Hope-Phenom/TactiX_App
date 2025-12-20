@@ -25,7 +25,7 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels.Popup;
 
-public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey>
+public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
 {
 #if DEBUG
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
@@ -36,7 +36,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
 #endif
 
     public TacticPlayWindowModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
-        IOSTools oSTools)
+        IosTools oSTools)
     {
         Language = lang.Language;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
@@ -45,7 +45,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
         Config = _oses.LoadConfig();
 
         // 加载指定MOD
-        _modPackage = new ModPackage(Config.CurrentlyEnabledMOD);
+        _modPackage = new ModPackage(Config.CurrentlyEnabledMod);
         _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, ms => new Bitmap(ms));
 
         // UI初始化
@@ -74,22 +74,22 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
 
     #region 快捷键消息处理
 
-    public void Receive(MB_Hotkey message)
+    public void Receive(MbHotkey message)
     {
         switch (message.HotkeyEnum)
         {
-            case L_HotkeyBindingEnum.StartOrResume:
+            case LHotkeyBindingEnum.StartOrResume:
                 _isPause = !_isPause;
                 break;
-            case L_HotkeyBindingEnum.Stop:
+            case LHotkeyBindingEnum.Stop:
                 StopPlayback();
                 SwtichToNormalMode();
                 break;
-            case L_HotkeyBindingEnum.Previous:
+            case LHotkeyBindingEnum.Previous:
                 Pause();
                 MovePrevious();
                 break;
-            case L_HotkeyBindingEnum.Next:
+            case LHotkeyBindingEnum.Next:
                 Pause();
                 MoveNext();
                 break;
@@ -103,7 +103,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     public ILanguage Language { get; }
     private readonly Logger _logger;
     private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
+    private readonly IoSes _oses;
 
     #endregion
 
@@ -115,11 +115,11 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     private const string TACTICS_SEARCH_PATTERN = "*.tactix";
     private const string ICON_FOLDER = "icons";
     private const string SOUND_FOLDER = "sounds";
-    private readonly TimeSpan NORMAL_TIME_INTERVAL = new(0, 0, 0, 1, 0);
-    private readonly TimeSpan REAL_TIME_INTERVAL = new(0, 0, 0, 0, 968);
-    private readonly Point PLAYING_SIZE = new(700, 180);
-    private readonly Point MINI_SIZE = new(700, 230);
-    private readonly Point NORMAL_SIZE = new(700, 700);
+    private readonly TimeSpan _normalTimeInterval = new(0, 0, 0, 1, 0);
+    private readonly TimeSpan _realTimeInterval = new(0, 0, 0, 0, 968);
+    private readonly Point _playingSize = new(700, 180);
+    private readonly Point _miniSize = new(700, 230);
+    private readonly Point _normalSize = new(700, 700);
 
     /// <summary>
     ///     当前装载的Mod
@@ -149,7 +149,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// <summary>
     ///     Mod中的对象列表（Action和Unit合并）
     /// </summary>
-    private readonly List<L_ModItem> _modItems;
+    private readonly List<LModItem> _modItems;
 
     /// <summary>
     ///     是否是暂停模式
@@ -213,7 +213,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// </summary>
     [ObservableProperty] public IImage titleBarImage;
 
-    public L_Config Config { get; }
+    public LConfig Config { get; }
 
     #endregion
 
@@ -249,7 +249,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// <summary>
     ///     当前的战术文件
     /// </summary>
-    [ObservableProperty] public L_Tactic? currTactic;
+    [ObservableProperty] public LTactic? currTactic;
 
     /// <summary>
     ///     时间戳文本
@@ -276,7 +276,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     [RelayCommand]
     public void CloseWindow()
     {
-        _messenger.Send(new MB_WindowClose
+        _messenger.Send(new MbWindowClose
         {
             Name = WINDOW_NAME
         });
@@ -293,8 +293,8 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
         _isMini = !_isMini;
 
         UIHeight = _isMini
-            ? MINI_SIZE.Y
-            : NORMAL_SIZE.Y;
+            ? _miniSize.Y
+            : _normalSize.Y;
 
         HorizontalLineHeight = _isMini
             ? new GridLength(0)
@@ -328,13 +328,13 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
 
         SwtichToPlayingMode();
 
-        if (CurrTactic.TacticType == L_TacticEnum.TIMELINE)
+        if (CurrTactic.TacticType == LTacticEnum.Timeline)
         {
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Tick += (s, e) => PlayNext();
-            _dispatcherTimer.Interval = Config.EnableTLCorr
-                ? REAL_TIME_INTERVAL
-                : NORMAL_TIME_INTERVAL;
+            _dispatcherTimer.Interval = Config.EnableTlCorr
+                ? _realTimeInterval
+                : _normalTimeInterval;
             BoardCastCurrStep();
             PlayNext();
             _dispatcherTimer.Start();
@@ -377,7 +377,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
 
         try
         {
-            CurrTactic = JsonConvert.DeserializeObject<L_Tactic>(File.ReadAllText(filePath));
+            CurrTactic = JsonConvert.DeserializeObject<LTactic>(File.ReadAllText(filePath));
 
             if (CurrTactic == null) return;
 
@@ -385,16 +385,16 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_WindowStatus
+            _messenger.Send(new MbWindowStatus
             {
-                WindowStatus = MB_WindowStatus.MB_ENUM_WINDOW_STATUS.Normal
+                WindowStatus = MbWindowStatus.MbEnumWindowStatus.Normal
             });
 
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
         }
     }
@@ -404,8 +404,8 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// </summary>
     private void SwtichToPlayingMode()
     {
-        UIHeight = PLAYING_SIZE.Y;
-        _messenger.Send(new MB_WindowPointerTrans
+        UIHeight = _playingSize.Y;
+        _messenger.Send(new MbWindowPointerTrans
         {
             Enable = true
         });
@@ -416,13 +416,13 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// </summary>
     private void SwtichToNormalMode()
     {
-        UIHeight = NORMAL_SIZE.Y;
+        UIHeight = _normalSize.Y;
         HorizontalLineHeight = new GridLength(10);
         GroupHeight = GridLength.Star;
         MaterialIconKind = MaterialIconKind.ArrowExpandUp;
         _isMini = false;
 
-        _messenger.Send(new MB_WindowPointerTrans
+        _messenger.Send(new MbWindowPointerTrans
         {
             Enable = false
         });
@@ -442,7 +442,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
             if (CurrTactic == null) return;
 
             var actions = CurrTactic.Actions;
-            var timeLineMode = CurrTactic.TacticType == L_TacticEnum.TIMELINE;
+            var timeLineMode = CurrTactic.TacticType == LTacticEnum.Timeline;
 
             if (_currIndex < actions.Count - 1)
             {
@@ -561,7 +561,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
                 // 超出了范围，让Item显示为空
                 if (index < 0 || index >= CurrTactic.Actions.Count)
                 {
-                    _messenger.Send(new MB_DisplayStep
+                    _messenger.Send(new MbDisplayStep
                     {
                         SlotNo = slotNo
                     });
@@ -572,11 +572,11 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
                     var action = CurrTactic.Actions[index];
                     var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
                     var itemName = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
-                    var itemTime = ConvertTimeToHHMMStr(action.Time);
+                    var itemTime = ConvertTimeToHhmmStr(action.Time);
                     var desc = $"{itemName}{Environment.NewLine}{itemTime}";
                     var supply = action.Supply;
 
-                    _messenger.Send(new MB_DisplayStep
+                    _messenger.Send(new MbDisplayStep
                     {
                         SlotNo = slotNo,
                         Desc = desc,
@@ -598,7 +598,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     private void ClearSlots()
     {
         for (var i = 0; i < 5; i++)
-            _messenger.Send(new MB_DisplayStep
+            _messenger.Send(new MbDisplayStep
             {
                 SlotNo = i
             });
@@ -620,7 +620,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
                 var action = CurrTactic.Actions[slotNo - 3];
                 var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
                 var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
-                _messenger.Send(new MB_DisplayStep
+                _messenger.Send(new MbDisplayStep
                 {
                     SlotNo = slotNo,
                     Desc = desc,
@@ -656,7 +656,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
                 TimeStampGapTxt = string.Empty;
             }
 
-            TimeStampTxt = ConvertTimeToHHMMStr(_runningTimeStamp);
+            TimeStampTxt = ConvertTimeToHhmmStr(_runningTimeStamp);
         }
         catch (Exception ex)
         {
@@ -671,11 +671,11 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     {
         try
         {
-            if (CurrTactic == null || CurrTactic.TacticType == L_TacticEnum.STEP) return;
+            if (CurrTactic == null || CurrTactic.TacticType == LTacticEnum.Step) return;
 
             var timestamp = CurrTactic.Actions[_currIndex].Time;
 
-            CurrStepTimeStampTxt = ConvertTimeToHHMMStr(timestamp);
+            CurrStepTimeStampTxt = ConvertTimeToHhmmStr(timestamp);
         }
         catch (Exception ex)
         {
@@ -695,7 +695,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// <summary>
     ///     将秒数转成HHMM格式的字符串
     /// </summary>
-    private static string ConvertTimeToHHMMStr(uint time)
+    private static string ConvertTimeToHhmmStr(uint time)
     {
         var sec = time % 60;
         var min = (time - sec) / 60;
@@ -774,10 +774,10 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MB_Hotkey
     /// <summary>
     ///     根据配置筛选战术动作
     /// </summary>
-    private void SortActionsByModItemType(L_Tactic tactic)
+    private void SortActionsByModItemType(LTactic tactic)
     {
         var conf = Config.ModItemTypeEnable;
-        var list = new List<L_TacticAction>();
+        var list = new List<LTacticAction>();
         for (var i = 0; i < tactic.Actions.Count; i++)
         {
             var action = tactic.Actions[i];

@@ -1,7 +1,7 @@
 ﻿namespace TactiX_Models.Network;
 
 [Serializable]
-public class N_VersionControlReq
+public class NVersionControlReq
 {
     /// <summary>
     ///     版本号

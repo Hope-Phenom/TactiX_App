@@ -40,7 +40,7 @@ public class TactiXException : Exception
 
     public override string ToString()
     {
-        return Language.ERROR_DESC_TEMPLATE
+        return Language.ErrorDescTemplate
             .Replace("{0}", $"{ErrorCode}")
             .Replace("{1}", ErrorDesc);
     }

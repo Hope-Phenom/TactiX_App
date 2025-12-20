@@ -6,9 +6,9 @@ namespace TactiX_Models;
 ///     热键绑定
 /// </summary>
 [Serializable]
-public class L_HotkeyBinding
+public class LHotkeyBinding
 {
-    public L_HotkeyBindingEnum Hotkey { get; set; }
+    public LHotkeyBindingEnum Hotkey { get; set; }
     public Key Key { get; set; }
     public KeyModifiers Modifiers { get; set; }
 }
@@ -16,7 +16,7 @@ public class L_HotkeyBinding
 /// <summary>
 ///     热键类型枚举
 /// </summary>
-public enum L_HotkeyBindingEnum
+public enum LHotkeyBindingEnum
 {
     /// <summary>
     ///     开始或继续

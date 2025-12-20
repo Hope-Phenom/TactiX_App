@@ -3,7 +3,7 @@
 /// <summary>
 ///     导航信息，用于通知MainView跳转页面
 /// </summary>
-public class MB_NavigationTo
+public class MbNavigationTo
 {
     /// <summary>
     ///     目标ViewModel类型

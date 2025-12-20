@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_DisplayStep
+public class MbDisplayStep
 {
     /// <summary>
     ///     指定要进行展示的槽位序号

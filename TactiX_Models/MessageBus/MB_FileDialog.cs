@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_FileDialog
+public class MbFileDialog
 {
     /// <summary>
     ///     是 → 文件打开窗口；否 → 文件保存窗口

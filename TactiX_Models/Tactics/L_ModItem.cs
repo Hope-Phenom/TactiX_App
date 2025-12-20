@@ -4,7 +4,7 @@
 ///     Mod对象
 /// </summary>
 [Serializable]
-public class L_ModItem
+public class LModItem
 {
     /// <summary>
     ///     用于编辑时的缩写
@@ -19,7 +19,7 @@ public class L_ModItem
     /// <summary>
     ///     单位类型
     /// </summary>
-    public L_ModItemTypeEnum Type { get; set; } = L_ModItemTypeEnum.None;
+    public LModItemTypeEnum Type { get; set; } = LModItemTypeEnum.None;
 
     public override string ToString()
     {

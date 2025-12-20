@@ -9,7 +9,7 @@
         Width="600" Height="400"
         CanResize="False"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Language.ERROR_POPUP_TITLE}">
+        Title="{Binding Language.ErrorPopupTitle}">
 
     <Design.DataContext>
         <vm:ErrorPopupViewModel />
@@ -28,16 +28,16 @@
             <RowDefinition Height="10" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        <Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_CODE}" />
-        <TextBox x:Name="Tbx_ErrorCode" Grid.Row="1" Text="{Binding ReportModel.Error_Code}" IsReadOnly="True" />
-        <Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{Binding Language.ERROR_POPUP_LABEL_ERROR_DESC}" />
-        <TextBox x:Name="Tbx_ErrorDesc" Grid.Row="3" Text="{Binding ReportModel.Error_Desc}" IsReadOnly="True" />
-        <Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{Binding Language.ERROR_POPUP_LABEL_FEEDBACK}" />
+        <Label x:Name="Label_ErrorCode" Grid.Row="0" Content="{Binding Language.ErrorPopupLabelErrorCode}" />
+        <TextBox x:Name="Tbx_ErrorCode" Grid.Row="1" Text="{Binding ReportModel.ErrorCode}" IsReadOnly="True" />
+        <Label x:Name="Label_ErrorDesc" Grid.Row="2" Content="{Binding Language.ErrorPopupLabelErrorDesc}" />
+        <TextBox x:Name="Tbx_ErrorDesc" Grid.Row="3" Text="{Binding ReportModel.ErrorDesc}" IsReadOnly="True" />
+        <Label x:Name="Label_FeedbackWay" Grid.Row="4" Content="{Binding Language.ErrorPopupLabelFeedback}" />
         <TextBox x:Name="Tbx_FeedbackWay" Grid.Row="5"
-                 Text="{Binding ReportModel.Feedback_Way, Mode=TwoWay}" />
-        <Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{Binding Language.ERROR_POPUP_LABEL_USER_DESC}" />
-        <TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{Binding Language.ERROR_POPUP_TBX_USER_DESC}"
-                 Text="{Binding ReportModel.Feedback_Info, Mode=TwoWay}" />
+                 Text="{Binding ReportModel.FeedbackWay, Mode=TwoWay}" />
+        <Label x:Name="Label_FeedbackInfo" Grid.Row="6" Content="{Binding Language.ErrorPopupLabelUserDesc}" />
+        <TextBox x:Name="Tbx_FeedbackInfo" Grid.Row="7" Watermark="{Binding Language.ErrorPopupTbxUserDesc}"
+                 Text="{Binding ReportModel.FeedbackInfo, Mode=TwoWay}" />
         <Grid Grid.Row="9" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -45,10 +45,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Width="120" Height="30" HorizontalContentAlignment="Center"
-                    Content="{Binding Language.ERROR_POPUP_BTN_SEND_FEEDBACK}"
+                    Content="{Binding Language.ErrorPopupBtnSendFeedback}"
                     Command="{Binding PostReport}" />
             <Button Grid.Column="2" Width="120" Height="30" HorizontalContentAlignment="Center"
-                    Content="{Binding Language.ERROR_POPUP_BTN_CLOSE}" />
+                    Content="{Binding Language.ErrorPopupBtnClose}" />
         </Grid>
     </Grid>
 </Window>

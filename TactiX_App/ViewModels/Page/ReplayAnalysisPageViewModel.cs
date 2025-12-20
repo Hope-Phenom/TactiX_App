@@ -14,7 +14,7 @@ using TactiX_ModSupport;
 namespace TactiX_App.ViewModels.Page;
 
 public partial class ReplayAnalysisPageViewModel : ViewModelBase,
-    IRecipient<MB_FileDialog>, IRecipient<MB_FolderDialog>
+    IRecipient<MbFileDialog>, IRecipient<MbFolderDialog>
 {
     public ReplayAnalysisPageViewModel(ILang lang, IReplayDecoder replayDecoder, IMessenger messenger,
         ILoggerContainer loggerContainer)
@@ -39,9 +39,9 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     ///     解析星际2的回放文件
     /// </summary>
     [RelayCommand]
-    public void DecodeSC2Replay()
+    public void DecodeSc2Replay()
     {
-        _messenger.Send(new MB_FileDialog
+        _messenger.Send(new MbFileDialog
         {
             WindowName = MAIN_WINDOW,
             IsOpenMode = true,
@@ -69,14 +69,14 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     private const string TEMPLATE_PATH = "TacticTemplate.tactixSource";
     private const string EXPORT_FILE_NAME = "{0}_{1}.tactixSource";
 
-    private Dictionary<string, List<L_ReplayAction>>? _actionsDict;
+    private Dictionary<string, List<LReplayAction>>? _actionsDict;
     private string? _folderPath;
 
     #endregion
 
     #region MB消息处理
 
-    public async void Receive(MB_FileDialog message)
+    public async void Receive(MbFileDialog message)
     {
         if (message.Trigger != FILE_DIALOG_TRRIGER) return;
         if (string.IsNullOrEmpty(message.FilePath)) return;
@@ -87,14 +87,14 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
 
         _actionsDict = actionsDict;
 
-        _messenger.Send(new MB_FolderDialog
+        _messenger.Send(new MbFolderDialog
         {
             Trigger = FOLDER_DIALOG_TRRIGER,
             WindowName = MAIN_WINDOW
         });
     }
 
-    public void Receive(MB_FolderDialog message)
+    public void Receive(MbFolderDialog message)
     {
         if (message.Trigger != FOLDER_DIALOG_TRRIGER) return;
         if (string.IsNullOrEmpty(message.FolderPath)) return;
@@ -144,20 +144,20 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
                 exportPaths += filePath + ";" + Environment.NewLine;
             }
 
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.REPLAY_ANALYSIS_DECODE_SUCCESS, exportPaths),
-                Title = Language.REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE,
-                Type = MB_Enum_ToastType.Success
+                Message = string.Format(Language.ReplayAnalysisDecodeSuccess, exportPaths),
+                Title = Language.ReplayAnalysisDecodeSuccessTitle,
+                Type = MbEnumToastType.Success
             });
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.REPLAY_ANALYSIS_DECODE_ERROR, ex.Message),
-                Title = Language.REPLAY_ANALYSIS_DECODE_ERROR_TITLE,
-                Type = MB_Enum_ToastType.Error
+                Message = string.Format(Language.ReplayAnalysisDecodeError, ex.Message),
+                Title = Language.ReplayAnalysisDecodeErrorTitle,
+                Type = MbEnumToastType.Error
             });
 
             _logger.Error(ex.ToString());

@@ -28,7 +28,7 @@ public partial class ErrorPopupViewModel : ViewModelBase
         _logger = logger.Builder.GetCurrentClassLogger();
         _messenger = messenger;
 
-        ReportModel = new N_ExceptionReportModel();
+        ReportModel = new NExceptionReportModel();
     }
 
 #if DEBUG
@@ -36,23 +36,23 @@ public partial class ErrorPopupViewModel : ViewModelBase
     public ErrorPopupViewModel() // 此构造函数仅用于保证窗体浏览正常
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
     {
-        ReportModel = new N_ExceptionReportModel();
+        ReportModel = new NExceptionReportModel();
     }
 #endif
-    public N_ExceptionReportModel ReportModel { get; set; }
+    public NExceptionReportModel ReportModel { get; set; }
 
     [RelayCommand]
     public async Task PostReport()
     {
         try
         {
-            ReportModel.Create_Time = DateTime.Now;
+            ReportModel.CreateTime = DateTime.Now;
             var resp = await _network.Client.PostExceptionReportModel(ReportModel);
 
             if (resp.IsSuccessStatusCode)
             {
                 _logger.Info("Exception Report Upload Success.");
-                _messenger.Send(new MB_WindowClose
+                _messenger.Send(new MbWindowClose
                 {
                     Name = WINDOW_NAME
                 });
@@ -62,7 +62,7 @@ public partial class ErrorPopupViewModel : ViewModelBase
             if (++_times > 2)
             {
                 _logger.Warn($"Exception Report Upload Error, Info:{resp}");
-                _messenger.Send(new MB_WindowClose
+                _messenger.Send(new MbWindowClose
                 {
                     Name = WINDOW_NAME
                 });

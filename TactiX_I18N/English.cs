@@ -2,140 +2,140 @@
 
 public class English : ILanguage
 {
-    public string LICENSE_VIEW_BTN_ACCEPT => "Accept";
-    public string LICENSE_VIEW_BTN_DECLINE => "Decline";
+    public string LicenseViewBtnAccept => "Accept";
+    public string LicenseViewBtnDecline => "Decline";
 
-    public string VERSION_CONTROL_TOAST_TITLE => "Checking program version...";
+    public string VersionControlToastTitle => "Checking program version...";
 
-    public string VERSION_CONTROL_BANNED =>
+    public string VersionControlBanned =>
         "The current version [{0}] has been disabled. The program will redirect to the update page and exit automatically shortly!";
 
-    public string VERSION_CONTROL_FORCE_UPGRADE =>
+    public string VersionControlForceUpgrade =>
         "A mandatory update version [{0}] is available. The program will redirect to the update page and exit automatically shortly!";
 
-    public string VERSION_CONTROL_NEW_VERSION =>
+    public string VersionControlNewVersion =>
         "The current version is [{0}], and a new version [{1}] is available. Do you want to jump to the download page?";
 
-    public string VERSION_CONTROL_ERROR =>
+    public string VersionControlError =>
         "An error occurred while checking the version information. Error message: {0}";
 
-    public string ERROR_POPUP_TITLE => "Error Message";
-    public string ERROR_POPUP_LABEL_ERROR_CODE => "Error Code:";
-    public string ERROR_POPUP_LABEL_ERROR_DESC => "Error Message:";
-    public string ERROR_POPUP_LABEL_FEEDBACK => "Feedback channels (Email, QQ, etc.)";
-    public string ERROR_POPUP_LABEL_USER_DESC => "Error scenario description:";
-    public string ERROR_POPUP_TBX_USER_DESC => "Please enter the error situation in this text box.";
-    public string ERROR_POPUP_BTN_SEND_FEEDBACK => "Send error report";
-    public string ERROR_POPUP_BTN_CLOSE => "Close";
+    public string ErrorPopupTitle => "Error Message";
+    public string ErrorPopupLabelErrorCode => "Error Code:";
+    public string ErrorPopupLabelErrorDesc => "Error Message:";
+    public string ErrorPopupLabelFeedback => "Feedback channels (Email, QQ, etc.)";
+    public string ErrorPopupLabelUserDesc => "Error scenario description:";
+    public string ErrorPopupTbxUserDesc => "Please enter the error situation in this text box.";
+    public string ErrorPopupBtnSendFeedback => "Send error report";
+    public string ErrorPopupBtnClose => "Close";
 
-    public string ERROR_DESC_TEMPLATE => "An exception occurred in the program, error code: {0}, error message: {1}.";
-    public string ERROR_MUILT_PROCESS => "Multiple processes have been opened repeatedly, this process will exit!";
+    public string ErrorDescTemplate => "An exception occurred in the program, error code: {0}, error message: {1}.";
+    public string ErrorMuiltProcess => "Multiple processes have been opened repeatedly, this process will exit!";
 
-    public string TOAST_TITLE_ERROR => "An error occurred";
-    public string BUTTON_TXT_BACK => "Back";
-    public string BUTTON_TXT_SUBMIT => "Submit";
-    public string BUTTON_TXT_REFRESH => "Refresh";
-    public string NORMAL_TEXT_AVAILABLE => "Available";
-    public string NORMAL_TEXT_ERROR => "Error";
-    public string NORMAL_TEXT_DEVELOPING => "Feature under development, stay tuned.";
-    public string NORMAL_TEXT_FRIENDSHIP_LINKS => "Welcome to exchange friendship links!";
+    public string ToastTitleError => "An error occurred";
+    public string ButtonTxtBack => "Back";
+    public string ButtonTxtSubmit => "Submit";
+    public string ButtonTxtRefresh => "Refresh";
+    public string NormalTextAvailable => "Available";
+    public string NormalTextError => "Error";
+    public string NormalTextDeveloping => "Feature under development, stay tuned.";
+    public string NormalTextFriendshipLinks => "Welcome to exchange friendship links!";
 
-    public string HOMESCREEN_SIDE_NEWS => "News";
-    public string HOMESCREEN_SIDE_TACTICSHALL => "Tactics Hall";
-    public string HOMESCREEN_SIDE_REPLAY_ANALYSIS => "Replay Analysis";
-    public string HOMESCREEN_SIDE_MOD_MANANGMENT => "MOD Management";
-    public string HOMESCREEN_SIDE_SETTINGS => "Settings";
-    public string HOMESCREEN_SIDE_EDITOR => "Tactic Editor";
+    public string HomescreenSideNews => "News";
+    public string HomescreenSideTacticshall => "Tactics Hall";
+    public string HomescreenSideReplayAnalysis => "Replay Analysis";
+    public string HomescreenSideModManangment => "MOD Management";
+    public string HomescreenSideSettings => "Settings";
+    public string HomescreenSideEditor => "Tactic Editor";
 
-    public string NEWS_PAGE_VIEW_TITLE_FORUM => "Hot Topics on the Forum";
-    public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS => "System Announcement";
-    public string NEWS_PAGE_VIEW_TITLE_VIDEOS => "Video Recommendations";
-    public string NEWS_PAGE_ERROR_NETWORK => "Due to network issues, the news information could not be updated";
+    public string NewsPageViewTitleForum => "Hot Topics on the Forum";
+    public string NewsPageViewTitleSysNews => "System Announcement";
+    public string NewsPageViewTitleVideos => "Video Recommendations";
+    public string NewsPageErrorNetwork => "Due to network issues, the news information could not be updated";
 
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER => "Local Mod Package(s)";
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER => "Open Local Folder";
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO => "Local search found [{0}] available Mod(s).";
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO => "Selected MOD information";
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION => "MOD Management";
+    public string ModsManageViewLocalModsHeader => "Local Mod Package(s)";
+    public string ModsManageViewLocalModsFolder => "Open Local Folder";
+    public string ModsManageViewLocalModsInfo => "Local search found [{0}] available Mod(s).";
+    public string ModsManageViewSelectedModInfo => "Selected MOD information";
+    public string ModsManageViewSelectedModAction => "MOD Management";
 
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR =>
+    public string ModsManageViewSelectedModError =>
         "An error occurred while attempting to read the [{0}] mod package. Error message: {1}";
 
-    public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED => "Currently enabled MODs:";
-    public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED => "Enable selected MOD";
-    public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED => "Delete selected MOD";
+    public string ModsManageViewModActionLabelSelected => "Currently enabled MODs:";
+    public string ModsManageViewModActionEnableSelected => "Enable selected MOD";
+    public string ModsManageViewModActionDeleteSelected => "Delete selected MOD";
 
-    public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR =>
+    public string ModsManageViewModActionDeleteSelectedError =>
         "An error occurred while attempting to delete the [{0}] mod package. Error message: {1}";
 
-    public string TACTIC_PLAYING_MOD_NOT_SELECTED =>
+    public string TacticPlayingModNotSelected =>
         "No MOD file selected, unable to open the tactical playback interface. Please go to the MOD Management tab to configure.";
 
-    public string TACTIC_PLAYING_MOD_NOT_EXISTS =>
+    public string TacticPlayingModNotExists =>
         "The configured MOD file does not exist, please check in the MOD management tab.";
 
-    public string TACTIC_PLAYING_MOD_FORMAT_ERROR =>
+    public string TacticPlayingModFormatError =>
         "The MOD file you attempted to load is in an incorrect format. Please check it in the MOD management tab.";
 
-    public string TACTIC_PLAYING_LABEL_FILE_SELECTED => "Select Tactical File:";
-    public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP => "Running time:";
-    public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP => "Standing Time:";
+    public string TacticPlayingLabelFileSelected => "Select Tactical File:";
+    public string TacticPlayingLabelCurrRealTimestamp => "Running time:";
+    public string TacticPlayingLabelCurrStepTimestamp => "Standing Time:";
 
-    public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS =>
+    public string TacticPlayingHotkeyAlreadyExsits =>
         "The hotkey [{0}+{1}] is already in use. Please check for conflicts with other programs!";
 
-    public string TACTIC_PLAYING_OPACITY => "Tactical Playback Transparency:";
-    public string TACTIC_PLAYING_TIMELINE_CORRECTION => "Enable timeline correction";
-    public string TACTIC_PLAYING_FILEINFO => "Tactical Document Introduction:";
-    public string TACTIC_PLAYING_BTN_OPEN_FOLDER => "Folder";
-    public string TACTIC_PLAYING_MODITEM_ENABLE => "Show steps of the following types:";
-    public string TACTIC_PLAYING_MODITEM_NONE => "Normal";
-    public string TACTIC_PLAYING_MODITEM_WORKER => "Worker Unit";
-    public string TACTIC_PLAYING_MODITEM_ARMY => "Military Unit";
-    public string TACTIC_PLAYING_MODITEM_BUILDING => "Building";
-    public string TACTIC_PLAYING_MODITEM_TECH => "Tech";
+    public string TacticPlayingOpacity => "Tactical Playback Transparency:";
+    public string TacticPlayingTimelineCorrection => "Enable timeline correction";
+    public string TacticPlayingFileinfo => "Tactical Document Introduction:";
+    public string TacticPlayingBtnOpenFolder => "Folder";
+    public string TacticPlayingModitemEnable => "Show steps of the following types:";
+    public string TacticPlayingModitemNone => "Normal";
+    public string TacticPlayingModitemWorker => "Worker Unit";
+    public string TacticPlayingModitemArmy => "Military Unit";
+    public string TacticPlayingModitemBuilding => "Building";
+    public string TacticPlayingModitemTech => "Tech";
 
-    public string SETTINGS_PAGE_HEADER_NORMAL => "General Settings";
-    public string SETTINGS_PAGE_HEADER_HOTKEY => "Shortcut Key Settings";
-    public string SETTINGS_PAGE_HEADER_ABOUT => "About";
-    public string SETTINGS_PAGE_NORMAL_UPGRADE => "Check for updates";
+    public string SettingsPageHeaderNormal => "General Settings";
+    public string SettingsPageHeaderHotkey => "Shortcut Key Settings";
+    public string SettingsPageHeaderAbout => "About";
+    public string SettingsPageNormalUpgrade => "Check for updates";
 
-    public string SETTINGS_PAGE_ABOUT_RIGHTS =>
+    public string SettingsPageAboutRights =>
         "By using this software, you agree to our End User License Agreement and Privacy Policy.";
 
-    public string EDITOR_HEADER_MOD_ITEMS => "MOD Contents";
-    public string EDITOR_MENU_HEADER_FILES => "Files";
-    public string EDITOR_MENU_FILES_NEW => "Create";
-    public string EDITOR_MENU_FILES_OPEN => "Open";
-    public string EDITOR_MENU_FILES_SAVE => "Save";
-    public string EDITOR_MENU_FILES_SAVE_AS => "Save As";
-    public string EDITOR_MENU_FILES_EXPORT => "Export as Tactical File (*.tactix)";
-    public string EDITOR_MENU_FILES_EXPORT_TO => "Export to ...";
-    public string EDITOR_MENU_HEADER_EDIT => "Edit";
-    public string EDITOR_MENU_EDIT_UNDO => "Undo";
-    public string EDITOR_MENU_EDIT_REDO => "Redo";
-    public string EDITOR_MENU_EDIT_INSERT_TEMPLATE => "Insert Template";
-    public string EDITOR_MENU_HEADER_HELP => "Help";
-    public string EDITOR_MENU_HELP_GET_HELP => "Get help with tactical editing";
+    public string EditorHeaderModItems => "MOD Contents";
+    public string EditorMenuHeaderFiles => "Files";
+    public string EditorMenuFilesNew => "Create";
+    public string EditorMenuFilesOpen => "Open";
+    public string EditorMenuFilesSave => "Save";
+    public string EditorMenuFilesSaveAs => "Save As";
+    public string EditorMenuFilesExport => "Export as Tactical File (*.tactix)";
+    public string EditorMenuFilesExportTo => "Export to ...";
+    public string EditorMenuHeaderEdit => "Edit";
+    public string EditorMenuEditUndo => "Undo";
+    public string EditorMenuEditRedo => "Redo";
+    public string EditorMenuEditInsertTemplate => "Insert Template";
+    public string EditorMenuHeaderHelp => "Help";
+    public string EditorMenuHelpGetHelp => "Get help with tactical editing";
 
-    public string EDITOR_ERROR_FILE_CANT_CONVERT =>
+    public string EditorErrorFileCantConvert =>
         "Failed to export the tactic file, please check if the format meets the requirements";
 
-    public string EDITOR_ERROR_MOD_NOT_SET =>
+    public string EditorErrorModNotSet =>
         "The mod package is not set up, the editor cannot enable the completion feature";
 
-    public string EDITOR_EXPORT_SUCCESS_TITLE => "Export successful";
-    public string EDITOR_EXPORT_SUCCESS_INFO => "Tactical file exported successfully, exported to: {0}";
+    public string EditorExportSuccessTitle => "Export successful";
+    public string EditorExportSuccessInfo => "Tactical file exported successfully, exported to: {0}";
 
-    public string REPLAY_ANALYSIS_DEVELOPING =>
+    public string ReplayAnalysisDeveloping =>
         "The replay analysis feature is currently only available for StarCraft II and is still under development. \r\nYou can use the button below to analyze replay files and quickly create tactical documents.";
 
-    public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY => "Analyzing Replay Files";
+    public string ReplayAnalysisBtnDecodeSc2Replay => "Analyzing Replay Files";
 
-    public string REPLAY_ANALYSIS_DECODE_ERROR =>
+    public string ReplayAnalysisDecodeError =>
         "An error occurred while trying to parse the Replay, error message {0}";
 
-    public string REPLAY_ANALYSIS_DECODE_ERROR_TITLE => "Analyzing Replay Anomalies";
-    public string REPLAY_ANALYSIS_DECODE_SUCCESS => "Replay parsed successfully, file exported to: {0}";
-    public string REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE => "Analysis successful";
+    public string ReplayAnalysisDecodeErrorTitle => "Analyzing Replay Anomalies";
+    public string ReplayAnalysisDecodeSuccess => "Replay parsed successfully, file exported to: {0}";
+    public string ReplayAnalysisDecodeSuccessTitle => "Analysis successful";
 }

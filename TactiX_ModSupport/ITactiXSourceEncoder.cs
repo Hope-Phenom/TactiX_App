@@ -7,5 +7,5 @@ public interface ITactiXSourceEncoder
     /// <summary>
     ///     解析传入的文本为战术文件
     /// </summary>
-    public L_Tactic? Decoder(string[] lines);
+    public LTactic? Decoder(string[] lines);
 }

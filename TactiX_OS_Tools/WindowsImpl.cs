@@ -11,7 +11,7 @@ using TactiX_Models;
 
 namespace TactiX_OS_Tools;
 
-public class WindowsImpl : IOSes
+public class WindowsImpl : IoSes
 {
     public WindowsImpl(ILanguage language, ITactiXExceptionFactory tactiXExceptionFactory)
     {
@@ -27,7 +27,7 @@ public class WindowsImpl : IOSes
 
     private string AppName => "TactiX";
     private string ConfigName => ".config";
-    public L_Config Config { get; }
+    public LConfig Config { get; }
     public string AppDataFolderPath { get; }
 
     public bool IsSingleton
@@ -38,7 +38,7 @@ public class WindowsImpl : IOSes
             var assemblyName = assembly.GetName().Name ?? string.Empty;
             var app = Process.GetProcessesByName(assemblyName);
             if (app.Length > 1)
-                throw TactiXExceptionFactory.Create(TactiXErrorCodes.ERROR_MUILT_PROCESS, Language.ERROR_MUILT_PROCESS);
+                throw TactiXExceptionFactory.Create(TactiXErrorCodes.ErrorMuiltProcess, Language.ErrorMuiltProcess);
 
             return true;
         }
@@ -63,22 +63,22 @@ public class WindowsImpl : IOSes
 #endif
     }
 
-    public L_Config LoadConfig()
+    public LConfig LoadConfig()
     {
         if (Config != null) return Config;
 
-        L_Config _conf;
+        LConfig conf;
         var filePath = Path.Combine(AppDataFolderPath, ConfigName);
         if (!File.Exists(filePath))
         {
-            _conf = new L_Config();
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(_conf, Formatting.Indented));
+            conf = new LConfig();
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(conf, Formatting.Indented));
         }
 
         var confText = File.ReadAllText(filePath);
-        _conf = JsonConvert.DeserializeObject<L_Config>(confText) ?? new L_Config();
+        conf = JsonConvert.DeserializeObject<LConfig>(confText) ?? new LConfig();
 
-        return _conf;
+        return conf;
     }
 
     public void SaveConfig()

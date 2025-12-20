@@ -5,7 +5,7 @@ using TactiX_Models.MessageBus;
 
 namespace TactiX_App.Views.Popup;
 
-public partial class ErrorPopupView : Window, IRecipient<MB_WindowClose>
+public partial class ErrorPopupView : Window, IRecipient<MbWindowClose>
 {
     private const string WINDOW_NAME = "ErrorPopupView";
     private readonly IMessenger _messenger;
@@ -29,7 +29,7 @@ public partial class ErrorPopupView : Window, IRecipient<MB_WindowClose>
     }
 #endif
 
-    public void Receive(MB_WindowClose message)
+    public void Receive(MbWindowClose message)
     {
         if (message.Name.Equals(WINDOW_NAME)) Close();
     }

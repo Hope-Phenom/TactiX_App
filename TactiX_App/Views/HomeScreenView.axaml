@@ -12,7 +12,7 @@
 
     <suki:SukiSideMenu IsSearchEnabled="True" SelectionMode="Single" x:Name="SideMenu">
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_NEWS}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideNews}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="Home" />
@@ -22,7 +22,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_TACTICSHALL}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideTacticshall}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="TownHall" />
@@ -32,7 +32,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_REPLAY_ANALYSIS}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideReplayAnalysis}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="ChartBoxMultipleOutline" />
@@ -42,7 +42,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_MOD_MANANGMENT}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideModManangment}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="PackageVariantClosed" />
@@ -52,7 +52,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_EDITOR}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideEditor}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="BookEdit" />
@@ -62,7 +62,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <suki:SukiSideMenuItem Header="{Binding Language.HOMESCREEN_SIDE_SETTINGS}"
+        <suki:SukiSideMenuItem Header="{Binding Language.HomescreenSideSettings}"
                                Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <materialIcons:MaterialIcon Kind="CogOutline" />

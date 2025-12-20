@@ -8,40 +8,40 @@ namespace TactiX_ModSupport;
 /// </summary>
 public class TactiXSourceEncoder : ITactiXSourceEncoder
 {
-    public L_Tactic? Decoder(string[] lines)
+    public LTactic? Decoder(string[] lines)
     {
         try
         {
             if (lines.Length == 0) return null;
 
-            var tactix = new L_Tactic();
+            var tactix = new LTactic();
 
             foreach (var line in lines)
             {
-                var _line = line
+                var newLine = line
                     .Replace(" ", "")
                     .Replace("：", ":")
                     .Replace("，", ",");
 
                 // Actions 需要特殊处理
-                var condtion_action = _line.StartsWith('-');
+                var conditionAction = newLine.StartsWith('-');
                 // 空行或者注释直接跳过
-                var condtion_useless = _line.Equals(Environment.NewLine)
-                                       || _line.StartsWith("//")
-                                       || _line.StartsWith("Actions:")
-                                       || string.IsNullOrEmpty(_line);
+                var conditionUseless = newLine.Equals(Environment.NewLine)
+                                       || newLine.StartsWith("//")
+                                       || newLine.StartsWith("Actions:")
+                                       || string.IsNullOrEmpty(newLine);
                 // 这几个字段是uint值
-                var condition_uint = _line.StartsWith("TacVersion")
-                                     || _line.StartsWith("ModVersion");
+                var conditionUint = newLine.StartsWith("TacVersion")
+                                     || newLine.StartsWith("ModVersion");
                 // 战术文件的类别
-                var condtion_tacticType = _line.StartsWith("TacticType");
+                var conditionTacticType = newLine.StartsWith("TacticType");
 
-                if (condtion_action)
+                if (conditionAction)
                 {
-                    var strs = _line.Replace("-", "").Split(',');
+                    var strs = newLine.Replace("-", "").Split(',');
                     if (strs.Length != 3 && strs.Length != 4) continue;
 
-                    var action = new L_TacticAction();
+                    var action = new LTacticAction();
                     action.Step = Convert.ToUInt16(strs[0]);
                     action.Time = TimeParser.ConvertToSeconds(strs[1]);
 
@@ -65,26 +65,26 @@ public class TactiXSourceEncoder : ITactiXSourceEncoder
 
                     tactix.Actions.Add(action);
                 }
-                else if (condtion_useless)
+                else if (conditionUseless)
                 {
                 }
                 else
                 {
-                    var propertyName = _line[.._line.IndexOf(':')];
+                    var propertyName = newLine[..newLine.IndexOf(':')];
                     var property = tactix.GetType().GetProperty(propertyName);
                     if (property == null) continue;
 
-                    var value = _line[(_line.IndexOf(':') + 1)..];
+                    var value = newLine[(newLine.IndexOf(':') + 1)..];
 
-                    if (condition_uint)
+                    if (conditionUint)
                     {
                         property.SetValue(tactix, Convert.ToUInt32(value));
                     }
-                    else if (condtion_tacticType)
+                    else if (conditionTacticType)
                     {
                         var typeEnum = value == "Timeline"
-                            ? L_TacticEnum.TIMELINE
-                            : L_TacticEnum.STEP;
+                            ? LTacticEnum.Timeline
+                            : LTacticEnum.Step;
                         property.SetValue(tactix, typeEnum);
                     }
                     // 剩下的都是字符串类型

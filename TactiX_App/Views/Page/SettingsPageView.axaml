@@ -18,7 +18,7 @@
                     <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
                         <suki:SettingsLayoutItem.Content>
                             <StackPanel Orientation="Vertical">
-                                <Button Content="{Binding Language.SETTINGS_PAGE_NORMAL_UPGRADE}"
+                                <Button Content="{Binding Language.SettingsPageNormalUpgrade}"
                                         Command="{Binding CheckUpgradeCommand}" />
                             </StackPanel>
                         </suki:SettingsLayoutItem.Content>
@@ -33,7 +33,7 @@
                     <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
                         <suki:SettingsLayoutItem.Content>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="{Binding Language.SETTINGS_PAGE_ABOUT_RIGHTS}" />
+                                <Label Content="{Binding Language.SettingsPageAboutRights}" />
                                 <Grid Height="10" />
                                 <Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
                             </StackPanel>

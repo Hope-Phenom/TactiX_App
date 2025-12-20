@@ -4,7 +4,7 @@
 ///     Mod文件的描述类，包括基本信息和动作、单位映射关系
 /// </summary>
 [Serializable]
-public class L_ModDesc
+public class LModDesc
 {
     /// <summary>
     ///     Mod名称
@@ -49,10 +49,10 @@ public class L_ModDesc
     /// <summary>
     ///     动作的映射关系
     /// </summary>
-    public List<L_ModItem> Actions { get; set; } = new();
+    public List<LModItem> Actions { get; set; } = new();
 
     /// <summary>
     ///     单位的映射关系
     /// </summary>
-    public List<L_ModItem> Units { get; set; } = new();
+    public List<LModItem> Units { get; set; } = new();
 }

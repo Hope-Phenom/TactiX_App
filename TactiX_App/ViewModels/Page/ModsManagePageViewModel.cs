@@ -19,7 +19,7 @@ namespace TactiX_App.ViewModels.Page;
 public partial class ModsManagePageViewModel : ViewModelBase
 {
     public ModsManagePageViewModel(ILang lang, ILoggerContainer loggerContainer, IMessenger messenger,
-        IOSTools oSTools)
+        IosTools oSTools)
     {
         Language = lang.Language;
 
@@ -27,7 +27,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
         _messenger = messenger;
         _oses = oSTools.OSes;
         _config = _oses.LoadConfig();
-        CurrMod = _config.CurrentlyEnabledMOD;
+        CurrMod = _config.CurrentlyEnabledMod;
 
         ModsList = [];
 
@@ -47,7 +47,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     {
         var files = Directory.GetFiles(MODS_FOLDER, "*.zip");
         var len = files.Length;
-        Info = string.Format(Language.MODS_MANAGE_VIEW_LOCAL_MODS_INFO, len);
+        Info = string.Format(Language.ModsManageViewLocalModsInfo, len);
 
         if (len > 0)
         {
@@ -55,14 +55,14 @@ public partial class ModsManagePageViewModel : ViewModelBase
             ModsList.AddRange(files);
         }
 
-        CurrMod = _config.CurrentlyEnabledMOD;
+        CurrMod = _config.CurrentlyEnabledMod;
         SelectedModIcon = null;
     }
 
     [RelayCommand]
     public void NaviBack()
     {
-        _messenger.Send(new MB_NavigationBack());
+        _messenger.Send(new MbNavigationBack());
     }
 
     [RelayCommand]
@@ -87,13 +87,13 @@ public partial class ModsManagePageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var errMsg = string.Format(Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR, SelectedItem, ex.Message);
+            var errMsg = string.Format(Language.ModsManageViewSelectedModError, SelectedItem, ex.Message);
 
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = errMsg,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
 
             _logger.Error(errMsg);
@@ -108,7 +108,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(SelectedItem)) return;
 
-        _config.CurrentlyEnabledMOD = SelectedItem;
+        _config.CurrentlyEnabledMod = SelectedItem;
         _oses.SaveConfig();
 
         CheckLocalMods();
@@ -129,14 +129,14 @@ public partial class ModsManagePageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var errMsg = string.Format(Language.MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR, SelectedItem,
+            var errMsg = string.Format(Language.ModsManageViewModActionDeleteSelectedError, SelectedItem,
                 ex.Message);
 
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = errMsg,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
 
             _logger.Error(errMsg);
@@ -148,7 +148,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     public ILanguage Language { get; }
     private readonly Logger _logger;
     private readonly IMessenger _messenger;
-    private readonly IOSes _oses;
+    private readonly IoSes _oses;
 
     #endregion
 
@@ -191,12 +191,12 @@ public partial class ModsManagePageViewModel : ViewModelBase
     /// <summary>
     ///     当前展示的MOD信息
     /// </summary>
-    [ObservableProperty] public L_ModDesc? modDesc;
+    [ObservableProperty] public LModDesc? modDesc;
 
     /// <summary>
     ///     配置，用于读取当前选定的MOD
     /// </summary>
-    private readonly L_Config _config;
+    private readonly LConfig _config;
 
     /// <summary>
     ///     当前启用的MOD

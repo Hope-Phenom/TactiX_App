@@ -22,8 +22,8 @@
                 <RowDefinition Height="0.26*" />
             </Grid.RowDefinitions>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_FORUM}">
-                    <ItemsRepeater ItemsSource="{Binding List_Topics, Mode=OneWay}">
+                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleForum}">
+                    <ItemsRepeater ItemsSource="{Binding ListTopics, Mode=OneWay}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -52,8 +52,8 @@
                 </suki:GroupBox>
             </suki:GlassCard>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
-                <suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_SYS_NEWS}">
-                    <ItemsRepeater ItemsSource="{Binding List_SysNews, Mode=OneWay}">
+                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleSysNews}">
+                    <ItemsRepeater ItemsSource="{Binding ListSysNews, Mode=OneWay}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -89,8 +89,8 @@
                 <RowDefinition Height="0.26*" />
             </Grid.RowDefinitions>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{Binding Language.NEWS_PAGE_VIEW_TITLE_VIDEOS}">
-                    <ItemsRepeater ItemsSource="{Binding List_Videos, Mode=OneWay}">
+                <suki:GroupBox Header="{Binding Language.NewsPageViewTitleVideos}">
+                    <ItemsRepeater ItemsSource="{Binding ListVideos, Mode=OneWay}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout MinItemWidth="192"
                                                MinItemHeight="170"
@@ -131,7 +131,7 @@
             </suki:GlassCard>
             <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
                 <suki:GroupBox Header="友情链接">
-                    <Label Content="{Binding Language.NORMAL_TEXT_FRIENDSHIP_LINKS}"
+                    <Label Content="{Binding Language.NormalTextFriendshipLinks}"
                            VerticalContentAlignment="Center"
                            HorizontalContentAlignment="Center" />
                 </suki:GroupBox>

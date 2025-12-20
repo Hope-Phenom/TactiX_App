@@ -1,11 +1,11 @@
 ﻿namespace TactiX_ModSupport;
 
-public class ModResourceCache<ImageT>
+public class ModResourceCache<TImageT>
 {
-    public delegate ImageT ImageTConvDelegate(MemoryStream memoryStream);
+    public delegate TImageT ImageTConvDelegate(MemoryStream memoryStream);
 
     private readonly Dictionary<string, byte[]> _audioCache = new();
-    private readonly Dictionary<string, ImageT> _imageCache = new();
+    private readonly Dictionary<string, TImageT> _imageCache = new();
     private readonly ImageTConvDelegate _imageTConv;
     private readonly ModPackage _package;
 
@@ -15,7 +15,7 @@ public class ModResourceCache<ImageT>
         _imageTConv = imageTConv;
     }
 
-    public ImageT GetImage(string path)
+    public TImageT GetImage(string path)
     {
         if (!_imageCache.TryGetValue(path, out var image))
         {

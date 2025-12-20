@@ -1,5 +1,5 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_CheckVersion
+public class MbCheckVersion
 {
 }

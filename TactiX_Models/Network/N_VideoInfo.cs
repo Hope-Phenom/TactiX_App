@@ -4,7 +4,7 @@
 ///     视频信息
 /// </summary>
 [Serializable]
-public class N_VideoInfo
+public class NVideoInfo
 {
     public required string Title { get; set; }
     public required string Author { get; set; }

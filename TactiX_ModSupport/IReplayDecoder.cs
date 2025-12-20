@@ -4,5 +4,5 @@ namespace TactiX_ModSupport;
 
 public interface IReplayDecoder
 {
-    public Task<Dictionary<string, List<L_ReplayAction>>> DecodeReplay(string replayPath);
+    public Task<Dictionary<string, List<LReplayAction>>> DecodeReplay(string replayPath);
 }

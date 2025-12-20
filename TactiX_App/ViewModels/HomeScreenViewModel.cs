@@ -22,10 +22,10 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels;
 
-public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVersion>
+public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVersion>
 {
     public HomeScreenViewModel(ILang lang, ILoggerContainer loggerContainer,
-        INetwork network, IMessenger messenger, IOSTools oSTools, IServiceProvider serviceProvider)
+        INetwork network, IMessenger messenger, IosTools oSTools, IServiceProvider serviceProvider)
     {
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _network = network;
@@ -64,9 +64,9 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVer
     private readonly Logger _logger;
     private readonly INetwork _network;
     private readonly IMessenger _messenger;
-    private readonly IOSes _oSes;
+    private readonly IoSes _oSes;
     private readonly IServiceProvider _serviceProvider;
-    private readonly L_Config _config;
+    private readonly LConfig _config;
 
     #endregion
 
@@ -127,7 +127,7 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVer
         {
             var currVer = GetCurrVersion();
             var resp = await _network.Client.PostVersionControlReq(
-                new N_VersionControlReq
+                new NVersionControlReq
                 {
                     Version = currVer
                 });
@@ -138,35 +138,35 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVer
             if (lastest.CompareTo(curr) == 0) return;
 
             var messageText = resp.Banned
-                ? string.Format(Language.VERSION_CONTROL_BANNED, currVer)
-                : resp.Force_Upgrade
-                    ? string.Format(Language.VERSION_CONTROL_FORCE_UPGRADE, resp.LastestVersion)
-                    : string.Format(Language.VERSION_CONTROL_NEW_VERSION, currVer, resp.LastestVersion);
+                ? string.Format(Language.VersionControlBanned, currVer)
+                : resp.ForceUpgrade
+                    ? string.Format(Language.VersionControlForceUpgrade, resp.LastestVersion)
+                    : string.Format(Language.VersionControlNewVersion, currVer, resp.LastestVersion);
 
             var type = resp.Banned
-                ? MB_Enum_ToastType.Error
-                : resp.Force_Upgrade
-                    ? MB_Enum_ToastType.Error
-                    : MB_Enum_ToastType.Info;
+                ? MbEnumToastType.Error
+                : resp.ForceUpgrade
+                    ? MbEnumToastType.Error
+                    : MbEnumToastType.Info;
 
-            var msg = new MB_ToastVersion
+            var msg = new MbToastVersion
             {
-                Title = Language.VERSION_CONTROL_TOAST_TITLE,
+                Title = Language.VersionControlToastTitle,
                 Message = messageText,
                 Type = type,
-                Release_Url = resp.Release_Url
+                ReleaseUrl = resp.ReleaseUrl
             };
 
             _messenger.Send(msg);
         }
         catch (Exception ex)
         {
-            var msg = new MB_ToastVersion
+            var msg = new MbToastVersion
             {
-                Title = Language.TOAST_TITLE_ERROR,
-                Message = string.Format(Language.VERSION_CONTROL_ERROR, ex.Message),
-                Type = MB_Enum_ToastType.Error,
-                Release_Url = string.Empty
+                Title = Language.ToastTitleError,
+                Message = string.Format(Language.VersionControlError, ex.Message),
+                Type = MbEnumToastType.Error,
+                ReleaseUrl = string.Empty
             };
 
             _messenger.Send(msg);
@@ -192,7 +192,7 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVer
         return $"{major}.{minor}.{build}.{revision}";
     }
 
-    public void Receive(MB_CheckVersion message)
+    public void Receive(MbCheckVersion message)
     {
         Task.Run(CheckVersion);
     }
@@ -230,64 +230,64 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MB_CheckVer
         try
         {
             // 检查是否进行了配置
-            if (string.IsNullOrEmpty(_config.CurrentlyEnabledMOD))
+            if (string.IsNullOrEmpty(_config.CurrentlyEnabledMod))
             {
-                _messenger.Send(new MB_ToastPureText
+                _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TACTIC_PLAYING_MOD_NOT_SELECTED,
-                    Title = Language.TOAST_TITLE_ERROR,
-                    Type = MB_Enum_ToastType.Error
+                    Message = Language.TacticPlayingModNotSelected,
+                    Title = Language.ToastTitleError,
+                    Type = MbEnumToastType.Error
                 });
 
                 return;
             }
 
             // 检查文件是否存在
-            if (!File.Exists(_config.CurrentlyEnabledMOD))
+            if (!File.Exists(_config.CurrentlyEnabledMod))
             {
-                _messenger.Send(new MB_ToastPureText
+                _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TACTIC_PLAYING_MOD_NOT_EXISTS,
-                    Title = Language.TOAST_TITLE_ERROR,
-                    Type = MB_Enum_ToastType.Error
+                    Message = Language.TacticPlayingModNotExists,
+                    Title = Language.ToastTitleError,
+                    Type = MbEnumToastType.Error
                 });
 
                 return;
             }
 
             // 检查能否正常读取
-            using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+            using var mod = new ModPackage(_config.CurrentlyEnabledMod);
             if (mod.ModDesc == null)
             {
-                _messenger.Send(new MB_ToastPureText
+                _messenger.Send(new MbToastPureText
                 {
-                    Message = Language.TACTIC_PLAYING_MOD_FORMAT_ERROR,
-                    Title = Language.TOAST_TITLE_ERROR,
-                    Type = MB_Enum_ToastType.Error
+                    Message = Language.TacticPlayingModFormatError,
+                    Title = Language.ToastTitleError,
+                    Type = MbEnumToastType.Error
                 });
 
                 return;
             }
 
             // 通知打开播放界面
-            _messenger.Send(new MB_OpenTacticPlayWindow());
+            _messenger.Send(new MbOpenTacticPlayWindow());
         }
         catch (FileNotFoundException)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = Language.TACTIC_PLAYING_MOD_FORMAT_ERROR,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Message = Language.TacticPlayingModFormatError,
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
         }
     }

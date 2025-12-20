@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public enum MB_Enum_ToastType
+public enum MbEnumToastType
 {
     Info,
     Success,

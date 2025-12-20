@@ -12,7 +12,7 @@ public interface INetworkApi
     /// <param name="reportModel">异常报告</param>
     /// <returns></returns>
     [Post("/api/Stats/PostExceptionReport")]
-    Task<HttpResponseMessage> PostExceptionReportModel([Body] N_ExceptionReportModel reportModel);
+    Task<HttpResponseMessage> PostExceptionReportModel([Body] NExceptionReportModel reportModel);
 
     /// <summary>
     ///     Post请求最新的版本控制信息
@@ -20,11 +20,11 @@ public interface INetworkApi
     /// <param name="versionControlReq">版本控制请求</param>
     /// <returns></returns>
     [Post("/api/Stats/PostVersionControl")]
-    Task<N_VersionControlResp> PostVersionControlReq([Body] N_VersionControlReq versionControlReq);
+    Task<NVersionControlResp> PostVersionControlReq([Body] NVersionControlReq versionControlReq);
 
     [Get("/api/News/GetNews")]
-    Task<List<N_News>> GetNews();
+    Task<List<NNews>> GetNews();
 
     [Get("/api/News/GetNewsSys")]
-    Task<List<N_NewsSys>> GetN_NewsSys();
+    Task<List<NNewsSys>> GetN_NewsSys();
 }

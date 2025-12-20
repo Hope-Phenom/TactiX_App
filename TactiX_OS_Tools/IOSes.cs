@@ -7,7 +7,7 @@ namespace TactiX_OS_Tools;
 /// <summary>
 ///     不同OS的SDK功能接口
 /// </summary>
-public interface IOSes
+public interface IoSes
 {
     /// <summary>
     ///     用户数据的存放路径
@@ -22,7 +22,7 @@ public interface IOSes
     /// <summary>
     ///     获取配置文件
     /// </summary>
-    public L_Config LoadConfig();
+    public LConfig LoadConfig();
 
     /// <summary>
     ///     保存配置文件

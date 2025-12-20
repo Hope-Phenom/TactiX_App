@@ -104,12 +104,12 @@
 
                     <Grid Grid.Column="2" VerticalAlignment="Center">
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP}"
+                            <Label Content="{Binding Language.TacticPlayingLabelCurrRealTimestamp}"
                                    FontWeight="Bold" />
                             <Label Content="{Binding TimeStampTxt}"
                                    FontWeight="Bold" />
                             <Label />
-                            <Label Content="{Binding Language.TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP}"
+                            <Label Content="{Binding Language.TacticPlayingLabelCurrStepTimestamp}"
                                    FontWeight="Bold" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -146,12 +146,12 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" VerticalContentAlignment="Center"
-                           Content="{Binding Language.TACTIC_PLAYING_LABEL_FILE_SELECTED}" />
+                           Content="{Binding Language.TacticPlayingLabelFileSelected}" />
                     <ComboBox Grid.Column="2" Margin="0"
                               ItemsSource="{Binding TacticFiles}"
                               SelectedItem="{Binding SelectedTacticFile}" />
                     <Button Grid.Column="4" Margin="0" Height="34" Width="100"
-                            Content="{Binding Language.TACTIC_PLAYING_BTN_OPEN_FOLDER}"
+                            Content="{Binding Language.TacticPlayingBtnOpenFolder}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
@@ -167,30 +167,30 @@
 
                     <Grid Grid.Column="0">
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{Binding Language.TACTIC_PLAYING_OPACITY}" />
+                            <Label Content="{Binding Language.TacticPlayingOpacity}" />
                             <Slider Maximum="1" Minimum="0.2" TickFrequency="0.1"
                                     IsSnapToTickEnabled="True"
                                     Value="{Binding Config.Opacity, Mode=TwoWay}" />
                             <Grid Height="10" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_TIMELINE_CORRECTION}"
+                            <CheckBox Content="{Binding Language.TacticPlayingTimelineCorrection}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.EnableTLCorr, Mode=TwoWay}" />
+                                      IsChecked="{Binding Config.EnableTlCorr, Mode=TwoWay}" />
                             <Grid Height="10" />
-                            <Label Content="{Binding Language.TACTIC_PLAYING_MODITEM_ENABLE}" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_NONE}"
+                            <Label Content="{Binding Language.TacticPlayingModitemEnable}" />
+                            <CheckBox Content="{Binding Language.TacticPlayingModitemNone}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
                                       IsChecked="{Binding Config.ModItemTypeEnable[0]}"
                                       IsEnabled="False" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_WORKER}"
+                            <CheckBox Content="{Binding Language.TacticPlayingModitemWorker}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
                                       IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_ARMY}"
+                            <CheckBox Content="{Binding Language.TacticPlayingModitemArmy}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
                                       IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_BUILDING}"
+                            <CheckBox Content="{Binding Language.TacticPlayingModitemBuilding}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
                                       IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}" />
-                            <CheckBox Content="{Binding Language.TACTIC_PLAYING_MODITEM_TECH}"
+                            <CheckBox Content="{Binding Language.TacticPlayingModitemTech}"
                                       VerticalContentAlignment="Center" VerticalAlignment="Center"
                                       IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}" />
                         </StackPanel>
@@ -202,7 +202,7 @@
                             <RowDefinition Height="10" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="{Binding Language.TACTIC_PLAYING_FILEINFO}" />
+                        <Label Grid.Row="0" Content="{Binding Language.TacticPlayingFileinfo}" />
                         <apc:PropertyGrid Grid.Row="2" IsReadOnly="True"
                                           IsAutoNameWidth="True" IsTitleVisible="False"
                                           IsQuickFilterVisible="False"

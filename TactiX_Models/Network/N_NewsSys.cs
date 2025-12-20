@@ -4,7 +4,7 @@
 ///     系统公告
 /// </summary>
 [Serializable]
-public class N_NewsSys
+public class NNewsSys
 {
     /// <summary>
     ///     标题

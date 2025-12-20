@@ -14,10 +14,10 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels.Page;
 
-public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_FileDialog>
+public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFileDialog>
 {
     public TacticEditorPageViewModel(IMessenger messenger, ILang lang, ITactiXSourceEncoder encoder,
-        IOSTools oSTools, ILoggerContainer loggerContainer)
+        IosTools oSTools, ILoggerContainer loggerContainer)
     {
         Language = lang.Language;
         _messenger = messenger;
@@ -35,7 +35,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
 
     #region 消息处理
 
-    public void Receive(MB_FileDialog message)
+    public void Receive(MbFileDialog message)
     {
         if (string.IsNullOrEmpty(message.FilePath)) return;
         if (message.WindowName != MAIN_WINDOW) return;
@@ -58,8 +58,8 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
 
     private readonly IMessenger _messenger;
     private readonly ITactiXSourceEncoder _encoder;
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
+    private readonly IoSes _oses;
+    private readonly LConfig _config;
     private readonly ILogger _logger;
 
     #endregion
@@ -109,7 +109,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
             ? File.ReadAllText(TACTIC_TEMPLATE_NAME)
             : string.Empty;
 
-        _messenger.Send(new MB_WindowTitle
+        _messenger.Send(new MbWindowTitle
         {
             Title = $"{TITLE_HEADER}{NEW_FILE}",
             WindowName = MAIN_WINDOW
@@ -122,7 +122,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
     [RelayCommand]
     public void OpenFile()
     {
-        _messenger.Send(new MB_FileDialog
+        _messenger.Send(new MbFileDialog
         {
             WindowName = MAIN_WINDOW,
             IsOpenMode = true,
@@ -155,7 +155,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         if (isSaveAs) _filePath = string.Empty;
 
         if (string.IsNullOrEmpty(_filePath))
-            _messenger.Send(new MB_FileDialog
+            _messenger.Send(new MbFileDialog
             {
                 WindowName = MAIN_WINDOW,
                 IsOpenMode = false,
@@ -188,7 +188,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
 
         try
         {
-            using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+            using var mod = new ModPackage(_config.CurrentlyEnabledMod);
             if (mod.ModDesc != null)
                 suggestPath = Path.Combine(
                     Environment.CurrentDirectory,
@@ -200,7 +200,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
             _logger.Error($"Get Suggest Path Error: {ex.Message}");
         }
 
-        _messenger.Send(new MB_FileDialog
+        _messenger.Send(new MbFileDialog
         {
             WindowName = MAIN_WINDOW,
             IsOpenMode = false,
@@ -217,14 +217,14 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
     [RelayCommand]
     public void Export()
     {
-        using var mod = new ModPackage(_config.CurrentlyEnabledMOD);
+        using var mod = new ModPackage(_config.CurrentlyEnabledMod);
         if (mod.ModDesc == null)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Message = Language.ModsManageViewSelectedModError,
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
 
             return;
@@ -238,11 +238,11 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
         if (tactix == null)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = Language.EDITOR_ERROR_FILE_CANT_CONVERT,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Message = Language.EditorErrorFileCantConvert,
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
 
             return;
@@ -252,13 +252,13 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         var outPath = Path.Combine(suggestPath, Path.GetFileNameWithoutExtension(_filePath) + ".tactix");
         File.WriteAllText(outPath, txt);
 
-        _messenger.Send(new MB_ToastPureText
+        _messenger.Send(new MbToastPureText
         {
             Message = string.Format(
-                Language.EDITOR_EXPORT_SUCCESS_INFO,
+                Language.EditorExportSuccessInfo,
                 $"{Environment.NewLine}{outPath}"),
-            Title = Language.EDITOR_EXPORT_SUCCESS_TITLE,
-            Type = MB_Enum_ToastType.Success
+            Title = Language.EditorExportSuccessTitle,
+            Type = MbEnumToastType.Success
         });
     }
 
@@ -282,11 +282,11 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
                 var tactix = _encoder.Decoder(TextDocument.Text.Split(Environment.NewLine));
                 if (tactix == null)
                 {
-                    _messenger.Send(new MB_ToastPureText
+                    _messenger.Send(new MbToastPureText
                     {
-                        Message = Language.EDITOR_ERROR_FILE_CANT_CONVERT,
-                        Title = Language.TOAST_TITLE_ERROR,
-                        Type = MB_Enum_ToastType.Error
+                        Message = Language.EditorErrorFileCantConvert,
+                        Title = Language.ToastTitleError,
+                        Type = MbEnumToastType.Error
                     });
 
                     return;
@@ -295,17 +295,17 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
                 var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
                 File.WriteAllText(_exportPath, txt);
 
-                _messenger.Send(new MB_ToastPureText
+                _messenger.Send(new MbToastPureText
                 {
                     Message = string.Format(
-                        Language.EDITOR_EXPORT_SUCCESS_INFO,
+                        Language.EditorExportSuccessInfo,
                         $"{Environment.NewLine}{_exportPath}"),
-                    Title = Language.EDITOR_EXPORT_SUCCESS_TITLE,
-                    Type = MB_Enum_ToastType.Success
+                    Title = Language.EditorExportSuccessTitle,
+                    Type = MbEnumToastType.Success
                 });
             }
 
-            _messenger.Send(new MB_WindowTitle
+            _messenger.Send(new MbWindowTitle
             {
                 Title = $"{TITLE_HEADER}{_filePath}",
                 WindowName = MAIN_WINDOW
@@ -313,11 +313,11 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Type = MB_Enum_ToastType.Error,
-                Title = Language.TOAST_TITLE_ERROR
+                Type = MbEnumToastType.Error,
+                Title = Language.ToastTitleError
             });
         }
     }
@@ -331,7 +331,7 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         {
             TextDocument.Text = File.ReadAllText(_filePath);
 
-            _messenger.Send(new MB_WindowTitle
+            _messenger.Send(new MbWindowTitle
             {
                 Title = $"{TITLE_HEADER}{_filePath}",
                 WindowName = MAIN_WINDOW
@@ -339,11 +339,11 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MB_Fi
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
-                Type = MB_Enum_ToastType.Error,
-                Title = Language.TOAST_TITLE_ERROR
+                Type = MbEnumToastType.Error,
+                Title = Language.ToastTitleError
             });
         }
     }

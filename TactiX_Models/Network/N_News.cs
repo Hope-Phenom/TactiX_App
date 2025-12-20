@@ -4,14 +4,14 @@
 ///     新闻接口返回对象
 /// </summary>
 [Serializable]
-public class N_News
+public class NNews
 {
     public int Id { get; set; }
 
     /// <summary>
     ///     更新日期
     /// </summary>
-    public DateTime Update_DateTime { get; set; }
+    public DateTime UpdateDateTime { get; set; }
 
     /// <summary>
     ///     Json文本

@@ -4,12 +4,12 @@
 ///     战术步骤，使用ID和MOD项进行关联
 /// </summary>
 [Serializable]
-public class L_TacticAction
+public class LTacticAction
 {
     /// <summary>
     ///     动作对象，只记录基础信息和MOD中的映射关系
     /// </summary>
-    public L_TacticAction()
+    public LTacticAction()
     {
     }
 
@@ -20,7 +20,7 @@ public class L_TacticAction
     /// <param name="itemAbbr"></param>
     /// <param name="time"></param>
     /// <param name="number"></param>
-    public L_TacticAction(ushort stepNo, string itemAbbr, uint time, int number = 1)
+    public LTacticAction(ushort stepNo, string itemAbbr, uint time, int number = 1)
     {
         Step = stepNo;
         ItemAbbr = itemAbbr;

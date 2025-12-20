@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_FolderDialog
+public class MbFolderDialog
 {
     /// <summary>
     ///     请求的窗体名

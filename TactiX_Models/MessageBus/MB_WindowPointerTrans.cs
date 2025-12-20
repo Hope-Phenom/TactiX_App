@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_WindowPointerTrans
+public class MbWindowPointerTrans
 {
     /// <summary>
     ///     是否启用鼠标穿透

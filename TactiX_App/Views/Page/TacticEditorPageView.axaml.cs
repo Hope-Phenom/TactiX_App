@@ -21,7 +21,7 @@ namespace TactiX_App.Views.Page;
 
 public partial class TacticEditorPageView : UserControl
 {
-    public TacticEditorPageView(ILang lang, IOSTools oSTools, IMessenger messenger)
+    public TacticEditorPageView(ILang lang, IosTools oSTools, IMessenger messenger)
     {
         InitializeComponent();
 
@@ -30,7 +30,7 @@ public partial class TacticEditorPageView : UserControl
         _config = _oses.LoadConfig();
         _messenger = messenger;
 
-        _modItems = new List<L_ModItem>();
+        _modItems = new List<LModItem>();
 
         Editor.SyntaxHighlighting = new TacticHighlightingDefinition();
         Editor.TextArea.TextEntered += TextArea_TextEntered;
@@ -131,17 +131,17 @@ public partial class TacticEditorPageView : UserControl
         _modResourceCache = null;
         _modItems.Clear();
 
-        if (string.IsNullOrEmpty(_config.CurrentlyEnabledMOD))
-            _messenger.Send(new MB_ToastPureText
+        if (string.IsNullOrEmpty(_config.CurrentlyEnabledMod))
+            _messenger.Send(new MbToastPureText
             {
-                Message = Language.EDITOR_ERROR_MOD_NOT_SET,
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Message = Language.EditorErrorModNotSet,
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
 
         try
         {
-            _modPackage = new ModPackage(_config.CurrentlyEnabledMOD);
+            _modPackage = new ModPackage(_config.CurrentlyEnabledMod);
             _modResourceCache = new ModResourceCache<Bitmap>(_modPackage, ms => new Bitmap(ms));
 
             var modDesc = _modPackage.ModDesc;
@@ -152,28 +152,28 @@ public partial class TacticEditorPageView : UserControl
         }
         catch (Exception ex)
         {
-            _messenger.Send(new MB_ToastPureText
+            _messenger.Send(new MbToastPureText
             {
-                Message = string.Format(Language.MODS_MANAGE_VIEW_SELECTED_MOD_ERROR,
-                    _config.CurrentlyEnabledMOD,
+                Message = string.Format(Language.ModsManageViewSelectedModError,
+                    _config.CurrentlyEnabledMod,
                     ex.Message),
-                Title = Language.TOAST_TITLE_ERROR,
-                Type = MB_Enum_ToastType.Error
+                Title = Language.ToastTitleError,
+                Type = MbEnumToastType.Error
             });
         }
     }
 
     #region DI����ע��
 
-    private readonly IOSes _oses;
-    private readonly L_Config _config;
+    private readonly IoSes _oses;
+    private readonly LConfig _config;
     private readonly IMessenger _messenger;
 
     #endregion
 
     #region ����
 
-    private readonly List<L_ModItem> _modItems;
+    private readonly List<LModItem> _modItems;
     private CompletionWindow? _completionWindow;
     private ModPackage? _modPackage;
     private ModResourceCache<Bitmap>? _modResourceCache;

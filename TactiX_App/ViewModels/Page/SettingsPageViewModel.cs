@@ -12,7 +12,7 @@ namespace TactiX_App.ViewModels.Page;
 public partial class SettingsPageViewModel : ViewModelBase
 {
     public SettingsPageViewModel(ILoggerContainer loggerContainer, ILang lang, IMessenger messenger,
-        IOSTools oSTools)
+        IosTools oSTools)
     {
         Language = lang.Language;
         Config = oSTools.OSes.LoadConfig();
@@ -38,21 +38,21 @@ public partial class SettingsPageViewModel : ViewModelBase
     /// </summary>
     private void UpdateHeader()
     {
-        _messenger.Send(new MB_FIX_SettingsLayoutItemsHeader
+        _messenger.Send(new MbFixSettingsLayoutItemsHeader
         {
-            HeaderText = Language.SETTINGS_PAGE_HEADER_NORMAL,
+            HeaderText = Language.SettingsPageHeaderNormal,
             Name = "Normal"
         });
 
-        _messenger.Send(new MB_FIX_SettingsLayoutItemsHeader
+        _messenger.Send(new MbFixSettingsLayoutItemsHeader
         {
-            HeaderText = Language.SETTINGS_PAGE_HEADER_HOTKEY,
+            HeaderText = Language.SettingsPageHeaderHotkey,
             Name = "Hotkey"
         });
 
-        _messenger.Send(new MB_FIX_SettingsLayoutItemsHeader
+        _messenger.Send(new MbFixSettingsLayoutItemsHeader
         {
-            HeaderText = Language.SETTINGS_PAGE_HEADER_ABOUT,
+            HeaderText = Language.SettingsPageHeaderAbout,
             Name = "About"
         });
     }
@@ -65,7 +65,7 @@ public partial class SettingsPageViewModel : ViewModelBase
     [RelayCommand]
     public void CheckUpgrade()
     {
-        _messenger.Send(new MB_CheckVersion());
+        _messenger.Send(new MbCheckVersion());
     }
 
     #endregion
@@ -73,7 +73,7 @@ public partial class SettingsPageViewModel : ViewModelBase
     #region DI容器注入
 
     public ILanguage Language { get; }
-    public L_Config Config { get; private set; }
+    public LConfig Config { get; private set; }
 
     private readonly Logger _logger;
     private readonly IMessenger _messenger;

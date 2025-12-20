@@ -3,15 +3,15 @@
 /// <summary>
 ///     战术文件分类
 /// </summary>
-public enum L_TacticEnum
+public enum LTacticEnum
 {
     /// <summary>
     ///     时间轴模式，按时间点自动播放，允许手动暂停/继续和上/下步
     /// </summary>
-    TIMELINE,
+    Timeline,
 
     /// <summary>
     ///     单步模式，仅支持手动上/下步
     /// </summary>
-    STEP
+    Step
 }

@@ -14,19 +14,19 @@ using TactiX_OS_Tools;
 
 namespace TactiX_App.ViewModels;
 
-public class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipient<MB_NavigationBack>
+public class MainViewModel : ViewModelBase, IRecipient<MbNavigationTo>, IRecipient<MbNavigationBack>
 {
-    public MainViewModel(INavigationService navigation, IOSTools oSTools, INetwork network,
+    public MainViewModel(INavigationService navigation, IosTools oSTools, INetwork network,
         IMessenger messenger, ILoggerContainer loggerContainer, IServiceProvider serviceProvider)
     {
-        OSTools = oSTools;
+        OsTools = oSTools;
         Navigation = navigation;
         _network = network;
         _messenger = messenger;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _serviceProvider = serviceProvider;
 
-        _config = OSTools.OSes.LoadConfig();
+        _config = OsTools.OSes.LoadConfig();
 
         ToastManager = new SukiToastManager();
         DialogManager = new SukiDialogManager();
@@ -36,7 +36,7 @@ public class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipi
             : ThemeVariant.Light;
         SukiTheme.GetInstance().ChangeBaseTheme(theme);
 
-        if (!_config.EulaAccepted || !_config.PPAccepted)
+        if (!_config.EulaAccepted || !_config.PpAccepted)
             Navigation.NavigateTo<LicenseViewModel>();
         else
             Navigation.NavigateTo<HomeScreenViewModel>();
@@ -44,12 +44,12 @@ public class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipi
         _messenger.RegisterAll(this);
     }
 
-    public void Receive(MB_NavigationBack message)
+    public void Receive(MbNavigationBack message)
     {
         Navigation.GoBack();
     }
 
-    public void Receive(MB_NavigationTo message)
+    public void Receive(MbNavigationTo message)
     {
         Navigation.NavigateTo(message.NaviType);
     }
@@ -59,7 +59,7 @@ public class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipi
     private readonly INetwork _network;
     private readonly IMessenger _messenger;
     private readonly Logger _logger;
-    private readonly L_Config _config;
+    private readonly LConfig _config;
     private readonly IServiceProvider _serviceProvider;
 
     #endregion
@@ -67,7 +67,7 @@ public class MainViewModel : ViewModelBase, IRecipient<MB_NavigationTo>, IRecipi
     #region 常量
 
     public INavigationService Navigation { get; }
-    public IOSTools OSTools { get; }
+    public IosTools OsTools { get; }
     public ISukiToastManager ToastManager { get; private set; }
     public ISukiDialogManager DialogManager { get; private set; }
 

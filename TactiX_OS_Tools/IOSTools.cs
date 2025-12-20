@@ -1,6 +1,6 @@
 ﻿namespace TactiX_OS_Tools;
 
-public interface IOSTools
+public interface IosTools
 {
-    public IOSes OSes { get; }
+    public IoSes OSes { get; }
 }

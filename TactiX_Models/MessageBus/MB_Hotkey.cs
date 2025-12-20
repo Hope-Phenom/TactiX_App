@@ -1,15 +1,15 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_Hotkey
+public class MbHotkey
 {
-    public MB_Hotkey()
+    public MbHotkey()
     {
     }
 
-    public MB_Hotkey(L_HotkeyBindingEnum hotkeyEnum)
+    public MbHotkey(LHotkeyBindingEnum hotkeyEnum)
     {
         HotkeyEnum = hotkeyEnum;
     }
 
-    public L_HotkeyBindingEnum HotkeyEnum { get; set; }
+    public LHotkeyBindingEnum HotkeyEnum { get; set; }
 }

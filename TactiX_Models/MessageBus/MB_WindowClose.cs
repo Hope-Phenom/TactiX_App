@@ -1,6 +1,6 @@
 ﻿namespace TactiX_Models.MessageBus;
 
-public class MB_WindowClose
+public class MbWindowClose
 {
     /// <summary>
     ///     用于进行消息配对，避免错误关闭窗体

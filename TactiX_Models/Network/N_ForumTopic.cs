@@ -4,7 +4,7 @@
 ///     论坛热帖
 /// </summary>
 [Serializable]
-public class N_ForumTopic
+public class NForumTopic
 {
     /// <summary>
     ///     标题

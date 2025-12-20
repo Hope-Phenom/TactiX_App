@@ -4,7 +4,7 @@
 ///     Replay解析步骤的数据结构体
 /// </summary>
 [Serializable]
-public class L_ReplayAction
+public class LReplayAction
 {
     /// <summary>
     ///     游戏循环数

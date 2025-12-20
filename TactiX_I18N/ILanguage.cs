@@ -12,12 +12,12 @@ public interface ILanguage
     /// <summary>
     ///     许可协议弹窗-按钮-接受
     /// </summary>
-    public string LICENSE_VIEW_BTN_ACCEPT { get; }
+    public string LicenseViewBtnAccept { get; }
 
     /// <summary>
     ///     许可协议弹窗-按钮-拒绝
     /// </summary>
-    public string LICENSE_VIEW_BTN_DECLINE { get; }
+    public string LicenseViewBtnDecline { get; }
 
     #endregion
 
@@ -26,27 +26,27 @@ public interface ILanguage
     /// <summary>
     ///     版本控制提示信息-Toast信息标题
     /// </summary>
-    public string VERSION_CONTROL_TOAST_TITLE { get; }
+    public string VersionControlToastTitle { get; }
 
     /// <summary>
     ///     版本控制提示信息-当前版本已被禁用
     /// </summary>
-    public string VERSION_CONTROL_BANNED { get; }
+    public string VersionControlBanned { get; }
 
     /// <summary>
     ///     版本控制提示信息-有强制更新
     /// </summary>
-    public string VERSION_CONTROL_FORCE_UPGRADE { get; }
+    public string VersionControlForceUpgrade { get; }
 
     /// <summary>
     ///     版本控制提示信息-有新版本，请考虑更新
     /// </summary>
-    public string VERSION_CONTROL_NEW_VERSION { get; }
+    public string VersionControlNewVersion { get; }
 
     /// <summary>
     ///     版本控制提示信息-检查版本信息时发生错误
     /// </summary>
-    public string VERSION_CONTROL_ERROR { get; }
+    public string VersionControlError { get; }
 
     #endregion
 
@@ -55,42 +55,42 @@ public interface ILanguage
     /// <summary>
     ///     错误信息弹窗-标题
     /// </summary>
-    public string ERROR_POPUP_TITLE { get; }
+    public string ErrorPopupTitle { get; }
 
     /// <summary>
     ///     错误信息弹窗-错误码
     /// </summary>
-    public string ERROR_POPUP_LABEL_ERROR_CODE { get; }
+    public string ErrorPopupLabelErrorCode { get; }
 
     /// <summary>
     ///     错误信息弹窗-错误信息
     /// </summary>
-    public string ERROR_POPUP_LABEL_ERROR_DESC { get; }
+    public string ErrorPopupLabelErrorDesc { get; }
 
     /// <summary>
     ///     错误信息弹窗-用户反馈渠道
     /// </summary>
-    public string ERROR_POPUP_LABEL_FEEDBACK { get; }
+    public string ErrorPopupLabelFeedback { get; }
 
     /// <summary>
     ///     错误信息弹窗-用户反馈的信息
     /// </summary>
-    public string ERROR_POPUP_LABEL_USER_DESC { get; }
+    public string ErrorPopupLabelUserDesc { get; }
 
     /// <summary>
     ///     错误信息弹窗-用户反馈信息文本框水纹
     /// </summary>
-    public string ERROR_POPUP_TBX_USER_DESC { get; }
+    public string ErrorPopupTbxUserDesc { get; }
 
     /// <summary>
     ///     错误信息弹窗-按钮-发送反馈
     /// </summary>
-    public string ERROR_POPUP_BTN_SEND_FEEDBACK { get; }
+    public string ErrorPopupBtnSendFeedback { get; }
 
     /// <summary>
     ///     错误信息弹窗-按钮-关闭
     /// </summary>
-    public string ERROR_POPUP_BTN_CLOSE { get; }
+    public string ErrorPopupBtnClose { get; }
 
     #endregion
 
@@ -99,32 +99,32 @@ public interface ILanguage
     /// <summary>
     ///     主页面-侧栏按钮-新闻页面
     /// </summary>
-    public string HOMESCREEN_SIDE_NEWS { get; }
+    public string HomescreenSideNews { get; }
 
     /// <summary>
     ///     主页面-侧栏按钮-战术大厅
     /// </summary>
-    public string HOMESCREEN_SIDE_TACTICSHALL { get; }
+    public string HomescreenSideTacticshall { get; }
 
     /// <summary>
     ///     主页面-侧栏按钮-回放解析
     /// </summary>
-    public string HOMESCREEN_SIDE_REPLAY_ANALYSIS { get; }
+    public string HomescreenSideReplayAnalysis { get; }
 
     /// <summary>
     ///     主页面-侧栏按钮-MOD管理
     /// </summary>
-    public string HOMESCREEN_SIDE_MOD_MANANGMENT { get; }
+    public string HomescreenSideModManangment { get; }
 
     /// <summary>
     ///     主页面-侧栏按钮-设置
     /// </summary>
-    public string HOMESCREEN_SIDE_SETTINGS { get; }
+    public string HomescreenSideSettings { get; }
 
     /// <summary>
     ///     主页面-侧边按钮-战术编辑
     /// </summary>
-    public string HOMESCREEN_SIDE_EDITOR { get; }
+    public string HomescreenSideEditor { get; }
 
     #endregion
 
@@ -133,22 +133,22 @@ public interface ILanguage
     /// <summary>
     ///     新闻Page-标题-论坛热帖
     /// </summary>
-    public string NEWS_PAGE_VIEW_TITLE_FORUM { get; }
+    public string NewsPageViewTitleForum { get; }
 
     /// <summary>
     ///     新闻Page-标题-系统新闻
     /// </summary>
-    public string NEWS_PAGE_VIEW_TITLE_SYS_NEWS { get; }
+    public string NewsPageViewTitleSysNews { get; }
 
     /// <summary>
     ///     新闻Page-标题-视频
     /// </summary>
-    public string NEWS_PAGE_VIEW_TITLE_VIDEOS { get; }
+    public string NewsPageViewTitleVideos { get; }
 
     /// <summary>
     ///     新闻Page-错误信息-网络连接
     /// </summary>
-    public string NEWS_PAGE_ERROR_NETWORK { get; }
+    public string NewsPageErrorNetwork { get; }
 
     #endregion
 
@@ -157,52 +157,52 @@ public interface ILanguage
     /// <summary>
     ///     MOD管理Page-本地MOD列表-HEADER
     /// </summary>
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_HEADER { get; }
+    public string ModsManageViewLocalModsHeader { get; }
 
     /// <summary>
     ///     MOD管理Page-打开本地目录
     /// </summary>
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_FOLDER { get; }
+    public string ModsManageViewLocalModsFolder { get; }
 
     /// <summary>
     ///     MOD管理Page-本地MOD信息
     /// </summary>
-    public string MODS_MANAGE_VIEW_LOCAL_MODS_INFO { get; }
+    public string ModsManageViewLocalModsInfo { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD信息-HEADER
     /// </summary>
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_INFO { get; }
+    public string ModsManageViewSelectedModInfo { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作
     /// </summary>
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_ACTION { get; }
+    public string ModsManageViewSelectedModAction { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作-装载错误
     /// </summary>
-    public string MODS_MANAGE_VIEW_SELECTED_MOD_ERROR { get; }
+    public string ModsManageViewSelectedModError { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作-已启用MOD展示
     /// </summary>
-    public string MODS_MANAGE_VIEW_MOD_ACTION_LABEL_SELECTED { get; }
+    public string ModsManageViewModActionLabelSelected { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作-启用选定MOD
     /// </summary>
-    public string MODS_MANAGE_VIEW_MOD_ACTION_ENABLE_SELECTED { get; }
+    public string ModsManageViewModActionEnableSelected { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作-删除选定MOD
     /// </summary>
-    public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED { get; }
+    public string ModsManageViewModActionDeleteSelected { get; }
 
     /// <summary>
     ///     MOD管理Page-选定MOD操作-删除选定MOD错误
     /// </summary>
-    public string MODS_MANAGE_VIEW_MOD_ACTION_DELETE_SELECTED_ERROR { get; }
+    public string ModsManageViewModActionDeleteSelectedError { get; }
 
     #endregion
 
@@ -211,87 +211,87 @@ public interface ILanguage
     /// <summary>
     ///     战术播放Window-没有选定MOD文件
     /// </summary>
-    public string TACTIC_PLAYING_MOD_NOT_SELECTED { get; }
+    public string TacticPlayingModNotSelected { get; }
 
     /// <summary>
     ///     战术播放Window-MOD文件不存在
     /// </summary>
-    public string TACTIC_PLAYING_MOD_NOT_EXISTS { get; }
+    public string TacticPlayingModNotExists { get; }
 
     /// <summary>
     ///     战术播放Window-MOD文件格式不正确
     /// </summary>
-    public string TACTIC_PLAYING_MOD_FORMAT_ERROR { get; }
+    public string TacticPlayingModFormatError { get; }
 
     /// <summary>
     ///     战术播放Window-选定战术文件
     /// </summary>
-    public string TACTIC_PLAYING_LABEL_FILE_SELECTED { get; }
+    public string TacticPlayingLabelFileSelected { get; }
 
     /// <summary>
     ///     战术播放Window-当前的真实时间戳
     /// </summary>
-    public string TACTIC_PLAYING_LABEL_CURR_REAL_TIMESTAMP { get; }
+    public string TacticPlayingLabelCurrRealTimestamp { get; }
 
     /// <summary>
     ///     战术播放Window-当前战术步骤的时间戳
     /// </summary>
-    public string TACTIC_PLAYING_LABEL_CURR_STEP_TIMESTAMP { get; }
+    public string TacticPlayingLabelCurrStepTimestamp { get; }
 
     /// <summary>
     ///     战术播放Window-热键已被占用
     /// </summary>
-    public string TACTIC_PLAYING_HOTKEY_ALREADY_EXSITS { get; }
+    public string TacticPlayingHotkeyAlreadyExsits { get; }
 
     /// <summary>
     ///     战术播放Window-播放时透明度
     /// </summary>
-    public string TACTIC_PLAYING_OPACITY { get; }
+    public string TacticPlayingOpacity { get; }
 
     /// <summary>
     ///     战术播放Window-启用时间轴矫正
     /// </summary>
-    public string TACTIC_PLAYING_TIMELINE_CORRECTION { get; }
+    public string TacticPlayingTimelineCorrection { get; }
 
     /// <summary>
     ///     战术播放Window-战术文件介绍
     /// </summary>
-    public string TACTIC_PLAYING_FILEINFO { get; }
+    public string TacticPlayingFileinfo { get; }
 
     /// <summary>
     ///     战术播放Window-打开目录按钮
     /// </summary>
-    public string TACTIC_PLAYING_BTN_OPEN_FOLDER { get; }
+    public string TacticPlayingBtnOpenFolder { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_ENABLE { get; }
+    public string TacticPlayingModitemEnable { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用-未分类
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_NONE { get; }
+    public string TacticPlayingModitemNone { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用-生产单位
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_WORKER { get; }
+    public string TacticPlayingModitemWorker { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用-军事单位
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_ARMY { get; }
+    public string TacticPlayingModitemArmy { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用-建筑
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_BUILDING { get; }
+    public string TacticPlayingModitemBuilding { get; }
 
     /// <summary>
     ///     战术播放Window-Mod类型启用-科技
     /// </summary>
-    public string TACTIC_PLAYING_MODITEM_TECH { get; }
+    public string TacticPlayingModitemTech { get; }
 
     #endregion
 
@@ -300,27 +300,27 @@ public interface ILanguage
     /// <summary>
     ///     设置页-GroupHeader-通用设置
     /// </summary>
-    public string SETTINGS_PAGE_HEADER_NORMAL { get; }
+    public string SettingsPageHeaderNormal { get; }
 
     /// <summary>
     ///     设置页-GroupHeader-快捷键设置
     /// </summary>
-    public string SETTINGS_PAGE_HEADER_HOTKEY { get; }
+    public string SettingsPageHeaderHotkey { get; }
 
     /// <summary>
     ///     设置页-GroupHeader-关于
     /// </summary>
-    public string SETTINGS_PAGE_HEADER_ABOUT { get; }
+    public string SettingsPageHeaderAbout { get; }
 
     /// <summary>
     ///     设置页-通用设置-检查更新
     /// </summary>
-    public string SETTINGS_PAGE_NORMAL_UPGRADE { get; }
+    public string SettingsPageNormalUpgrade { get; }
 
     /// <summary>
     ///     设置页-关于-额外说明
     /// </summary>
-    public string SETTINGS_PAGE_ABOUT_RIGHTS { get; }
+    public string SettingsPageAboutRights { get; }
 
     #endregion
 
@@ -329,92 +329,92 @@ public interface ILanguage
     /// <summary>
     ///     编辑器Page-MOD内容索引
     /// </summary>
-    public string EDITOR_HEADER_MOD_ITEMS { get; }
+    public string EditorHeaderModItems { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件
     /// </summary>
-    public string EDITOR_MENU_HEADER_FILES { get; }
+    public string EditorMenuHeaderFiles { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-新建文件
     /// </summary>
-    public string EDITOR_MENU_FILES_NEW { get; }
+    public string EditorMenuFilesNew { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-打开文件
     /// </summary>
-    public string EDITOR_MENU_FILES_OPEN { get; }
+    public string EditorMenuFilesOpen { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-保存文件
     /// </summary>
-    public string EDITOR_MENU_FILES_SAVE { get; }
+    public string EditorMenuFilesSave { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-另存为文件
     /// </summary>
-    public string EDITOR_MENU_FILES_SAVE_AS { get; }
+    public string EditorMenuFilesSaveAs { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-导出战术文件
     /// </summary>
-    public string EDITOR_MENU_FILES_EXPORT { get; }
+    public string EditorMenuFilesExport { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-文件-导出战术文件至
     /// </summary>
-    public string EDITOR_MENU_FILES_EXPORT_TO { get; }
+    public string EditorMenuFilesExportTo { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-编辑
     /// </summary>
-    public string EDITOR_MENU_HEADER_EDIT { get; }
+    public string EditorMenuHeaderEdit { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-编辑-撤销
     /// </summary>
-    public string EDITOR_MENU_EDIT_UNDO { get; }
+    public string EditorMenuEditUndo { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-编辑-重做
     /// </summary>
-    public string EDITOR_MENU_EDIT_REDO { get; }
+    public string EditorMenuEditRedo { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-编辑-插入模板
     /// </summary>
-    public string EDITOR_MENU_EDIT_INSERT_TEMPLATE { get; }
+    public string EditorMenuEditInsertTemplate { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-帮助
     /// </summary>
-    public string EDITOR_MENU_HEADER_HELP { get; }
+    public string EditorMenuHeaderHelp { get; }
 
     /// <summary>
     ///     编辑器Page-菜单栏-帮助-获取帮助
     /// </summary>
-    public string EDITOR_MENU_HELP_GET_HELP { get; }
+    public string EditorMenuHelpGetHelp { get; }
 
     /// <summary>
     ///     编辑器Page-错误信息-文件无法转换为战术文件
     /// </summary>
-    public string EDITOR_ERROR_FILE_CANT_CONVERT { get; }
+    public string EditorErrorFileCantConvert { get; }
 
     /// <summary>
     ///     编辑器Page-错误信息-Mod未设置无法启动关键词补全
     /// </summary>
-    public string EDITOR_ERROR_MOD_NOT_SET { get; }
+    public string EditorErrorModNotSet { get; }
 
     /// <summary>
     ///     编辑器Page-导出成功信息标题
     /// </summary>
-    public string EDITOR_EXPORT_SUCCESS_TITLE { get; }
+    public string EditorExportSuccessTitle { get; }
 
     /// <summary>
     ///     编辑器Page-导出成功信息内容
     /// </summary>
-    public string EDITOR_EXPORT_SUCCESS_INFO { get; }
+    public string EditorExportSuccessInfo { get; }
 
     #endregion
 
@@ -423,32 +423,32 @@ public interface ILanguage
     /// <summary>
     ///     Replay分析Page-功能开发中
     /// </summary>
-    public string REPLAY_ANALYSIS_DEVELOPING { get; }
+    public string ReplayAnalysisDeveloping { get; }
 
     /// <summary>
     ///     Replay分析Page-按钮-解析SC2Replay
     /// </summary>
-    public string REPLAY_ANALYSIS_BTN_DECODE_SC2REPLAY { get; }
+    public string ReplayAnalysisBtnDecodeSc2Replay { get; }
 
     /// <summary>
     ///     Replay分析Page-解析错误
     /// </summary>
-    public string REPLAY_ANALYSIS_DECODE_ERROR { get; }
+    public string ReplayAnalysisDecodeError { get; }
 
     /// <summary>
     ///     Replay分析Page-解析错误标题
     /// </summary>
-    public string REPLAY_ANALYSIS_DECODE_ERROR_TITLE { get; }
+    public string ReplayAnalysisDecodeErrorTitle { get; }
 
     /// <summary>
     ///     Replay分析Page-解析成功
     /// </summary>
-    public string REPLAY_ANALYSIS_DECODE_SUCCESS { get; }
+    public string ReplayAnalysisDecodeSuccess { get; }
 
     /// <summary>
     ///     Replay分析Page-解析成功标题
     /// </summary>
-    public string REPLAY_ANALYSIS_DECODE_SUCCESS_TITLE { get; }
+    public string ReplayAnalysisDecodeSuccessTitle { get; }
 
     #endregion
 
@@ -459,12 +459,12 @@ public interface ILanguage
     /// <summary>
     ///     异常信息的文本模板
     /// </summary>
-    public string ERROR_DESC_TEMPLATE { get; }
+    public string ErrorDescTemplate { get; }
 
     /// <summary>
     ///     重复启动进程
     /// </summary>
-    public string ERROR_MUILT_PROCESS { get; }
+    public string ErrorMuiltProcess { get; }
 
     #endregion
 
@@ -473,42 +473,42 @@ public interface ILanguage
     /// <summary>
     ///     通用气泡错误提示
     /// </summary>
-    public string TOAST_TITLE_ERROR { get; }
+    public string ToastTitleError { get; }
 
     /// <summary>
     ///     通用按钮文本-返回
     /// </summary>
-    public string BUTTON_TXT_BACK { get; }
+    public string ButtonTxtBack { get; }
 
     /// <summary>
     ///     通用按钮文本-确定
     /// </summary>
-    public string BUTTON_TXT_SUBMIT { get; }
+    public string ButtonTxtSubmit { get; }
 
     /// <summary>
     ///     通用按钮文本-刷新
     /// </summary>
-    public string BUTTON_TXT_REFRESH { get; }
+    public string ButtonTxtRefresh { get; }
 
     /// <summary>
     ///     通用文本—可用
     /// </summary>
-    public string NORMAL_TEXT_AVAILABLE { get; }
+    public string NormalTextAvailable { get; }
 
     /// <summary>
     ///     通用文本—错误
     /// </summary>
-    public string NORMAL_TEXT_ERROR { get; }
+    public string NormalTextError { get; }
 
     /// <summary>
     ///     通用文本-功能开发中，敬请期待
     /// </summary>
-    public string NORMAL_TEXT_DEVELOPING { get; }
+    public string NormalTextDeveloping { get; }
 
     /// <summary>
     ///     友情链接
     /// </summary>
-    public string NORMAL_TEXT_FRIENDSHIP_LINKS { get; }
+    public string NormalTextFriendshipLinks { get; }
 
     #endregion
 }
