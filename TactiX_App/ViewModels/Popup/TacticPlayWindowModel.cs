@@ -571,9 +571,12 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
                 {
                     var action = CurrTactic.Actions[index];
                     var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                    var itemName = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                    var itemName = _modItems.First(i => i.Abbr == action.ItemAbbr).Desc;
                     var itemTime = ConvertTimeToHhmmStr(action.Time);
-                    var desc = $"{itemName}{Environment.NewLine}{itemTime}";
+                    var number = action.Number > 1
+                        ? $"x{action.Number}"
+                        : string.Empty;
+                    var desc = $"{itemName}{number}{Environment.NewLine}{itemTime}";
                     var supply = action.Supply;
 
                     _messenger.Send(new MbDisplayStep
