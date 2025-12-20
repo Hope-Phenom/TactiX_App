@@ -33,6 +33,11 @@ public class LConfig
      ///     启用时间轴矫正
      /// </summary>
      public bool EnableTlCorr { get; set; } = true;
+     
+     /// <summary>
+     ///    启用战术文件预装载，这可能会提升性能
+     /// </summary>
+     public bool EnablePreload { get; set; } = true;
 
      /// <summary>
      ///     热键绑定，默认使用Alt+方向键

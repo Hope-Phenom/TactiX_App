@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -28,21 +29,20 @@ namespace TactiX_App.ViewModels.Popup;
 public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
 {
 #if DEBUG
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
+#pragma warning disable CS8618
     public TacticPlayWindowModel()
     {
-    } // 此构造函数仅用于保证可预览
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
+    }
+#pragma warning restore CS8618
 #endif
 
-    public TacticPlayWindowModel(ILocalizationService localizationService, ILoggerContainer loggerContainer, 
+    public TacticPlayWindowModel(ILocalizationService localizationService, ILoggerContainer loggerContainer,
         IMessenger messenger, IosTools oSTools)
     {
         _localizationService = localizationService;
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
         _messenger = messenger;
         _oses = oSTools.OSes;
-        Config = _oses.LoadConfig();
         Config = _oses.LoadConfig();
 
         // 加载指定MOD
@@ -52,14 +52,21 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
         // UI初始化
         SwtichToNormalMode();
         IsPrepare = true;
-        timeStampTxt = "00:00";
-        currStepTimeStampTxt = "00:00";
-        timeStampGapTxt = string.Empty;
+        TimeStampTxt = "00:00";
+        CurrStepTimeStampTxt = "00:00";
+        TimeStampGapTxt = string.Empty;
+        FileSelectedInfo = _localizationService.GetString("TacticPlayingInfoUnselect");
+        HotkeyTips = _localizationService.GetString("TacticPlayingInfoFileTips");
+        HotkeyTipsDesc = string.Empty;
 
         // 逻辑初始化
         TacticFiles = [];
+        _tactics = [];
         _filePrefix = Path.Combine(TACTICS_FOLDER, _modPackage.ModDesc!.TacticsPath);
         ListTacticFiles();
+        
+        // 预读文件
+        if (Config.EnablePreload) Task.Run(LoadTacticFiles);
 
         _modItems = [.. _modPackage.ModDesc.Actions, .. _modPackage.ModDesc.Units];
         _isPause = false;
@@ -68,7 +75,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
         _timeStampGap = 0;
 
         using var ms = new MemoryStream(_modPackage.ReadBinaryFile(TITLE_BAR_IMAGE));
-        titleBarImage = new Bitmap(ms);
+        _titleBarImage = new Bitmap(ms);
 
         _messenger.RegisterAll(this);
     }
@@ -80,7 +87,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
         switch (message.HotkeyEnum)
         {
             case LHotkeyBindingEnum.StartOrResume:
-                _isPause = !_isPause;
+                PauseOrResume();
                 break;
             case LHotkeyBindingEnum.Stop:
                 StopPlayback();
@@ -118,9 +125,9 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     private const string SOUND_FOLDER = "sounds";
     private readonly TimeSpan _normalTimeInterval = new(0, 0, 0, 1, 0);
     private readonly TimeSpan _realTimeInterval = new(0, 0, 0, 0, 968);
-    private readonly Point _playingSize = new(700, 180);
-    private readonly Point _miniSize = new(700, 230);
-    private readonly Point _normalSize = new(700, 700);
+    private readonly Point _playingSize = new(700, 230);
+    private readonly Point _miniSize = new(700, 280);
+    private readonly Point _normalSize = new(700, 750);
 
     /// <summary>
     ///     当前装载的Mod
@@ -182,7 +189,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     /// <summary>
     ///     UI是否是准备模式
     /// </summary>
-    [ObservableProperty] public bool isPrepare;
+    [ObservableProperty] private bool _isPrepare;
 
     /// <summary>
     ///     UI是否是迷你模式
@@ -192,27 +199,42 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     /// <summary>
     ///     UI的高度
     /// </summary>
-    [ObservableProperty] public int uIHeight;
+    [ObservableProperty] private int _uIHeight;
 
     /// <summary>
     ///     设置Group的分割线高度
     /// </summary>
-    [ObservableProperty] public GridLength horizontalLineHeight;
+    [ObservableProperty] private GridLength _horizontalLineHeight;
 
     /// <summary>
     ///     设置Group的高度
     /// </summary>
-    [ObservableProperty] public GridLength groupHeight;
+    [ObservableProperty] private GridLength _groupHeight;
 
     /// <summary>
     ///     下拉按钮的图标
     /// </summary>
-    [ObservableProperty] public MaterialIconKind materialIconKind;
+    [ObservableProperty] private MaterialIconKind _materialIconKind;
 
     /// <summary>
     ///     TitleBarImage
     /// </summary>
-    [ObservableProperty] public IImage titleBarImage;
+    [ObservableProperty] private IImage _titleBarImage;
+
+    /// <summary>
+    ///     文件选择情况提示
+    /// </summary>
+    [ObservableProperty] private string _fileSelectedInfo;
+
+    /// <summary>
+    ///     热键提示（左半部分）
+    /// </summary>
+    [ObservableProperty] private string _hotkeyTips;
+
+    /// <summary>
+    ///     热键提示（右半部分）
+    /// </summary>
+    [ObservableProperty] private string _hotkeyTipsDesc;
 
     public LConfig Config { get; }
 
@@ -226,46 +248,45 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     public AvaloniaList<string> TacticFiles { get; }
 
     /// <summary>
-    ///     战术选择文本框数据绑定-内部
-    /// </summary>
-    private string? _selectedTacticFile;
-
-    /// <summary>
     ///     战术选择文本框数据绑定
     /// </summary>
     public string? SelectedTacticFile
     {
-        get => _selectedTacticFile;
+        get;
         set
         {
-            if (_selectedTacticFile != value)
-            {
-                _selectedTacticFile = value;
-                OnPropertyChanged();
-                OnSelectionChanged();
-            }
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+            OnSelectionChanged();
         }
     }
 
     /// <summary>
     ///     当前的战术文件
     /// </summary>
-    [ObservableProperty] public LTactic? currTactic;
+    [ObservableProperty] private LTactic? _currTactic;
 
     /// <summary>
     ///     时间戳文本
     /// </summary>
-    [ObservableProperty] public string timeStampTxt;
+    [ObservableProperty] private string _timeStampTxt;
 
     /// <summary>
     ///     当前步骤的标准时间
     /// </summary>
-    [ObservableProperty] public string currStepTimeStampTxt;
+    [ObservableProperty] private string _currStepTimeStampTxt;
 
     /// <summary>
     ///     当前与标准时间的差值
     /// </summary>
-    [ObservableProperty] public string timeStampGapTxt;
+    [ObservableProperty] private string _timeStampGapTxt;
+
+    /// <summary>
+    /// 加载所有的战术文件
+    /// </summary>
+    private readonly List<LTactic?> _tactics;
 
     #endregion
 
@@ -275,7 +296,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     ///     关闭当前播放窗体
     /// </summary>
     [RelayCommand]
-    public void CloseWindow()
+    private void CloseWindow()
     {
         _messenger.Send(new MbWindowClose
         {
@@ -289,7 +310,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     ///     拉起当前窗体
     /// </summary>
     [RelayCommand]
-    public void PullWindow()
+    private void PullWindow()
     {
         _isMini = !_isMini;
 
@@ -314,7 +335,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     ///     开始播放指定的战术文件
     /// </summary>
     [RelayCommand]
-    public void PlayTactic()
+    private void PlayTactic()
     {
         if (CurrTactic == null) return;
 
@@ -332,7 +353,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
         if (CurrTactic.TacticType == LTacticEnum.Timeline)
         {
             _dispatcherTimer = new DispatcherTimer();
-            _dispatcherTimer.Tick += (s, e) => PlayNext();
+            _dispatcherTimer.Tick += (_, _) => PlayNext();
             _dispatcherTimer.Interval = Config.EnableTlCorr
                 ? _realTimeInterval
                 : _normalTimeInterval;
@@ -351,16 +372,17 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     ///     刷新战术列表
     /// </summary>
     [RelayCommand]
-    public void Refresh()
+    private void Refresh()
     {
         ListTacticFiles();
+        if (Config.EnablePreload) Task.Run(LoadTacticFiles);
     }
 
     /// <summary>
     ///     打开当前的战术目录
     /// </summary>
     [RelayCommand]
-    public void OpenFolder()
+    private void OpenFolder()
     {
         _oses.OpenUrl(_filePrefix);
     }
@@ -370,18 +392,26 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     /// </summary>
     private void OnSelectionChanged()
     {
-        if (string.IsNullOrEmpty(SelectedTacticFile)) return;
-
-        var filePath = Path.Combine(_filePrefix, SelectedTacticFile);
-
-        if (!File.Exists(filePath)) return;
-
         try
         {
-            CurrTactic = JsonConvert.DeserializeObject<LTactic>(File.ReadAllText(filePath));
+            if (string.IsNullOrEmpty(SelectedTacticFile)) return;
+
+            FileSelectedInfo = Path.GetFileNameWithoutExtension(SelectedTacticFile);
+
+            if (Config.EnablePreload)
+            {
+                CurrTactic = _tactics[TacticFiles.IndexOf(SelectedTacticFile)];
+            }
+            else
+            {
+                var filePath = Path.Combine(_filePrefix, SelectedTacticFile);
+                if (!File.Exists(filePath)) return;
+
+                CurrTactic = JsonConvert.DeserializeObject<LTactic>(File.ReadAllText(filePath));
+            }
 
             if (CurrTactic == null) return;
-
+            
             SortActionsByModItemType(CurrTactic);
         }
         catch (Exception ex)
@@ -406,6 +436,10 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     private void SwtichToPlayingMode()
     {
         UIHeight = _playingSize.Y;
+
+        HotkeyTips = string.Empty;
+        HotkeyTipsDesc = GetHotkeyStr();
+
         _messenger.Send(new MbWindowPointerTrans
         {
             Enable = true
@@ -422,6 +456,9 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
         GroupHeight = GridLength.Star;
         MaterialIconKind = MaterialIconKind.ArrowExpandUp;
         _isMini = false;
+
+        HotkeyTips = _localizationService.GetString("TacticPlayingInfoFileTips");
+        HotkeyTipsDesc = string.Empty;
 
         _messenger.Send(new MbWindowPointerTrans
         {
@@ -539,9 +576,9 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     /// <summary>
     ///     恢复播放
     /// </summary>
-    private void Resume()
+    private void PauseOrResume()
     {
-        _isPause = false;
+        _isPause = !_isPause;
     }
 
     /// <summary>
@@ -623,7 +660,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
             {
                 var action = CurrTactic.Actions[slotNo - 3];
                 var image = _modResourceCache.GetImage(Path.Combine(ICON_FOLDER, $"{action.ItemAbbr}.png"));
-                var desc = _modItems.Where(i => i.Abbr == action.ItemAbbr).First().Desc;
+                var desc = _modItems.First(i => i.Abbr == action.ItemAbbr).Desc;
                 _messenger.Send(new MbDisplayStep
                 {
                     SlotNo = slotNo,
@@ -730,6 +767,20 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
             });
     }
 
+    /// <summary>
+    ///     一次性读取当前所有的战术文件，提升切换选择时的性能
+    /// </summary>
+    private void LoadTacticFiles()
+    {
+        _tactics.Clear();
+        
+        var files = Directory.GetFiles(_filePrefix, TACTICS_SEARCH_PATTERN);
+        foreach (var file in files)
+        {
+            _tactics.Add(JsonConvert.DeserializeObject<LTactic>(File.ReadAllText(file)));
+        }
+    }
+
     private void PlayWav()
     {
         try
@@ -756,7 +807,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
             _waveReader = new WaveFileReader(memoryStream);
             _waveOut = new WaveOutEvent();
             _waveOut.Init(_waveReader);
-            _waveOut.PlaybackStopped += (e, a) => { memoryStream.Dispose(); };
+            _waveOut.PlaybackStopped += (_, _) => { memoryStream.Dispose(); };
             _waveOut.Play();
         }
         catch (Exception ex)
@@ -782,14 +833,31 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     {
         var conf = Config.ModItemTypeEnable;
         var list = new List<LTacticAction>();
-        for (var i = 0; i < tactic.Actions.Count; i++)
+        foreach (var action in tactic.Actions)
         {
-            var action = tactic.Actions[i];
-            var type = _modItems.Where(item => item.Abbr == action.ItemAbbr).First().Type;
+            var type = _modItems
+                .First(item => item.Abbr == action.ItemAbbr)
+                .Type;
             if (conf[type]) list.Add(action);
         }
 
         tactic.Actions = list;
+    }
+
+    /// <summary>
+    ///     从配置文件中获得快捷键的文本
+    /// </summary>
+    /// <returns>快捷键的文本</returns>
+    private string GetHotkeyStr()
+    {
+        if (Config.Hotkeys.Length != 4) return string.Empty;
+
+        var baseStr = _localizationService.GetString("TacticPlayingInfoHotkeyDesc");
+        return string.Format(baseStr,
+            $"{Config.Hotkeys[0].Modifiers}+{Config.Hotkeys[0].Key}",
+            $"{Config.Hotkeys[1].Modifiers}+{Config.Hotkeys[1].Key}",
+            $"{Config.Hotkeys[2].Modifiers}+{Config.Hotkeys[2].Key}",
+            $"{Config.Hotkeys[3].Modifiers}+{Config.Hotkeys[3].Key}");
     }
 
     #endregion

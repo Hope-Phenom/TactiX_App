@@ -71,6 +71,13 @@
     <x:String x:Key="TacticPlayingModitemArmy">Military Unit</x:String>
     <x:String x:Key="TacticPlayingModitemBuilding">Building</x:String>
     <x:String x:Key="TacticPlayingModitemTech">Tech</x:String>
+    <x:String x:Key="TacticPlayingButtonFold">Fold</x:String>
+    <x:String x:Key="TacticPlayingButtonReload">Reload</x:String>
+    <x:String x:Key="TacticPlayingButtonClose">Close</x:String>
+    <x:String x:Key="TacticPlayingButtonPlay">Play</x:String>
+    <x:String x:Key="TacticPlayingInfoUnselect">No file selected</x:String>
+    <x:String x:Key="TacticPlayingInfoFileTips">Select the file, click play, and start the timer.</x:String>
+    <x:String x:Key="TacticPlayingInfoHotkeyDesc">{0} Pause/Resume {1} Stop Playback {2} Previous {3} Next</x:String>
 
     <x:String x:Key="SettingsPageHeaderNormal">General Settings</x:String>
     <x:String x:Key="SettingsPageHeaderHotkey">Shortcut Key Settings</x:String>

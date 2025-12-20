@@ -71,6 +71,13 @@
     <x:String x:Key="TacticPlayingModitemArmy">军事单位</x:String>
     <x:String x:Key="TacticPlayingModitemBuilding">建筑</x:String>
     <x:String x:Key="TacticPlayingModitemTech">科技</x:String>
+    <x:String x:Key="TacticPlayingButtonFold">折叠面板</x:String>
+    <x:String x:Key="TacticPlayingButtonReload">重载文件</x:String>
+    <x:String x:Key="TacticPlayingButtonClose">关闭助手</x:String>
+    <x:String x:Key="TacticPlayingButtonPlay">播放战术</x:String>
+    <x:String x:Key="TacticPlayingInfoUnselect">未选择战术文件</x:String>
+    <x:String x:Key="TacticPlayingInfoFileTips">选择战术文件，点击播放，开始战术计时</x:String>
+    <x:String x:Key="TacticPlayingInfoHotkeyDesc">{0} 暂停/继续 {1} 停止播放 {2} 上一步 {3} 下一步</x:String>
 
     <x:String x:Key="SettingsPageHeaderNormal">通用设置</x:String>
     <x:String x:Key="SettingsPageHeaderHotkey">快捷键设置</x:String>

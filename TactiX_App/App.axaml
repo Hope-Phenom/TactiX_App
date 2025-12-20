@@ -8,9 +8,7 @@
 
     <Application.Styles>
 
-        <FluentTheme />
-
-        <sukiUi:SukiTheme ThemeColor="Blue" />
+	    <sukiUi:SukiTheme ThemeColor="Blue" />
 
         <materialIcons:MaterialIconStyles />
 

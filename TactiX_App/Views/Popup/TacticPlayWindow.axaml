@@ -5,23 +5,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
-        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
         xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
         x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
         x:DataType="vm:TacticPlayWindowModel"
+        ExtendClientAreaToDecorationsHint="False"
         ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaTitleBarHeightHint="-1"
         SystemDecorations="None"
-        CanMaximize="False"
-        CanMinimize="False"
-        CanResize="False"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        CanMaximize="False" CanMinimize="False" CanResize="False"
         Topmost="True"
-        Width="700"
-        Height="{Binding UIHeight}"
+        Width="700" Height="{Binding UIHeight}"
         Title="TacticPlayWindow">
+
+    <Window.Styles>
+        <FluentTheme />
+        <Style Selector="Border.Container">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="Black" />
+        </Style>
+        <Style Selector="Button.Controller">
+            <Setter Property="Width" Value="140" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+        <Style Selector="TextBlock.ButtonInner">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style Selector="materialIcons|MaterialIcon.ButtonIcon">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <vm:TacticPlayWindowModel UIHeight="700"
@@ -31,24 +51,24 @@
                                   IsPrepare="False" />
     </Design.DataContext>
 
-    <Window.Styles>
-        <FluentTheme />
-    </Window.Styles>
-
     <Grid Margin="10">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="160" />
-            <RowDefinition Height="{Binding HorizontalLineHeight}" />
-            <RowDefinition Height="{Binding GroupHeight}" />
             <RowDefinition Height="10" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="{Binding HorizontalLineHeight}" />
+            <RowDefinition Height="{Binding GroupHeight}" />
         </Grid.RowDefinitions>
 
-        <suki:GlassCard Grid.Row="0" BorderThickness="3">
+        <!-- 最上方播放容器 -->
+        <Border Grid.Row="0" Classes="Container">
+
             <Grid Margin="0">
                 <Grid Margin="0" IsVisible="{Binding IsPrepare}">
-                    <Image Margin="0" Source="{Binding TitleBarImage}" />
+                    <Image Margin="10" Source="{Binding TitleBarImage}" />
                 </Grid>
                 <Grid Margin="0"
                       IsVisible="{Binding !IsPrepare}"
@@ -110,13 +130,102 @@
                     </Grid>
                 </Grid>
             </Grid>
-        </suki:GlassCard>
+        </Border>
 
-        <suki:GlassCard Grid.Row="2" BorderThickness="3">
-            <Grid Margin="0" 
+        <!-- 状态栏 -->
+        <Grid Grid.Row="2" ColumnDefinitions="200,10,*">
+            <Border Grid.Column="0" Classes="Container">
+                <TextBlock Foreground="#ff6f6f" 
+                           Margin="10,0,10,0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Stretch"
+                           TextAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Text="{Binding FileSelectedInfo}" />
+            </Border>
+            <Border Grid.Column="2" Classes="Container">
+                <StackPanel Orientation="Horizontal" 
+                            Spacing="0" 
+                            HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding HotkeyTips}" />
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="#b88125"
+                               FontSize="12"
+                               Text="{Binding HotkeyTipsDesc}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 控制按钮 -->
+        <Border Grid.Row="4" Classes="Container"
+                Background="Transparent">
+
+            <Grid ColumnDefinitions="140,*,140,*,140,*,140">
+
+                <Button Grid.Column="0" Classes="Controller"
+                        Command="{Binding PullWindowCommand}">
+                    <Grid ColumnDefinitions="10,25,10,*,10">
+                        <materialIcons:MaterialIcon Grid.Column="1"
+                                                    Classes="ButtonIcon"
+                                                    Kind="{Binding MaterialIconKind}" />
+                        <TextBlock Grid.Column="3"
+                                   Classes="ButtonInner"
+                                   Text="{StaticResource TacticPlayingButtonFold}" />
+                    </Grid>
+                </Button>
+
+                <Button Grid.Column="2" Classes="Controller"
+                        Command="{Binding RefreshCommand}">
+                    <Grid ColumnDefinitions="10,25,10,*,10">
+                        <materialIcons:MaterialIcon Grid.Column="1"
+                                                    Classes="ButtonIcon"
+                                                    Kind="Refresh" />
+                        <TextBlock Grid.Column="3"
+                                   Classes="ButtonInner"
+                                   Text="{StaticResource TacticPlayingButtonReload}" />
+                    </Grid>
+                </Button>
+
+                <Button Grid.Column="4" Classes="Controller"
+                        Command="{Binding CloseWindowCommand}">
+                    <Grid ColumnDefinitions="10,25,10,*,10">
+                        <materialIcons:MaterialIcon Grid.Column="1"
+                                                    Classes="ButtonIcon"
+                                                    Kind="StopCircleOutline" />
+                        <TextBlock Grid.Column="3"
+                                   Classes="ButtonInner"
+                                   Text="{StaticResource TacticPlayingButtonClose}" />
+                    </Grid>
+                </Button>
+
+                <Button Grid.Column="6" Classes="Controller"
+                        Command="{Binding PlayTacticCommand}">
+                    <Grid ColumnDefinitions="10,25,10,*,10">
+                        <materialIcons:MaterialIcon Grid.Column="1"
+                                                    Classes="ButtonIcon"
+                                                    Kind="PlayCircleOutline" />
+                        <TextBlock Grid.Column="3"
+                                   Classes="ButtonInner"
+                                   Text="{StaticResource TacticPlayingButtonPlay}" />
+                    </Grid>
+                </Button>
+
+            </Grid>
+
+        </Border>
+
+        <!-- 战术选择容器 -->
+        <Border Grid.Row="6" Classes="Container">
+
+            <Grid Margin="15"
                   RowDefinitions="40,30,*">
 
-                <Grid Grid.Row="0" VerticalAlignment="Center" 
+                <Grid Grid.Row="0" VerticalAlignment="Center"
                       ColumnDefinitions="Auto,10,*,10,100">
 
                     <Label Grid.Column="0" VerticalContentAlignment="Center"
@@ -132,12 +241,7 @@
                             Command="{Binding OpenFolderCommand}" />
                 </Grid>
 
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
+                <Grid Grid.Row="2" ColumnDefinitions="*,20,2*">
 
                     <Grid Grid.Column="0">
                         <StackPanel Orientation="Vertical">
@@ -181,29 +285,9 @@
                     </Grid>
                 </Grid>
             </Grid>
-        </suki:GlassCard>
 
-        <Grid Grid.Row="4"
-              Width="510"
-              ColumnDefinitions="120,10,120,10,120,10,120">
+        </Border>
 
-            <Button Width="120" Grid.Column="0" Command="{Binding PullWindowCommand}">
-                <materialIcons:MaterialIcon Kind="{Binding MaterialIconKind}"
-                                            Width="25" Height="25" />
-            </Button>
-            <Button Width="120" Grid.Column="2" Command="{Binding RefreshCommand}">
-                <materialIcons:MaterialIcon Kind="Refresh"
-                                            Width="25" Height="25" />
-            </Button>
-            <Button Width="120" Grid.Column="4" Command="{Binding CloseWindowCommand}">
-                <materialIcons:MaterialIcon Kind="CloseCircleOutline"
-                                            Width="25" Height="25" />
-            </Button>
-            <Button Width="120" Grid.Column="6" Command="{Binding PlayTacticCommand}">
-                <materialIcons:MaterialIcon Kind="PlayCircleOutline"
-                                            Width="25" Height="25" />
-            </Button>
-        </Grid>
     </Grid>
 
 </Window>
