@@ -125,9 +125,9 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
     private const string SOUND_FOLDER = "sounds";
     private readonly TimeSpan _normalTimeInterval = new(0, 0, 0, 1, 0);
     private readonly TimeSpan _realTimeInterval = new(0, 0, 0, 0, 968);
-    private readonly Point _playingSize = new(700, 230);
-    private readonly Point _miniSize = new(700, 280);
-    private readonly Point _normalSize = new(700, 750);
+    private readonly Point _playingSize = new(700, 180);
+    private readonly Point _miniSize = new(700, 230);
+    private readonly Point _normalSize = new(700, 700);
 
     /// <summary>
     ///     当前装载的Mod
@@ -591,10 +591,10 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
             if (CurrTactic == null) return;
             if (_modPackage.ModDesc == null) return;
 
-            for (var slotNo = 0; slotNo < 5; slotNo++)
+            for (var slotNo = 0; slotNo < 4; slotNo++)
             {
                 // 换算为对应的指针
-                var index = _currIndex + slotNo - 2;
+                var index = _currIndex + slotNo - 1;
 
                 // 超出了范围，让Item显示为空
                 if (index < 0 || index >= CurrTactic.Actions.Count)
@@ -612,7 +612,7 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
                     var itemName = _modItems.First(i => i.Abbr == action.ItemAbbr).Desc;
                     var itemTime = ConvertTimeToHhmmStr(action.Time);
                     var number = action.Number > 1
-                        ? $"x{action.Number}"
+                        ? $" x{action.Number}"
                         : string.Empty;
                     var desc = $"{itemName}{number}{Environment.NewLine}{itemTime}";
                     var supply = action.Supply;

@@ -29,7 +29,7 @@
     </UserControl.Styles>
 
     <Grid Margin="10">
-        <!-- 简单实现，不做模板了 -->
+        <!-- 简单实现，不做模板了；后续继续优化 -->
         <ScrollViewer>
             <StackPanel Orientation="Vertical" Spacing="10">
                 <!-- 战术名称 -->

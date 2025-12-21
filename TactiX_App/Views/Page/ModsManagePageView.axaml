@@ -1,3 +1,4 @@
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,29 +12,12 @@
              x:DataType="vm:ModsManagePageViewModel">
 
     <Grid Margin="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="10" />
-                <RowDefinition Height="100" />
-            </Grid.RowDefinitions>
+        <Grid RowDefinitions="*,10,100">
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="250" />
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" ColumnDefinitions="2*,10,3*,10,250">
                 <suki:GlassCard Grid.Column="0">
                     <suki:GroupBox Header="{StaticResource ModsManageViewLocalModsHeader}">
-                        <Grid Margin="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="128" />
-                            </Grid.RowDefinitions>
+                        <Grid Margin="0" RowDefinitions="*,10,128">
                             <ListBox Margin="0" ItemsSource="{Binding ModsList}" Grid.Row="0"
                                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
                             <Image Width="128" Height="128" Source="{Binding SelectedModIcon}"
@@ -66,14 +50,7 @@
             </Grid>
 
             <suki:GlassCard Grid.Row="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="200" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="*,10,100,10,200">
                     <TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Button Grid.Column="2"
@@ -88,3 +65,4 @@
     </Grid>
 
 </UserControl>
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
