@@ -78,6 +78,17 @@
     <x:String x:Key="TacticPlayingInfoUnselect">No file selected</x:String>
     <x:String x:Key="TacticPlayingInfoFileTips">Select the file, click play, and start the timer.</x:String>
     <x:String x:Key="TacticPlayingInfoHotkeyDesc">{0} Pause/Resume {1} Stop Playback {2} Previous {3} Next</x:String>
+    
+    <x:String x:Key="TacticInfoDisplayFileName">Name: </x:String>
+    <x:String x:Key="TacticInfoDisplayAuthor">Author: </x:String>
+    <x:String x:Key="TacticInfoDisplayDesc">Description: </x:String>
+    <x:String x:Key="TacticInfoDisplayApplyVer">ApplicableVersion: </x:String>
+    <x:String x:Key="TacticInfoDisplayType">Tactic Type: </x:String>
+    <x:String x:Key="TacticInfoDisplayTacVer">TacVersion: </x:String>
+    <x:String x:Key="TacticInfoDisplayUpdateTime">Update Time: </x:String>
+    <x:String x:Key="TacticInfoDisplayModName">Mod Name: </x:String>
+    <x:String x:Key="TacticInfoDisplayModVer">Minimum version: </x:String>
+    <x:String x:Key="TacticInfoDisplayActions">Action List: </x:String>
 
     <x:String x:Key="SettingsPageHeaderNormal">General Settings</x:String>
     <x:String x:Key="SettingsPageHeaderHotkey">Shortcut Key Settings</x:String>

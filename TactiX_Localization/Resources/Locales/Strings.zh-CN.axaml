@@ -78,6 +78,17 @@
     <x:String x:Key="TacticPlayingInfoUnselect">未选择战术文件</x:String>
     <x:String x:Key="TacticPlayingInfoFileTips">选择战术文件，点击播放，开始战术计时</x:String>
     <x:String x:Key="TacticPlayingInfoHotkeyDesc">{0} 暂停/继续 {1} 停止播放 {2} 上一步 {3} 下一步</x:String>
+    
+    <x:String x:Key="TacticInfoDisplayFileName">战术名称：</x:String>
+    <x:String x:Key="TacticInfoDisplayAuthor">战术作者：</x:String>
+    <x:String x:Key="TacticInfoDisplayDesc">战术介绍：</x:String>
+    <x:String x:Key="TacticInfoDisplayApplyVer">适用版本：</x:String>
+    <x:String x:Key="TacticInfoDisplayType">文件类型：</x:String>
+    <x:String x:Key="TacticInfoDisplayTacVer">战术版本：</x:String>
+    <x:String x:Key="TacticInfoDisplayUpdateTime">更新时间：</x:String>
+    <x:String x:Key="TacticInfoDisplayModName">Mod名称：</x:String>
+    <x:String x:Key="TacticInfoDisplayModVer">最低版本：</x:String>
+    <x:String x:Key="TacticInfoDisplayActions">动作列表：</x:String>
 
     <x:String x:Key="SettingsPageHeaderNormal">通用设置</x:String>
     <x:String x:Key="SettingsPageHeaderHotkey">快捷键设置</x:String>

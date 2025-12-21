@@ -1,4 +1,6 @@
-﻿namespace TactiX_Models.Tactics;
+﻿using System.Text;
+
+namespace TactiX_Models.Tactics;
 
 /// <summary>
 ///     战术文件，包含基本信息、对应的MOD和步骤数据
@@ -60,4 +62,20 @@ public class LTactic
     ///     动作列表
     /// </summary>
     public List<LTacticAction> Actions { get; set; } = new();
+
+    /// <summary>
+    ///     动作列表的文字形式
+    /// </summary>
+    public string ActionsListStr
+    {
+        get
+        {
+            if (Actions.Count == 0) return string.Empty;
+
+            var sb = new StringBuilder();
+            Actions.ForEach(item => 
+                sb.AppendLine(item.ToString()));
+            return sb.ToString();
+        }
+    }
 }

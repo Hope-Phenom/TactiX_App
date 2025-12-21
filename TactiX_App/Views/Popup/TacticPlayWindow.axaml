@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
         xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        xmlns:apc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
         x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
         x:DataType="vm:TacticPlayWindowModel"
@@ -277,11 +276,8 @@
                     <Grid Grid.Column="2"
                           RowDefinitions="Auto,10,*">
                         <Label Grid.Row="0" Content="{StaticResource TacticPlayingFileinfo}" />
-                        <apc:PropertyGrid Grid.Row="2" IsReadOnly="True"
-                                          IsAutoNameWidth="True" IsTitleVisible="False"
-                                          IsQuickFilterVisible="False"
-                                          DataContext="{Binding CurrTactic}"
-                                          IsCategoryVisible="False" />
+                        <component:TacticInfoDisplay Grid.Row="2" Margin="0"
+                                                     TacticData="{Binding CurrTactic}" />
                     </Grid>
                 </Grid>
             </Grid>
