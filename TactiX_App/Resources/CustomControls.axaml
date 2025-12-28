@@ -66,5 +66,13 @@
     <Style Selector="HyperlinkButton:pressed TextBlock">
         <Setter Property="Foreground" Value="{StaticResource UnselectedFontColor}" />
     </Style>
+    
+    <!-- 通用按钮 -->
+    <Style Selector="Button.Normal">
+        <Setter Property="Background" Value="{StaticResource HeaderColor}"></Setter>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="30" />
+        <Setter Property="Height" Value="40" />
+    </Style>
 
 </Styles>

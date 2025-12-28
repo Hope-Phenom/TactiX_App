@@ -12,15 +12,6 @@
              x:DataType="vm:ModsManagePageViewModel"
              Background="{StaticResource BackgroundBrush}"
              Foreground="{StaticResource NormalFontColor}">
-    
-    <UserControl.Styles>
-        <Style Selector="Button">
-            <Setter Property="Background" Value="{StaticResource HeaderColor}"></Setter>
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="CornerRadius" Value="30" />
-            <Setter Property="Height" Value="40" />
-        </Style>
-    </UserControl.Styles>
 
     <Grid Margin="10">
         <Grid RowDefinitions="*,10,80">
@@ -79,10 +70,12 @@
                             <Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
                             <Grid Height="15" />
                             <Button Content="{StaticResource ModsManageViewModActionEnableSelected}"
-                                    Command="{Binding EnableSelectedModCommand}" />
+                                    Command="{Binding EnableSelectedModCommand}"
+                                    Classes="Normal" />
                             <Grid Height="15" />
                             <Button Content="{StaticResource ModsManageViewModActionDeleteSelected}"
-                                    Command="{Binding DeleteSelectedModCommand}" />
+                                    Command="{Binding DeleteSelectedModCommand}"
+                                    Classes="Normal" />
                         </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -97,9 +90,11 @@
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource NormalFontColor}" />
                     <Button Grid.Column="2"
+                            Classes="Normal"
                             Content="{StaticResource ButtonTxtRefresh}"
                             Command="{Binding CheckLocalModsCommand}" />
                     <Button Grid.Column="4"
+                            Classes="Normal"
                             Content="{StaticResource ModsManageViewLocalModsFolder}"
                             Command="{Binding OpenLocalFolderCommand}" />
                 </Grid>

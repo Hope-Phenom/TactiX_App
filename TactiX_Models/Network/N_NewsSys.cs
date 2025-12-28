@@ -25,4 +25,9 @@ public class NNewsSys
     ///     日期二次封装
     /// </summary>
     public string DateTimeStr => DateTime.Now.ToString("yyyy-MM-dd");
+    
+    /// <summary>
+    ///     是否为最后一条，用于控制分割线显示
+    /// </summary>
+    public bool IsLast { get; set; }
 }

@@ -8,40 +8,43 @@
              mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
              x:DataType="vm:SettingsPageViewModel"
              x:Name="UserControlSelf"
-             x:Class="TactiX_App.Views.Page.SettingsPageView">
+             x:Class="TactiX_App.Views.Page.SettingsPageView"
+             Background="{StaticResource BackgroundBrush}">
 
-    <suki:GlassCard Margin="10">
-        <suki:SettingsLayout>
-            <suki:SettingsLayout.Items>
-                <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+    <suki:GlassCard Margin="10" Classes="News">
+        <Border Background="{StaticResource BackgroundColor}">
+            <suki:SettingsLayout>
+                <suki:SettingsLayout.Items>
+                    <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
 
-                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
-                        <suki:SettingsLayoutItem.Content>
-                            <StackPanel Orientation="Vertical">
-                                <Button Content="{StaticResource SettingsPageNormalUpgrade}"
-                                        Command="{Binding CheckUpgradeCommand}" />
-                            </StackPanel>
-                        </suki:SettingsLayoutItem.Content>
-                    </suki:SettingsLayoutItem>
+                        <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Normal" Header="Settings Part 1">
+                            <suki:SettingsLayoutItem.Content>
+                                <StackPanel Orientation="Vertical">
+                                    <Button Content="{StaticResource SettingsPageNormalUpgrade}"
+                                            Command="{Binding CheckUpgradeCommand}" />
+                                </StackPanel>
+                            </suki:SettingsLayoutItem.Content>
+                        </suki:SettingsLayoutItem>
 
-                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
-                        <suki:SettingsLayoutItem.Content>
-                            <StackPanel x:Name="StackPanel_KeyMaps" Orientation="Vertical" />
-                        </suki:SettingsLayoutItem.Content>
-                    </suki:SettingsLayoutItem>
+                        <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_Hotkey" Header="Settings Part 2">
+                            <suki:SettingsLayoutItem.Content>
+                                <StackPanel x:Name="StackPanel_KeyMaps" Orientation="Vertical" />
+                            </suki:SettingsLayoutItem.Content>
+                        </suki:SettingsLayoutItem>
 
-                    <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
-                        <suki:SettingsLayoutItem.Content>
-                            <StackPanel Orientation="Vertical">
-                                <Label Content="{StaticResource SettingsPageAboutRights}" />
-                                <Grid Height="10" />
-                                <Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
-                            </StackPanel>
-                        </suki:SettingsLayoutItem.Content>
-                    </suki:SettingsLayoutItem>
+                        <suki:SettingsLayoutItem x:Name="SettingsLayoutItem_About" Header="Settings Part 3">
+                            <suki:SettingsLayoutItem.Content>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="{StaticResource SettingsPageAboutRights}" />
+                                    <Grid Height="10" />
+                                    <Label Content="Copyright © 2024-2025 Hope.Phenom. All rights reserved." />
+                                </StackPanel>
+                            </suki:SettingsLayoutItem.Content>
+                        </suki:SettingsLayoutItem>
 
-                </objectModel:ObservableCollection>
-            </suki:SettingsLayout.Items>
-        </suki:SettingsLayout>
+                    </objectModel:ObservableCollection>
+                </suki:SettingsLayout.Items>
+            </suki:SettingsLayout>
+        </Border>
     </suki:GlassCard>
 </UserControl>

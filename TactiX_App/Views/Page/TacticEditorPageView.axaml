@@ -7,7 +7,8 @@
              xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
              x:DataType="vm:TacticEditorPageViewModel"
-             x:Class="TactiX_App.Views.Page.TacticEditorPageView">
+             x:Class="TactiX_App.Views.Page.TacticEditorPageView"
+             Background="{StaticResource BackgroundBrush}">
 
     <UserControl.KeyBindings>
         <KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewFileCommand}" />
@@ -20,70 +21,74 @@
     </UserControl.KeyBindings>
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <!-- �ļ��˵� -->
-            <MenuItem Header="{StaticResource EditorMenuHeaderFiles}">
-                <MenuItem Header="{StaticResource EditorMenuFilesNew}"
-                          Command="{Binding CreateNewFileCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+N</KeyGesture>
-                    </MenuItem.InputGesture>
+        <Border DockPanel.Dock="Top" Background="{StaticResource BackgroundColor}">
+            <Menu>
+                <!-- 菜单项 -->
+                <MenuItem Header="{StaticResource EditorMenuHeaderFiles}">
+                    <MenuItem Header="{StaticResource EditorMenuFilesNew}"
+                              Command="{Binding CreateNewFileCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+N</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource EditorMenuFilesOpen}"
+                              Command="{Binding OpenFileCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+O</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource EditorMenuFilesSave}"
+                              Command="{Binding SaveFileCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+S</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource EditorMenuFilesSaveAs}"
+                              Command="{Binding SaveAsFileCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+Shift+S</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="{StaticResource EditorMenuFilesExport}"
+                              Command="{Binding ExportCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+E</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource EditorMenuFilesExportTo}"
+                              Command="{Binding ExportToCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+Shift+E</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{StaticResource EditorMenuFilesOpen}"
-                          Command="{Binding OpenFileCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+O</KeyGesture>
-                    </MenuItem.InputGesture>
-                </MenuItem>
-                <MenuItem Header="{StaticResource EditorMenuFilesSave}"
-                          Command="{Binding SaveFileCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+S</KeyGesture>
-                    </MenuItem.InputGesture>
-                </MenuItem>
-                <MenuItem Header="{StaticResource EditorMenuFilesSaveAs}"
-                          Command="{Binding SaveAsFileCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+Shift+S</KeyGesture>
-                    </MenuItem.InputGesture>
-                </MenuItem>
-                <Separator />
-                <MenuItem Header="{StaticResource EditorMenuFilesExport}"
-                          Command="{Binding ExportCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+E</KeyGesture>
-                    </MenuItem.InputGesture>
-                </MenuItem>
-                <MenuItem Header="{StaticResource EditorMenuFilesExportTo}"
-                          Command="{Binding ExportToCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+Shift+E</KeyGesture>
-                    </MenuItem.InputGesture>
-                </MenuItem>
-            </MenuItem>
 
-            <!-- �༭�˵� -->
-            <MenuItem Header="{StaticResource EditorMenuHeaderEdit}">
-                <MenuItem Header="{StaticResource EditorMenuEditInsertTemplate}"
-                          Command="{Binding InsertTemplateCommand}">
-                    <MenuItem.InputGesture>
-                        <KeyGesture>Ctrl+I</KeyGesture>
-                    </MenuItem.InputGesture>
+                <!-- �༭�˵� -->
+                <MenuItem Header="{StaticResource EditorMenuHeaderEdit}">
+                    <MenuItem Header="{StaticResource EditorMenuEditInsertTemplate}"
+                              Command="{Binding InsertTemplateCommand}">
+                        <MenuItem.InputGesture>
+                            <KeyGesture>Ctrl+I</KeyGesture>
+                        </MenuItem.InputGesture>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
 
-            <!-- �����˵� -->
-            <MenuItem Header="{StaticResource EditorMenuHeaderHelp}">
-                <MenuItem Header="{StaticResource EditorMenuHelpGetHelp}" />
-            </MenuItem>
-        </Menu>
+                <!-- �����˵� -->
+                <MenuItem Header="{StaticResource EditorMenuHeaderHelp}">
+                    <MenuItem Header="{StaticResource EditorMenuHelpGetHelp}" />
+                </MenuItem>
+            </Menu>
+        </Border>
 
         <Grid Margin="10">
-            <suki:GlassCard Margin="0">
-                <avaloniaEdit:TextEditor x:Name="Editor"
-                                         ShowLineNumbers="True"
-                                         FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"
-                                         Document="{Binding TextDocument, Mode=TwoWay}" />
+            <suki:GlassCard Margin="0" Classes="News">
+                <Border Background="{StaticResource BackgroundColor}">
+                    <avaloniaEdit:TextEditor x:Name="Editor"
+                                             ShowLineNumbers="True"
+                                             FontFamily="Cascadia Code, Microsoft YaHei UI, SimSun, sans-serif"
+                                             Document="{Binding TextDocument, Mode=TwoWay}" />
+                </Border>
             </suki:GlassCard>
         </Grid>
     </DockPanel>

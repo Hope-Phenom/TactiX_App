@@ -4,72 +4,82 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             xmlns:network="clr-namespace:TactiX_Models.Network;assembly=TactiX_Models"
+             xmlns:component="clr-namespace:TactiX_App.Views.Component"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
              x:DataType="vm:NewsPageViewModel"
              x:Class="TactiX_App.Views.Page.NewsPageView"
-             x:Name="NewsPage">
-    
+             x:Name="NewsPage"
+             Background="{StaticResource BackgroundBrush}">
+
     <Design.DataContext>
-        <vm:NewsPageViewModel />
+        <vm:NewsPageViewModel>
+            <vm:NewsPageViewModel.ListTopics>
+                <network:NForumTopic Title="测试1" Url="https://www.126.com" Date="刚刚" />
+                <network:NForumTopic Title="测试2" Url="https://www.126.com" Date="刚刚" />
+                <network:NForumTopic Title="测试3" Url="https://www.126.com" Date="刚刚" IsLast="True" />
+            </vm:NewsPageViewModel.ListTopics>
+            <vm:NewsPageViewModel.ListSysNews>
+                <network:NNewsSys Title="测试1" Link="https://www.126.com" />
+                <network:NNewsSys Title="测试2" Link="https://www.126.com" />
+                <network:NNewsSys Title="测试3" Link="https://www.126.com" IsLast="True" />
+            </vm:NewsPageViewModel.ListSysNews>
+        </vm:NewsPageViewModel>
     </Design.DataContext>
 
+    <!-- 左侧 论坛热帖 和 系统公告 -->
     <Grid Margin="10" ColumnDefinitions="*,10,450">
         <Grid Grid.Column="0" RowDefinitions="0.74*,10,0.26*">
-            <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{StaticResource NewsPageViewTitleForum}">
-                    <ItemsRepeater ItemsSource="{Binding ListTopics, Mode=OneWay}">
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="0.8*,10,0.2*">
-                                    <HyperlinkButton
-                                        Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
-                                        CommandParameter="{Binding Url}"
-                                        Grid.Column="0"
-                                        Padding="5 0 0 7">
-                                        <HyperlinkButton.Content>
-                                            <TextBlock Text="{Binding Title}" TextDecorations="{x:Null}" FontSize="16" />
-                                        </HyperlinkButton.Content>
-                                    </HyperlinkButton>
-                                    <Label Content="{Binding Date}" Grid.Column="2"
-                                           HorizontalContentAlignment="Right"
-                                           FontSize="16"
-                                           Padding="0 0 5 7" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+
+            <!-- 论坛热帖 -->
+            <suki:GlassCard Classes="HeaderCard News" Grid.Row="0">
+                <suki:GroupBox Classes="News" Header="{StaticResource NewsPageViewTitleForum}">
+                    <ScrollViewer>
+                        <ItemsRepeater ItemsSource="{Binding ListTopics, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <component:InfoListItem Title="{Binding Title}"
+                                                            Url="{Binding Url}"
+                                                            Date="{Binding Date}"
+                                                            IsLastItem="{Binding IsLast}"
+                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
                 </suki:GroupBox>
             </suki:GlassCard>
-            <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
-                <suki:GroupBox Header="{StaticResource NewsPageViewTitleSysNews}">
-                    <ItemsRepeater ItemsSource="{Binding ListSysNews, Mode=OneWay}">
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="0.8*,10,0.2*">
-                                    <HyperlinkButton
-                                        Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
-                                        CommandParameter="{Binding Link}"
-                                        Grid.Column="0"
-                                        Padding="5 0 0 7">
-                                        <HyperlinkButton.Content>
-                                            <TextBlock Text="{Binding Title}" TextDecorations="{x:Null}" FontSize="16" />
-                                        </HyperlinkButton.Content>
-                                    </HyperlinkButton>
-                                    <Label Content="{Binding DateTimeStr}" Grid.Column="2"
-                                           HorizontalContentAlignment="Right"
-                                           FontSize="16"
-                                           Padding="0 0 5 7" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+
+            <!-- 系统公告 -->
+            <suki:GlassCard Classes="HeaderCard News" Grid.Row="2">
+                <suki:GroupBox Classes="News" Header="{StaticResource NewsPageViewTitleSysNews}">
+                    <ScrollViewer>
+                        <ItemsRepeater ItemsSource="{Binding ListSysNews, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <component:InfoListItem Title="{Binding Title}"
+                                                            Url="{Binding Link}"
+                                                            Date="{Binding DateTimeStr}"
+                                                            IsLastItem="{Binding IsLast}"
+                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
                 </suki:GroupBox>
             </suki:GlassCard>
+
         </Grid>
+
+        <!-- 右侧 视频推荐 和 友情链接 -->
         <Grid Grid.Column="2" RowDefinitions="0.74*,10,0.26*">
-            <suki:GlassCard Classes="HeaderCard" Grid.Row="0">
-                <suki:GroupBox Header="{StaticResource NewsPageViewTitleVideos}">
-                    <ItemsRepeater ItemsSource="{Binding ListVideos, Mode=OneWay}">
+            <suki:GlassCard Classes="HeaderCard News" Grid.Row="0">
+
+                <!-- 视频推荐 -->
+                <suki:GroupBox Classes="News" Header="{StaticResource NewsPageViewTitleVideos}">
+                    <ItemsRepeater ItemsSource="{Binding ListVideos, Mode=OneWay}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout MinItemWidth="192"
                                                MinItemHeight="170"
@@ -81,8 +91,15 @@
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
                                 <Grid Width="192" Height="170" RowDefinitions="108,3,2*,*">
-                                    <Image Source="{Binding ImageObj}"
-                                           Grid.Row="0" />
+                                    <Border Grid.Row="0" CornerRadius="10" ClipToBounds="True">
+                                        <Button Classes="Simple" BorderThickness="0"
+                                                Padding="0"
+                                                Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+                                                CommandParameter="{Binding VideoUrl}">
+                                            <Image Margin="0"
+                                                   Source="{Binding ImageObj}" />
+                                        </Button>
+                                    </Border>
                                     <HyperlinkButton
                                         Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
                                         CommandParameter="{Binding VideoUrl}"
@@ -102,13 +119,18 @@
                     </ItemsRepeater>
                 </suki:GroupBox>
             </suki:GlassCard>
-            <suki:GlassCard Classes="HeaderCard" Grid.Row="2">
-                <suki:GroupBox Header="友情链接">
+
+            <!-- 友情链接 -->
+            <suki:GlassCard Classes="HeaderCard News" Grid.Row="2">
+                <suki:GroupBox Classes="News" Header="友情链接">
                     <Label Content="{StaticResource NormalTextFriendshipLinks}"
                            VerticalContentAlignment="Center"
-                           HorizontalContentAlignment="Center" />
+                           HorizontalContentAlignment="Center"
+                           Foreground="{StaticResource NormalFontColor}"
+                           FontSize="20" />
                 </suki:GroupBox>
             </suki:GlassCard>
+
         </Grid>
     </Grid>
 

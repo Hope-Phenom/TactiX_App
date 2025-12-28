@@ -6,13 +6,16 @@
              xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
              x:DataType="vm:TacticsHallPageViewModel"
-             x:Class="TactiX_App.Views.Page.TacticsHallPageView">
+             x:Class="TactiX_App.Views.Page.TacticsHallPageView"
+             Background="{StaticResource BackgroundBrush}">
 
-    <suki:GlassCard Margin="10">
-        <Label Content="{StaticResource NormalTextDeveloping}"
-               HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-               VerticalAlignment="Center" VerticalContentAlignment="Center"
-               FontSize="18" />
+    <suki:GlassCard Margin="10" Classes="News">
+        <Border Background="{StaticResource BackgroundColor}">
+            <Label Content="{StaticResource NormalTextDeveloping}"
+                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                   FontSize="18" />
+        </Border>
     </suki:GlassCard>
 
 </UserControl>

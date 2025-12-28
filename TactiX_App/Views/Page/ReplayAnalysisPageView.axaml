@@ -6,35 +6,32 @@
              xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ReplayAnalysisPageViewModel"
-             x:Class="TactiX_App.Views.Page.ReplayAnalysisPageView">
+             x:Class="TactiX_App.Views.Page.ReplayAnalysisPageView"
+             Background="{StaticResource BackgroundBrush}">
 
-    <Grid Margin="10">
+    <Border Margin="10" CornerRadius="20">
+        <Grid RowDefinitions="*,10,80">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
+            <suki:GlassCard Grid.Row="0" Classes="News">
+                <Border Background="{StaticResource BackgroundColor}">
+                    <TextBlock Text="{StaticResource ReplayAnalysisDeveloping}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"
+                               Foreground="{StaticResource NormalFontColor}" />
+                </Border>
+            </suki:GlassCard>
 
-        <suki:GlassCard Grid.Row="0">
-            <TextBlock Text="{StaticResource ReplayAnalysisDeveloping}"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
-        </suki:GlassCard>
+            <suki:GlassCard Grid.Row="2" Classes="News">
+                <Border Background="{StaticResource BackgroundColor}">
+                    <Grid ColumnDefinitions="*,10,150,20">
+                        <Button Grid.Column="2" Command="{Binding DecodeSc2ReplayCommand}"
+                                Content="{StaticResource ReplayAnalysisBtnDecodeSc2Replay}"
+                                Classes="Normal" />
+                    </Grid>
+                </Border>
+            </suki:GlassCard>
 
-        <suki:GlassCard Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="150" />
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="2" Command="{Binding DecodeSc2ReplayCommand}"
-                        Content="{StaticResource ReplayAnalysisBtnDecodeSc2Replay}" />
-            </Grid>
-        </suki:GlassCard>
-
-    </Grid>
+        </Grid>
+    </Border>
 
 </UserControl>

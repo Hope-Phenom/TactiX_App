@@ -20,4 +20,9 @@ public class NForumTopic
     ///     更新时间
     /// </summary>
     public required string Date { get; set; }
+    
+    /// <summary>
+    ///     是否为最后一条，用于控制分割线显示
+    /// </summary>
+    public bool IsLast { get; set; }
 }
