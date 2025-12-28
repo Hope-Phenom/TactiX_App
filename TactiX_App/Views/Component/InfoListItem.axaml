@@ -3,47 +3,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:component="clr-namespace:TactiX_App.Views.Component"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="51"
              x:Class="TactiX_App.Views.Component.InfoListItem">
-
+    
     <UserControl.Styles>
-
+        <Style Selector="Border.InnerBorder:pointerover">
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="Background" Value="{StaticResource IconColor}" />
+        </Style>
     </UserControl.Styles>
 
     <Grid RowDefinitions="50,1">
-        <Grid Grid.Row="0"
-              ColumnDefinitions="0.8*,10,0.2*"
-              Height="50">
-            <HyperlinkButton
-                Grid.Column="0"
-                Height="50"
-                Command="{Binding Command, 
+        <Border Grid.Row="0" Classes="InnerBorder">
+            <Grid ColumnDefinitions="0.8*,10,0.2*"
+                  Height="50">
+                <HyperlinkButton
+                    Grid.Column="0"
+                    Height="50"
+                    Command="{Binding Command, 
                     RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
-                CommandParameter="{Binding Url, 
+                    CommandParameter="{Binding Url, 
                     RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
-                Foreground="{StaticResource NormalFontColor}"
-                VerticalAlignment="Center"
-                VerticalContentAlignment="Center">
-                <HyperlinkButton.Content>
-                    <TextBlock
-                        Text="{Binding Title, 
+                    Foreground="{StaticResource NormalFontColor}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center">
+                    <HyperlinkButton.Content>
+                        <TextBlock
+                            Text="{Binding Title, 
                                 RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
-                        TextDecorations="{x:Null}"
-                        FontSize="15"
-                        Padding="15,0,0,0"/>
-                </HyperlinkButton.Content>
-            </HyperlinkButton>
-            <Label
-                Grid.Column="2"
-                Height="50"
-                Content="{Binding Date, 
+                            TextDecorations="{x:Null}"
+                            FontSize="15"
+                            Padding="15,0,0,0"/>
+                    </HyperlinkButton.Content>
+                </HyperlinkButton>
+                <Label
+                    Grid.Column="2"
+                    Height="50"
+                    Content="{Binding Date, 
                     RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
-                HorizontalContentAlignment="Right"
-                VerticalContentAlignment="Center"
-                FontSize="15"
-                Foreground="{StaticResource NormalFontColor}"
-                Padding="0,0,15,0" />
-        </Grid>
+                    HorizontalContentAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    FontSize="15"
+                    Foreground="{StaticResource NormalFontColor}"
+                    Padding="0,0,15,0" />
+            </Grid>
+        </Border>
         <Rectangle Grid.Row="1"
                    IsVisible="{Binding !IsLastItem, 
                         RelativeSource={RelativeSource AncestorType=component:InfoListItem}}">
