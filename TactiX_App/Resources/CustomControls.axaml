@@ -1,0 +1,70 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI">
+
+    <!-- 玻璃卡片基础样式 -->
+    <Style Selector="suki|GlassCard.News">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="30" />
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+    </Style>
+
+    <!-- 新闻页 Groupbox 基础样式 -->
+    <Style Selector="suki|GroupBox.News">
+        <Setter Property="Background" Value="{StaticResource HeaderColor}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="Auto, *">
+                    <ContentControl Grid.Row="0"
+                                    Padding="20,15,20,15"
+                                    Content="{TemplateBinding Header}"
+                                    Background="{StaticResource HeaderColor}">
+                        <ContentControl.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource NormalFontColor}" />
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Style>
+                            <Style Selector="PathIcon">
+                                <Setter Property="Foreground" Value="{StaticResource NormalFontColor}" />
+                            </Style>
+                        </ContentControl.Styles>
+                    </ContentControl>
+                    
+                    <ContentControl Grid.Row="1"
+                                    Content="{TemplateBinding Content}"
+                                    Background="{StaticResource BackgroundColor}"
+                                    Padding="10,0,10,0" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!-- 内容容器背景样式 -->
+    <Style Selector="ContentControl.Background">
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
+    </Style>
+    
+    <!-- 人工解决滚动条不能正确自动隐藏的Bug -->
+    <Style Selector="ScrollViewer">
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+    </Style>
+    
+    <!-- 人工解决滚动条不能正确自动隐藏的Bug -->
+    <Style Selector="ScrollViewer:pointerover">
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+    
+    <Style Selector="HyperlinkButton TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource NormalFontColor}" />
+    </Style>
+    
+    <Style Selector="HyperlinkButton:pointerover TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource SelectedFontColor}" />
+    </Style>
+    
+    <Style Selector="HyperlinkButton:pressed TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource UnselectedFontColor}" />
+    </Style>
+
+</Styles>

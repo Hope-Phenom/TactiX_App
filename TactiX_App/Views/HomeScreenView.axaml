@@ -1,3 +1,6 @@
+<!-- ReSharper disable Xaml.StaticResourceNotResolved -->
+<!-- ReSharper disable Xaml.StyleClassNotFound -->
+
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,9 +11,13 @@
              mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="900"
              FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
              x:DataType="vm:HomeScreenViewModel"
-             x:Class="TactiX_App.Views.HomeScreenView">
+             x:Class="TactiX_App.Views.HomeScreenView"
+             Background="{StaticResource BackgroundColor}">
 
-    <suki:SukiSideMenu IsSearchEnabled="True" SelectionMode="Single" x:Name="SideMenu">
+    <suki:SukiSideMenu x:Name="SideMenu"
+                       Classes="News"
+                       IsSearchEnabled="False"
+                       SelectionMode="Single">
 
         <suki:SukiSideMenuItem Header="{StaticResource HomescreenSideNews}"
                                Classes="Compact">
@@ -18,7 +25,8 @@
                 <materialIcons:MaterialIcon Kind="Home" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding NewsViewPageControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding NewsViewPageControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -28,7 +36,8 @@
                 <materialIcons:MaterialIcon Kind="TownHall" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding TacticsHallViewPageControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding TacticsHallViewPageControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -38,7 +47,8 @@
                 <materialIcons:MaterialIcon Kind="ChartBoxMultipleOutline" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding ReplayAnalysisPageViewControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding ReplayAnalysisPageViewControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -48,7 +58,8 @@
                 <materialIcons:MaterialIcon Kind="BookEdit" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding TacticEditorPageViewControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding TacticEditorPageViewControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -58,7 +69,8 @@
                 <materialIcons:MaterialIcon Kind="PackageVariantClosed" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding ModsManagerPageViewControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding ModsManagerPageViewControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -68,7 +80,8 @@
                 <materialIcons:MaterialIcon Kind="CogOutline" />
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <ContentControl Content="{Binding SettingsPageViewControl}" />
+                <ContentControl Classes="News"
+                                Content="{Binding SettingsPageViewControl}" />
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -90,14 +103,14 @@
                 </StackPanel.Styles>
                 <Button Classes="Basic" Command="{Binding OpenWebUrlCommand}"
                         CommandParameter="{Binding QqChatUrl}">
-                    <materialIcons:MaterialIcon Kind="Qqchat" />
+                    <materialIcons:MaterialIcon Kind="Qqchat" Foreground="{StaticResource IconColor}" />
                 </Button>
                 <Button Classes="Basic" Command="{Binding OpenWebUrlCommand}"
                         CommandParameter="{Binding HomePageUrl}">
-                    <materialIcons:MaterialIcon Kind="Web" />
+                    <materialIcons:MaterialIcon Kind="Web" Foreground="{StaticResource IconColor}" />
                 </Button>
                 <Button Classes="Basic" Command="{Binding OpenPreparePageCommand}">
-                    <materialIcons:MaterialIcon Kind="BookPlay" />
+                    <materialIcons:MaterialIcon Kind="BookPlay" Foreground="{StaticResource IconColor}" />
                 </Button>
             </StackPanel>
         </suki:SukiSideMenu.FooterContent>
@@ -105,3 +118,6 @@
     </suki:SukiSideMenu>
 
 </UserControl>
+
+<!-- ReSharper restore Xaml.StaticResourceNotResolved -->
+<!-- ReSharper restore Xaml.StyleClassNotFound -->

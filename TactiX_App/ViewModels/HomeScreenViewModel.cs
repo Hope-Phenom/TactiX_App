@@ -73,9 +73,10 @@ public partial class HomeScreenViewModel : ViewModelBase, IRecipient<MbCheckVers
     #region 常/变量
 
     /// <summary>
-    ///     官方QQ频道
+    ///     官方QQ频道 https://pd.qq.com/s/4vr81w4yl?b=9
+    ///     QQ频道不好用，干脆还是用群吧
     /// </summary>
-    public static string QqChatUrl => "https://pd.qq.com/s/4vr81w4yl?b=9";
+    public static string QqChatUrl => "https://qm.qq.com/q/4tb16YEHb2";
 
     /// <summary>
     ///     项目主页

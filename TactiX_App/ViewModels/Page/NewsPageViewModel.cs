@@ -31,19 +31,21 @@ public partial class NewsPageViewModel : ViewModelBase
         _network = network;
         _messenger = messenger;
 
-        ListTopics = new AvaloniaList<NForumTopic>();
-        ListSysNews = new AvaloniaList<NNewsSys>();
-        ListVideos = new AvaloniaList<NVideoInfo>();
-
         Task.Run(UpdateNews);
     }
 
-    public IAvaloniaList<NForumTopic> ListTopics { get; }
-    public IAvaloniaList<NNewsSys> ListSysNews { get; }
-    public IAvaloniaList<NVideoInfo> ListVideos { get; }
+#pragma warning disable CS8618
+    public NewsPageViewModel()
+#pragma warning restore CS8618
+    {
+    }
+
+    public IAvaloniaList<NForumTopic> ListTopics { get; } = new AvaloniaList<NForumTopic>();
+    public IAvaloniaList<NNewsSys> ListSysNews { get; } = new AvaloniaList<NNewsSys>();
+    public IAvaloniaList<NVideoInfo> ListVideos { get; } = new AvaloniaList<NVideoInfo>();
 
     [RelayCommand]
-    public async Task OpenWeb(string url)
+    private async Task OpenWeb(string url)
     {
         await Task.Run(() => { _oses.OpenUrl(url); });
     }
@@ -51,7 +53,7 @@ public partial class NewsPageViewModel : ViewModelBase
     /// <summary>
     ///     更新新闻信息
     /// </summary>
-    public async Task UpdateNews()
+    private async Task UpdateNews()
     {
         try
         {
@@ -97,12 +99,12 @@ public partial class NewsPageViewModel : ViewModelBase
             for (var i = 0; i < topics.Count; i++)
             {
                 var topic = topics[i];
+                var isLast =  i == topics.Count - 1;
 
                 var displayText = topic.Title;
-                if (displayText.Length > 30)
-                    displayText = string.Concat("● ", displayText.AsSpan(0, 27), "...");
-                else
-                    displayText = string.Concat("● ", displayText);
+                displayText = displayText.Length > 30 
+                    ? string.Concat(displayText.AsSpan(0, 27), "...") 
+                    : string.Concat(displayText);
 
                 Dispatcher.UIThread.Post(() =>
                 {
@@ -110,7 +112,8 @@ public partial class NewsPageViewModel : ViewModelBase
                     {
                         Date = topic.Date,
                         Title = displayText,
-                        Url = topic.Url
+                        Url = topic.Url,
+                        IsLast = isLast
                     });
                 });
             }
@@ -147,19 +150,22 @@ public partial class NewsPageViewModel : ViewModelBase
     {
         await Task.Run(() =>
         {
-            foreach (var v in newsSys)
+            for (var i = 0; i < newsSys.Count; i++)
             {
-                var displayText = v.Title;
+                var sysNew = newsSys[i];
+                var displayText = sysNew.Title;
+                var isLast = i == newsSys.Count - 1;
                 
                 displayText = displayText.Length > 30 
-                    ? string.Concat("● ", displayText.AsSpan(0, 27), "...") 
-                    : string.Concat("● ", displayText);
+                    ? string.Concat(displayText.AsSpan(0, 27), "...") 
+                    : string.Concat(displayText);
 
                 var news = new NNewsSys
                 {
-                    DateTime = v.DateTime,
-                    Link = v.Link,
-                    Title = "● " + displayText
+                    DateTime = sysNew.DateTime,
+                    Link = sysNew.Link,
+                    Title = displayText,
+                    IsLast = isLast
                 };
 
                 Dispatcher.UIThread.Post(() => ListSysNews.Add(news));
@@ -167,7 +173,7 @@ public partial class NewsPageViewModel : ViewModelBase
         });
     }
 
-    public async Task<Bitmap?> LoadFromWeb(Uri url)
+    private async Task<Bitmap?> LoadFromWeb(Uri url)
     {
         using var httpClient = new HttpClient();
         try

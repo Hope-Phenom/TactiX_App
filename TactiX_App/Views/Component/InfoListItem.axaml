@@ -1,0 +1,60 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:component="clr-namespace:TactiX_App.Views.Component"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TactiX_App.Views.Component.InfoListItem">
+
+    <UserControl.Styles>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="50,1">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="0.8*,10,0.2*"
+              Height="50">
+            <HyperlinkButton
+                Grid.Column="0"
+                Height="50"
+                Command="{Binding Command, 
+                    RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
+                CommandParameter="{Binding Url, 
+                    RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
+                Foreground="{StaticResource NormalFontColor}"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center">
+                <HyperlinkButton.Content>
+                    <TextBlock
+                        Text="{Binding Title, 
+                                RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
+                        TextDecorations="{x:Null}"
+                        FontSize="15"
+                        Padding="15,0,0,0"/>
+                </HyperlinkButton.Content>
+            </HyperlinkButton>
+            <Label
+                Grid.Column="2"
+                Height="50"
+                Content="{Binding Date, 
+                    RelativeSource={RelativeSource AncestorType=component:InfoListItem}}"
+                HorizontalContentAlignment="Right"
+                VerticalContentAlignment="Center"
+                FontSize="15"
+                Foreground="{StaticResource NormalFontColor}"
+                Padding="0,0,15,0" />
+        </Grid>
+        <Rectangle Grid.Row="1"
+                   IsVisible="{Binding !IsLastItem, 
+                        RelativeSource={RelativeSource AncestorType=component:InfoListItem}}">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%" Opacity="0.4">
+                    <GradientStop Color="{StaticResource BackgroundColorLine1}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource NormalFontColor}" Offset="0.5" />
+                    <GradientStop Color="{StaticResource BackgroundColorLine1}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+    </Grid>
+
+</UserControl>

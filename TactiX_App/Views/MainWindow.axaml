@@ -6,14 +6,14 @@
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:views="clr-namespace:TactiX_App.Views"
                  mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
-                 Width="1380" Height="900"
-                 BackgroundStyle="Bubble"
-                 WindowStartupLocation="CenterScreen"
-                 Title="TactiX"
-                 CanResize="True"
                  x:Class="TactiX_App.Views.MainWindow"
                  x:DataType="vm:MainViewModel"
-                 x:Name="MainSukiWindow">
+                 x:Name="MainSukiWindow"
+                 Width="1380" Height="900"
+                 BackgroundStyle="Flat"
+                 WindowStartupLocation="CenterScreen"
+                 Title="TactiX"
+                 CanResize="True">
 
     <suki:SukiWindow.LogoContent>
         <Image Height="24" Width="24" Source="avares://TactiX_App/Assets/TactiX.ico" />

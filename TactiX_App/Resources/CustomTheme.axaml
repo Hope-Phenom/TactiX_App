@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- 主背景色 -->
+    <Color x:Key="BackgroundColor">#1A1C23</Color>
+    <!-- 左下ICON颜色 -->
+    <Color x:Key="IconColor">#077BDD</Color>
+    <!-- 背景渐变起点色 -->
+    <Color x:Key="BackgroundColorLine1">#09152E</Color>
+    <!-- 背景渐变终点色 -->
+    <Color x:Key="BackgroundColorLine2">#24234A</Color>
+    
+    <!-- 左侧栏 已选中文本颜色 -->
+    <Color x:Key="SelectedFontColor">#C0E6FD</Color>
+    <!-- 左侧栏 未选中文本颜色 -->
+    <Color x:Key="UnselectedFontColor">#2B373F</Color>
+    <!-- 常规文本颜色 -->
+    <Color x:Key="NormalFontColor">#FFFFFF</Color>
+    
+    <!-- GroupBox 页眉 -->
+    <Color x:Key="HeaderColor">#303239</Color>
+    <!-- 分割线 -->
+    <Color x:Key="SpliceLineColor">#4B5D77</Color>
+    
+    <!-- 背景渐变色 -->
+    <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0%,50%" EndPoint="100%,50%">
+        <GradientStop Color="{StaticResource BackgroundColorLine1}" Offset="0.0"/>
+        <GradientStop Color="{StaticResource BackgroundColorLine2}" Offset="1.0"/>
+    </LinearGradientBrush>
+    
+</ResourceDictionary>
