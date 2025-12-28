@@ -9,33 +9,72 @@
              FontFamily="Microsoft YaHei UI, SimSun, sans-serif"
              mc:Ignorable="d" d:DesignWidth="1380" d:DesignHeight="900"
              x:Class="TactiX_App.Views.Page.ModsManagePageView"
-             x:DataType="vm:ModsManagePageViewModel">
+             x:DataType="vm:ModsManagePageViewModel"
+             Background="{StaticResource BackgroundBrush}"
+             Foreground="{StaticResource NormalFontColor}">
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="{StaticResource HeaderColor}"></Setter>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+    </UserControl.Styles>
 
     <Grid Margin="10">
-        <Grid RowDefinitions="*,10,100">
+        <Grid RowDefinitions="*,10,80">
 
             <Grid Grid.Row="0" ColumnDefinitions="2*,10,3*,10,250">
-                <suki:GlassCard Grid.Column="0">
-                    <suki:GroupBox Header="{StaticResource ModsManageViewLocalModsHeader}">
-                        <Grid Margin="0" RowDefinitions="*,10,128">
+                <suki:GlassCard Grid.Column="0" Classes="News">
+                    <suki:GroupBox Classes="News" Header="{StaticResource ModsManageViewLocalModsHeader}">
+                        <Grid Margin="10" RowDefinitions="*,10,128,10">
                             <ListBox Margin="0" ItemsSource="{Binding ModsList}" Grid.Row="0"
                                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
-                            <Image Width="128" Height="128" Source="{Binding SelectedModIcon}"
-                                   Grid.Row="2" />
+                            <Border Grid.Row="2" ClipToBounds="True"
+                                    CornerRadius="20"
+                                    Background="{StaticResource HeaderColor}">
+                                <Grid ColumnDefinitions="128,10,*">
+                                    <Border Grid.Column="0" 
+                                            ClipToBounds="True"
+                                            Width="128" Height="128"
+                                            CornerRadius="20"
+                                            BoxShadow="inset 0 0 10 0 #40000000">
+                                        <Image Source="{Binding SelectedModIcon}" />
+                                    </Border>
+                                    <Grid Grid.Column="2">
+                                        <Grid RowDefinitions="10,20,10,*" ColumnDefinitions="10,*,10">
+                                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                                       Margin="0"
+                                                       Foreground="{StaticResource NormalFontColor}"
+                                                       Text="{Binding ModDesc.ModName}"
+                                                       FontSize="14"
+                                                       FontWeight="Bold" />
+                                            <TextBlock Grid.Row="3" Grid.Column="1"
+                                                       Margin="0"
+                                                       Foreground="{StaticResource NormalFontColor}"
+                                                       TextWrapping="WrapWithOverflow"
+                                                       Text="{Binding ModDesc.Desc}"
+                                                       FontSize="12"/>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard Grid.Column="2">
-                    <suki:GroupBox Header="{StaticResource ModsManageViewSelectedModInfo}">
-                        <apc:PropertyGrid DataContext="{Binding ModDesc}" IsReadOnly="True"
+                <suki:GlassCard Grid.Column="2" Classes="News">
+                    <suki:GroupBox Classes="News" Header="{StaticResource ModsManageViewSelectedModInfo}">
+                        <apc:PropertyGrid Margin="10"
+                                          DataContext="{Binding ModDesc}" IsReadOnly="True"
                                           IsAutoNameWidth="True" IsTitleVisible="False"
                                           IsQuickFilterVisible="False"
                                           IsCategoryVisible="False" />
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard Grid.Column="4">
-                    <suki:GroupBox Header="{StaticResource ModsManageViewSelectedModAction}">
-                        <StackPanel Orientation="Vertical">
+                <suki:GlassCard Grid.Column="4" Classes="News">
+                    <suki:GroupBox Classes="News" Header="{StaticResource ModsManageViewSelectedModAction}">
+                        <StackPanel Orientation="Vertical" Margin="10">
                             <Label Content="{StaticResource ModsManageViewModActionLabelSelected}" />
                             <Label FontWeight="Bold" FontStyle="Italic" Content="{Binding CurrMod}" />
                             <Grid Height="15" />
@@ -49,10 +88,14 @@
                 </suki:GlassCard>
             </Grid>
 
-            <suki:GlassCard Grid.Row="2">
-                <Grid ColumnDefinitions="*,10,100,10,200">
+            <Border Grid.Row="2"
+                    Background="{StaticResource BackgroundColor}"
+                    CornerRadius="20">
+                <Grid ColumnDefinitions="*,10,100,10,200"
+                      Margin="20">
                     <TextBlock Margin="0" Grid.Column="0" Text="{Binding Info}"
-                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource NormalFontColor}" />
                     <Button Grid.Column="2"
                             Content="{StaticResource ButtonTxtRefresh}"
                             Command="{Binding CheckLocalModsCommand}" />
@@ -60,7 +103,7 @@
                             Content="{StaticResource ModsManageViewLocalModsFolder}"
                             Command="{Binding OpenLocalFolderCommand}" />
                 </Grid>
-            </suki:GlassCard>
+            </Border>
         </Grid>
     </Grid>
 

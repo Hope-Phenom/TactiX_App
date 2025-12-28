@@ -43,7 +43,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void CheckLocalMods()
+    private void CheckLocalMods()
     {
         var files = Directory.GetFiles(MODS_FOLDER, "*.zip");
         var len = files.Length;
@@ -60,13 +60,13 @@ public partial class ModsManagePageViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void NaviBack()
+    private void NaviBack()
     {
         _messenger.Send(new MbNavigationBack());
     }
 
     [RelayCommand]
-    public void OpenLocalFolder()
+    private void OpenLocalFolder()
     {
         _oses.OpenUrl(MODS_FOLDER);
     }
@@ -106,7 +106,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     ///     启用选定的MOD
     /// </summary>
     [RelayCommand]
-    public void EnableSelectedMod()
+    private void EnableSelectedMod()
     {
         if (string.IsNullOrEmpty(SelectedItem)) return;
 
@@ -120,7 +120,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     ///     删除选定的MOD
     /// </summary>
     [RelayCommand]
-    public void DeleteSelectedMod()
+    private void DeleteSelectedMod()
     {
         if (string.IsNullOrEmpty(SelectedItem)) return;
 
@@ -165,7 +165,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     /// <summary>
     ///     UI信息显示
     /// </summary>
-    [ObservableProperty] public string info = string.Empty;
+    [ObservableProperty] private string _info = string.Empty;
 
     /// <summary>
     ///     Mods列表
@@ -195,7 +195,7 @@ public partial class ModsManagePageViewModel : ViewModelBase
     /// <summary>
     ///     当前展示的MOD信息
     /// </summary>
-    [ObservableProperty] public LModDesc? modDesc;
+    [ObservableProperty] private LModDesc? _modDesc;
 
     /// <summary>
     ///     配置，用于读取当前选定的MOD
@@ -205,9 +205,9 @@ public partial class ModsManagePageViewModel : ViewModelBase
     /// <summary>
     ///     当前启用的MOD
     /// </summary>
-    [ObservableProperty] public string currMod;
+    [ObservableProperty] private string _currMod;
 
-    [ObservableProperty] public Bitmap? selectedModIcon;
+    [ObservableProperty] private Bitmap? _selectedModIcon;
 
     #endregion
 }
