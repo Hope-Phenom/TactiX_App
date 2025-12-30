@@ -45,16 +45,6 @@
         <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
     </Style>
     
-    <!-- 人工解决滚动条不能正确自动隐藏的Bug -->
-    <Style Selector="ScrollViewer">
-        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
-    </Style>
-    
-    <!-- 人工解决滚动条不能正确自动隐藏的Bug -->
-    <Style Selector="ScrollViewer:pointerover">
-        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-    </Style>
-    
     <Style Selector="HyperlinkButton TextBlock">
         <Setter Property="Foreground" Value="{StaticResource NormalFontColor}" />
     </Style>

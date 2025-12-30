@@ -34,7 +34,7 @@
             <!-- 论坛热帖 -->
             <suki:GlassCard Classes="HeaderCard News" Grid.Row="0">
                 <suki:GroupBox Classes="News" Header="{StaticResource NewsPageViewTitleForum}">
-                    <ScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <ItemsRepeater ItemsSource="{Binding ListTopics, Mode=OneWay}">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
@@ -53,7 +53,7 @@
             <!-- 系统公告 -->
             <suki:GlassCard Classes="HeaderCard News" Grid.Row="2">
                 <suki:GroupBox Classes="News" Header="{StaticResource NewsPageViewTitleSysNews}">
-                    <ScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <ItemsRepeater ItemsSource="{Binding ListSysNews, Mode=OneWay}">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>

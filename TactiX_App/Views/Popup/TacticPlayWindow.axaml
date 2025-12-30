@@ -26,10 +26,14 @@
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="Background" Value="Black" />
         </Style>
+        <Style Selector="Border.Controller">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="#000000" />
+        </Style>
         <Style Selector="Button.Controller">
             <Setter Property="Width" Value="140" />
-            <Setter Property="Background" Value="Black" />
             <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="#80000000" />
         </Style>
         <Style Selector="TextBlock.ButtonInner">
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -165,53 +169,61 @@
 
             <Grid ColumnDefinitions="140,*,140,*,140,*,140">
 
-                <Button Grid.Column="0" Classes="Controller"
-                        Command="{Binding PullWindowCommand}">
-                    <Grid ColumnDefinitions="10,25,10,*,10">
-                        <materialIcons:MaterialIcon Grid.Column="1"
-                                                    Classes="ButtonIcon"
-                                                    Kind="{Binding MaterialIconKind}" />
-                        <TextBlock Grid.Column="3"
-                                   Classes="ButtonInner"
-                                   Text="{StaticResource TacticPlayingButtonFold}" />
-                    </Grid>
-                </Button>
+                <Border Grid.Column="0" Classes="Controller">
+                    <Button Classes="Controller"
+                            Command="{Binding PullWindowCommand}">
+                        <Grid ColumnDefinitions="10,25,10,*,10">
+                            <materialIcons:MaterialIcon Grid.Column="1"
+                                                        Classes="ButtonIcon"
+                                                        Kind="{Binding MaterialIconKind}" />
+                            <TextBlock Grid.Column="3"
+                                       Classes="ButtonInner"
+                                       Text="{StaticResource TacticPlayingButtonFold}" />
+                        </Grid>
+                    </Button>
+                </Border>
 
-                <Button Grid.Column="2" Classes="Controller"
-                        Command="{Binding RefreshCommand}">
-                    <Grid ColumnDefinitions="10,25,10,*,10">
-                        <materialIcons:MaterialIcon Grid.Column="1"
-                                                    Classes="ButtonIcon"
-                                                    Kind="Refresh" />
-                        <TextBlock Grid.Column="3"
-                                   Classes="ButtonInner"
-                                   Text="{StaticResource TacticPlayingButtonReload}" />
-                    </Grid>
-                </Button>
+                <Border Grid.Column="2" Classes="Controller">
+                    <Button Classes="Controller"
+                            Command="{Binding RefreshCommand}">
+                        <Grid ColumnDefinitions="10,25,10,*,10">
+                            <materialIcons:MaterialIcon Grid.Column="1"
+                                                        Classes="ButtonIcon"
+                                                        Kind="Refresh" />
+                            <TextBlock Grid.Column="3"
+                                       Classes="ButtonInner"
+                                       Text="{StaticResource TacticPlayingButtonReload}" />
+                        </Grid>
+                    </Button>
+                </Border>
 
-                <Button Grid.Column="4" Classes="Controller"
-                        Command="{Binding CloseWindowCommand}">
-                    <Grid ColumnDefinitions="10,25,10,*,10">
-                        <materialIcons:MaterialIcon Grid.Column="1"
-                                                    Classes="ButtonIcon"
-                                                    Kind="StopCircleOutline" />
-                        <TextBlock Grid.Column="3"
-                                   Classes="ButtonInner"
-                                   Text="{StaticResource TacticPlayingButtonClose}" />
-                    </Grid>
-                </Button>
+                <Border Grid.Column="4" Classes="Controller">
+                    <Button Classes="Controller"
+                            Command="{Binding CloseWindowCommand}">
+                        <Grid ColumnDefinitions="10,25,10,*,10">
+                            <materialIcons:MaterialIcon Grid.Column="1"
+                                                        Classes="ButtonIcon"
+                                                        Kind="StopCircleOutline" />
+                            <TextBlock Grid.Column="3"
+                                       Classes="ButtonInner"
+                                       Text="{StaticResource TacticPlayingButtonClose}" />
+                        </Grid>
+                    </Button>
+                </Border>
 
-                <Button Grid.Column="6" Classes="Controller"
-                        Command="{Binding PlayTacticCommand}">
-                    <Grid ColumnDefinitions="10,25,10,*,10">
-                        <materialIcons:MaterialIcon Grid.Column="1"
-                                                    Classes="ButtonIcon"
-                                                    Kind="PlayCircleOutline" />
-                        <TextBlock Grid.Column="3"
-                                   Classes="ButtonInner"
-                                   Text="{StaticResource TacticPlayingButtonPlay}" />
-                    </Grid>
-                </Button>
+                <Border Grid.Column="6" Classes="Controller">
+                    <Button Classes="Controller"
+                            Command="{Binding PlayTacticCommand}">
+                        <Grid ColumnDefinitions="10,25,10,*,10">
+                            <materialIcons:MaterialIcon Grid.Column="1"
+                                                        Classes="ButtonIcon"
+                                                        Kind="PlayCircleOutline" />
+                            <TextBlock Grid.Column="3"
+                                       Classes="ButtonInner"
+                                       Text="{StaticResource TacticPlayingButtonPlay}" />
+                        </Grid>
+                    </Button>
+                </Border>
 
             </Grid>
 
