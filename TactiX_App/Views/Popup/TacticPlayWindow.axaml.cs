@@ -86,13 +86,11 @@ public partial class TacticPlayWindow : Window
     private void TacticPlayWindow_PointerExited(object? sender, PointerEventArgs e)
     {
         TransparencyLevelHint = new List<WindowTransparencyLevel> { WindowTransparencyLevel.Transparent };
-        Opacity = _config.Opacity;
     }
 
     private void TacticPlayWindow_PointerEntered(object? sender, PointerEventArgs e)
     {
         TransparencyLevelHint = [];
-        Opacity = 1;
     }
 
     /// <summary>

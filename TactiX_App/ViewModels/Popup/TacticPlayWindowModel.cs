@@ -238,6 +238,22 @@ public partial class TacticPlayWindowModel : ViewModelBase, IRecipient<MbHotkey>
 
     public LConfig Config { get; }
 
+    /// <summary>
+    ///     透明度代理属性，用于绑定到UI
+    /// </summary>
+    public double Opacity
+    {
+        get => Config.Opacity;
+        set
+        {
+            if (Config.Opacity != value)
+            {
+                Config.Opacity = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     #endregion
 
     #region 数据绑定-核心播放逻辑相关

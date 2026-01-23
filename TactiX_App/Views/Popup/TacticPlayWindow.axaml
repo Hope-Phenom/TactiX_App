@@ -1,301 +1,304 @@
 <!-- ReSharper disable Xaml.StaticResourceNotResolved -->
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:component="using:TactiX_App.Views.Component"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
-        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
-        x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
-        x:DataType="vm:TacticPlayWindowModel"
-        ExtendClientAreaToDecorationsHint="False"
-        ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaTitleBarHeightHint="-1"
-        SystemDecorations="None"
-        TransparencyLevelHint="Transparent"
-        Background="Transparent"
-        CanMaximize="False" CanMinimize="False" CanResize="False"
-        Topmost="True"
-        Width="700" Height="{Binding UIHeight}"
-        Title="TacticPlayWindow">
+			xmlns:component="using:TactiX_App.Views.Component"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:vm="clr-namespace:TactiX_App.ViewModels.Popup;assembly=TactiX_App"
+			xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			xmlns:converters="using:TactiX_App.Converters"
+			mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
+			x:Class="TactiX_App.Views.Popup.TacticPlayWindow"
+			x:DataType="vm:TacticPlayWindowModel"
+			ExtendClientAreaToDecorationsHint="False"
+			ExtendClientAreaChromeHints="NoChrome"
+			ExtendClientAreaTitleBarHeightHint="-1"
+			SystemDecorations="None"
+			TransparencyLevelHint="Transparent"
+			Background="Transparent"
+			CanMaximize="False" CanMinimize="False" CanResize="False"
+			Topmost="True"
+			Width="700" Height="{Binding UIHeight}"
+			Title="TacticPlayWindow">
 
-    <Window.Styles>
-        <FluentTheme />
-        <Style Selector="Border.Container">
-            <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="Background" Value="Black" />
-        </Style>
-        <Style Selector="Border.Controller">
-            <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="Background" Value="#000000" />
-        </Style>
-        <Style Selector="Button.Controller">
-            <Setter Property="Width" Value="140" />
-            <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="Background" Value="#80000000" />
-        </Style>
-        <Style Selector="TextBlock.ButtonInner">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="16" />
-        </Style>
-        <Style Selector="materialIcons|MaterialIcon.ButtonIcon">
-            <Setter Property="Width" Value="30" />
-            <Setter Property="Height" Value="30" />
-        </Style>
-    </Window.Styles>
+		<Window.Styles>
+				<FluentTheme />
+				<Style Selector="Border.Container">
+						<Setter Property="CornerRadius" Value="10" />
+				</Style>
+				<Style Selector="Border.Controller">
+						<Setter Property="CornerRadius" Value="10" />
+				</Style>
+				<Style Selector="Button.Controller">
+						<Setter Property="Width" Value="140" />
+						<Setter Property="CornerRadius" Value="10" />
+				</Style>
+				<Style Selector="TextBlock.ButtonInner">
+						<Setter Property="HorizontalAlignment" Value="Center" />
+						<Setter Property="VerticalAlignment" Value="Center" />
+						<Setter Property="FontSize" Value="16" />
+				</Style>
+				<Style Selector="materialIcons|MaterialIcon.ButtonIcon">
+						<Setter Property="Width" Value="30" />
+						<Setter Property="Height" Value="30" />
+				</Style>
+		</Window.Styles>
 
-    <Design.DataContext>
-        <vm:TacticPlayWindowModel UIHeight="700"
-                                  HorizontalLineHeight="10"
-                                  GroupHeight="*"
-                                  MaterialIconKind="ArrowExpandUp"
-                                  IsPrepare="False" />
-    </Design.DataContext>
+		<Design.DataContext>
+				<vm:TacticPlayWindowModel UIHeight="700"
+											HorizontalLineHeight="10"
+											GroupHeight="*"
+											MaterialIconKind="ArrowExpandUp"
+											IsPrepare="False" />
+		</Design.DataContext>
 
-    <Grid Margin="10">
+		<Grid Margin="10">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="160" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="{Binding HorizontalLineHeight}" />
-            <RowDefinition Height="{Binding GroupHeight}" />
-        </Grid.RowDefinitions>
+				<Grid.RowDefinitions>
+						<RowDefinition Height="160" />
+						<RowDefinition Height="10" />
+						<RowDefinition Height="40" />
+						<RowDefinition Height="{Binding HorizontalLineHeight}" />
+						<RowDefinition Height="{Binding GroupHeight}" />
+				</Grid.RowDefinitions>
 
-        <!-- 最上方播放容器 -->
-        <Border Grid.Row="0" Classes="Container">
-            <Grid Margin="10" RowDefinitions="Auto,*,Auto">
-                <StackPanel Grid.Row="0" Orientation="Horizontal"
-                            Spacing="0"
-                            HorizontalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               FontSize="14"
-                               Text="{StaticResource TacticPlayingInfoCurrFile}" />
-                    <TextBlock Foreground="#ff6f6f"
-                               Margin="10,0,10,0"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Stretch"
-                               TextAlignment="Center"
-                               FontWeight="Bold"
-                               FontSize="14"
-                               Text="{Binding FileSelectedInfo}" />
-                </StackPanel>
-                <Grid Grid.Row="1" Margin="0" IsVisible="{Binding IsPrepare}">
-                    <Image Margin="10" Source="{Binding TitleBarImage}" />
-                </Grid>
-                <Grid Grid.Row="1" Margin="0"
-                      IsVisible="{Binding !IsPrepare}"
-                      ColumnDefinitions="*,10,120,10">
+				<!-- 最上方播放容器 -->
+			<Border x:Name="BorderTop" Grid.Row="0" Classes="Container" 
+							Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
+					<Grid Margin="10" RowDefinitions="Auto,*,Auto">
+						<StackPanel Grid.Row="0" Orientation="Horizontal"
+										Spacing="0"
+										HorizontalAlignment="Center">
+								<TextBlock VerticalAlignment="Center"
+											HorizontalAlignment="Center"
+											FontSize="14"
+											Text="{StaticResource TacticPlayingInfoCurrFile}" />
+								<TextBlock Foreground="#ff6f6f"
+											Margin="10,0,10,0"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Center"
+											FontWeight="Bold"
+											FontSize="14"
+											Text="{Binding FileSelectedInfo}" />
+						</StackPanel>
+						<Grid Grid.Row="1" Margin="0" IsVisible="{Binding IsPrepare}">
+								<Image Margin="10" Source="{Binding TitleBarImage}" />
+						</Grid>
+						<Grid Grid.Row="1" Margin="0"
+									IsVisible="{Binding !IsPrepare}"
+									ColumnDefinitions="*,10,120,10">
 
-                    <Grid Grid.Column="0" Margin="30"
-                          ColumnDefinitions="*,10,*,10,*,10,*,10,*,10,*">
+								<Grid Grid.Column="0" Margin="30"
+											ColumnDefinitions="*,10,*,10,*,10,*,10,*,10,*">
 
-                        <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid.RenderTransform>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                            </Grid.RenderTransform>
-                            <component:TacticItem SlotNo="0" />
-                        </Grid>
+										<Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+												<Grid.RenderTransform>
+														<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+												</Grid.RenderTransform>
+												<component:TacticItem SlotNo="0" />
+										</Grid>
 
-                        <materialIcons:MaterialIcon Grid.Column="2"
-                                                    Width="80" Height="80"
-                                                    Kind="ChevronDoubleRight" />
+										<materialIcons:MaterialIcon Grid.Column="2"
+														Width="80" Height="80"
+														Kind="ChevronDoubleRight" />
 
-                        <Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <component:TacticItem SlotNo="1" />
-                        </Grid>
+										<Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+												<component:TacticItem SlotNo="1" />
+										</Grid>
 
-                        <materialIcons:MaterialIcon Grid.Column="6"
-                                                    Width="80" Height="80"
-                                                    Kind="ChevronDoubleRight" />
+										<materialIcons:MaterialIcon Grid.Column="6"
+														Width="80" Height="80"
+														Kind="ChevronDoubleRight" />
 
-                        <Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid.RenderTransform>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                            </Grid.RenderTransform>
-                            <component:TacticItem SlotNo="2" />
-                        </Grid>
+										<Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+												<Grid.RenderTransform>
+														<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+												</Grid.RenderTransform>
+												<component:TacticItem SlotNo="2" />
+										</Grid>
 
-                        <Grid Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid.RenderTransform>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                            </Grid.RenderTransform>
-                            <component:TacticItem SlotNo="3" />
-                        </Grid>
-                    </Grid>
+										<Grid Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+												<Grid.RenderTransform>
+														<ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+												</Grid.RenderTransform>
+												<component:TacticItem SlotNo="3" />
+										</Grid>
+								</Grid>
 
-                    <Grid Grid.Column="2" VerticalAlignment="Top">
-                        <StackPanel Orientation="Vertical">
-                            <Label Content="{StaticResource TacticPlayingLabelCurrRealTimestamp}"
-                                   FontWeight="Bold" />
-                            <Label Content="{Binding TimeStampTxt}"
-                                   FontWeight="Bold" />
-                            <Label />
-                            <Label Content="{StaticResource TacticPlayingLabelCurrStepTimestamp}"
-                                   FontWeight="Bold" />
-                            <Grid ColumnDefinitions="*,10,*">
-                                <Label Grid.Column="0" Content="{Binding CurrStepTimeStampTxt}"
-                                       FontWeight="Bold" />
-                                <Label Grid.Column="2" Content="{Binding TimeStampGapTxt}"
-                                       FontWeight="Bold"
-                                       Foreground="Red" />
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-                <StackPanel Grid.Row="2" Orientation="Horizontal"
-                            Spacing="0"
-                            HorizontalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               FontSize="14"
-                               Text="{Binding HotkeyTips}" />
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Foreground="#b88125"
-                               FontSize="14"
-                               FontWeight="Bold"
-                               Text="{Binding HotkeyTipsDesc}" />
-                </StackPanel>
-            </Grid>
-        </Border>
+								<Grid Grid.Column="2" VerticalAlignment="Top">
+										<StackPanel Orientation="Vertical">
+												<Label Content="{StaticResource TacticPlayingLabelCurrRealTimestamp}"
+															FontWeight="Bold" />
+												<Label Content="{Binding TimeStampTxt}"
+															FontWeight="Bold" />
+												<Label />
+												<Label Content="{StaticResource TacticPlayingLabelCurrStepTimestamp}"
+															FontWeight="Bold" />
+												<Grid ColumnDefinitions="*,10,*">
+														<Label Grid.Column="0" Content="{Binding CurrStepTimeStampTxt}"
+																	FontWeight="Bold" />
+														<Label Grid.Column="2" Content="{Binding TimeStampGapTxt}"
+																	FontWeight="Bold"
+																	Foreground="Red" />
+												</Grid>
+										</StackPanel>
+								</Grid>
+						</Grid>
+						<StackPanel Grid.Row="2" Orientation="Horizontal"
+										Spacing="0"
+										HorizontalAlignment="Center">
+								<TextBlock VerticalAlignment="Center"
+											HorizontalAlignment="Center"
+											FontSize="14"
+											Text="{Binding HotkeyTips}" />
+								<TextBlock VerticalAlignment="Center"
+											HorizontalAlignment="Center"
+											Foreground="#b88125"
+											FontSize="14"
+											FontWeight="Bold"
+											Text="{Binding HotkeyTipsDesc}" />
+						</StackPanel>
+					</Grid>
+			</Border>
 
-        <!-- 控制按钮 -->
-        <Border Grid.Row="2" Classes="Container"
-                Background="Transparent">
+			<!-- 控制按钮 -->
+			<Border x:Name="BorderMid" Grid.Row="2" Classes="Container">
 
-            <Grid ColumnDefinitions="140,*,140,*,140,*,140">
+					<Grid ColumnDefinitions="140,*,140,*,140,*,140">
 
-                <Border Grid.Column="0" Classes="Controller">
-                    <Button Classes="Controller"
-                            Command="{Binding PullWindowCommand}">
-                        <Grid ColumnDefinitions="10,25,10,*,10">
-                            <materialIcons:MaterialIcon Grid.Column="1"
-                                                        Classes="ButtonIcon"
-                                                        Kind="{Binding MaterialIconKind}" />
-                            <TextBlock Grid.Column="3"
-                                       Classes="ButtonInner"
-                                       Text="{StaticResource TacticPlayingButtonFold}" />
-                        </Grid>
-                    </Button>
-                </Border>
+						<Border Grid.Column="0" Classes="Controller">
+								<Button Classes="Controller"
+											Command="{Binding PullWindowCommand}"
+											Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
+										<Grid ColumnDefinitions="10,25,10,*,10">
+												<materialIcons:MaterialIcon Grid.Column="1"
+															Classes="ButtonIcon"
+															Kind="{Binding MaterialIconKind}" />
+												<TextBlock Grid.Column="3"
+															Classes="ButtonInner"
+															Text="{StaticResource TacticPlayingButtonFold}" />
+										</Grid>
+								</Button>
+						</Border>
 
-                <Border Grid.Column="2" Classes="Controller">
-                    <Button Classes="Controller"
-                            Command="{Binding RefreshCommand}">
-                        <Grid ColumnDefinitions="10,25,10,*,10">
-                            <materialIcons:MaterialIcon Grid.Column="1"
-                                                        Classes="ButtonIcon"
-                                                        Kind="Refresh" />
-                            <TextBlock Grid.Column="3"
-                                       Classes="ButtonInner"
-                                       Text="{StaticResource TacticPlayingButtonReload}" />
-                        </Grid>
-                    </Button>
-                </Border>
+						<Border Grid.Column="2" Classes="Controller">
+								<Button Classes="Controller"
+											Command="{Binding RefreshCommand}"
+											Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
+										<Grid ColumnDefinitions="10,25,10,*,10">
+												<materialIcons:MaterialIcon Grid.Column="1"
+															Classes="ButtonIcon"
+															Kind="Refresh" />
+												<TextBlock Grid.Column="3"
+															Classes="ButtonInner"
+															Text="{StaticResource TacticPlayingButtonReload}" />
+										</Grid>
+								</Button>
+						</Border>
 
-                <Border Grid.Column="4" Classes="Controller">
-                    <Button Classes="Controller"
-                            Command="{Binding CloseWindowCommand}">
-                        <Grid ColumnDefinitions="10,25,10,*,10">
-                            <materialIcons:MaterialIcon Grid.Column="1"
-                                                        Classes="ButtonIcon"
-                                                        Kind="StopCircleOutline" />
-                            <TextBlock Grid.Column="3"
-                                       Classes="ButtonInner"
-                                       Text="{StaticResource TacticPlayingButtonClose}" />
-                        </Grid>
-                    </Button>
-                </Border>
+						<Border Grid.Column="4" Classes="Controller">
+								<Button Classes="Controller"
+											Command="{Binding CloseWindowCommand}"
+											Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
+										<Grid ColumnDefinitions="10,25,10,*,10">
+												<materialIcons:MaterialIcon Grid.Column="1"
+															Classes="ButtonIcon"
+															Kind="StopCircleOutline" />
+												<TextBlock Grid.Column="3"
+															Classes="ButtonInner"
+															Text="{StaticResource TacticPlayingButtonClose}" />
+										</Grid>
+								</Button>
+						</Border>
 
-                <Border Grid.Column="6" Classes="Controller">
-                    <Button Classes="Controller"
-                            Command="{Binding PlayTacticCommand}">
-                        <Grid ColumnDefinitions="10,25,10,*,10">
-                            <materialIcons:MaterialIcon Grid.Column="1"
-                                                        Classes="ButtonIcon"
-                                                        Kind="PlayCircleOutline" />
-                            <TextBlock Grid.Column="3"
-                                       Classes="ButtonInner"
-                                       Text="{StaticResource TacticPlayingButtonPlay}" />
-                        </Grid>
-                    </Button>
-                </Border>
+						<Border Grid.Column="6" Classes="Controller">
+								<Button Classes="Controller"
+											Command="{Binding PlayTacticCommand}"
+											Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
+										<Grid ColumnDefinitions="10,25,10,*,10">
+												<materialIcons:MaterialIcon Grid.Column="1"
+															Classes="ButtonIcon"
+															Kind="PlayCircleOutline" />
+												<TextBlock Grid.Column="3"
+															Classes="ButtonInner"
+															Text="{StaticResource TacticPlayingButtonPlay}" />
+										</Grid>
+								</Button>
+						</Border>
 
-            </Grid>
+					</Grid>
 
-        </Border>
+			</Border>
 
-        <!-- 战术选择容器 -->
-        <Border Grid.Row="4" Classes="Container">
+			<!-- 战术选择容器 -->
+			<Border x:Name="BorderBot" Grid.Row="4" Classes="Container"
+						Background="{Binding Opacity, Converter={x:Static converters:OpacityToBrushConverter.Instance}}">
 
-            <Grid Margin="15"
-                  RowDefinitions="40,30,*">
+					<Grid Margin="15"
+								RowDefinitions="40,30,*">
 
-                <Grid Grid.Row="0" VerticalAlignment="Center"
-                      ColumnDefinitions="Auto,10,*,10,100">
+						<Grid Grid.Row="0" VerticalAlignment="Center"
+									ColumnDefinitions="Auto,10,*,10,100">
 
-                    <Label Grid.Column="0" VerticalContentAlignment="Center"
-                           Content="{StaticResource TacticPlayingLabelFileSelected}" />
-                    <ComboBox Grid.Column="2" Margin="0"
-                              ItemsSource="{Binding TacticFiles}"
-                              SelectedItem="{Binding SelectedTacticFile}" />
-                    <Button Grid.Column="4" Margin="0" Height="34" Width="100"
-                            Content="{StaticResource TacticPlayingBtnOpenFolder}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Command="{Binding OpenFolderCommand}" />
-                </Grid>
+								<Label Grid.Column="0" VerticalContentAlignment="Center"
+											Content="{StaticResource TacticPlayingLabelFileSelected}" />
+								<ComboBox Grid.Column="2" Margin="0"
+											ItemsSource="{Binding TacticFiles}"
+											SelectedItem="{Binding SelectedTacticFile}" />
+								<Button Grid.Column="4" Margin="0" Height="34" Width="100"
+											Content="{StaticResource TacticPlayingBtnOpenFolder}"
+											HorizontalAlignment="Center" VerticalAlignment="Center"
+											HorizontalContentAlignment="Center"
+											VerticalContentAlignment="Center"
+											Command="{Binding OpenFolderCommand}" />
+						</Grid>
 
-                <Grid Grid.Row="2" ColumnDefinitions="*,20,2*">
+						<Grid Grid.Row="2" ColumnDefinitions="*,20,2*">
 
-                    <Grid Grid.Column="0">
-                        <StackPanel Orientation="Vertical">
-                            <Label Content="{StaticResource TacticPlayingOpacity}" />
-                            <Slider Maximum="1" Minimum="0.2" TickFrequency="0.1"
-                                    IsSnapToTickEnabled="True"
-                                    Value="{Binding Config.Opacity, Mode=TwoWay}" />
-                            <Grid Height="10" />
-                            <CheckBox Content="{StaticResource TacticPlayingTimelineCorrection}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.EnableTlCorr, Mode=TwoWay}" />
-                            <Grid Height="10" />
-                            <Label Content="{StaticResource TacticPlayingModitemEnable}" />
-                            <CheckBox Content="{StaticResource TacticPlayingModitemNone}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.ModItemTypeEnable[0]}"
-                                      IsEnabled="False" />
-                            <CheckBox Content="{StaticResource TacticPlayingModitemWorker}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}" />
-                            <CheckBox Content="{StaticResource TacticPlayingModitemArmy}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}" />
-                            <CheckBox Content="{StaticResource TacticPlayingModitemBuilding}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}" />
-                            <CheckBox Content="{StaticResource TacticPlayingModitemTech}"
-                                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                      IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}" />
-                        </StackPanel>
-                    </Grid>
+								<Grid Grid.Column="0">
+										<StackPanel Orientation="Vertical">
+												<Label Content="{StaticResource TacticPlayingOpacity}" />
+												<Slider Maximum="1" Minimum="0.2" TickFrequency="0.1"
+															IsSnapToTickEnabled="True"
+															Value="{Binding Opacity, Mode=TwoWay}" />
+												<Grid Height="10" />
+												<CheckBox Content="{StaticResource TacticPlayingTimelineCorrection}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.EnableTlCorr, Mode=TwoWay}" />
+												<Grid Height="10" />
+												<Label Content="{StaticResource TacticPlayingModitemEnable}" />
+												<CheckBox Content="{StaticResource TacticPlayingModitemNone}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.ModItemTypeEnable[0]}"
+															IsEnabled="False" />
+												<CheckBox Content="{StaticResource TacticPlayingModitemWorker}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.ModItemTypeEnable[1], Mode=TwoWay}" />
+												<CheckBox Content="{StaticResource TacticPlayingModitemArmy}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.ModItemTypeEnable[2], Mode=TwoWay}" />
+												<CheckBox Content="{StaticResource TacticPlayingModitemBuilding}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.ModItemTypeEnable[3], Mode=TwoWay}" />
+												<CheckBox Content="{StaticResource TacticPlayingModitemTech}"
+															VerticalContentAlignment="Center" VerticalAlignment="Center"
+															IsChecked="{Binding Config.ModItemTypeEnable[4], Mode=TwoWay}" />
+										</StackPanel>
+								</Grid>
 
-                    <Grid Grid.Column="2"
-                          RowDefinitions="Auto,10,*">
-                        <Label Grid.Row="0" Content="{StaticResource TacticPlayingFileinfo}" />
-                        <component:TacticInfoDisplay Grid.Row="2" Margin="0"
-                                                     TacticData="{Binding CurrTactic}" />
-                    </Grid>
-                </Grid>
-            </Grid>
+								<Grid Grid.Column="2"
+											RowDefinitions="Auto,10,*">
+										<Label Grid.Row="0" Content="{StaticResource TacticPlayingFileinfo}" />
+										<component:TacticInfoDisplay Grid.Row="2" Margin="0"
+														TacticData="{Binding CurrTactic}" />
+								</Grid>
+						</Grid>
+					</Grid>
 
-        </Border>
+			</Border>
 
-    </Grid>
+		</Grid>
 
 </Window>
 <!-- ReSharper restore Xaml.StaticResourceNotResolved -->
