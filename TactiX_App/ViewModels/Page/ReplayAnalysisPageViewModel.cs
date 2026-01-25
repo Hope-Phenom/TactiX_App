@@ -33,13 +33,13 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     ///     解析星际2的回放文件
     /// </summary>
     [RelayCommand]
-    public void DecodeSc2Replay()
+    private void DecodeSc2Replay()
     {
         _messenger.Send(new MbFileDialog
         {
             WindowName = MAIN_WINDOW,
             IsOpenMode = true,
-            Trigger = FILE_DIALOG_TRRIGER,
+            Trigger = FILE_DIALOG_TRIGGER,
             FileFilterName = "StarCraft II Replays",
             FileFilter = "*.SC2Replay"
         });
@@ -59,8 +59,8 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     #region 变量/常量
 
     private const string MAIN_WINDOW = "MainWindow";
-    private const string FILE_DIALOG_TRRIGER = "ReplayAnalysis";
-    private const string FOLDER_DIALOG_TRRIGER = "ReplayAnalysisFolder";
+    private const string FILE_DIALOG_TRIGGER = "ReplayAnalysis";
+    private const string FOLDER_DIALOG_TRIGGER = "ReplayAnalysisFolder";
     private const string TEMPLATE_PATH = "TacticTemplate.tactixSource";
     private const string EXPORT_FILE_NAME = "{0}_{1}.tactixSource";
 
@@ -73,25 +73,40 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
 
     public async void Receive(MbFileDialog message)
     {
-        if (message.Trigger != FILE_DIALOG_TRRIGER) return;
-        if (string.IsNullOrEmpty(message.FilePath)) return;
-
-        var filePath = message.FilePath;
-        var actionsDict = await _replayDecoder.DecodeReplay(filePath);
-        if (actionsDict.Count == 0) return;
-
-        _actionsDict = actionsDict;
-
-        _messenger.Send(new MbFolderDialog
+        try
         {
-            Trigger = FOLDER_DIALOG_TRRIGER,
-            WindowName = MAIN_WINDOW
-        });
+            if (message.Trigger != FILE_DIALOG_TRIGGER) return;
+            if (string.IsNullOrEmpty(message.FilePath)) return;
+
+            var filePath = message.FilePath;
+            var actionsDict = await _replayDecoder.DecodeReplay(filePath);
+            if (actionsDict.Count == 0) return;
+
+            _actionsDict = actionsDict;
+
+            _messenger.Send(new MbFolderDialog
+            {
+                Trigger = FOLDER_DIALOG_TRIGGER,
+                WindowName = MAIN_WINDOW
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Receive MbFileDialog Error: {ex.Message}");
+            _messenger.Send(new MbToastPureText()
+            {
+                Message = string.Format(
+                    _localizationService.GetString("ReplayAnalysisDecodeError"),
+                    ex.Message),
+                Title = _localizationService.GetString("ReplayAnalysisDecodeErrorTitle"),
+                Type = MbEnumToastType.Error
+            });
+        }
     }
 
     public void Receive(MbFolderDialog message)
     {
-        if (message.Trigger != FOLDER_DIALOG_TRRIGER) return;
+        if (message.Trigger != FOLDER_DIALOG_TRIGGER) return;
         if (string.IsNullOrEmpty(message.FolderPath)) return;
 
         _folderPath = message.FolderPath;
@@ -129,8 +144,6 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
                 for (var i = 1; i <= keyValue.Value.Count; i++)
                 {
                     var act = keyValue.Value[i - 1];
-                    if (act == null) continue;
-
                     sb.AppendLine($"- {i}, {SecondsToMmSs(act.Time)}, {act.Abbr}, {act.Supply}");
                 }
 
@@ -142,7 +155,7 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
             _messenger.Send(new MbToastPureText
             {
                 Message = string.Format(
-                    _localizationService.GetString("ReplayAnalysisDecodeSuccess"), 
+                    _localizationService.GetString("ReplayAnalysisDecodeSuccess"),
                     exportPaths),
                 Title = _localizationService.GetString("ReplayAnalysisDecodeSuccessTitle"),
                 Type = MbEnumToastType.Success
@@ -153,7 +166,7 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
             _messenger.Send(new MbToastPureText
             {
                 Message = string.Format(
-                    _localizationService.GetString("ReplayAnalysisDecodeError"), 
+                    _localizationService.GetString("ReplayAnalysisDecodeError"),
                     ex.Message),
                 Title = _localizationService.GetString("ReplayAnalysisDecodeErrorTitle"),
                 Type = MbEnumToastType.Error

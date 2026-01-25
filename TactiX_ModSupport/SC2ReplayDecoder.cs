@@ -1,9 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using NLog;
 using s2protocol.NET;
 using s2protocol.NET.Models;
+using TactiX_Localization;
 using TactiX_Logger;
+using TactiX_Models.MessageBus;
 using TactiX_Models.Tactics;
 
 namespace TactiX_ModSupport;
@@ -11,7 +14,10 @@ namespace TactiX_ModSupport;
 public class Sc2ReplayDecoder : IReplayDecoder
 {
     private const string DATA_DICT_JSON = "SC2ProductionDuration.json";
+
     private readonly Logger _logger;
+    private readonly IMessenger _messenger;
+    private readonly ILocalizationService _localizationService;
 
     private readonly ReplayDecoderOptions _options;
 
@@ -36,11 +42,14 @@ public class Sc2ReplayDecoder : IReplayDecoder
     private Dictionary<string, int> _supplySupportDict;
 
 
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
-    public Sc2ReplayDecoder(ILoggerContainer loggerContainer)
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 "required" 修饰符或声明为可为 null。
+#pragma warning disable CS8618
+    public Sc2ReplayDecoder(ILoggerContainer loggerContainer, IMessenger messenger,
+        ILocalizationService localizationService)
+#pragma warning restore CS8618
     {
         _logger = loggerContainer.Builder.GetCurrentClassLogger();
+        _messenger = messenger;
+        _localizationService = localizationService;
 
         // 为了避免UI预览器崩溃因此加了过滤
         // 实际逻辑没有这么复杂
@@ -164,8 +173,17 @@ public class Sc2ReplayDecoder : IReplayDecoder
 
             return _replayActionDict;
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.Error($"DecodeReplay Error: {ex.Message}");
+            _messenger.Send(new MbToastPureText()
+            {
+                Message = string.Format(
+                    _localizationService.GetString("ReplayAnalysisDecodeError"),
+                    ex.Message),
+                Title = _localizationService.GetString("ReplayAnalysisDecodeErrorTitle"),
+                Type = MbEnumToastType.Error
+            });
             return [];
         }
     }
@@ -181,6 +199,12 @@ public class Sc2ReplayDecoder : IReplayDecoder
         var unitName = evt.UnitTypeName;
         if (Ignore.Contains(unitName)) return; // 过滤单位
 
+        if (!UnitsDict.TryGetValue(unitName, out var unitAbbr))
+        {
+            _logger.Error($"Error Unit Name: {unitName}");
+            return;
+        }
+
         var playerName = _playerNames[evt.ControlPlayerId];
 
         if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
@@ -190,12 +214,6 @@ public class Sc2ReplayDecoder : IReplayDecoder
             if (evt.SUnitDoneEvent != null)
                 _supplySupportChangeDict[playerName]
                     .Add(new DoneEvtRecord(evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName]));
-
-        if (!UnitsDict.TryGetValue(unitName, out var unitAbbr))
-        {
-            _logger.Error($"Error Unit Name: {unitName}");
-            return;
-        }
 
         _replayActionDict[playerName].Add(new LReplayAction
         {
@@ -209,39 +227,46 @@ public class Sc2ReplayDecoder : IReplayDecoder
 
     private void HandleSUnitBornEvent(SUnitBornEvent evt)
     {
-        if (evt.ControlPlayerId == 0) // 排除非玩家控制单位
+        try
         {
-            _logger.Warn(evt.UnitTypeName);
-            return;
+            if (evt.ControlPlayerId == 0) // 排除非玩家控制单位
+            {
+                _logger.Warn(evt.UnitTypeName);
+                return;
+            }
+
+            var unitName = evt.UnitTypeName;
+            if (Ignore.Contains(unitName)) return; // 过滤单位
+
+            if (!UnitData.ContainsKey(unitName))
+            {
+                _logger.Error($"Error Unit Name: {unitName}");
+                return;
+            }
+
+            var playerName = _playerNames[evt.ControlPlayerId];
+            var startLoop = evt.Gameloop - UnitData[unitName] * 16;
+
+            if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
+                _supplyCostDict[playerName] += cost;
+
+            if (SupplySupport.TryGetValue(unitName, out var supply)) // 人口增加的单位/建筑是完成后才生效的；
+                // Born为已完成，直接增加
+                _supplySupportDict[playerName] += supply;
+
+            _replayActionDict[playerName].Add(new LReplayAction
+            {
+                UnitName = unitName,
+                Gameloop = startLoop,
+                Time = (int)Math.Floor(startLoop / 22.4),
+                Abbr = UnitsDict[unitName],
+                Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
+            });
         }
-
-        var unitName = evt.UnitTypeName;
-        if (Ignore.Contains(unitName)) return; // 过滤单位
-
-        var playerName = _playerNames[evt.ControlPlayerId];
-        var startLoop = evt.Gameloop - UnitData[unitName] * 16;
-
-        if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
-            _supplyCostDict[playerName] += cost;
-
-        if (SupplySupport.TryGetValue(unitName, out var supply)) // 人口增加的单位/建筑是完成后才生效的；
-            // Born为已完成，直接增加
-            _supplySupportDict[playerName] += supply;
-
-        if (!UnitData.ContainsKey(unitName))
+        catch (Exception e)
         {
-            _logger.Error($"Error Unit Name: {unitName}");
-            return;
+            _logger.Error($"HandleSUnitBornEvent Error: {e.Message}");
         }
-
-        _replayActionDict[playerName].Add(new LReplayAction
-        {
-            UnitName = unitName,
-            Gameloop = startLoop,
-            Time = (int)Math.Floor(startLoop / 22.4),
-            Abbr = UnitsDict[unitName],
-            Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
-        });
     }
 
     private void HandleSUpgradeEvent(SUpgradeEvent evt)

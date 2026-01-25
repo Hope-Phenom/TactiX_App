@@ -148,7 +148,8 @@
     "MicrobialShroud": 112,
     "LurkerRange": 80,
     "AnabolicSynthesis": 61,
-    "Frenzy": 90
+    "Frenzy": 90,
+    "CentrificalHooks": 100
   },
   "UnitsDict": {
     "SCV": "Tbcs",
@@ -350,7 +351,8 @@
     "MicrobialShroud": "Zvic",
     "LurkerRange": "Zvds",
     "AnabolicSynthesis": "Zvua",
-    "Frenzy": "Zvhf"
+    "Frenzy": "Zvhf",
+    "CentrificalHooks": "Zbbc"
   },
   "SupplyCost": {
     "SCV": 1,
@@ -445,7 +447,27 @@
     "TechLab",
     "CommandCenterFlying",
     "OrbitalCommandFlying",
-    "CreepTumorBurrowed"
+    "CreepTumorBurrowed",
+    "InvisibleTargetDummy",
+    "BanelingCocoon",
+    "OracleStasisTrap",
+    "LurkerMPEgg",
+    "LurkerMP",
+    "LurkerMPBurrowed",
+    "SporeCrawlerUprooted",
+    "OverlordCocoon",
+    "OverseerSiegeMode",
+    "ChangelingZealot",
+    "Interceptor",
+    "TransportOverlordCocoon",
+    "AssimilatorRich",
+    "OverlordTransport",
+    "ParasiticBombRelayDummy",
+    "ParasiticBombDummy",
+    "DisruptorPhased",
+    "KD8Charge",
+    "HellionTank",
+    "ChangelingMarineShield"    
   ],
   "TerranBuildingTypeChange": [
     "OrbitalCommand",
