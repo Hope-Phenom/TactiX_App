@@ -42,7 +42,8 @@
                                                             Url="{Binding Url}"
                                                             Date="{Binding Date}"
                                                             IsLastItem="{Binding IsLast}"
-                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}" />
+                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+                                                            CommandParam="{Binding Url}" />
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
@@ -61,7 +62,8 @@
                                                             Url="{Binding Link}"
                                                             Date="{Binding DateTimeStr}"
                                                             IsLastItem="{Binding IsLast}"
-                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}" />
+                                                            Command="{Binding DataContext.OpenWebCommand, ElementName=NewsPage}"
+                                                            CommandParam="{Binding  Link}" />
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>

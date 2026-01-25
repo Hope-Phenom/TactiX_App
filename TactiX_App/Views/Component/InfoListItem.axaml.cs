@@ -1,7 +1,6 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 
 namespace TactiX_App.Views.Component;
 
@@ -72,16 +71,31 @@ public partial class InfoListItem : UserControl
     /// <summary>
     ///     命令
     /// </summary>
-    public static readonly StyledProperty<RelayCommand?> CommandProperty =
-        AvaloniaProperty.Register<InfoListItem, RelayCommand?>(nameof(Command));
+    public static readonly StyledProperty<ICommand?> CommandProperty =
+        AvaloniaProperty.Register<InfoListItem, ICommand?>(nameof(Command));
 
     /// <summary>
     ///     命令
     /// </summary>
-    public RelayCommand? Command
+    public ICommand? Command
     {
         get => GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
+    }
+    
+    /// <summary>
+    ///     命令
+    /// </summary>
+    public static readonly StyledProperty<string?> CommandParamProperty =
+        AvaloniaProperty.Register<InfoListItem, string?>(nameof(CommandParam));
+
+    /// <summary>
+    ///     命令
+    /// </summary>
+    public string? CommandParam
+    {
+        get => GetValue(CommandParamProperty);
+        set => SetValue(CommandParamProperty, value);
     }
 
     #endregion
