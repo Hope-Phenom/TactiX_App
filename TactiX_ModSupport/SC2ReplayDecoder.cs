@@ -14,6 +14,7 @@ namespace TactiX_ModSupport;
 public class Sc2ReplayDecoder : IReplayDecoder
 {
     private const string DATA_DICT_JSON = "SC2ProductionDuration.json";
+    private const double GAMELOOP_TO_SECONDS = 1.0 / 22.4; // 乘法比除法快
 
     private readonly Logger _logger;
     private readonly IMessenger _messenger;
@@ -35,9 +36,9 @@ public class Sc2ReplayDecoder : IReplayDecoder
     private Dictionary<string, int> _supplyCostDict;
 
     /// <summary>
-    ///     待处理的人口变化事件集合
+    ///     待处理的人口变化事件集合（按 gameloop 索引）
     /// </summary>
-    private Dictionary<string, List<DoneEvtRecord>> _supplySupportChangeDict;
+    private Dictionary<int, Dictionary<string, List<DoneEvtRecord>>> _supplySupportByGameloop;
 
     private Dictionary<string, int> _supplySupportDict;
 
@@ -65,7 +66,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
         _playerNames = new();
         _supplyCostDict = new();
         _supplySupportDict = new();
-        _supplySupportChangeDict = new();
+        _supplySupportByGameloop = new();
         _raceDict = new();
         _replayActionDict = new();
 
@@ -96,7 +97,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
             _playerNames.Clear();
             _supplyCostDict.Clear();
             _supplySupportDict.Clear();
-            _supplySupportChangeDict.Clear();
+            _supplySupportByGameloop.Clear();
             _raceDict.Clear();
             _replayActionDict.Clear();
 
@@ -118,7 +119,6 @@ public class Sc2ReplayDecoder : IReplayDecoder
                 _replayActionDict.EnsureKeyExists(playerName);
                 _supplyCostDict.EnsureKeyExists(playerName);
                 _supplySupportDict.EnsureKeyExists(playerName);
-                _supplySupportChangeDict.EnsureKeyExists(playerName);
 
                 _supplyCostDict[playerName] = 12;
                 _supplySupportDict[playerName] = player.Race switch // 不同语言客户端的rep种族字段也会不一样
@@ -224,14 +224,26 @@ public class Sc2ReplayDecoder : IReplayDecoder
             _supplyCostDict[playerName] += cost;
 
         if (SupplySupport.TryGetValue(unitName, out var support) && evt.SUnitDoneEvent != null) // 人口增加的单位/建筑是完成后才生效的
-            _supplySupportChangeDict[playerName]
-                .Add(new DoneEvtRecord(evt.SUnitDoneEvent.Gameloop, support));
+        {
+            var gl = evt.SUnitDoneEvent.Gameloop;
+            if (!_supplySupportByGameloop.TryGetValue(gl, out var playerDict))
+            {
+                playerDict = new Dictionary<string, List<DoneEvtRecord>>();
+                _supplySupportByGameloop[gl] = playerDict;
+            }
+            if (!playerDict.TryGetValue(playerName, out var records))
+            {
+                records = new List<DoneEvtRecord>();
+                playerDict[playerName] = records;
+            }
+            records.Add(new DoneEvtRecord(gl, support));
+        }
 
         _replayActionDict[playerName].Add(new LReplayAction
         {
             UnitName = unitName,
             Gameloop = evt.Gameloop,
-            Time = (int)Math.Floor(evt.Gameloop / 22.4),
+            Time = (int)Math.Floor(evt.Gameloop * GAMELOOP_TO_SECONDS),
             Abbr = unitAbbr,
             Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
@@ -270,7 +282,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
             {
                 UnitName = unitName,
                 Gameloop = startLoop,
-                Time = (int)Math.Floor(startLoop / 22.4),
+                Time = (int)Math.Floor(startLoop * GAMELOOP_TO_SECONDS),
                 Abbr = UnitsDict[unitName],
                 Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
             });
@@ -300,7 +312,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
         {
             UnitName = upgradeName,
             Gameloop = startLoop,
-            Time = (int)Math.Floor(startLoop / 22.4),
+            Time = (int)Math.Floor(startLoop * GAMELOOP_TO_SECONDS),
             Abbr = UnitsDict[upgradeName],
             Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
@@ -345,7 +357,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
         {
             UnitName = unitName,
             Gameloop = startLoop,
-            Time = (int)Math.Floor(startLoop / 22.4),
+            Time = (int)Math.Floor(startLoop * GAMELOOP_TO_SECONDS),
             Abbr = unitAbbr,
             Supply = $"{_supplyCostDict[playerName]}/{_supplySupportDict[playerName]}"
         });
@@ -353,19 +365,14 @@ public class Sc2ReplayDecoder : IReplayDecoder
 
     private void HandleSUnitDoneEvent(SUnitDoneEvent evt)
     {
-        foreach (var playName in _supplySupportChangeDict.Keys)
+        if (_supplySupportByGameloop.TryGetValue(evt.Gameloop, out var playerDict))
         {
-            var list = _supplySupportChangeDict[playName];
-            for (var j = 0; j < list.Count; j++)
+            foreach (var (playerName, records) in playerDict)
             {
-                var record = list[j];
-
-                if (record.Gameloop != evt.Gameloop) continue; // 不在要处理的gameloop，跳过
-                if (record.Handled) continue; // 已处理，跳过
-
-                _supplySupportDict[playName] += record.Delta;
-                record.Handled = true; // 标记为已处理，避免循环中操作List
+                foreach (var record in records)
+                    _supplySupportDict[playerName] += record.Delta;
             }
+            _supplySupportByGameloop.Remove(evt.Gameloop); // 清理已处理
         }
     }
 
@@ -425,13 +432,5 @@ public class Sc2ReplayDecoder : IReplayDecoder
     /// <summary>
     ///     待处理Done事件记录
     /// </summary>
-    /// <param name="gameloop">要处理事件的gameloop</param>
-    /// <param name="delta">变化量</param>
-    /// <param name="handled">是否已处理，默认否</param>
-    private class DoneEvtRecord(int gameloop, int delta, bool handled = false)
-    {
-        public int Delta = delta;
-        public int Gameloop = gameloop;
-        public bool Handled = handled;
-    }
+    private readonly record struct DoneEvtRecord(int Gameloop, int Delta);
 }
