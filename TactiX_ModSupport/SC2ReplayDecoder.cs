@@ -376,7 +376,11 @@ public class Sc2ReplayDecoder : IReplayDecoder
         }
     }
 
-    private static List<LReplayAction> AdjustTime(List<LReplayAction> list)
+    /// <summary>
+    ///     调整时间戳，确保单调递增
+    ///     同单位同时间合并，不同单位强制错开
+    /// </summary>
+    public static List<LReplayAction> AdjustTime(List<LReplayAction> list)
     {
         if (list.Count <= 1)
             return list;
