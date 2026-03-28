@@ -144,7 +144,8 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
                 for (var i = 1; i <= keyValue.Value.Count; i++)
                 {
                     var act = keyValue.Value[i - 1];
-                    sb.AppendLine($"- {i}, {SecondsToMmSs(act.Time)}, {act.Abbr}, {act.Supply}");
+                    var abbrWithNumber = act.Number > 1 ? $"{act.Abbr}*{act.Number}" : act.Abbr;
+                    sb.AppendLine($"- {i}, {SecondsToMmSs(act.Time)}, {abbrWithNumber}, {act.Supply}");
                 }
 
                 File.WriteAllText(filePath, sb.ToString());

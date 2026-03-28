@@ -61,6 +61,14 @@ public class Sc2ReplayDecoder : IReplayDecoder
             if (_sc2Data == null) throw new Exception("SC2ProductionDuration.json File is Broken");
         }
 
+        // 初始化字典，后续使用 Clear() 复用以减少 GC 压力
+        _playerNames = new();
+        _supplyCostDict = new();
+        _supplySupportDict = new();
+        _supplySupportChangeDict = new();
+        _raceDict = new();
+        _replayActionDict = new();
+
         _options = new ReplayDecoderOptions
         {
             Details = true,
@@ -85,12 +93,12 @@ public class Sc2ReplayDecoder : IReplayDecoder
     {
         try
         {
-            _playerNames = [];
-            _supplyCostDict = [];
-            _supplySupportDict = [];
-            _supplySupportChangeDict = [];
-            _raceDict = [];
-            _replayActionDict = [];
+            _playerNames.Clear();
+            _supplyCostDict.Clear();
+            _supplySupportDict.Clear();
+            _supplySupportChangeDict.Clear();
+            _raceDict.Clear();
+            _replayActionDict.Clear();
 
             ReplayDecoder decoder = new();
             var replay = await decoder.DecodeAsync(replayPath, _options);
@@ -129,13 +137,18 @@ public class Sc2ReplayDecoder : IReplayDecoder
                 playerIndex++;
             }
 
-            var trackers = new List<TrackerEvent>();
+            var trackers = new List<TrackerEvent>(
+                replay.TrackerEvents.SUnitInitEvents.Count +
+                replay.TrackerEvents.SUnitBornEvents.Count +
+                replay.TrackerEvents.SUpgradeEvents.Count +
+                replay.TrackerEvents.SUnitTypeChangeEvents.Count +
+                replay.TrackerEvents.SUnitDoneEvents.Count);
             trackers.AddRange(replay.TrackerEvents.SUnitInitEvents);
             trackers.AddRange(replay.TrackerEvents.SUnitBornEvents);
             trackers.AddRange(replay.TrackerEvents.SUpgradeEvents);
             trackers.AddRange(replay.TrackerEvents.SUnitTypeChangeEvents);
             trackers.AddRange(replay.TrackerEvents.SUnitDoneEvents);
-            trackers = [.. trackers.OrderBy(e => e.Gameloop)];
+            trackers.Sort(static (a, b) => a.Gameloop.CompareTo(b.Gameloop));
 
             for (var i = 0; i < trackers.Count; i++)
             {
@@ -166,7 +179,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
 
             foreach (var playerName in _replayActionDict.Keys)
             {
-                _replayActionDict[playerName] = [.. _replayActionDict[playerName].OrderBy(e => e.Gameloop)];
+                _replayActionDict[playerName].Sort(static (a, b) => a.Gameloop.CompareTo(b.Gameloop));
 
                 AdjustTime(_replayActionDict[playerName]);
             }
@@ -361,27 +374,28 @@ public class Sc2ReplayDecoder : IReplayDecoder
         if (list.Count <= 1)
             return list;
 
-        for (var i = 0; i < list.Count - 1; i++)
-            if (list[i].Time >= list[i + 1].Time)
-            {
-                var j = i + 1;
-                // 处理重复值的连锁反应
-                while (j < list.Count)
-                    if (list[j].Time <= list[j - 1].Time)
-                    {
-                        list[j].Time = list[j - 1].Time + 1;
-                        j++;
-                    }
-                    else
-                    {
-                        break;
-                    }
+        // Step 1: 按 (Time, UnitName) 分组，合并同单位同时间的数量
+        var grouped = new Dictionary<(int Time, string UnitName), LReplayAction>();
+        foreach (var action in list)
+        {
+            var key = (action.Time, action.UnitName);
+            if (grouped.TryGetValue(key, out var existing))
+                existing.Number++;  // 同单位同时间，合并数量
+            else
+                grouped[key] = action;
+        }
 
-                // 跳过已处理的部分
-                i = j - 1;
-            }
+        // Step 2: 按时间排序，不同单位强制错开
+        var result = grouped.Values.OrderBy(a => a.Time).ToList();
 
-        return list;
+        for (var i = 1; i < result.Count; i++)
+        {
+            // 只有不同单位且时间相同才需要错开
+            if (result[i].Time <= result[i - 1].Time && result[i].UnitName != result[i - 1].UnitName)
+                result[i].Time = result[i - 1].Time + 1;
+        }
+
+        return result;
     }
 
     private static bool HasDuplicateRace(Sc2Replay sc2Replay)
