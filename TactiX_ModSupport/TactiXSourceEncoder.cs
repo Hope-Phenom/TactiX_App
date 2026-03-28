@@ -58,10 +58,11 @@ public class TactiXSourceEncoder : ITactiXSourceEncoder
                     else
                     {
                         action.ItemAbbr = strs[2];
-                        action.Supply = strs.Length == 4
-                            ? strs[3]
-                            : string.Empty;
                     }
+
+                    // 统一处理 Supply（修复 Bug：无论是否有 *number 都应该处理）
+                    if (strs.Length == 4)
+                        action.Supply = strs[3];
 
                     tactix.Actions.Add(action);
                 }

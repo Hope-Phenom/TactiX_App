@@ -210,10 +210,9 @@ public class Sc2ReplayDecoder : IReplayDecoder
         if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
             _supplyCostDict[playerName] += cost;
 
-        if (SupplySupport.ContainsKey(unitName)) // 人口增加的单位/建筑是完成后才生效的
-            if (evt.SUnitDoneEvent != null)
-                _supplySupportChangeDict[playerName]
-                    .Add(new DoneEvtRecord(evt.SUnitDoneEvent.Gameloop, SupplySupport[unitName]));
+        if (SupplySupport.TryGetValue(unitName, out var support) && evt.SUnitDoneEvent != null) // 人口增加的单位/建筑是完成后才生效的
+            _supplySupportChangeDict[playerName]
+                .Add(new DoneEvtRecord(evt.SUnitDoneEvent.Gameloop, support));
 
         _replayActionDict[playerName].Add(new LReplayAction
         {
@@ -238,14 +237,14 @@ public class Sc2ReplayDecoder : IReplayDecoder
             var unitName = evt.UnitTypeName;
             if (Ignore.Contains(unitName)) return; // 过滤单位
 
-            if (!UnitData.ContainsKey(unitName))
+            if (!UnitData.TryGetValue(unitName, out var unitTime))
             {
                 _logger.Error($"Error Unit Name: {unitName}");
                 return;
             }
 
             var playerName = _playerNames[evt.ControlPlayerId];
-            var startLoop = evt.Gameloop - UnitData[unitName] * 16;
+            var startLoop = evt.Gameloop - unitTime * 16;
 
             if (SupplyCost.TryGetValue(unitName, out var cost)) // 单位生产消耗的人口是立即的
                 _supplyCostDict[playerName] += cost;
