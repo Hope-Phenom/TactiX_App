@@ -181,7 +181,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
             {
                 _replayActionDict[playerName].Sort(static (a, b) => a.Gameloop.CompareTo(b.Gameloop));
 
-                AdjustTime(_replayActionDict[playerName]);
+                _replayActionDict[playerName] = AdjustTime(_replayActionDict[playerName]);
             }
 
             return _replayActionDict;
