@@ -24,7 +24,9 @@
             <suki:GlassCard Grid.Row="2" Classes="News">
                 <Border Background="{StaticResource BackgroundColor}">
                     <Grid ColumnDefinitions="*,10,150,20">
-                        <Button Grid.Column="2" Command="{Binding DecodeSc2ReplayCommand}"
+                        <Button Grid.Column="2"
+                                Command="{Binding DecodeSc2ReplayCommand}"
+                                IsEnabled="{Binding !IsBusy}"
                                 Content="{StaticResource ReplayAnalysisBtnDecodeSc2Replay}"
                                 Classes="Normal" />
                     </Grid>

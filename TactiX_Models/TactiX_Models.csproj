@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.3.13" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
 
 </Project>

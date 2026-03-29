@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NLog;
@@ -35,6 +36,9 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     [RelayCommand]
     private void DecodeSc2Replay()
     {
+        // 防止重复点击，设置忙状态
+        IsBusy = true;
+
         _messenger.Send(new MbFileDialog
         {
             WindowName = MAIN_WINDOW,
@@ -53,6 +57,16 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     private readonly IReplayDecoder _replayDecoder;
     private readonly IMessenger _messenger;
     private readonly ILogger _logger;
+
+    #endregion
+
+    #region 属性绑定
+
+    /// <summary>
+    ///     是否处于忙状态（防止重复点击）
+    /// </summary>
+    [ObservableProperty]
+    private bool _isBusy;
 
     #endregion
 
@@ -75,12 +89,26 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     {
         try
         {
-            if (message.Trigger != FILE_DIALOG_TRIGGER) return;
-            if (string.IsNullOrEmpty(message.FilePath)) return;
+            if (message.Trigger != FILE_DIALOG_TRIGGER)
+            {
+                IsBusy = false;
+                return;
+            }
+
+            // 用户取消选择文件
+            if (string.IsNullOrEmpty(message.FilePath))
+            {
+                IsBusy = false;
+                return;
+            }
 
             var filePath = message.FilePath;
             var actionsDict = await _replayDecoder.DecodeReplay(filePath);
-            if (actionsDict.Count == 0) return;
+            if (actionsDict.Count == 0)
+            {
+                IsBusy = false;
+                return;
+            }
 
             _actionsDict = actionsDict;
 
@@ -92,6 +120,7 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
         }
         catch (Exception ex)
         {
+            IsBusy = false;
             _logger.Error($"Receive MbFileDialog Error: {ex.Message}");
             _messenger.Send(new MbToastPureText()
             {
@@ -106,8 +135,18 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
 
     public void Receive(MbFolderDialog message)
     {
-        if (message.Trigger != FOLDER_DIALOG_TRIGGER) return;
-        if (string.IsNullOrEmpty(message.FolderPath)) return;
+        if (message.Trigger != FOLDER_DIALOG_TRIGGER)
+        {
+            IsBusy = false;
+            return;
+        }
+
+        // 用户取消选择文件夹
+        if (string.IsNullOrEmpty(message.FolderPath))
+        {
+            IsBusy = false;
+            return;
+        }
 
         _folderPath = message.FolderPath;
 
@@ -123,8 +162,17 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
     /// </summary>
     private void HandleActionsDict()
     {
-        if (!File.Exists(TEMPLATE_PATH)) return;
-        if (_actionsDict == null || _folderPath == null) return;
+        if (!File.Exists(TEMPLATE_PATH))
+        {
+            IsBusy = false;
+            return;
+        }
+
+        if (_actionsDict == null || _folderPath == null)
+        {
+            IsBusy = false;
+            return;
+        }
 
         var dateTime = DateTime.Now;
 
@@ -174,6 +222,11 @@ public partial class ReplayAnalysisPageViewModel : ViewModelBase,
             });
 
             _logger.Error(ex.ToString());
+        }
+        finally
+        {
+            // 无论成功或失败，重置忙状态
+            IsBusy = false;
         }
     }
 

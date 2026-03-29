@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Newtonsoft.Json;
 
 namespace TactiX_Models.Tactics;
 
@@ -66,6 +67,7 @@ public class LTactic
     /// <summary>
     ///     动作列表的文字形式
     /// </summary>
+    [JsonIgnore]
     public string ActionsListStr
     {
         get

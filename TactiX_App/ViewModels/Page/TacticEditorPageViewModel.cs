@@ -249,6 +249,12 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
 
         var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
         var outPath = Path.Combine(suggestPath, Path.GetFileNameWithoutExtension(_filePath) + ".tactix");
+
+        // 确保目录存在，如果不存在则自动创建
+        var directory = Path.GetDirectoryName(outPath);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+
         File.WriteAllText(outPath, txt);
 
         _messenger.Send(new MbToastPureText
@@ -292,6 +298,12 @@ public partial class TacticEditorPageViewModel : ViewModelBase, IRecipient<MbFil
                 }
 
                 var txt = JsonConvert.SerializeObject(tactix, Formatting.Indented);
+
+                // 确保目录存在，如果不存在则自动创建
+                var directory = Path.GetDirectoryName(_exportPath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
                 File.WriteAllText(_exportPath, txt);
 
                 _messenger.Send(new MbToastPureText
