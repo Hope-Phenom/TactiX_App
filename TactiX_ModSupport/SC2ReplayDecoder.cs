@@ -391,7 +391,7 @@ public class Sc2ReplayDecoder : IReplayDecoder
         {
             var key = (action.Time, action.UnitName);
             if (grouped.TryGetValue(key, out var existing))
-                existing.Number++;  // 同单位同时间，合并数量
+                existing.Number += action.Number;  // 同单位同时间，累加数量
             else
                 grouped[key] = action;
         }
