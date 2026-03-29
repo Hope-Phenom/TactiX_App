@@ -72,6 +72,9 @@
     "TerranInfantryArmorsLevel1": 161,
     "TerranInfantryArmorsLevel2": 192,
     "TerranInfantryArmorsLevel3": 222,
+    "TerranVehicleAndShipArmorsLevel1": 161,
+    "TerranVehicleAndShipArmorsLevel2": 192,
+    "TerranVehicleAndShipArmorsLevel3": 222,
     "ProtossGroundWeaponsLevel1": 171,
     "ProtossGroundWeaponsLevel2": 205,
     "ProtossGroundWeaponsLevel3": 238,
@@ -469,7 +472,8 @@
     "DisruptorPhased",
     "KD8Charge",
     "HellionTank",
-    "ChangelingMarineShield"    
+    "ChangelingMarineShield",
+    "ThorAP"
   ],
   "TerranBuildingTypeChange": [
     "OrbitalCommand",
