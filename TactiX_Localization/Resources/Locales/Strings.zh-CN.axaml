@@ -123,4 +123,36 @@
     <x:String x:Key="ReplayAnalysisDecodeSuccess">解析Replay成功，文件已导出至：{0}</x:String>
     <x:String x:Key="ReplayAnalysisDecodeSuccessTitle">解析成功</x:String>
 
+    <!-- 战术大厅 -->
+    <x:String x:Key="TacticsHallSearchPlaceholder">搜索战术名称或作者</x:String>
+    <x:String x:Key="TacticsHallButtonSearch">搜索</x:String>
+    <x:String x:Key="TacticsHallButtonLoadMore">加载更多</x:String>
+    <x:String x:Key="TacticsHallButtonDownload">下载</x:String>
+    <x:String x:Key="TacticsHallButtonAddComment">发表评论</x:String>
+    <x:String x:Key="TacticsHallHotRanking">热门排行</x:String>
+    <x:String x:Key="TacticsHallTopUploaders">贡献者排行</x:String>
+    <x:String x:Key="TacticsHallPageInfo">第 {0} / {1} 页</x:String>
+    <x:String x:Key="TacticsHallLoading">正在加载...</x:String>
+    <x:String x:Key="TacticsHallDownloading">正在下载...</x:String>
+    <x:String x:Key="TacticsHallLoadError">加载战术列表失败：{0}</x:String>
+    <x:String x:Key="TacticsHallDownloadSuccess">战术文件 [{0}] 已下载成功</x:String>
+    <x:String x:Key="TacticsHallDownloadError">下载失败：{0}</x:String>
+    <x:String x:Key="TacticsHallLoginRequired">请先登录后再进行此操作</x:String>
+    <x:String x:Key="TacticsHallLoginSuccess">登录成功，欢迎 {0}</x:String>
+    <x:String x:Key="TacticsHallLoginPrompt">请在浏览器中完成授权</x:String>
+    <x:String x:Key="TacticsHallLogoutSuccess">已退出登录</x:String>
+    <x:String x:Key="TacticsHallDetailAuthor">作者：</x:String>
+    <x:String x:Key="TacticsHallDetailRace">种族：</x:String>
+    <x:String x:Key="TacticsHallDetailFileSize">文件大小：</x:String>
+    <x:String x:Key="TacticsHallDetailUpdateTime">更新时间：</x:String>
+    <x:String x:Key="TacticsHallVersionHistory">版本历史</x:String>
+    <x:String x:Key="TacticsHallComments">评论</x:String>
+    <x:String x:Key="TacticsHallCommentPlaceholder">写下你的评论...</x:String>
+    <x:String x:Key="TacticsHallLike">点赞</x:String>
+    <x:String x:Key="TacticsHallUnlike">取消点赞</x:String>
+    <x:String x:Key="TacticsHallFavorite">收藏</x:String>
+    <x:String x:Key="TacticsHallUnfavorite">取消收藏</x:String>
+    <x:String x:Key="ToastTitleSuccess">成功</x:String>
+    <x:String x:Key="ToastTitleInfo">提示</x:String>
+
 </ResourceDictionary>

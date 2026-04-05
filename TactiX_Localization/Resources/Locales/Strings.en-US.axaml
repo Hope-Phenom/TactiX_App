@@ -123,4 +123,36 @@
     <x:String x:Key="ReplayAnalysisDecodeSuccess">Replay parsed successfully, file exported to: {0}</x:String>
     <x:String x:Key="ReplayAnalysisDecodeSuccessTitle">Analysis successful</x:String>
 
+    <!-- Tactics Hall -->
+    <x:String x:Key="TacticsHallSearchPlaceholder">Search by name or author</x:String>
+    <x:String x:Key="TacticsHallButtonSearch">Search</x:String>
+    <x:String x:Key="TacticsHallButtonLoadMore">Load More</x:String>
+    <x:String x:Key="TacticsHallButtonDownload">Download</x:String>
+    <x:String x:Key="TacticsHallButtonAddComment">Add Comment</x:String>
+    <x:String x:Key="TacticsHallHotRanking">Hot Rankings</x:String>
+    <x:String x:Key="TacticsHallTopUploaders">Top Uploaders</x:String>
+    <x:String x:Key="TacticsHallPageInfo">Page {0} / {1}</x:String>
+    <x:String x:Key="TacticsHallLoading">Loading...</x:String>
+    <x:String x:Key="TacticsHallDownloading">Downloading...</x:String>
+    <x:String x:Key="TacticsHallLoadError">Failed to load tactics: {0}</x:String>
+    <x:String x:Key="TacticsHallDownloadSuccess">Tactics file [{0}] downloaded successfully</x:String>
+    <x:String x:Key="TacticsHallDownloadError">Download failed: {0}</x:String>
+    <x:String x:Key="TacticsHallLoginRequired">Please login first</x:String>
+    <x:String x:Key="TacticsHallLoginSuccess">Login successful, welcome {0}</x:String>
+    <x:String x:Key="TacticsHallLoginPrompt">Please complete authorization in browser</x:String>
+    <x:String x:Key="TacticsHallLogoutSuccess">Logged out successfully</x:String>
+    <x:String x:Key="TacticsHallDetailAuthor">Author:</x:String>
+    <x:String x:Key="TacticsHallDetailRace">Race:</x:String>
+    <x:String x:Key="TacticsHallDetailFileSize">File Size:</x:String>
+    <x:String x:Key="TacticsHallDetailUpdateTime">Updated:</x:String>
+    <x:String x:Key="TacticsHallVersionHistory">Version History</x:String>
+    <x:String x:Key="TacticsHallComments">Comments</x:String>
+    <x:String x:Key="TacticsHallCommentPlaceholder">Write your comment...</x:String>
+    <x:String x:Key="TacticsHallLike">Like</x:String>
+    <x:String x:Key="TacticsHallUnlike">Unlike</x:String>
+    <x:String x:Key="TacticsHallFavorite">Favorite</x:String>
+    <x:String x:Key="TacticsHallUnfavorite">Unfavorite</x:String>
+    <x:String x:Key="ToastTitleSuccess">Success</x:String>
+    <x:String x:Key="ToastTitleInfo">Info</x:String>
+
 </ResourceDictionary>

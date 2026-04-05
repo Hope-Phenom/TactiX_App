@@ -3,19 +3,354 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:vm="clr-namespace:TactiX_App.ViewModels.Page;assembly=TactiX_App"
+             xmlns:network="clr-namespace:TactiX_Models.Network;assembly=TactiX_Models"
+             xmlns:converters="clr-namespace:TactiX_App.Converters;assembly=TactiX_App"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="850"
              x:DataType="vm:TacticsHallPageViewModel"
              x:Class="TactiX_App.Views.Page.TacticsHallPageView"
+             x:Name="TacticsHallPage"
              Background="{StaticResource BackgroundBrush}">
 
-    <suki:GlassCard Margin="10" Classes="News">
-        <Border Background="{StaticResource BackgroundColor}">
-            <Label Content="{StaticResource NormalTextDeveloping}"
-                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Center" VerticalContentAlignment="Center"
-                   FontSize="18" />
-        </Border>
-    </suki:GlassCard>
+    <UserControl.Resources>
+        <converters:RaceToColorConverter x:Key="RaceToColorConverter"/>
+        <converters:FileSizeConverter x:Key="FileSizeConverter"/>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <converters:LikeStatusTextConverter x:Key="LikeStatusTextConverter"/>
+        <converters:FavoriteStatusTextConverter x:Key="FavoriteStatusTextConverter"/>
+        <converters:FirstCharConverter x:Key="FirstCharConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="10" ColumnDefinitions="*,10,280">
+
+        <!-- 左侧主区域：搜索与战术列表 -->
+        <Grid Grid.Column="0" RowDefinitions="Auto,10,*">
+
+            <!-- 搜索栏 -->
+            <suki:GlassCard Grid.Row="0" Classes="News">
+                <Grid Margin="16" ColumnDefinitions="*,10,Auto,10,Auto,10,Auto,10,Auto">
+
+                    <!-- 搜索输入框 -->
+                    <TextBox Grid.Column="0"
+                             Watermark="搜索战术名称或作者"
+                             Text="{Binding SearchKeyword, Mode=TwoWay}">
+                        <TextBox.InnerRightContent>
+                            <materialIcons:MaterialIcon Kind="Magnify" Width="20" Height="20" Opacity="0.5"/>
+                        </TextBox.InnerRightContent>
+                    </TextBox>
+
+                    <!-- 种族筛选 -->
+                    <ComboBox Grid.Column="2"
+                              ItemsSource="{Binding RaceOptions}"
+                              SelectedItem="{Binding SelectedRace, Mode=TwoWay}"
+                              Width="100"
+                              HorizontalContentAlignment="Center"/>
+
+                    <!-- 排序方式 -->
+                    <ComboBox Grid.Column="4"
+                              ItemsSource="{Binding SortOptions}"
+                              SelectedItem="{Binding SelectedSort, Mode=TwoWay}"
+                              Width="100"
+                              HorizontalContentAlignment="Center"/>
+
+                    <!-- 搜索按钮 -->
+                    <Button Grid.Column="6"
+                            Classes="Accent"
+                            Command="{Binding SearchCommand}"
+                            MinWidth="80">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <materialIcons:MaterialIcon Kind="Magnify" Width="18" Height="18"/>
+                            <TextBlock Text="搜索"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- 刷新按钮 -->
+                    <Button Grid.Column="8"
+                            Classes="Basic"
+                            Command="{Binding RefreshCommand}"
+                            IsEnabled="{Binding !IsLoadingData}"
+                            Width="40"
+                            Height="40"
+                            Padding="0">
+                        <materialIcons:MaterialIcon Kind="Refresh" Width="22" Height="22"/>
+                    </Button>
+                </Grid>
+            </suki:GlassCard>
+
+            <!-- 战术列表 -->
+            <suki:GlassCard Grid.Row="2" Classes="News">
+                <Grid RowDefinitions="*,Auto">
+
+                    <!-- 列表内容 -->
+                    <ScrollViewer Grid.Row="0"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Padding="8">
+                        <ItemsRepeater ItemsSource="{Binding TacticsList, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="network:NTacticsDetail">
+                                    <Border Background="#1E2130"
+                                            CornerRadius="12"
+                                            Padding="16"
+                                            Margin="0,0,0,8"
+                                            Cursor="Hand">
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover">
+                                                <Setter Property="Background" Value="#252A3D"/>
+                                            </Style>
+                                        </Border.Styles>
+
+                                        <Grid ColumnDefinitions="60,12,*">
+
+                                            <!-- 种族图标 -->
+                                            <Border Grid.Column="0"
+                                                    Width="56" Height="56" CornerRadius="10"
+                                                    Background="{Binding Race, Converter={StaticResource RaceToColorConverter}}">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="24"
+                                                           FontWeight="Bold"
+                                                           Foreground="White"
+                                                           Text="{Binding Race}"/>
+                                            </Border>
+
+                                            <!-- 战术信息 -->
+                                            <Grid Grid.Column="2"
+                                                  RowDefinitions="Auto,4,Auto,8,Auto"
+                                                  VerticalAlignment="Center">
+
+                                                <!-- 标题行 -->
+                                                <TextBlock Grid.Row="0"
+                                                           Text="{Binding Name}"
+                                                           FontSize="16"
+                                                           FontWeight="Bold"
+                                                           MaxLines="1"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Foreground="White"/>
+
+                                                <!-- 元信息行 -->
+                                                <StackPanel Grid.Row="2"
+                                                            Orientation="Horizontal"
+                                                            Spacing="16"
+                                                            Opacity="0.7">
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <materialIcons:MaterialIcon Kind="Account" Width="14" Height="14"/>
+                                                        <TextBlock Text="{Binding Author}" FontSize="12"/>
+                                                    </StackPanel>
+                                                    <TextBlock Text="{Binding RaceDisplay}" FontSize="12"/>
+                                                    <TextBlock Text="{Binding UpdatedAt, StringFormat='{}{0:yyyy-MM-dd}'}" FontSize="12"/>
+                                                </StackPanel>
+
+                                                <!-- 统计信息行 -->
+                                                <StackPanel Grid.Row="4"
+                                                            Orientation="Horizontal"
+                                                            Spacing="20">
+                                                    <!-- 下载数 -->
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <materialIcons:MaterialIcon Kind="Download" Width="16" Height="16" Foreground="#4A90D9"/>
+                                                        <TextBlock Text="{Binding DownloadCount}" FontSize="13" Foreground="#4A90D9"/>
+                                                    </StackPanel>
+                                                    <!-- 点赞数 -->
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <materialIcons:MaterialIcon Kind="Heart" Width="16" Height="16"
+                                                                                    Foreground="{Binding IsLikedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                                        <TextBlock Text="{Binding LikeCount}" FontSize="13"
+                                                                   Foreground="{Binding IsLikedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                                    </StackPanel>
+                                                    <!-- 收藏数 -->
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <materialIcons:MaterialIcon Kind="Star" Width="16" Height="16"
+                                                                                    Foreground="{Binding IsFavoritedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                                        <TextBlock Text="{Binding FavoriteCount}" FontSize="13"
+                                                                   Foreground="{Binding IsFavoritedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <!-- 下载按钮 -->
+                                            <Button Grid.Column="2"
+                                                    Classes="Basic"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Right"
+                                                    Command="{Binding DataContext.DownloadTacticsCommand, ElementName=TacticsHallPage}"
+                                                    CommandParameter="{Binding}"
+                                                    Width="40" Height="40"
+                                                    Padding="0">
+                                                <materialIcons:MaterialIcon Kind="DownloadCircle" Width="28" Height="28" Foreground="#4A90D9"/>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+
+                    <!-- 底部控制栏 -->
+                    <Border Grid.Row="1"
+                            Background="#1A1C23"
+                            Padding="16,12"
+                            BorderBrush="#3A3F50"
+                            BorderThickness="0,1,0,0">
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding PageInfoText}"
+                                       VerticalAlignment="Center"
+                                       Opacity="0.7"/>
+                            <Button Grid.Column="2"
+                                    Classes="Accent"
+                                    Command="{Binding LoadMoreCommand}"
+                                    IsEnabled="{Binding !IsLoadingData}"
+                                    MinWidth="100">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <materialIcons:MaterialIcon Kind="ArrowDown" Width="18" Height="18"/>
+                                    <TextBlock Text="加载更多"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </suki:GlassCard>
+        </Grid>
+
+        <!-- 右侧边栏：排行榜 + 登录状态 -->
+        <Grid Grid.Column="2" RowDefinitions="Auto,10,*,10,*">
+
+            <!-- 用户登录状态 -->
+            <suki:GlassCard Grid.Row="0" Classes="News">
+                <Grid Margin="12">
+                    <!-- 未登录状态 -->
+                    <StackPanel IsVisible="{Binding !IsUserLoggedIn}" Spacing="8">
+                        <TextBlock Text="登录以使用完整功能" Opacity="0.7" FontSize="12"/>
+                        <Button Classes="Accent"
+                                Command="{Binding DevLoginCommand}"
+                                CommandParameter="test_user"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <materialIcons:MaterialIcon Kind="Login" Width="18" Height="18"/>
+                                <TextBlock Text="开发登录"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- 已登录状态 -->
+                    <Grid IsVisible="{Binding IsUserLoggedIn}" ColumnDefinitions="Auto,10,*">
+                        <Border Grid.Column="0"
+                                Width="36" Height="36"
+                                CornerRadius="18"
+                                Background="#4A90D9">
+                            <TextBlock Text="{Binding UserSession.Nickname, Converter={StaticResource FirstCharConverter}}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"
+                                       FontSize="16"
+                                       Foreground="White"/>
+                        </Border>
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding UserSession.Nickname}" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock Text="{Binding UserSession.LevelCode}" Opacity="0.6" FontSize="11"/>
+                        </StackPanel>
+                        <Button Grid.Column="2"
+                                Classes="Basic"
+                                Command="{Binding LogoutCommand}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Width="28" Height="28"
+                                Padding="0">
+                            <materialIcons:MaterialIcon Kind="Logout" Width="18" Height="18"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </suki:GlassCard>
+
+            <!-- 热门排行 -->
+            <suki:GlassCard Grid.Row="2" Classes="News">
+                <suki:GroupBox Classes="News" Header="热门排行">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsRepeater ItemsSource="{Binding HotFilesList, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="network:NHotFile">
+                                    <Border Background="Transparent"
+                                            Padding="8,6"
+                                            CornerRadius="6"
+                                            Cursor="Hand">
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover">
+                                                <Setter Property="Background" Value="#252A3D"/>
+                                            </Style>
+                                        </Border.Styles>
+                                        <Grid ColumnDefinitions="28,8,*">
+                                            <!-- 排名 -->
+                                            <Border Grid.Column="0"
+                                                    Width="24" Height="24"
+                                                    CornerRadius="6"
+                                                    Background="#4A90D9"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Rank}"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          FontWeight="Bold"
+                                                          FontSize="12"
+                                                          Foreground="White"/>
+                                            </Border>
+                                            <!-- 战术名称 -->
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Detail.Name}"
+                                                       MaxLines="1"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       FontSize="13"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <!-- 贡献者排行 -->
+            <suki:GlassCard Grid.Row="4" Classes="News">
+                <suki:GroupBox Classes="News" Header="贡献者排行">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsRepeater ItemsSource="{Binding TopUploadersList, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="network:NTopUploader">
+                                    <Border Background="Transparent"
+                                            Padding="8,6"
+                                            CornerRadius="6">
+                                        <Grid ColumnDefinitions="28,8,*">
+                                            <!-- 排名 -->
+                                            <Border Grid.Column="0"
+                                                    Width="24" Height="24"
+                                                    CornerRadius="6"
+                                                    Background="#FFD700"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Rank}"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          FontWeight="Bold"
+                                                          FontSize="12"
+                                                          Foreground="#1A1C23"/>
+                                            </Border>
+                                            <!-- 用户名称 -->
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding User.Nickname}"
+                                                       MaxLines="1"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       FontSize="13"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+                </suki:GroupBox>
+            </suki:GlassCard>
+        </Grid>
+    </Grid>
 
 </UserControl>

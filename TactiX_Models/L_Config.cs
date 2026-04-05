@@ -1,4 +1,5 @@
 ﻿using Avalonia.Input;
+using TactiX_Models.Network;
 using TactiX_Models.Tactics;
 
 namespace TactiX_Models;
@@ -82,4 +83,14 @@ public class LConfig
             { LModItemTypeEnum.Building, true },
             { LModItemTypeEnum.Tech, true }
         };
+
+     /// <summary>
+     ///     战术文件默认目录（用于下载和编辑器打开/保存）
+     /// </summary>
+     public string TacticsDir { get; set; } = "Tactics";
+
+     /// <summary>
+     ///     用户会话信息（登录状态）
+     /// </summary>
+     public NUserSession? UserSession { get; set; }
 }
