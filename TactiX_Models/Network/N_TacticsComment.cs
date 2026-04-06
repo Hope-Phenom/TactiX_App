@@ -12,14 +12,14 @@ public class NTacticsComment
     public long Id { get; set; }
 
     /// <summary>
-    ///     配装码
-    /// </summary>
-    public required string ShareCode { get; set; }
-
-    /// <summary>
     ///     评论内容
     /// </summary>
     public required string Content { get; set; }
+
+    /// <summary>
+    ///     是否已被删除
+    /// </summary>
+    public bool IsDeleted { get; set; }
 
     /// <summary>
     ///     创建时间
@@ -27,9 +27,9 @@ public class NTacticsComment
     public DateTime CreatedAt { get; set; }
 
     /// <summary>
-    ///     父评论ID（用于嵌套回复）
+    ///     更新时间
     /// </summary>
-    public long? ParentCommentId { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
     /// <summary>
     ///     评论作者
@@ -37,9 +37,14 @@ public class NTacticsComment
     public NUserBrief? Author { get; set; }
 
     /// <summary>
-    ///     是否已被删除
+    ///     父评论ID（用于嵌套回复）
     /// </summary>
-    public bool IsDeleted { get; set; }
+    public long? ParentCommentId { get; set; }
+
+    /// <summary>
+    ///     子评论列表（嵌套回复）
+    /// </summary>
+    public List<NTacticsComment> Replies { get; set; } = new();
 }
 
 /// <summary>

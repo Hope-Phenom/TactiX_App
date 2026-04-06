@@ -354,9 +354,21 @@ public partial class TacticsHallPageViewModel : ViewModelBase
         }
     }
 
-    /// <summary>OAuth 登录</summary>
+    /// <summary>登录（根据编译模式自动切换）</summary>
     [RelayCommand]
-    private async Task Login(string provider)
+    private async Task Login()
+    {
+#if DEBUG
+        // 开发环境：使用 DevLogin
+        await DevLogin(null);
+#else
+        // 生产环境：使用 OAuth 登录
+        await LoginWithProvider("qq");
+#endif
+    }
+
+    /// <summary>OAuth 登录（生产环境）</summary>
+    private async Task LoginWithProvider(string provider)
     {
         try
         {
@@ -376,7 +388,7 @@ public partial class TacticsHallPageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.Error($"Login error: {ex.Message}");
+            _logger.Error($"OAuth login error: {ex.Message}");
             _messenger.Send(new MbToastPureText
             {
                 Message = ex.Message,
@@ -472,13 +484,15 @@ public partial class TacticsHallPageViewModel : ViewModelBase
             var result = await _network.Client.SearchTactics(
                 _lastKeyword, _lastRace, null, _lastSort, _currentPage, PAGE_SIZE);
 
-            _hasMorePages = result.Page < result.TotalPages;
+            // Calculate pagination state
+            _hasMorePages = result.Page * PAGE_SIZE < result.TotalCount;
+            var totalPages = (int)Math.Ceiling(result.TotalCount / (double)PAGE_SIZE);
 
             Dispatcher.UIThread.Post(() =>
             {
-                TacticsList.AddRange(result.Items);
+                TacticsList.AddRange(result.Files);
                 PageInfoText = string.Format(_localizationService.GetString("TacticsHallPageInfo"),
-                    result.Page, result.TotalPages);
+                    result.Page, totalPages);
             });
         }
         catch (Exception ex)
@@ -504,16 +518,21 @@ public partial class TacticsHallPageViewModel : ViewModelBase
     {
         try
         {
-            var hotFiles = await _network.Client.GetHotFiles();
-            var topUploaders = await _network.Client.GetTopUploaders();
+            // Parallelize independent API calls
+            var hotFilesTask = _network.Client.GetHotFiles();
+            var topUploadersTask = _network.Client.GetTopUploaders();
+            await Task.WhenAll(hotFilesTask, topUploadersTask);
+
+            var hotFilesResult = await hotFilesTask;
+            var topUploadersResult = await topUploadersTask;
 
             Dispatcher.UIThread.Post(() =>
             {
                 HotFilesList.Clear();
-                HotFilesList.AddRange(hotFiles.Take(10));
+                HotFilesList.AddRange(hotFilesResult.Files.Take(10));
 
                 TopUploadersList.Clear();
-                TopUploadersList.AddRange(topUploaders.Take(10));
+                TopUploadersList.AddRange(topUploadersResult.Uploaders.Take(10));
             });
         }
         catch (Exception ex)
@@ -527,16 +546,21 @@ public partial class TacticsHallPageViewModel : ViewModelBase
     {
         try
         {
-            var versions = await _network.Client.GetTacticsVersions(shareCode);
-            var comments = await _network.Client.GetComments(shareCode);
+            // Parallelize independent API calls
+            var versionsTask = _network.Client.GetTacticsVersions(shareCode);
+            var commentsTask = _network.Client.GetComments(shareCode);
+            await Task.WhenAll(versionsTask, commentsTask);
+
+            var versionsResult = await versionsTask;
+            var commentsResult = await commentsTask;
 
             Dispatcher.UIThread.Post(() =>
             {
                 DetailVersions.Clear();
-                DetailVersions.AddRange(versions);
+                DetailVersions.AddRange(versionsResult.Versions);
 
                 DetailComments.Clear();
-                DetailComments.AddRange(comments.Where(c => !c.IsDeleted));
+                DetailComments.AddRange(commentsResult.Comments.Where(c => !c.IsDeleted));
             });
         }
         catch (Exception ex)

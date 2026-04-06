@@ -152,6 +152,11 @@
     <x:String x:Key="TacticsHallUnlike">Unlike</x:String>
     <x:String x:Key="TacticsHallFavorite">Favorite</x:String>
     <x:String x:Key="TacticsHallUnfavorite">Unfavorite</x:String>
+    <x:String x:Key="TacticsHallDetailTitle">Tactics Details</x:String>
+    <x:String x:Key="TacticsHallDetailVersions">Version History</x:String>
+    <x:String x:Key="TacticsHallDetailComments">Comments</x:String>
+    <x:String x:Key="TacticsHallCommentReply">Reply</x:String>
+    <x:String x:Key="TacticsHallBtnClose">Close</x:String>
     <x:String x:Key="ToastTitleSuccess">Success</x:String>
     <x:String x:Key="ToastTitleInfo">Info</x:String>
 

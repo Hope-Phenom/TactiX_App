@@ -12,11 +12,6 @@ public class NTacticsVersion
     public int VersionNumber { get; set; }
 
     /// <summary>
-    ///     上传时间
-    /// </summary>
-    public DateTime UploadedAt { get; set; }
-
-    /// <summary>
     ///     文件大小（字节）
     /// </summary>
     public long FileSize { get; set; }
@@ -27,7 +22,7 @@ public class NTacticsVersion
     public string? Changelog { get; set; }
 
     /// <summary>
-    ///     上传者信息
+    ///     创建时间
     /// </summary>
-    public NUserBrief? Uploader { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

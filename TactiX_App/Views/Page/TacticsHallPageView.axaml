@@ -222,13 +222,12 @@
                     <StackPanel IsVisible="{Binding !IsUserLoggedIn}" Spacing="8">
                         <TextBlock Text="登录以使用完整功能" Opacity="0.7" FontSize="12"/>
                         <Button Classes="Accent"
-                                Command="{Binding DevLoginCommand}"
-                                CommandParameter="test_user"
+                                Command="{Binding LoginCommand}"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Center">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <materialIcons:MaterialIcon Kind="Login" Width="18" Height="18"/>
-                                <TextBlock Text="开发登录"/>
+                                <TextBlock Text="登录"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -296,7 +295,7 @@
                                             </Border>
                                             <!-- 战术名称 -->
                                             <TextBlock Grid.Column="2"
-                                                       Text="{Binding Detail.Name}"
+                                                       Text="{Binding Name}"
                                                        MaxLines="1"
                                                        TextTrimming="CharacterEllipsis"
                                                        FontSize="13"
@@ -337,7 +336,7 @@
                                             </Border>
                                             <!-- 用户名称 -->
                                             <TextBlock Grid.Column="2"
-                                                       Text="{Binding User.Nickname}"
+                                                       Text="{Binding Nickname}"
                                                        MaxLines="1"
                                                        TextTrimming="CharacterEllipsis"
                                                        FontSize="13"
@@ -351,6 +350,288 @@
                 </suki:GroupBox>
             </suki:GlassCard>
         </Grid>
+
+        <!-- 详情弹窗 Overlay -->
+        <Border Grid.ColumnSpan="3"
+                IsVisible="{Binding ShowDetailDialog}"
+                Background="#CC000000"
+                ZIndex="1000">
+            <Border.Styles>
+                <Style Selector="Border">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <BrushTransition Property="Background" Duration="0:0:0.3"/>
+                        </Transitions>
+                    </Setter>
+                </Style>
+            </Border.Styles>
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Width="720" MaxHeight="700"
+                        Background="#1A1C23"
+                        CornerRadius="16"
+                        BorderBrush="#3A3F50"
+                        BorderThickness="1"
+                        Padding="0">
+                    <Border.BoxShadow>0 0 30 0 #40000000</Border.BoxShadow>
+
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <!-- 标题栏 -->
+                        <Border Grid.Row="0"
+                                Background="#252A3D"
+                                CornerRadius="16,16,0,0"
+                                Padding="20,14">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding SelectedTactics.Name, FallbackValue='战术详情'}"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           VerticalAlignment="Center"/>
+                                <Button Grid.Column="1"
+                                        Classes="Basic"
+                                        Command="{Binding CloseDetailCommand}"
+                                        Width="32" Height="32"
+                                        Padding="0"
+                                        CornerRadius="16">
+                                    <materialIcons:MaterialIcon Kind="Close" Width="20" Height="20" Foreground="#888"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <!-- 内容区域 -->
+                        <ScrollViewer Grid.Row="1" Padding="20">
+                            <StackPanel Spacing="20">
+                                <!-- 基本信息卡片 -->
+                                <Border Background="#1E2130" CornerRadius="12" Padding="16">
+                                    <Grid ColumnDefinitions="80,16,*">
+                                        <!-- 种族图标 -->
+                                        <Border Grid.Column="0"
+                                                Width="72" Height="72"
+                                                CornerRadius="12"
+                                                Background="{Binding SelectedTactics.Race, Converter={StaticResource RaceToColorConverter}}">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="32"
+                                                       FontWeight="Bold"
+                                                       Foreground="White"
+                                                       Text="{Binding SelectedTactics.Race}"/>
+                                        </Border>
+
+                                        <!-- 信息详情 -->
+                                        <Grid Grid.Column="2" RowDefinitions="Auto,4,Auto,8,Auto" VerticalAlignment="Center">
+                                            <!-- 作者和种族 -->
+                                            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="16">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="Account" Width="14" Height="14" Foreground="#4A90D9"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.Author}" FontSize="13" Foreground="#AAA"/>
+                                                </StackPanel>
+                                                <Border Background="#3A3F50" CornerRadius="4" Padding="6,2">
+                                                    <TextBlock Text="{Binding SelectedTactics.RaceDisplay}" FontSize="11" Foreground="#CCC"/>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <!-- 文件大小和时间 -->
+                                            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" Opacity="0.7">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="File" Width="14" Height="14"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.FileSize, Converter={StaticResource FileSizeConverter}}" FontSize="12"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="Clock" Width="14" Height="14"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.UpdatedAt, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" FontSize="12"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <!-- 统计数据 -->
+                                            <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="24" Margin="0,4,0,0">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="Download" Width="16" Height="16" Foreground="#4A90D9"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.DownloadCount}" FontSize="14" FontWeight="Bold" Foreground="#4A90D9"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="Heart" Width="16" Height="16" Foreground="#FF6B6B"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.LikeCount}" FontSize="14" FontWeight="Bold" Foreground="#FF6B6B"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <materialIcons:MaterialIcon Kind="Star" Width="16" Height="16" Foreground="#FFD700"/>
+                                                    <TextBlock Text="{Binding SelectedTactics.FavoriteCount}" FontSize="14" FontWeight="Bold" Foreground="#FFD700"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+
+                                <!-- 操作按钮 -->
+                                <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                                    <Button Classes="Accent"
+                                            Command="{Binding DownloadTacticsCommand}"
+                                            CommandParameter="{Binding SelectedTactics}"
+                                            MinWidth="100">
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <materialIcons:MaterialIcon Kind="Download" Width="18" Height="18"/>
+                                            <TextBlock Text="下载"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="Basic"
+                                            Command="{Binding ToggleLikeCommand}"
+                                            MinWidth="100">
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <materialIcons:MaterialIcon Kind="Heart" Width="18" Height="18"
+                                                                        Foreground="{Binding SelectedTactics.IsLikedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedTactics.IsLikedByUser, Converter={StaticResource LikeStatusTextConverter}}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="Basic"
+                                            Command="{Binding ToggleFavoriteCommand}"
+                                            MinWidth="100">
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <materialIcons:MaterialIcon Kind="Star" Width="18" Height="18"
+                                                                        Foreground="{Binding SelectedTactics.IsFavoritedByUser, Converter={StaticResource BoolToColorConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedTactics.IsFavoritedByUser, Converter={StaticResource FavoriteStatusTextConverter}}"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+
+                                <!-- 版本历史 -->
+                                <Border Background="#1E2130" CornerRadius="12" Padding="16">
+                                    <StackPanel Spacing="12">
+                                        <TextBlock Text="版本历史" FontSize="15" FontWeight="Bold" Foreground="White"/>
+                                        <ItemsRepeater ItemsSource="{Binding DetailVersions}">
+                                            <ItemsRepeater.ItemTemplate>
+                                                <DataTemplate x:DataType="network:NTacticsVersion">
+                                                    <Border Background="#252A3D" CornerRadius="8" Padding="12" Margin="0,0,0,6">
+                                                        <Grid ColumnDefinitions="Auto,12,*,Auto">
+                                                            <Border Grid.Column="0"
+                                                                    Background="#4A90D9"
+                                                                    CornerRadius="4"
+                                                                    Padding="8,4">
+                                                                <TextBlock Text="{Binding VersionNumber, StringFormat='v{0}'}"
+                                                                          FontSize="12" FontWeight="Bold" Foreground="White"/>
+                                                            </Border>
+                                                            <TextBlock Grid.Column="2"
+                                                                       Text="{Binding Changelog}"
+                                                                       FontSize="12"
+                                                                       Opacity="0.8"
+                                                                       VerticalAlignment="Center"
+                                                                       MaxLines="1"
+                                                                       TextTrimming="CharacterEllipsis"/>
+                                                            <TextBlock Grid.Column="3"
+                                                                       Text="{Binding CreatedAt, StringFormat='{}{0:MM-dd}'}"
+                                                                       FontSize="11"
+                                                                       Opacity="0.5"
+                                                                       VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- 评论区域 -->
+                                <Border Background="#1E2130" CornerRadius="12" Padding="16">
+                                    <StackPanel Spacing="12">
+                                        <TextBlock Text="评论" FontSize="15" FontWeight="Bold" Foreground="White"/>
+
+                                        <!-- 评论输入 -->
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBox Grid.Column="0"
+                                                     Watermark="写下你的评论..."
+                                                     Text="{Binding NewCommentContent, Mode=TwoWay}"
+                                                     AcceptsReturn="False"
+                                                     MinHeight="36"/>
+                                            <Button Grid.Column="1"
+                                                    Classes="Accent"
+                                                    Command="{Binding AddCommentCommand}"
+                                                    Margin="8,0,0,0"
+                                                    IsEnabled="{Binding IsUserLoggedIn}">
+                                                <materialIcons:MaterialIcon Kind="Send" Width="18" Height="18"/>
+                                            </Button>
+                                        </Grid>
+
+                                        <!-- 评论列表 -->
+                                        <ItemsRepeater ItemsSource="{Binding DetailComments}">
+                                            <ItemsRepeater.ItemTemplate>
+                                                <DataTemplate x:DataType="network:NTacticsComment">
+                                                    <Border Background="#252A3D" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                                                        <StackPanel Spacing="8">
+                                                            <!-- 评论头部 -->
+                                                            <Grid ColumnDefinitions="Auto,8,*,Auto">
+                                                                <Border Grid.Column="0"
+                                                                        Width="28" Height="28"
+                                                                        CornerRadius="14"
+                                                                        Background="#4A90D9">
+                                                                    <TextBlock Text="{Binding Author.Nickname, Converter={StaticResource FirstCharConverter}}"
+                                                                              HorizontalAlignment="Center"
+                                                                              VerticalAlignment="Center"
+                                                                              FontSize="12"
+                                                                              FontWeight="Bold"
+                                                                              Foreground="White"/>
+                                                                </Border>
+                                                                <TextBlock Grid.Column="2"
+                                                                           Text="{Binding Author.Nickname}"
+                                                                           FontWeight="Bold"
+                                                                           FontSize="13"
+                                                                           VerticalAlignment="Center"/>
+                                                                <TextBlock Grid.Column="3"
+                                                                           Text="{Binding CreatedAt, StringFormat='{}{0:MM-dd HH:mm}'}"
+                                                                           FontSize="11"
+                                                                           Opacity="0.5"
+                                                                           VerticalAlignment="Center"/>
+                                                            </Grid>
+
+                                                            <!-- 评论内容 -->
+                                                            <TextBlock Text="{Binding Content}"
+                                                                      FontSize="13"
+                                                                      TextWrapping="Wrap"
+                                                                      Opacity="0.9"/>
+
+                                                            <!-- 嵌套回复 -->
+                                                            <ItemsRepeater ItemsSource="{Binding Replies}" Margin="16,4,0,0">
+                                                                <ItemsRepeater.ItemTemplate>
+                                                                    <DataTemplate x:DataType="network:NTacticsComment">
+                                                                        <Border Background="#1E2130" CornerRadius="6" Padding="10" Margin="0,0,0,6">
+                                                                            <Grid ColumnDefinitions="Auto,6,*,Auto">
+                                                                                <Border Grid.Column="0"
+                                                                                        Width="20" Height="20"
+                                                                                        CornerRadius="10"
+                                                                                        Background="#6366F1">
+                                                                                    <TextBlock Text="{Binding Author.Nickname, Converter={StaticResource FirstCharConverter}}"
+                                                                                              HorizontalAlignment="Center"
+                                                                                              VerticalAlignment="Center"
+                                                                                              FontSize="9"
+                                                                                              FontWeight="Bold"
+                                                                                              Foreground="White"/>
+                                                                                </Border>
+                                                                                <TextBlock Grid.Column="2"
+                                                                                           Text="{Binding Content}"
+                                                                                           FontSize="12"
+                                                                                           TextWrapping="Wrap"
+                                                                                           Opacity="0.8"/>
+                                                                                <TextBlock Grid.Column="3"
+                                                                                           Text="{Binding CreatedAt, StringFormat='{}{0:MM-dd}'}"
+                                                                                           FontSize="10"
+                                                                                           Opacity="0.4"
+                                                                                           VerticalAlignment="Center"/>
+                                                                            </Grid>
+                                                                        </Border>
+                                                                    </DataTemplate>
+                                                                </ItemsRepeater.ItemTemplate>
+                                                            </ItemsRepeater>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 
 </UserControl>

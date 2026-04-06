@@ -152,6 +152,11 @@
     <x:String x:Key="TacticsHallUnlike">取消点赞</x:String>
     <x:String x:Key="TacticsHallFavorite">收藏</x:String>
     <x:String x:Key="TacticsHallUnfavorite">取消收藏</x:String>
+    <x:String x:Key="TacticsHallDetailTitle">战术详情</x:String>
+    <x:String x:Key="TacticsHallDetailVersions">版本历史</x:String>
+    <x:String x:Key="TacticsHallDetailComments">评论</x:String>
+    <x:String x:Key="TacticsHallCommentReply">回复</x:String>
+    <x:String x:Key="TacticsHallBtnClose">关闭</x:String>
     <x:String x:Key="ToastTitleSuccess">成功</x:String>
     <x:String x:Key="ToastTitleInfo">提示</x:String>
 

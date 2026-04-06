@@ -58,7 +58,7 @@ public interface INetworkApi
     ///     获取版本列表
     /// </summary>
     [Get("/api/TacticsHall/Versions/{shareCode}")]
-    Task<List<NTacticsVersion>> GetTacticsVersions(string shareCode);
+    Task<NTacticsVersionsResult> GetTacticsVersions(string shareCode);
 
     #endregion
 
@@ -98,7 +98,7 @@ public interface INetworkApi
     ///     获取评论列表
     /// </summary>
     [Get("/api/TacticsInteraction/Comments/{shareCode}")]
-    Task<List<NTacticsComment>> GetComments(string shareCode);
+    Task<NTacticsCommentResult> GetComments(string shareCode, [Query] int page = 1, [Query] int pageSize = 20);
 
     /// <summary>
     ///     删除评论
@@ -114,13 +114,21 @@ public interface INetworkApi
     ///     获取热门战术排行榜
     /// </summary>
     [Get("/api/Leaderboard/HotFiles")]
-    Task<List<NHotFile>> GetHotFiles();
+    Task<NHotFilesResult> GetHotFiles(
+        [Query] string period = "weekly",
+        [Query] string? race = null,
+        [Query] string sortBy = "downloads",
+        [Query] int page = 1,
+        [Query] int pageSize = 20);
 
     /// <summary>
     ///     获取贡献者排行榜
     /// </summary>
     [Get("/api/Leaderboard/TopUploaders")]
-    Task<List<NTopUploader>> GetTopUploaders();
+    Task<NTopUploadersResult> GetTopUploaders(
+        [Query] string period = "monthly",
+        [Query] int page = 1,
+        [Query] int pageSize = 20);
 
     #endregion
 

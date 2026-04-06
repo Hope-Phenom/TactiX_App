@@ -7,11 +7,6 @@ namespace TactiX_Models.Network;
 public class NTacticsSearchResult
 {
     /// <summary>
-    ///     战术列表
-    /// </summary>
-    public List<NTacticsDetail> Items { get; set; } = new();
-
-    /// <summary>
     ///     总数量
     /// </summary>
     public int TotalCount { get; set; }
@@ -27,9 +22,9 @@ public class NTacticsSearchResult
     public int PageSize { get; set; }
 
     /// <summary>
-    ///     总页数
+    ///     战术列表
     /// </summary>
-    public int TotalPages { get; set; }
+    public List<NTacticsDetail> Files { get; set; } = new();
 }
 
 /// <summary>
